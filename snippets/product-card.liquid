@@ -1,0 +1,20 @@
+<div class="card {{ settings.general_shadow }} bg-base-100">
+  <a href="{{ product | url }}">
+       {% if product.featuredImage %}
+      <figure>
+          <img class="{{ settings.col_card_img_height }}" src="{{ product.featuredImage | product_img_url:0,500 }}" alt="{{ product.featuredImage.alt }}" />
+      </figure>
+      {% endif %}
+      <div class="card-body justify-between">
+        <div class="flex flex-col">
+            <h3 class="card-title text-base">
+                {{ product.meta.h1 }}
+            </h3>
+            <p class="text-left">{{ product.price | money }}</p>
+        </div>
+        <div class="card-actions justify-end">
+          <a class="btn btn-secondary btn-sm" href="{{ product | url }}">Read more</a>
+        </div>
+      </div>
+  </a>
+</div>

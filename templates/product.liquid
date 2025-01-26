@@ -1,0 +1,51 @@
+{% include 'daisy-breadcrumbs' %}
+
+<section class="flex flex-col lg:flex-row gap-4">
+    <div class="lg:basis-1/2 flex flex-row gap-2">
+      <nav class="basis-1/5 flex flex-col gap-2">
+        {% for image in product.images %}
+            <img class="thumb" src="{{ image.src | product_img_url:150,0 }}" data-large="{{ image.src | product_img_url:600,0 }}" alt="{{ image.alt }}">
+        {% endfor %}
+      </nav>
+      <figure class="basis-4/5">
+          {% if product.images.size > 0 %}
+          <img id="main-image" src="{{ product.images[0] | product_img_url:600,0 }}" alt="{{ product.images[0].alt }}" />
+          {% elseif product.featuredImage %}
+          <img id="main-image" src="{{ product.featuredImage | product_img_url:600,0 }}" alt="{{ product.featuredImage.alt }}" />
+          {% endif %}
+      </figure>
+    </div>
+    <div class="lg:basis-1/2">
+        <h1 class="text-5xl mb-2">{{ meta.h1 }}</h1>
+        <p class="text-2xl mb-4">{{ product.selectedVariant.price | money }}</p>
+
+        {% if product.keyFeatures.size > 0 %}
+        <ul class="mb-2">
+            {% for feature in product.keyFeatures %}
+            <li class="checkmark">
+                {{ feature }}
+            </li>
+            {% endfor %}            
+        </ul>
+        {% endif %}
+
+        <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
+    </div>
+</section>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mainImage = document.getElementById('main-image');
+  const thumbnails = document.querySelectorAll('.thumb');
+
+  thumbnails.forEach(thumb => {
+    thumb.addEventListener('click', function() {
+      const largeImageSrc = this.dataset.large;
+      const largeImageAlt = this.alt;
+      mainImage.src = largeImageSrc;
+      mainImage.alt = largeImageAlt;
+    });
+  });
+});
+</script>

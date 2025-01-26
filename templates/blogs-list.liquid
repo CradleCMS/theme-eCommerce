@@ -1,0 +1,24 @@
+<section class="mx-auto">
+    <header>
+        <h1 class="mt-2 text-2xl">List of blogs</h1>
+    </header>
+    <div>
+	{% for blog in blogs %}
+    <section class="mt-10 mb-4">
+        <h2 class="text-3xl mb-4 font-bold">
+            <a href="{{ blog | url }}">{{ blog.title }} ({{ blog.articleCount }})</a>
+        </h2>
+        {% if blog.html %}
+        <p>{{ blog.html | strip_html | truncatewords: 20 }}</p>
+        {% endif %}
+        {% unless blog.articles == empty %}
+        <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {% for article in blog.articles %}
+            {% include 'daisy-blog-card' %}
+    	{% endfor %}
+	    </div>
+        {% endunless %}
+    </section>
+    {% endfor %}        
+    </div>
+</section>

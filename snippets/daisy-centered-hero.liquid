@@ -1,0 +1,19 @@
+<div class="hero min-h-{{ settings.heder_otf_height }}" style="background-image: url({{ settings.header_otf_image | asset_img_url:1024,0 }});">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center">
+    <div class="max-w-xl">
+      {% if settings.header_otf_title %}
+        <h1 class="mt-20 mb-5 text-5xl font-bold">{{ settings.header_otf_title }}</h1>
+      {% endif %}
+      {% if settings.header_otf_text %}
+        <p class="mb-5">{{ settings.header_otf_text }}</p>
+      {% endif %}
+      {% if settings.header_otf_fgimage_use %}
+        <img class="mx-auto mb-5" src="{{ settings.header_otf_fgimage | asset_img_url:450,0 }}">
+      {% endif %}
+      {% if settings.header_otf_button_link and settings.header_otf_button_text %}
+        <a class="btn btn-primary" href="{{ settings.header_otf_button_link }}">{{ settings.header_otf_button_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

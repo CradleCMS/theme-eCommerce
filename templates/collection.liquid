@@ -1,0 +1,11 @@
+<section>
+    <div class="prose">
+        <h1>{{ meta.h1 }}</h1>
+        <div class="{{ collection.format }}">{{ collection.html }}</div>       
+    </div>
+	<div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+	{% for product in collections[collection.handle].products %}
+	    {% include 'product-card' %}
+	{% endfor %}
+	</div>
+</section>

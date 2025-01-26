@@ -1,0 +1,23 @@
+<div class="w-1/2 lg:w-full">
+    <h4 class="">{{ lang.recent_articles | def:'Recent Articles' }}</h4>
+    {% assign current_article_id = article.id %}
+    {% for article in blog.articles limit:6 %}
+        <p class="mb-2">
+            <time class="text-sm" pubdate datetime="{{ article.publishAt | date }}">{{ article.publishAt | date }}</time>  
+            <br>
+            {% if current_article_id == article.id %}
+                <span class="text-lg">{{ article.title }}</span>
+            {% else %}
+                <a class="link text-lg" href="{{ article | url }}">{{ article.title }}</a>
+            {% endif %}
+        </p>
+    {% endfor %}
+</div>
+{% if blog.tags.size > 0 %}
+<div class="w-1/2 lg:w-full">
+    <h4 class="">{{ lang.categories | def:'Categories' }}</h4>
+    {% for tag in blog.tags %}
+        <div class="mr-1 mb-1 badge badge-{% if article.tags contains tag %}accent{% else %}neutral{% endif %}"><a href="/{{blog.url}}?tags={{ currentTags | append:tag | join:'+' }}">{{ tag }}</a></div>
+    {% endfor %}    
+</div>
+{% endif %}

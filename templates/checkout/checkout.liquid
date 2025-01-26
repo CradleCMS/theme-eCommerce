@@ -1,0 +1,366 @@
+<div class="wrapper">
+{% title lang.create_your_order %}
+<h1>{{ lang.create_your_order }}</h1>
+{% form 'checkout' %}
+<div class="grid" id="checkout-grid">
+    <div class="grid-item large--two-thirds relative">
+        <div class="checkout-wrapper">
+            <div class="country-selector">
+            	<h4 class="text-left">
+            		{{ lang.country | def:"Country" }}
+            	</h4>
+            	{{ form.countrySelector }}
+            	<hr class="hr--clear">
+            </div>
+            <div class="shipping_fields">
+        	    <h4>{{ lang.shipping_method | def:"Shipping methods" }}</h4>
+            	<fieldset>
+                	<ul>
+                	{% for rates in form.shipping_rates %}
+                	    {% assign active = false %}
+                	    {% if form.checkout.shipping_methods[0].service_code == rates.service_code %}
+                	        {% assign active = true %}
+                	    {% endif %}
+                	    <li>
+                	    <label for="shipping{{ rates.service_code }}" {% if active %}class="active"{% endif %} data-value="{{ rates.service_code }}">
+                    	    <input {% if active %} checked {% endif %} type="radio" id="shipping{{ rates.service_code }}" value="{{ rates.service_code }}" data-title="{{ rates.title }}" name="myshipping">
+                    	    {% assign shipping_text = "" %}
+                    	    {% for logo in settings.checkout_shipping_logos %}
+                    	        {% if rates.title == logo.shipping_logo_title %}
+                    	            {% capture shipping_logo %}shipping_logo_{{ forloop.index0 }}.png{% endcapture %}
+                    	            <img height="16px" src="{{ shipping_logo | asset_url }}">
+                    	            {% assign shipping_text = logo.shipping_logo_text %}
+                    	        {% endif %}
+                    	    {% endfor %}
+                    	    {{ rates.title }} <strong{% if rates.price == 0 %} class="capitalize">{{ lang.free | downcase }} {% else %}> + {{ rates.price | money_with_currency }}{% endif %}</strong>
+                	        
+                	        {% if shipping_text %}
+                	            <br>
+                	            <a href="#" class="show-more-toggle show-more-arrow"><small>More information</small></a>
+                	            <!--img height="16px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIyNCIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTEwMjguNCkiPjxwYXRoIGQ9Im0yMiAxMmExMCAxMCAwIDEgMSAtMjAgMCAxMCAxMCAwIDEgMSAyMCAweiIgZmlsbD0iIzI5ODBiOSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMDI5LjQpIi8+PHBhdGggZD0ibTIyIDEyYTEwIDEwIDAgMSAxIC0yMCAwIDEwIDEwIDAgMSAxIDIwIDB6IiBmaWxsPSIjMzQ5OGRiIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwMjguNCkiLz48cGF0aCBkPSJtMTEgMTAzNS40djJoMnYtMmgtMnptLTEgNC0xIDFoMnY2aC0ydjFoMSA0IDF2LTFoLTJ2LTdoLTN6IiBmaWxsPSIjMjk4MGI5Ii8+PHBhdGggZD0ibTExIDZ2Mmgydi0yaC0yem0tMSA0bC0xIDFoMnY2aC0ydjFoMSA0IDF2LTFoLTJ2LTdoLTN6IiBmaWxsPSIjZWNmMGYxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwMjguNCkiLz48L2c+PC9zdmc+" class="info" title=""-->
+                        	    <div class="more-info-wrapper hide">
+                            	    <small>{{ shipping_text }}</small><br>
+                            	    <a href="#" class="show-less-toggle show-less-arrow" data-class="show-more-toggle" data-hide-el="more-info-wrapper"><small>Dölj information</small></a>
+                        	    </div>
+                        	{% endif %}
+                	    </label>
+                	    </li>
+                	{% endfor %}
+                	</ul>
+            	</fieldset>
+        	</div>
+        </div>
+        {% unless form.hide_customer and shop.checkout.is_guest %}
+    	<div class="text-center">
+    	{% if shop.checkout.is_guest %}
+    	    <h4 class="text-left">
+        		{{ lang.your_contact_email }}
+        	</h4>
+    		<input type="email" placeholder="{{ lang.email }}" id="checkout_email" name="order[email]" value="" x-autocompletetype="email" required>
+    		{% if shop.customer_accounts_enabled %}
+    			{{ lang.already_have_an_account }}
+    			{{ lang.sign_in_now | customer_login_link }}
+    		{% endif %}
+    	{% else %}
+		    <p class="h4">{{ customer.email }}</p>
+		    <p>
+    		{{ lang.not_name | insert: customer.first_name }}
+    		{{ lang.sign_in_as_different_user | customer_login_link }}
+    		</p>
+    	{% endif %}
+    	</div>
+    	<hr class="hr--clear">
+        {% endunless %}
+        
+        {% if form.errors.gateway %}
+        	<div class="note form-error">
+        	{% for gateway_error in form.errors.gateway %}
+        		<p>
+        			{{ gateway_error }}
+        		</p>
+        	{% endfor %}
+        	</div>
+        	<hr class="hr--clear">
+        {% endif %}
+        
+        {% unless form.hide_payment_options %}
+            <h4 class="text-left">
+        		{{ lang.how_would_you_like_to_pay }}
+        	</h4>
+            <div class="grid">
+                <div class="grid-item large--one-half payment_methods_list">
+                    {{ form.payment_methods_list }}
+                </div>
+                <div class="grid-item large--one-half">
+                    {{ form.payment_methods_input }}
+                </div>
+            </div>
+        	<hr class="hr--clear" />
+        {% endunless %}
+        
+        {% unless form.hide_address %}
+        	<div class="grid">
+                <div class="grid-item large--one-half">
+                    <h4>
+                		{{ lang.billing_address }}
+                	</h4>
+        	        {{ form.billing_address_inputs }}
+        	    </div>
+        	    {% if form.checkout.requires_shipping %}
+        	        <div class="grid-item large--one-half">
+        	            <h4>{{ lang.shipping_address }}</h4>
+                		{{ form.shipping_address_inputs }}
+                		{% if form.checkout.requires_shipping %}
+                    	    {{ form.billing_is_shipping_label }}
+                    	{% endif %}
+            		</div>
+            	{% endif %}
+            </div>
+        	<hr class="hr--clear" />
+        {% endunless %}
+        
+        {% if form.checkout.requires_shipping %}
+            <div class="hide">
+            <h4 class="text-center">
+        		{{ lang.please_select_shipping_method }}
+        	</h4>
+            {{ form.shipping_methods }}
+        	<hr class="hr--clear" />
+        	</div>
+        {% endif %}
+        
+        {% if form.hide_purchase_btn %}
+            {% unless shop.checkout.newsletter == 'disabled' and form.hide_marketing %}
+            <div class="checkout-wrapper">
+                <p>
+                    {{ form.marketing_checkbox_label }}
+                </p>
+            </div>
+            <hr class="hr--clear" />
+            {% endunless %}
+        {% endif %}
+        
+        {{ form.payment_methods_extra }}
+        
+        {% unless form.hide_purchase_btn %}
+            <div class="grid">
+                {% unless shop.checkout.newsletter == 'disabled' %}
+                <div class="grid-item">
+                    <p>
+                        {{ form.marketing_checkbox_label }}
+                    </p>
+                </div>
+                {% endunless %}
+                {% if settings.terms_consent and settings.terms_pos == "internal" %}
+                  <p style="float: none; clear: both; margin: 10px 0;">
+                    <input style="float:none; vertical-align: middle;" type="checkbox" id="agree" />
+                  	<label style="display:inline; float:none" for="agree"> {{ settings.terms_text | def: "I agree with the" }}  <a href="/pages/{{ settings.terms_page }}">{{ settings.terms_link_text | def: "terms and conditions" }}</a></label>
+              	  </p>
+              	{% endif %}
+                <div class="grid-item">
+                    <p>
+            	    {{ form.purchase_btn }}
+            	    </p>
+            		{{ lang.or }}
+            		<a href="/{{ shop.handles.cart }}">
+            			{{ lang.return_to_store }}
+            		</a>
+            	</div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                {{ lang.or }}
+                <a href="/{{ shop.handles.cart }}">
+        			{{ lang.return_to_store }}
+        		</a>
+    		</div>
+        {% endunless %}
+    </div>
+    <div class="grid-item large--one-third">
+        <div>
+        <h3>{{ lang.you_are_purchasing_this | def:"You're purchasing this..." }}</h3>
+        {% for item in cart.items %}
+        <div class="grid">
+            <div class="grid-item one-third">
+                <img class="images" src="{{ item.variant | product_img_url: 'small' }}" alt="{{ item.variant.title }}" />
+            </div>
+            <div class="grid-item two-thirds">
+                {{ item.variant.title }}
+				<p>
+                {{ item.quantity }} x {{ item.variant.price | money }}
+                </p>
+            </div>
+        </div>
+        <hr class="hr--small"/>
+        {% endfor %}
+        {% if shop.coupons_count > 0 %}
+        	{% if form.checkout.discount_code == null %}
+        	    <p>
+            		{{ lang.have_a_special_code }}
+            	</p>
+        		{% if form.errors.discount_code %}
+        			<div class="note form-error">
+        			{% for discount_error in form.errors.discount_code %}
+        				<p>
+        					{{ discount_error }}
+        				</p>
+        			{% endfor %}
+        			</div>
+        		{% endif %}
+        		<div class="input-group">
+            		{{ form.code_input | add_class:'input-group-field' }}
+            		<span class="input-group-btn">
+            		{{ form.code_submit_btn }}
+            		</span>
+        		</div>
+        	{% else %}
+        	    <div class="note form-success">
+            		{{ lang.discount_code }}:
+            		{{ form.checkout.discount_code }}
+            		= <strong>{{ form.checkout.discount_code_savings | money }}</strong>
+                <button type="submit" id="checkout_code_btn" title="{{ lang.remove }}" alt="{{ lang.remove }}" class="close panda-icon-ui-close right"></button>
+                {{ form.code_input | add_class:'input-group-field hide' }}
+        		</div>
+        	{% endif %}
+        	<hr class="hr--small" />
+        {% endif %}
+        <div class="price_summary price_discount" {% unless form.checkout.discount_code_savings %}style="display: none;"{% endunless %}>
+            <span>{{ lang.discount | def: "Discount" }}</span> <strong>{{ form.checkout.discount_code_savings | money }} {{ shop.currency }}</strong>
+        </div>
+        {{ form.price_subtotal }}
+        {% if form.checkout.requires_shipping %}
+        	{{ form.price_shipping }}
+        {% endif %}
+        {{ form.price_payment }}
+        {{ form.price_discounts }}
+        {{ form.price_tax_lines }}
+        <hr class="hr--small" />
+        {{ form.price_grandtotal }}
+        </div>
+        <div id="payment-container"></div>
+    </div>
+    
+</div>
+{% if shop.checkout.terms_of_service != '' or shop.checkout.refund_policy != '' or shop.checkout.privacy_policy != '' %}
+    <hr>
+    <div class="text-center">
+        {% if shop.checkout.terms_of_service != '' %}
+        	<a href="javascript:void(0);" onclick="showModal('tosModal');">
+        		{{ shop.checkout.lang.terms_of_service }}
+        	</a>
+        	<div class="modal" id="tosModal">
+                <div class="modal--content">
+                    <h1>{{ shop.checkout.lang.terms_of_service }}</h1>
+                    {{ shop.checkout.terms_of_service | newline_to_br }}
+                </div>
+            </div>
+        {% endif %}
+        {% if shop.checkout.refund_policy != '' %}
+            {% if shop.checkout.terms_of_service != '' %}
+                <span class="form-spacer">|</span>
+            {% endif %}
+        	<a href="javascript:void(0);" onclick="showModal('refundModal');">
+        		{{ shop.checkout.lang.refund_policy }}
+        	</a>
+        	<div class="modal" id="refundModal">
+                <div class="modal--content">
+                    <h1>{{ shop.checkout.lang.refund_policy }}</h1>
+                    {{ shop.checkout.refund_policy | newline_to_br }}
+                </div>
+            </div>
+        {% endif %}
+        {% if shop.checkout.privacy_policy != '' %}
+            {% if shop.checkout.terms_of_service != '' or shop.checkout.refund_policy != '' %}
+                <span class="form-spacer">|</span>
+            {% endif %}
+        	<a href="javascript:void(0);" onclick="showModal('privacyModal');">
+        		{{ shop.checkout.lang.privacy_policy }}
+        	</a>
+        	<div class="modal" id="privacyModal">
+                <div class="modal--content">
+                    <h1>{{ shop.checkout.lang.privacy_policy }}</h1>
+                    {{ shop.checkout.privacy_policy | newline_to_br }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endform %}
+</div>
+{{checkout}}
+<script>
+    var paybtn = document.getElementById('pay-btn');
+        var acceptTerms = document.getElementById('accepted_terms');
+        
+        if(acceptTerms && paybtn){
+            paybtn.disabled = true;
+        }
+        function acceptTermsHandler(){
+            var toggle = parseInt(acceptTerms.value,10);
+            
+            if(!toggle) { 
+                acceptTerms.value = 1;
+                paybtn.disabled = false;
+            }
+            else {
+                acceptTerms.value = 0;
+                paybtn.disabled = true;
+            }
+        }
+/*
+	$(function() {
+	    $(".cart--toggle").off("click");
+	    {% if settings.terms_consent and settings.terms_pos == "internal" %}
+            $('body').on('click', '[name="pay"]', function() {
+                if ($('#agree').is(':checked')) {
+                    $(this).submit();
+                }
+                else {
+                    alert("{{ settings.terms_error_text | def: "You must agree with the terms and conditions to place an order." }}");
+                    return false;
+                }
+            });
+      {% endif %}
+        
+	    $(".toggle-element").on("click", function(e, el) {
+    	    e.preventDefault();
+    	    var target = $(this).data("class");
+    	    var hideEl = $(this).data("hide-el");
+    	    $(target).toggleClass("hide");
+    	    $(hideEl).toggleClass("hide");
+    	});
+    	
+    	$(".show-more-toggle").on("click", function(e, el) {
+    	    e.preventDefault();
+    	    e.stopPropagation();
+    	    $(this).addClass("hide");
+    	    $(this).parent().find(".more-info-wrapper").removeClass("hide");
+    	});
+    	
+	    $(".show-less-toggle").on("click", function(e, el) {
+    	    e.preventDefault();
+    	    e.stopPropagation();
+            $(this).parent().parent().find(".show-more-toggle").removeClass("hide");
+            $(this).parent().addClass("hide");
+    	});
+    	
+    	$(".toggle_discount_code").on("click", function(e) {
+    	    e.preventDefault();
+    	    e.stopPropagation();
+    	    $(".discount_code_wrapper").toggleClass("hide");
+    	    $("input#checkout_code").focus();
+    	});
+    	$("#destination_country").click(function(e) { 
+    	    e.stopPropagation();
+    	});
+    	
+    	$(".shipping_fields").on("click", "label", function(el) {
+    	    $(".shipping_fields label").removeClass("active");
+    	    $(this).addClass("active");
+          $(this).find("input[type=radio][name=myshipping]").attr('checked', true);
+          $('#shipping_method').val($(this).attr("data-value")).change();
+          shop.fireEvent(document.getElementById('shipping_method'), "change");
+    	});
+	});
+*/
+</script>

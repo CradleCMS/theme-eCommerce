@@ -1,0 +1,32 @@
+<div class="bg-{{ settings.footer_colors }} text-{{ settings.footer_colors }}-content">
+    <footer class="footer px-2 py-10 max-w-8xl mx-auto container">
+      <aside class="max-w-lg">
+        {% if settings.footer_image %}
+            <img src="{{ settings.footer_image_src | asset_img_url:'800','0' }}" {% unless settings.footer_image_alt == empty %}alt="{{ settings.footer_image_alt }}"{% endunless %} tabindex="1">
+        {% endif %}
+        {% unless settings.footer_about_shop == empty %}
+        <p class="font-bold">
+          {{ settings.footer_about_shop }}
+        </p> 
+        {% endunless %}
+        {% if settings.footer_social_enable %}
+        <div class="grid grid-flow-col gap-4">
+          {% include 'socialmedia-icon-links' %}
+        </div>
+        {% endif %}
+      </aside> 
+	  {% if settings.footer_quicklinks_enable %}
+        {% for linkList in settings.footer_linklists %}
+          <nav>
+            <header class="footer-title">{{ linkList.footer_linklist_title }}</header> 
+            {% for link in navigation[linkList.id].links %}
+            <a class="link link-hover" href="{{ link | url }}">{{ link.title }}</a>
+            {% endfor %}
+          </nav> 
+        {% endfor %}
+      {% endif %}
+    </footer>
+    <footer class="footer p-2 pb-4 max-w-8xl mx-auto container">
+        <p class="">Copyright &copy; {{ site.name }} - {{ lang.all_rights_reserved | def:'All rights reserved'}}</p>
+    </footer>
+</div>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html data-theme="{{ settings.closed-daisy-theme }}" class="text-base-content">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        <title>{{ site.name }}</title>	
+        {% if metaDescription %}
+        <meta name="description" content="{{ metaDescription | escape }}" />
+        {% endif %}
+        {% if metaKeywords %}
+        <meta name="keywords" content="{{ metaKeywords | escape }}" />
+        {% endif %}
+        <link rel="canonical" href="{{ canonicalUrl }}" />
+        <script type="application/ld+json">
+            {% include 'structured-data' %}
+        </script>
+        {% include 'open-graph-tags' %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% if settings.favicon_enable %}
+            <link rel="icon" href="{{ 'favicon.ico' | asset_img_url }}" sizes="any">
+            <link rel="icon" type="image/png" sizes="16x16" href="{{ 'favicon.png' | asset_img_url:'16','16' }}">
+            <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_img_url:'32','32' }}">
+            <link rel="icon" href="{{ 'icon.svg' | asset_img_url }}" type="image/svg+xml">
+            <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+            <link rel="manifest" href="{{ 'manifest.json' | asset_url }}">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
+        <link rel="stylesheet" type="text/css" href="{{ 'custom.css' | asset_url }}">
+    </head>
+    <body id="{{ meta.title | handle }}" class="text-base-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
+        <div class="hero min-h-screen" style="background-image: url({{ settings.closed_bgimage | asset_img_url:'1024','0' }});">
+          <div class="hero-overlay bg-opacity-10"></div>
+          <div class="hero-content text-center card bg-{{ settings.closed_dialog_colors }} text-{{ settings.closed_dialog_colors }}-content m-4">
+            <div class="max-w-xl">
+                <header class="p-8">
+                  {% if settings.closed_fgimage_use %}
+                    <img class="mx-auto mb-5" src="{{ settings.closed_fgimage | asset_img_url: settings.closed_fgimage_size,'0' }}">
+                  {% endif %}
+                  {% if settings.closed_title %}
+                    <h1 class="mt-5 mb-5 text-3xl lg:text-4xl font-bold">{{ settings.closed_title }}</h1>
+                  {% endif %}
+                  {% if settings.closed_text %}
+                    <p class="mb-5">{{ settings.closed_text }}</p>
+                  {% endif %}
+                  {% if settings.closed_button_link and settings.closed_button_text %}
+                    <a class="btn btn-primary mb-5" href="{{ settings.closed_button_link }}">{{ settings.closed_button_text }}</a>
+                  {% endif %}
+              </header>
+              {% if settings.closed_signup_true %}
+                {% if settings.closed_daisysignup_true %}
+                  <div class="card shrink-0 w-full max-w-m mb-5">
+                        {% form 'signup' %}
+                            <div class="card-body">
+                                <p class="">{{ settings.closed_signup_text }}</p>
+                                {% if form.errors %}
+                                    <div class="alert alert-error">
+                                        <span>Sorry, looks like something went wrong, please try again.</span>
+                                    </div>
+                                {% endif %}
+                                {% if form.success %}
+                                    <div class="alert alert-success">
+                                        <span>Thank you for the message, we will contact you shortly!</span>
+                                    </div>
+                                {% else %}
+                                <div class="form-control">
+                                    <label class="{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2">
+                                      <input type="email" name="email" class="grow  input input-bordered" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send</button>
+                                {% endif %}
+                            </div>
+                        {% endform %}
+                    </div>
+                {% else %}
+                    <div class="mb-5">
+                        <p class="">{{ settings.closed_signup_text }}</p>
+                        {% form 'signup' %}{% endform %}    
+                    </div>
+                {% endif %}
+              {% endif %}
+              {% if settings.closed_social_true %}
+                <div class="grid grid-flow-col gap-4 justify-center mb-5">
+                    {% include 'socialmedia-icon-links' %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<script>
+(function(){
+    var Cookie = (function(){
+        return {
+          getItem: function (sKey) {
+            if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
+            return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+          },
+          key: function (nKeyId) {
+            return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
+          },
+          setItem: function (sKey, sValue, expDays) {
+            if(!sKey) { return; }
+            if(!expDays) expDays = 365;
+            var d = new Date();
+            d.setTime(d.getTime() + (expDays*24*60*60*1000));
+            document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires="+d.toUTCString()+"; path=/; SameSite=None; Secure";
+            this.length = document.cookie.match(/\=/g).length;
+          },
+          length: 0,
+          removeItem: function (sKey) {
+            if (!sKey || !this.hasOwnProperty(sKey)) { return; }
+            document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=None; Secure";
+            this.length--;
+          },
+          hasOwnProperty: function (sKey) {
+            return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+          }
+        }
+    }());
+
+    
+
+    if(!Cookie.getItem("cookieConsent")) {
+        var cookieSettings = {
+          cookieName:"cookieConsent",
+          cookieText:"{{settings.cookieConsentText | def:'Accept cookies to approve to our '}}",
+          cookiePolicy:"{{settings.cookieConsentPolicy | def:'use of cookies'}}",
+          cookiePage:"{{settings.cookieConsentLink |def:'/pages/about'}}",
+          cookieButton:"{{settings.cookieConsentButton | def:'I accept'}}"
+        };
+    
+        function showCookieBar(o){
+          // check if we can use cookies and have approval
+          if(!Cookie.getItem(o.cookieName)) {
+            window.onload = function() {
+                var cookiebar = document.createElement('div'),
+                    consentButton, html = '';
+        
+                cookiebar.id = o.cookieName;
+                cookiebar.className = 'cookiebar';
+                html+='<div>';
+                html+=o.cookieText;
+                html+='<a class="link" href="' + o.cookiePage + '"><span>' + o.cookiePolicy + '</span></a>&nbsp;';
+                html+='<button id="cookie-consent-button" class="btn btn-primary">' +  o.cookieButton + '</button>';
+                html+='</div>';
+                cookiebar.innerHTML = html;
+        
+                document.body.appendChild(cookiebar);
+
+                var consentButton = document.getElementById('cookie-consent-button');
+                
+                if(consentButton){
+                  consentButton.onclick = function(){
+                    var consent = document.getElementById(o.cookieName);
+                    if(consent) consent.className = 'hidden';
+                    Cookie.setItem(o.cookieName,'yes',14); // for two weeks
+                  }
+                }
+            }
+          }
+        }
+        showCookieBar(cookieSettings);
+    } else {
+    console.log("accepts cookies");
+    }
+}());
+</script>
