@@ -425,6 +425,11 @@
           "type": "checkbox"
         },
         {
+          "caption": "Use glass card",
+          "key": "header_otf_glass",
+          "type": "checkbox"
+        },
+        {
           "caption": "Height of Viewport",
           "key": "heder_otf_height",
           "options": [
@@ -766,6 +771,33 @@
           "key": "section_banner1",
           "settings": [
             {
+              "caption": "Body style",
+              "key": "banner_bg",
+              "options": [
+                {
+                  "caption": "Lightest (default)",
+                  "value": "base-100"
+                },
+                {
+                  "caption": "Darker",
+                  "value": "base-200"
+                },
+                {
+                  "caption": "Darkest",
+                  "value": "base-300"
+                },
+                {
+                  "caption": "Secondary",
+                  "value": "secondary"
+                },
+                {
+                  "caption": "Accent",
+                  "value": "accent"
+                }
+              ],
+              "type": "select"
+            },
+            {
               "caption": "Image",
               "key": "link_image",
               "maxHeight": 500,
@@ -776,6 +808,12 @@
               "caption": "Image alt",
               "key": "link_image_alt",
               "type": "text"
+            },
+            {
+              "caption": "Fullwidth image",
+              "description": "The image will be placed beneath the content.",
+              "key": "linkImageFullwidth",
+              "type": "checkbox"
             },
             {
               "caption": "Title",
@@ -806,6 +844,12 @@
               "caption": "Button 2 text",
               "key": "link2_button_title",
               "type": "text"
+            },
+            {
+              "caption": "Add products section",
+              "default": "Select collection",
+              "key": "link_collection",
+              "type": "collection"
             }
           ],
           "type": "struct"
@@ -826,63 +870,6 @@
           "description": "Display posts from blog on homepage",
           "key": "homepage_blog",
           "type": "blog"
-        },
-        {
-          "caption": "Slideshow",
-          "key": "slideshow",
-          "type": "header"
-        },
-        {
-          "caption": "Show Slideshow",
-          "key": "show_slideshow",
-          "type": "checkbox"
-        },
-        {
-          "caption": "Slideshow image ratio",
-          "key": "slideshow_img_ratio",
-          "options": [
-            {
-              "caption": "No crop, only resize",
-              "value": "resize"
-            },
-            {
-              "caption": "16:9 Video",
-              "value": "video"
-            },
-            {
-              "caption": "3:2 Landscape",
-              "value": "landscape"
-            },
-            {
-              "caption": "1:1 Square",
-              "value": "square"
-            },
-            {
-              "caption": "2:3 Tall",
-              "value": "tall"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Slide",
-          "key": "slideshow_slides",
-          "settings": [
-            {
-              "caption": "Image for slide",
-              "description": "Recommended size 1132px x 500px",
-              "key": "slide_image",
-              "maxHeight": 1024,
-              "maxWidth": 1300,
-              "type": "image"
-            },
-            {
-              "caption": "Image alt",
-              "key": "slide_image_alt",
-              "type": "text"
-            }
-          ],
-          "type": "struct"
         }
       ]
     },

@@ -3,11 +3,7 @@
         {% form 'customer_login' id:'customer_login' %}
             <div class="card-body">
                 <h3 class="text-center">Log in</h3>
-                {% if form.errors %}
-                    <div class="alert alert-error">
-                        <span>Sorry, looks like something went wrong, please try again.</span>
-                    </div>
-                {% endif %}
+                {% include 'formErrorsCustom' %}
                 <div class="form-control">
                     <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
                       <input type="email" name="customer[email]" class="grow" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
@@ -15,11 +11,65 @@
                 </div>
                 <div class="form-control">
                     <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                      <input type="password" name="customer[password]" class="grow" value="" placeholder="*****" autocorrect="off" autocapitalize="off" required />
+                      <input type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
                     </label>
+                    <div class="label">
+                        <span></span>
+                        <span class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ lang.forgot_your_password | def:'Forgot your password?' }}</a></span>
+                    </div>
                 </div>
                 <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
             </div>
         {% endform %}
+        <p class="text-center">
+            <small>Don't have an account yet?</small>
+            <br>
+            <a href="/customer/register">Register now</a>
+        </p>
+        <div id="customer_recover_password" style="display: none;">
+        {% form 'customer_recover_password' %}
+            <div class="card-body">
+                <h3 class="text-center">{{ lang.recover_password | def:'Recover password' }}</h3>
+                <p class="text-center">{{ lang.we_will_send_you_an_email_to_recover_your_password | def:"We will send you an email with a link to reset your password." }}</p>
+                {% if form.errors %}
+                    <div class="alert alert-error">
+                        <span>Sorry, looks like something went wrong, please try again.</span>
+                    </div>
+                {% endif %}
+                {% if form.success %}
+                    {% assign recoverSuccess = true %}
+                {% endif %}
+                <div class="form-control">
+                    <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
+                      <input type="email" name="customer[email]" class="grow" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                    </label>
+                </div>
+                <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
+                <div class="alert text-center alert-success" id="recoverSuccess" style="display:none;">
+                    {{ lang.weve_sent_you_an_email_with_a_link_to_recover_password | def: "We've sent you an email with a link to update your password." }}
+                </div>
+                <p class="text-center"><small>{{ lang.or | def:'or' }} <a href="#" onclick="hideRecoverPasswordForm();return false;">Login</a></small></p>
+            </div>
+        {% endform %}
+        </div>
     </div>
 </section>
+
+<script>
+    function showRecoverPasswordForm() {
+        document.getElementById('customer_recover_password').style.display = 'block';
+        document.getElementById('customer_login').style.display='none';
+        window.location.hash = '#recover_password-form';
+    }
+    function hideRecoverPasswordForm() {
+        document.getElementById('customer_recover_password').style.display = 'none';
+        document.getElementById('customer_login').style.display = 'block';
+        window.location.hash = '';
+    }
+    // Allow deep linking to the recover password form
+    if (window.location.hash == '#customer_recover_password-form') { showRecoverPasswordForm() }
+    // recoverSuccess is only true when the recover form is
+    {% if recoverSuccess %}
+        document.getElementById('recoverSuccess').style.display = 'block';
+    {% endif %}
+</script>

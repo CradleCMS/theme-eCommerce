@@ -63,58 +63,60 @@
     {% if settings.section_banner1.size > 0 %}
         {% for links in settings.section_banner1 %}
             {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
-            <section class="card bg-base-100 m-w-96 md:w-auto lg:w-auto max-w-[65rem] mx-auto lg:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} {{ settings.general_shadow }} mt-10 mb-2 index-{{ forloop.index }}">
-              <figure class="lg:w-2/6 md:w-2/5 {% if settings.section_banner1_image_padding %}p-8{% endif %}">
-                  <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt }}"/>
-              </figure>
-              <div class="lg:w-1/3 md:w-3/5 card-body justify-center">
-                {% if links.link_title %}
-                    <h2 class="card-title text-3xl lg:text-5xl mb-4 font-bold justify-center">{{ links.link_title }}</h2>
-                {% endif %}
-                {% if links.link_text %}
-                    <p class="text-center grow-0 mb-4">{{ links.link_text }}</p>
-                {% endif %}
-                {% if links.link_url or links.link2_url %}
-                <div class="card-actions justify-center">
-                  {% if links.link_url %}<a href="{{ links.link_url }}" class="btn btn-primary">{{ links.link_button_title }}</a>{% endif %}{% if links.link2_url %}<a href="{{ links.link2_url }}" class="btn btn-primary>{{ links.link2_button_title }}</a>{% endif %}
-                </div>
-                {% endif %}
+            <section class="card bg-{{ links.banner_bg | def:"base-100" }} p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ settings.general_shadow }} justify-center mt-10 mb-20 index-{{ forloop.index }}">
+              <div class="card mb-4 {% if links.linkImageFullwidth %}flex-col-reverse{% else %}lg:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endif %} justify-center items-center">
+                  {% if links.link_image %}
+                      {% if links.linkImageFullwidth %}
+                      <figure class="w-full">
+                        <img loading="lazy" class="w-full rounded-box" src="{{ links.link_image | asset_img_url:1600,0,'cropped' }}" alt="{{ links.link_image_alt }}"/>
+                      </figure>
+                      {% else %}
+                      <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-8{% endif %}">
+                        <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt }}"/>
+                      </figure>
+                      {% endif %}
+                  {% endif %}
+                  {% if links.link_title or links.link_text or links.link_url or links.link2_url %}
+                      <div class="{% unless links.linkImageFullwidth %}lg:w-1/3 md:w-3/5{% endunless %} max-w-[45rem] card-body justify-center">
+                        {% if links.link_title %}
+                            <h2 class="card-title text-3xl lg:text-5xl mb-4 font-bold justify-center">{{ links.link_title }}</h2>
+                        {% endif %}
+                        {% if links.link_text %}
+                            <p class="text-center grow-0 mb-4">{{ links.link_text }}</p>
+                        {% endif %}
+                        {% if links.link_url or links.link2_url %}
+                            <div class="card-actions justify-center">
+                              {% if links.link_url %}<a href="{{ links.link_url }}" class="btn btn-primary">{{ links.link_button_title }}</a>{% endif %}
+                              {% if links.link2_url %}<a href="{{ links.link2_url }}" class="btn btn-primary">{{ links.link2_button_title }}</a>{% endif %}
+                            </div>
+                        {% endif %}
+                      </div>
+                  {% endif %}
               </div>
+            {% if links.collection %}
+                {% assign collection = collections[links.id] %}
+                {% unless collection == empty %}
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 place-content-center">
+                	{% for product in collection.products limit:5 %}
+                        {% include 'product-card' %}
+                	{% endfor %}
+                	</div>
+                {% endunless %}    
+            {% endif %}   
             </section>
         {% endfor %}
     {% endif %}
 {% endif %}
 {% if settings.homepage_blog_enabled %}
-    <section class="mt-10 mb-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {% unless blogs[settings.homepage_blog.id] == empty %}
-        	{% for article in blogs[settings.homepage_blog.id].articles limit:3 %}
-                {% include 'daisy-blog-card' %}
-        	{% endfor %}
-        {% endunless %}
+    {% assign blog = blogs[settings.homepage_blog.id] %}
+    <section class="mt-10 mb-2">
+        <h2 class="text-3xl mb-4 font-bold text-center">{{ blog.meta.h1 }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% unless blog == empty %}
+            	{% for article in blog.articles limit:3 %}
+                    {% include 'daisy-blog-card' %}
+            	{% endfor %}
+            {% endunless %}            
+        </div>
     </section>
-{% endif %}
-{% if settings.show_slideshow %}
-{% let slides = settings.slideshow_slides %}
-    <section class="carousel w-full pt-10">
-        {% let imgSize = '1536_0' %}
-        {% case settings.slideshow_img_ratio %}
-            {% when "resize" %}{% let imgSize = '1536_0' %}
-            {% when "video" %}{% let imgSize = '1536_864_cropped' %}
-            {% when "landscape" %}{% let imgSize = '1536_1024_cropped' %}
-            {% when "square" %}{% let imgSize = '1536_1536_cropped' %}
-            {% when "tall" %}{% let imgSize = '1024_1536_cropped' %}
-        {% endcase %}
-        {% for slide in settings.slideshow_slides %}
-            <div id="item{{ forloop.index0 }}" class="carousel-item w-full">
-                <img src="{{ slide.slide_image | asset_img_url:imgSize }}" class="w-full rounded-box" alt="{{ slide.slide_img_alt }}" />
-            </div> 
-        {% endfor %}
-    </section> 
-    {% if slides.size > 1 %}
-    <section class="flex justify-center w-full py-2 gap-2">
-        {% for slide in settings.slideshow_slides %}
-            <a href="#item{{ forloop.index0 }}" class="btn btn-xs">{{ forloop.index0 | plus:1 }}</a> 
-        {% endfor %}
-    </section>   
-    {% endif %}
 {% endif %}

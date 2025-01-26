@@ -17,15 +17,18 @@
         {% include 'open-graph-tags' %}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% if settings.favicon_enable %}
-            <link rel="icon" href="{{ 'favicon.ico' | asset_img_url }}" sizes="any">
-            <link rel="icon" type="image/png" sizes="16x16" href="{{ 'favicon.png' | asset_img_url:'16','16' }}">
-            <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_img_url:'32','32' }}">
-            <link rel="icon" href="{{ 'icon.svg' | asset_img_url }}" type="image/svg+xml">
-            <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-            <link rel="manifest" href="{{ 'manifest.json' | asset_url }}">
-            <meta name="msapplication-TileColor" content="#da532c">
-            <meta name="theme-color" content="#ffffff">
+        <link rel="icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+        {% if settings.favicon_svg %}
+            <link rel="icon" href="{{ settings.favicon_svg | asset_img_url }}" type="image/svg+xml">
         {% endif %}
+        {% endif %}
+        {% unless settings.branding-theme-color-light == empty %}
+            <meta name="theme-color" media="(prefers-color-scheme: light)" content="{{ settings.branding-theme-color-light }}" />
+        {% endunless %}
+        {% unless settings.branding-theme-color-dark == empty %}
+            <meta name="theme-color" media="(prefers-color-scheme: dark)" content="{{ settings.branding-theme-color-dark }}" />
+        {% endunless %}
         <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
         <link rel="stylesheet" type="text/css" href="{{ 'custom.css' | asset_url }}">
     </head>

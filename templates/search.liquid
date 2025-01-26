@@ -4,10 +4,11 @@
 
 {% form 'search' %}
     <div class="join">
-        <input class="join-item input" type="search" onfocus="this.select();" name="q" value="{{ search.terms }}" autocomplete="off" placeholder="{{ searchTitle }}" />
-        <select  class="join-item select" name="include" value="{{search.include}}">
+        <input class="join-item input input-bordered input-primary" type="search" onfocus="this.select();" name="q" value="{{ search.terms }}" autocomplete="off" placeholder="{{ searchTitle }}" />
+        <select  class="join-item select select-bordered select-primary" name="include" value="{{search.include}}">
             <option disabled selected>Filter</option>
-            <option value="pages,articles" {% if search.include == 'pages,articles' %}selected{% endif %}>All</option>
+            <option value="pages,articles" {% if search.include == 'pages,articles,products' %}selected{% endif %}>All</option>
+            <option value="products" {% if search.include == 'products' %}selected{% endif %}>Products</option>
             <option value="articles" {% if search.include == 'articles' %}selected{% endif %}>Articles</option>
             <option value="pages" {% if search.include == 'pages' %}selected{% endif %}>Pages</option>
         </select>
@@ -23,13 +24,19 @@
     {% else %}
     <h4 class="mb-4">{{ 'Found %s ' | insert:search.totalCount }}{{ search.totalCount | pluralize:'item','items'}}</h4>
     {% endif %}
+
+	{% if search.products %}
+	<h4>Products ({{search.products.size}})</h4>
+	{% for product in search.products limit:12 %}
+	    <a href="{{ product | url }}">{{product.title}}</a>
+    {% endfor %}
+    {% endif %}
 	
 	{% if search.pages %}
 	<h4>Pages ({{search.pages.size}})</h4>
 	{% for page in search.pages limit:12 %}
 	    <a href="{{ page | url }}">{{page.title}}</a>
     {% endfor %}
-    
     {% endif %}
     
 	{% if search.articles %}
