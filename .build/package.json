@@ -1,0 +1,15 @@
+{
+  "name": "node-starter",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "concurrently 'postcss tailwind.css -o public/output.css --watch'  'live-server ./public'"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10",
+    "concurrently": "^8",
+    "daisyui": "^4",
+    "postcss": "^8",
+    "postcss-cli": "^10",
+    "tailwindcss": "^3"
+  }
+}
