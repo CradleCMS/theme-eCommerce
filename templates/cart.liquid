@@ -1,5 +1,13 @@
 <section class="p-10 mx-auto flex flex-col items-center prose">
     <h1>Cart</h1>
-    <p>There are no items in your cart yet!</p>
-    <a href="/collections/portuguese">Browse something</a>
+{% if cart.items.size > 0 %}
+  {% for item in cart.items %}
+   ITEM
+  {% endfor %}
+{% else %}
+    <h2>Your cart is empty</h2>
+    <a href="/collections/portuguese">Click here to continue shopping</a>
+{% endif %}
 </section>
+
+{{ cart | print_r }}

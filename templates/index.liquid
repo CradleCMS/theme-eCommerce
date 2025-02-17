@@ -2,7 +2,6 @@
 <section class="index-page bg-base-100 text-base-content mt-10 rounded-box {{ settings.general_shadow }} md:w-auto lg:w-auto max-w-[65rem] mx-auto p-4 md:p-8 lg:p-8">
     <div class="">
         {% let p = pages[settings.homepage_page.id] %}
-        <h2 class="text-3xl font-bold mb-8 text-center">{{ p.meta.h1 }}</h2>
         <div class="text-xl {{ p.format }}">
             {{ p.html }}
         </div>
@@ -12,14 +11,16 @@
 {% if settings.hompageCollEnabled %}
 {% assign collection = collections[settings.homepageCollection.id] %}
 <section>
+    {% if settings.homepageCollHeading %}
     <header class="flex">
         <h2 class="text-3xl mb-4 font-bold">{{ settings.homepageCollHeading }}</h2>
         <a href="{{ collection | url }}" class="btn btn-sm ml-2">Go to all books</a>
     </header>
+    {% endif %}
     {% unless collection == empty %}
         <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
     	{% for product in collection.products limit:5 %}
-            {% include 'product-card' %}
+            {% include 'productCard' %}
     	{% endfor %}
     	</div>
     {% endunless %}
@@ -98,7 +99,7 @@
                 {% unless collection == empty %}
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 place-content-center">
                 	{% for product in collection.products limit:5 %}
-                        {% include 'product-card' %}
+                        {% include 'productCard' %}
                 	{% endfor %}
                 	</div>
                 {% endunless %}    

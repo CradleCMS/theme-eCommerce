@@ -28,6 +28,8 @@
             {% endfor %}            
         </ul>
         {% endif %}
+        
+        <a href="{{ 'checkout' | url }}?p={{product.id}}&v={{variant.id}}" class="btn button">Purchase</a>
 
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
     </div>
