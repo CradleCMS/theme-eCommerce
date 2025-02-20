@@ -10,7 +10,19 @@
             <h3 class="card-title text-base">
                 {{ product.meta.h1 }}
             </h3>
-            <p class="text-left">{{ product.price | money_with_currency }}</p>
+            <div class="text-left">
+                {% if product.variants.size > 1 and product.priceMin > 0 %}
+                    <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold text-red-400{% endif %}">
+                        {{ product.priceMin | money }}
+                    </span>
+                    &dash;
+                    <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold text-red-400{% endif %}">
+                        {{ product.priceMax | money }}
+                    </span>
+                {% else %}
+                    <span class="{% if product.compareAtPrice > product.price %}font-bold text-red-400{% endif %}">{{ product.price | money }}</span>
+                {% endif %}
+            </div>
         </div>
         <div class="card-actions justify-end">
           <a class="btn btn-secondary btn-sm" href="{{ product | url }}">Read more</a>

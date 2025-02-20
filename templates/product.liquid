@@ -4,14 +4,14 @@
     <div class="lg:basis-1/2 flex flex-row gap-2">
       <nav class="basis-1/5 flex flex-col gap-2">
         {% for image in product.images %}
-            <img class="thumb" src="{{ image.src | product_img_url:150,0 }}" data-large="{{ image.src | product_img_url:600,0 }}" alt="{{ image.alt }}">
+            <img class="thumb rounded border border-1 border-base-300" width="150px" height="150px" src="{{ image.src | product_img_url:150,'cropped' }}" data-large="{{ image.src | product_img_url:600,0 }}" alt="{{ image.alt }}">
         {% endfor %}
       </nav>
       <figure class="basis-4/5">
           {% if product.images.size > 0 %}
-          <img id="main-image" src="{{ product.images[0] | product_img_url:600,0 }}" alt="{{ product.images[0].alt }}" />
+          <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:600,0 }}" alt="{{ product.images[0].alt }}" />
           {% elseif product.featuredImage %}
-          <img id="main-image" src="{{ product.featuredImage | product_img_url:600,0 }}" alt="{{ product.featuredImage.alt }}" />
+          <img class="rounded" id="main-image" src="{{ product.featuredImage | product_img_url:600,0 }}" alt="{{ product.featuredImage.alt }}" />
           {% endif %}
       </figure>
     </div>
@@ -28,9 +28,19 @@
             {% endfor %}            
         </ul>
         {% endif %}
-        
-        <a href="{{ 'checkout' | url }}?p={{product.id}}&v={{variant.id}}" class="btn button">Purchase</a>
-
+        {% form 'cart_add' %}
+            <input type="hidden" name="product" value="{{product.id}}">
+            {% if product.variants.size > 1 %}
+            <select class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
+                {% for variant in product.variants %}
+                <option value="{{variant.id}}" {% if variant.id == product.selectedVariant.id %}selected{% endif %}>{{variant.title}}</option>
+                {% endfor %}
+            </select>    
+            {% else %}
+            <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+            {% endif %}
+            <button name="submit" class="ml-4 btn btn-success">Purchase</button>
+        {% endform %}
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
     </div>
 </section>

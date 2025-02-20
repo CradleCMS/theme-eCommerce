@@ -20,7 +20,11 @@
   margin-left: 5px;
   vertical-align: top;
 }
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 {% if settings.border_radius != blank%}
 body {
   --rounded-box: {{settings.border_radius}}rem;

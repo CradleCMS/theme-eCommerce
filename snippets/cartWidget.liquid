@@ -1,0 +1,56 @@
+<details class="dropdown dropdown-end">
+  <summary tabindex="0" role="button" class="btn btn-sm btn-circle">
+        <div class="indicator">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+                <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+            </svg>
+        {% if cart.quantity > 0 %}
+          <div class="badge badge-sm indicator-item badge-secondary w-4 h-4" :class="{'w-8': 9 < {{cart.quantity}} }">{{cart.quantity}}</div>
+        {% endif %}
+        </div>
+  </summary>
+  <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+    {% if cart.items.size > 0 %}
+        {% for item in cart.items %}
+        <div class="p-1">
+            {% let vt = item.variant.title | split:'|' %} 
+            <h3 class="font-bold">{{vt | first}}</h3>
+            {% if vt.size > 1 %}
+            <p class="text-xs -mt-1">
+                <em>{{ vt | slice:1 | join}}</em>
+            </p> 
+            {% endif %}
+            <div class="flex flex-row">
+                <em class="text-sm">{{ item.quantity }}&times;{{ item.price | money }}</em>
+                <div class="max-w-20 ml-auto">
+                    {{ item.price | times:item.quantity | money }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="flex flex-row p-1 border-t mt-2">
+            <em>Subtotal</em> 
+            <div class="ml-auto font-bold">{{cart.amount.sub | money}}</div>
+        </div>
+        <li class="card-actions mt-2">
+            <a href="/cart" class="btn btn-sm btn-success btn-block">View cart</a>
+        </li>
+    {% else %}
+        <li>
+            <h2>Your cart is empty</h2>
+        </li>
+    {% endif %}
+  </ul>
+
+</details>
+

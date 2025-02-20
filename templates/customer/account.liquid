@@ -1,15 +1,63 @@
 <section class="p-10 mx-auto">
   <header class="flex justify-between">
         <h1 class="mt-2 text-2xl uppercase">My Account</h1>
-        <a class="btn" href="logout" >Logout</a>
+        <a class="btn btn-sm btn-outline" href="logout" >Logout</a>
   </header>
   <section>
       <h2 class="text-4xl text-center mt-20 mb-10">Hi {{ customer.firstname }}!</h2>
       <div class="divider"></div>
       <div class="flex flex-col md:flex-row lg:flex-row gap-4">
-          <div class="md:w-3/4 lg:w-3/4">
-              <h3 class="uppercase">Orders</h3>
-              {% if customer.orders.size != 0 %}
+        <div class="md:w-3/4 lg:w-3/4">
+            {% if customer.licenses.size != 0 %}
+                <h2 class="h3">{{ licences.size | pluralize: 'Licence','Licences' }}</h2>
+                {% for licence in licences %}
+                <div class="licence-card">   
+                    <h3>{{ products[licence.productId].meta.h1 }}</h3>
+                    <p>
+                        <small>Licence created at {{ licence.createdAt | date }}</small>
+                        <br>
+                        <small>Support and upgrades until {{ licence.expiresAt | date }}</small>
+                    </p>
+                    <p>Install with docker: <a href="/blogs/guides/article/basic-installation" class="" target="_blank">Installation guide</a>
+                    </p>
+                    <details class="credentials">
+                      <summary class="btn white">Docker credentials</summary>
+                        <p>Registry</p>
+                        <div class="code-row">    
+                            <code style="">registry.cradlecms.com</code>
+                            <button id="registry.cradlecms.com" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
+                                <svg role="img" title="copy">
+                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <p>Username (licence key)</p>
+                        <div class="code-row">    
+                            <code style="">{{ licence.key }}</code>
+                            <button id="{{ licence.key }}" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
+                                <svg role="img" title="copy">
+                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <p>Password</p>
+                        <code style="">&lt;your account password&gt;</code>
+                        <p>Cradle CMS latest</p>
+                        <div class="code-row">    
+                            <code style="">registry.cradlecms.com/{{ licence.sku }}:latest</code>
+                            <button id="registry.cradlecms.com/{{ licence.sku }}:latest" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
+                                <svg role="img" title="copy">
+                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </details>
+
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% if customer.orders.size != 0 %}
+            <h3 class="uppercase">Orders</h3>
                   <table class="full">
                       <thead>
                           <tr>
@@ -23,7 +71,7 @@
                       <tbody>
                       {% for order in customer.orders %}
                       <tr>
-                          <td>{{ order.name | link_to: order.customer_url }}</td>
+                          <td>{{ order | url | link_tag:order.name }}</td>
                           <td>{{ order.created_at | date: "Y-m-d" }}</td>
                           <td>
                               {% case order.financial_status %}
@@ -58,16 +106,16 @@
                       {% endfor %}
                       </tbody>
                   </table>
-              {% else %}
-                  <p>{{ lang.you_havent_placed_any_orders_yet | def:"You haven't placed any orders yet." }}</p>
-              {% endif %}
+            {% else %}
+                <p>{{ lang.you_havent_placed_any_orders_yet | def:"You haven't placed any orders yet." }}</p>
+            {% endif %}
           </div>
           <div class="md:w-1/4 lg:w-1/4">
               <h3 class="uppercase">Account details</h3>
               <h5 class="mt-2">{{ customer.name }}</h5>
               {{ customer.addresses | inspect }}
               <p class="mt-2">
-                  <a href="{{ 'customer/addresses' | url}}" class="btn btn-sm">{{ lang.view_addresses | def:'View Addresses' }}</a>
+                  <a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ lang.view_addresses | def:'View Addresses' }}</a>
               </p>
           </div>
       </div>

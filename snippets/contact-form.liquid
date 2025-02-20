@@ -13,17 +13,22 @@
                 </div>
             {% else %}
             <div class="form-control">
+                <label class="input input-bordered{% if form.errors contains 'subject' %} input-error{% endif %} flex items-center gap-2 input-lg">
+                  <input type="text" name="subject" class="grow" placeholder="Subject" value="{{form.subject}}" required/>
+                </label>
+            </div>
+            <div class="form-control">
                 <label class="input input-bordered{% if form.errors contains 'name' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                  <input type="text" name="name" class="grow" placeholder="Name" required/>
+                  <input type="text" name="name" class="grow" placeholder="Name" value="{{form.name}}" required/>
                 </label>
             </div>
             <div class="form-control">
                 <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                  <input type="email" name="email" class="grow" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                  <input type="email" name="email" class="grow" value="{% if customer %}{{ customer.email }}{% else %}{{ form.email }}{% endif %}" placeholder="Email" autocorrect="off" autocapitalize="off" required />
                 </label>
             </div>
             <div class="form-control">
-                <textarea placeholder="Message" name="message" rows="4" class="textarea textarea-bordered{% if form.errors contains 'message' %} textarea-error{% endif %} textarea-lg w-full" required ></textarea>
+                <textarea placeholder="Message" name="message" rows="4" class="textarea textarea-bordered{% if form.errors contains 'message' %} textarea-error{% endif %} textarea-lg w-full" required >{{form.message}}</textarea>
             </div>
             <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
             {% endif %}

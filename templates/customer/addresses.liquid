@@ -1,10 +1,10 @@
 <section class="p-10 mx-auto">
   <header class="flex justify-between">
         <h1 class="mt-2 text-2xl uppercase">My Account</h1>
-        <p>
-            <a class="btn" href="{{ 'customer/account' | url }}">{{ lang.return_to_account_details | def:'Return to Account details' }}</a>
-            <a class="btn" href="logout" >Logout</a>
-        </p>
+        <div class="join">
+            <a class="btn btn-sm btn-primary join-item " href="{{ 'customer/account' | url }}">&larr;{{ 'Return to Account details' }}</a>
+            <a class="btn btn-sm btn-outline join-item" href="logout" >Logout</a>
+        </div>
         
   </header>
   <div class="divider"></div>
@@ -14,10 +14,10 @@
       </header>
       <div>
         {% for address in customer.addresses %}
-            <div>{{ address | inspect }}</div>
+            <div>{{ address | print_r }}</div>
         {% endfor %}
       </div>
-    <a href="#" class="btn" onclick="return shop.user.address.toggleNewForm();">{{ lang.add_new_address | def:'Add New Address' }}</a>
+    <a href="#" class="btn btn-sm btn-outline" onclick="return shop.user.address.toggleNewForm();">{{ lang.add_new_address | def:'Add New Address' }}</a>
   </section>
 </section>
 
