@@ -15,44 +15,7 @@
                     <h3>{{ products[licence.productId].meta.h1 }}</h3>
                     <p>
                         <small>Licence created at {{ licence.createdAt | date }}</small>
-                        <br>
-                        <small>Support and upgrades until {{ licence.expiresAt | date }}</small>
                     </p>
-                    <p>Install with docker: <a href="/blogs/guides/article/basic-installation" class="" target="_blank">Installation guide</a>
-                    </p>
-                    <details class="credentials">
-                      <summary class="btn white">Docker credentials</summary>
-                        <p>Registry</p>
-                        <div class="code-row">    
-                            <code style="">registry.cradlecms.com</code>
-                            <button id="registry.cradlecms.com" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
-                                <svg role="img" title="copy">
-                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <p>Username (licence key)</p>
-                        <div class="code-row">    
-                            <code style="">{{ licence.key }}</code>
-                            <button id="{{ licence.key }}" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
-                                <svg role="img" title="copy">
-                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <p>Password</p>
-                        <code style="">&lt;your account password&gt;</code>
-                        <p>Cradle CMS latest</p>
-                        <div class="code-row">    
-                            <code style="">registry.cradlecms.com/{{ licence.sku }}:latest</code>
-                            <button id="registry.cradlecms.com/{{ licence.sku }}:latest" onclick="copyKeyToClipboard(this)" class="icon" title="Copy to clipboard">
-                                <svg role="img" title="copy">
-                                    <use xlink:href="{{ 'icons.svg#icon-copy' | asset_url }}"></use>
-                                </svg>
-                            </button>
-                        </div>
-                    </details>
-
                 </div>
                 {% endfor %}
             {% endif %}
