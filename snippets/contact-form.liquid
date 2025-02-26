@@ -13,11 +13,6 @@
                 </div>
             {% else %}
             <div class="form-control">
-                <label class="input input-bordered{% if form.errors contains 'subject' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                  <input type="text" name="subject" class="grow" placeholder="Subject" value="{{form.subject}}" required/>
-                </label>
-            </div>
-            <div class="form-control">
                 <label class="input input-bordered{% if form.errors contains 'name' %} input-error{% endif %} flex items-center gap-2 input-lg">
                   <input type="text" name="name" class="grow" placeholder="Name" value="{{form.name}}" required/>
                 </label>

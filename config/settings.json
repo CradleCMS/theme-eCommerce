@@ -425,11 +425,6 @@
           "type": "checkbox"
         },
         {
-          "caption": "Use glass card",
-          "key": "header_otf_glass",
-          "type": "checkbox"
-        },
-        {
           "caption": "Height of Viewport",
           "key": "heder_otf_height",
           "options": [
@@ -473,6 +468,33 @@
           "type": "select"
         },
         {
+          "caption": "Use card-design on content",
+          "key": "header_otf_glass",
+          "options": [
+            {
+              "caption": "None",
+              "value": ""
+            },
+            {
+              "caption": "Glass",
+              "value": " glass"
+            },
+            {
+              "caption": "Theme base color",
+              "value": " bg-base-100"
+            },
+            {
+              "caption": "Darker base color",
+              "value": " bg-base-200"
+            },
+            {
+              "caption": "Darkest base color",
+              "value": " bg-base-300"
+            }
+          ],
+          "type": "select"
+        },
+        {
           "caption": "Title",
           "key": "header_otf_title",
           "type": "text"
@@ -499,13 +521,13 @@
         },
         {
           "caption": "Foreground image",
-          "description": "Minimum 450px wide",
+          "description": "Minimum 450px wide, jpg or png format",
           "key": "header_otf_fgimage",
           "type": "image"
         },
         {
           "caption": "Background image",
-          "description": "Recommendation: minimum 1024px x 1024px",
+          "description": "Recommendation: minimum 1024px x 1024px, jpg-format",
           "key": "header_otf_image",
           "type": "image"
         },
@@ -767,35 +789,44 @@
           "type": "checkbox"
         },
         {
-          "caption": "Image banners",
+          "caption": "Number of products",
+          "key": "sectionBannerProductAmount",
+          "options": [
+            {
+              "caption": "1",
+              "value": "1"
+            },
+            {
+              "caption": "2",
+              "value": "2"
+            },
+            {
+              "caption": "3",
+              "value": "3"
+            },
+            {
+              "caption": "4",
+              "value": "4"
+            },
+            {
+              "caption": "5",
+              "value": "5"
+            },
+            {
+              "caption": "6",
+              "value": "6"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Banners",
           "key": "section_banner1",
           "settings": [
             {
-              "caption": "Body style",
-              "key": "banner_bg",
-              "options": [
-                {
-                  "caption": "Lightest (default)",
-                  "value": "base-100"
-                },
-                {
-                  "caption": "Darker",
-                  "value": "base-200"
-                },
-                {
-                  "caption": "Darkest",
-                  "value": "base-300"
-                },
-                {
-                  "caption": "Secondary",
-                  "value": "secondary"
-                },
-                {
-                  "caption": "Accent",
-                  "value": "accent"
-                }
-              ],
-              "type": "select"
+              "caption": "Background color",
+              "key": "sectionBannerBgColor",
+              "type": "color"
             },
             {
               "caption": "Image",
@@ -807,6 +838,11 @@
             {
               "caption": "Image alt",
               "key": "link_image_alt",
+              "type": "text"
+            },
+            {
+              "caption": "Image URL",
+              "key": "linkImageURL",
               "type": "text"
             },
             {
@@ -880,7 +916,7 @@
       "settings": [
         {
           "caption": "Text alignment",
-          "key": "headings_alignment",
+          "key": "page_text_alignment",
           "options": [
             {
               "caption": "Left",
@@ -893,6 +929,33 @@
             {
               "caption": "Right",
               "value": "right"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Content width",
+          "key": "page_width",
+          "options": [
+            {
+              "caption": "Narrow (default)",
+              "value": ""
+            },
+            {
+              "caption": "Small",
+              "value": " max-w-[80ch]"
+            },
+            {
+              "caption": "Medium",
+              "value": " max-w-[100ch]"
+            },
+            {
+              "caption": "Large",
+              "value": " max-w-[120ch]"
+            },
+            {
+              "caption": "Max size",
+              "value": " max-w-full"
             }
           ],
           "type": "select"
@@ -928,6 +991,38 @@
             {
               "caption": "XL",
               "value": "max-h-72"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Products per row",
+          "description": "Sets amount of products displayed on a row",
+          "key": "colProductCount",
+          "options": [
+            {
+              "caption": "1",
+              "value": "grid-cols-1"
+            },
+            {
+              "caption": "2",
+              "value": "grid-cols-1 md:grid-cols-1 lg:grid-cols-2"
+            },
+            {
+              "caption": "3",
+              "value": "grid-cols-1 md:grid-cols-3 lg:grid-cols-3"
+            },
+            {
+              "caption": "4",
+              "value": "grid-cols-2 md:grid-cols-2 lg:grid-cols-4"
+            },
+            {
+              "caption": "5",
+              "value": "grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+            },
+            {
+              "caption": "6",
+              "value": "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
             }
           ],
           "type": "select"

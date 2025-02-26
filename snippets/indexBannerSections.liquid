@@ -1,0 +1,51 @@
+{% if settings.section_banner1.size > 0 %}
+    {% for links in settings.section_banner1 %}
+        {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
+        <section class="card p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ settings.general_shadow }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
+          <div class="card mb-4 {% if links.linkImageFullwidth %}flex-col-reverse{% else %}lg:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endif %} justify-center items-center">
+              {% if links.link_image %}
+                  {% if links.linkImageFullwidth %}
+                    {% if links.linkImageURL %}<a class="w-full" href="{{ links.linkImageURL }}">{% endif %}
+                      <figure class="w-full">
+                        <img loading="lazy" class="w-full rounded-box" src="{{ links.link_image | asset_img_url:1600,0,'cropped' }}" alt="{{ links.link_image_alt }}"/>
+                      </figure>
+                    {% if links.linkImageURL %}</a>{% endif %}
+                  {% else %}
+                      {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
+                      <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-8{% endif %}">
+                        <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt }}"/>
+                      </figure>
+                      {% if links.linkImageURL %}</a>{% endif %}
+                  {% endif %}
+              {% endif %}
+              {% if links.link_title or links.link_text or links.link_url or links.link2_url %}
+                  <div class="{% unless links.linkImageFullwidth %}lg:w-1/3 md:w-3/5{% endunless %} max-w-[45rem] card-body justify-center">
+                    {% if links.link_title %}
+                        <h2 class="card-title text-3xl lg:text-5xl mb-4 font-bold justify-center">{{ links.link_title }}</h2>
+                    {% endif %}
+                    {% if links.link_text %}
+                        <p class="text-center grow-0 mb-4">{{ links.link_text }}</p>
+                    {% endif %}
+                    {% if links.link_url or links.link2_url %}
+                        <div class="card-actions justify-center">
+                          {% if links.link_url %}<a href="{{ links.link_url }}" class="btn btn-primary">{{ links.link_button_title }}</a>{% endif %}
+                          {% if links.link2_url %}<a href="{{ links.link2_url }}" class="btn btn-primary">{{ links.link2_button_title }}</a>{% endif %}
+                        </div>
+                    {% endif %}
+                  </div>
+              {% endif %}
+          </div>
+        {% if links.collection %}
+            {% assign collection = collections[links.id] %}
+            {% unless collection == empty %}
+                {% let productAmount = settings.sectionBannerProductAmount %}
+                <div class="collection-row-container gap-4">
+            	{% for product in collection.products limit:5 %}
+                    {% include 'productCard' %}
+            	{% endfor %}
+            	</div>
+            {% endunless %}    
+        {% endif %}   
+        </section>
+    {% endfor %}
+{% endif %}

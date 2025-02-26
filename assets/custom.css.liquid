@@ -14,6 +14,10 @@
 .index-page .prose {
     max-width: 100%;
 }
+.prose figure img {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .checkmark::before {
   content: url("data:image/svg+xml,%3Csvg fill='%2340C057' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24px' height='24px'%3E%3Cpath d='M11.707,15.707C11.512,15.902,11.256,16,11,16s-0.512-0.098-0.707-0.293l-4-4c-0.391-0.391-0.391-1.023,0-1.414 s1.023-0.391,1.414,0L11,13.586l8.35-8.35C17.523,3.251,14.911,2,12,2C6.477,2,2,6.477,2,12c0,5.523,4.477,10,10,10s10-4.477,10-10 c0-1.885-0.531-3.642-1.438-5.148L11.707,15.707z'/%3E%3C/svg%3E");  
   display: inline-block;
@@ -24,6 +28,11 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+.collection-row-container {
+    display: grid;
+    grid-template-columns: repeat({{ settings.sectionBannerProductAmount }}, minmax(calc(1375px / {{ settings.sectionBannerProductAmount }}), 1fr));    
+    overflow-x: auto;
 }
 {% if settings.border_radius != blank%}
 body {

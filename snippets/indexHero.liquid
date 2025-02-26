@@ -1,6 +1,6 @@
 <div class="hero min-h-{{ settings.heder_otf_height }}" style="background-image: url({{ settings.header_otf_image | asset_img_url:1024,0 }});">
   <div class="hero-overlay bg-opacity-10"></div>
-  <div class="hero-content text-center{% if settings.header_otf_glass %} glass rounded-box p-2 md:p-4 lg:p-8{% endif %}">
+  <div class="hero-content text-center rounded-box p-2 md:p-4 lg:p-8{{ settings.header_otf_glass }}">
     <div class="max-w-xl">
       {% if settings.header_otf_title %}
         <h1 class="mt-14 mb-5 text-5xl font-bold">{{ settings.header_otf_title }}</h1>

@@ -15,7 +15,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-base-content rounded-box w-52">
         {% for link in navigation[main-nav].links %}
             {% if link.type == 'navigation' %}
-             <li>
+             <li class="font-bold">
                 <button>{{ link.title }}</button>
                 <ul class="p-2 bg-base-100 text-base-content shadow">
                     {% for childlink in navigation[link.handle].links %}
@@ -24,7 +24,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
                 </ul>
             </li>           
             {% else %}
-            <li><a href="{{ link | url }}">{{ link.title }}</a></li>
+            <li class="font-bold" ><a href="{{ link | url }}">{{ link.title }}</a></li>
             {% endif %}
         {% endfor %}
       </ul>
@@ -43,18 +43,18 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
     <ul class="menu menu-horizontal px-1 hidden lg:flex">
         {% for link in navigation[main-nav].links %}
             {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
-            <li>
+            <li class="font-semibold text-base">
                 <details>
                     <summary>{{ link.title }}</summary>
                       <ul class="p-2 mt-4 bg-base-100 text-base-content w-40 absolute shadow">
                         {% for childlink in navigation[link.param].links %}
-                            <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                            <li class="font-semibold text-base"><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
                         {% endfor %}
                       </ul>
                 </details>
             </li>
             {% else %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            <li class="font-semibold text-base"><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>

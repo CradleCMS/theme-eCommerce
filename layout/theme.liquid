@@ -48,14 +48,13 @@
     <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {{ 'alpine.min.js' | script_tag }}
         <div>
-            {% include 'header' %}
+            {% include 'siteHeader' %}
             {% if template == "index" %}
                 {% if settings.header_otf_section %}
-                  {% include 'daisy-centered-hero' %}
+                  {% include 'indexHero' %}
                 {% endif %}
-                {% let indexContent = contentForLayout | strip_newlines | strip %}
-                {% unless indexContent == "" %}
-                  <div class="container max-w-8xl mx-auto mt-20 px-2 pb-10">
+                {% unless contentForLayout == "" %}
+                  <div class="container max-w-8xl mx-auto px-2 pb-10">
                     {{ contentForLayout }}
                   </div>
                 {% endunless %}
@@ -65,6 +64,6 @@
             </div>
             {% endif %}
         </div>
-        {% include 'daisy-footer' %}
+        {% include 'siteFooter' %}
     </body>
 </html>
