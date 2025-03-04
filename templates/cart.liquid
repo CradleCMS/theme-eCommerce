@@ -1,60 +1,70 @@
 {% assign cartTitle = 'Shopping Cart' %}
 {% title cartTitle %}
-<section class="mx-auto flex flex-col items-center prose">
-    <h1>{{cartTitle}}</h1>
-    {% if cart.items.size > 0 %}
-    	{% form 'cart' class:'w-full border border-1 border-base-300 rounded p-4 bg-base-100' %}
-    		{% for item in cart.items %}
-    		    <div class="grid grid-flow-col">
-                  <div class="row-span-3 place-self-start">
-                    <a href="{{ item.variant | url }}">
-					  <img width="80px" height="80px" class="rounded border border-1 p-2 bg-base-100:hover" src="{{ item.variant | product_img_url:'50' }}"  alt="{{ item.variant.title | escape }}">
-				    </a>
-                  </div>
-                  <div class="col-span-2 place-self-start">
-					{% let vt = item.variant.title | split:'|' %} 
-                    <h4 class="pt-1">{{vt | first}}
-                    {% if vt.size > 1 %}
-                    <em class="text-xs">{{ vt | slice:1 | join}}</em>
-                    {% endif %}
-                    </h4>
-                  </div>
-                  <div class="col-span-2 place-self-end">
-    			    <em class="text-sm">{{ item.price | money }}</em>
-    			    <span>&times;</span>
-                    <div class="ml-2 join">
-        			    <button class="btn btn-sm join-item w-2" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
-        				<input class="input input-sm join-item w-8 p-1 text-center" type="number" min="0" name="updates[{{item.variant.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" data-product="{{item.variant.productId}}" data-variant="{{ item.variant.id }}" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
-        				<button class="btn btn-sm join-item w-2" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
-    			    </div>      
-                    <span class="ml-4">{{ item.amount | money }}</span>
-                  </div>
-                </div>
-    	    {% endfor %}
-    			<div class="grid grid-flow-col grid-rows-2 gap-4 border-t">
-				    {% comment %}
-					    Optional, add a textarea for special notes
-						- Turn this on or off in the Theme settings. Default is off.
-				    {% endcomment %}
-					<div class="col-span-2 row-span-2">
-			        {% if 1 or settings.cartNotesEnabled %}
-						<label class="label text-sm pt-1" for="notes">{{ 'Special instructions for seller' }}</label>
-						<textarea name="notes" class="textarea w-full bg-base-200 -mb-2">{{ cart.notes }}</textarea>
-					{% endif %}
-					</div>
-					<div class="col-span-2 place-self-start w-full text-right">
-					   <span>Subtotal</span>
-					   <span class="ml-1 font-bold">{{ cart.amount.sub | money }}</span>
-					</div>
-                    <div class="col-span-2 place-self-end">
-    					<input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' }}">
-    					<input type="submit" name="checkout" class="btn btn-sm btn-primary" value="{{ 'Check out' }}">
-					</div>
-    			</div>
-    		</div>
-    	{% endform %}
-    {% else %}
-    <h2>Your cart is empty</h2>
-    <a href="/">Click here to continue shopping</a>
-    {% endif %}
+<section class="mx-auto flex flex-col items-center max-w-[40rem]">
+    <div class="card w-full {{ settings.general_shadow }}">
+        <div class="card-body">
+            <h1 class="text-center text-4xl font-bold pt-4">{{cartTitle}}</h1>
+            {% if cart.items.size > 0 %}
+            	{% form 'cart' class:'w-full border border-1 border-base-300 rounded p-4 mt-4' %}
+            		{% for item in cart.items %}
+            		    <div class="grid grid-cols-6 grid-flow-col gap-2 pb-4">
+                          <div class="col-span-1">
+                            <a href="{{ item.variant | url }}">
+        					  <img width="80px" height="80px" class="rounded border border-1 p-2 bg-base-100:hover" src="{{ item.variant | product_img_url:'50' }}"  alt="{{ item.variant.title | escape }}">
+        				    </a>
+                          </div>
+                          <div class="col-span-5 grid grid-col">
+        					{% let vt = item.variant.title | split:'|' %} 
+                            <h4 class="pt-1 text-lg">{{vt | first}}
+                            {% if vt.size > 1 %}
+                            <em class="text-xs">{{ vt | slice:1 | join}}</em>
+                            {% endif %}
+                            </h4>
+                            <div class="place-self-end">
+                			    <span class="text-sm">{{ item.price | money }}</span>
+                			    <span>&times;</span>
+                                <div class="ml-2 join">
+                    			    <button class="btn btn-sm join-item w-2" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
+                    				<input class="input input-sm join-item w-8 p-1 text-center" type="number" min="0" name="updates[{{item.variant.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" data-product="{{item.variant.productId}}" data-variant="{{ item.variant.id }}" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
+                    				<button class="btn btn-sm join-item w-2" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
+                			    </div>      
+                                <span class="ml-4 font-bold">{{ item.amount | money }}</span>
+                            </div>
+                            {% if item.quantity > item.variant.quantity %}<div role="alert" class="place-self-end pt-2"><p class="badge badge-soft badge-error">Wops, we only have {{ item.variant.quantity }} in stock!</p></div>{% endif %}
+                            {% if item.quantity < 1 %}<div role="alert" class="place-self-end pt-2"><p class="badge badge-soft badge-error">Please remove the item, there is no in stock!</p></div>{% endif %}
+                          </div>
+                        </div>
+            	    {% endfor %}
+            			<div class="flex flex-col gap-4 border-t pt-2">
+        				    {% comment %}
+        					    Optional, add a textarea for special notes
+        						- Turn this on or off in the Theme settings. Default is off.
+        				    {% endcomment %}
+        					{% if settings.cartNotesEnabled %}
+        					<div>
+        						<label class="fieldset-legend label text-sm pt-1 inline" for="notes">{{ 'Special instructions for seller' }}</label>
+        						<textarea name="notes" class="textarea textarea-primary w-full">{{ cart.notes }}</textarea>
+        					</div>
+        					{% endif %}
+        					<div class="w-full text-right text-base pt-4 pb-2">
+        					    <p class="text-sm">Subtotal {{ cart.amount.sub | money }}</p>
+        					    <p class="text-sm">Taxes {{ cart.amount.vat | money }}</p>
+        					    <p class="text-lg pt-2">Total <span class="font-bold">{{ cart.amount.total | money }}</span></p>
+        					</div>
+                            <div class="flex flex-row justify-between w-full gap-2 items-baseline">
+                                <a href="/" class="btn btn-sm btn-link">Go back to shop</a>
+            					<div class="flex flex-row gap-2 items-baseline">
+            					    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' }}">
+            					    <input type="submit" name="checkout" class="btn btn-lg btn-accent" value="{{ 'Check out' }}">            					    
+            					</div>
+        					</div>
+            			</div>
+            		</div>
+            	{% endform %}
+            {% else %}
+            <h2>Your cart is empty</h2>
+            <a href="/">Click here to continue shopping</a>
+            {% endif %}            
+        </div>
+    </div>
 </section>

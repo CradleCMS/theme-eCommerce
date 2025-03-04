@@ -405,6 +405,26 @@
           "caption": "Add link",
           "key": "header_cta_link",
           "type": "text"
+        },
+        {
+          "caption": "Top banner",
+          "key": "headerTopHeader",
+          "type": "header"
+        },
+        {
+          "caption": "Use top banner",
+          "key": "headerTopEnabled",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Text",
+          "key": "headerTopText",
+          "type": "text"
+        },
+        {
+          "caption": "URL",
+          "key": "headerTopURL",
+          "type": "text"
         }
       ]
     },
@@ -963,6 +983,32 @@
       ]
     },
     {
+      "key": "products",
+      "type": "section",
+      "caption": "Product pages",
+      "settings": [
+        {
+          "caption": "Thumbnail position",
+          "key": "ppThumbPosition",
+          "options": [
+            {
+              "caption": "Left",
+              "value": "left"
+            },
+            {
+              "caption": "Beneath",
+              "value": "beneath"
+            },
+            {
+              "caption": "No thumbnails",
+              "value": "columns"
+            }
+          ],
+          "type": "select"
+        }
+      ]
+    },
+    {
       "key": "collections",
       "type": "section",
       "caption": "Collections",
@@ -1026,6 +1072,18 @@
             }
           ],
           "type": "select"
+        }
+      ]
+    },
+    {
+      "key": "cart",
+      "type": "section",
+      "caption": "Cart",
+      "settings": [
+        {
+          "caption": "Enable cart note",
+          "key": "cartNotesEnabled",
+          "type": "checkbox"
         }
       ]
     },
@@ -1379,6 +1437,26 @@
             }
           ],
           "type": "struct"
+        },
+        {
+          "caption": "Large button",
+          "key": "footerButtonHeader",
+          "type": "header"
+        },
+        {
+          "caption": "Show button",
+          "key": "footerButtonEnabled",
+          "type": "checkbox"
+        },
+        {
+          "caption": "URL",
+          "key": "footerButtonURL",
+          "type": "text"
+        },
+        {
+          "caption": "Button text",
+          "key": "footerButtonText",
+          "type": "text"
         }
       ]
     },

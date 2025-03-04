@@ -1,24 +1,49 @@
 {% include 'daisy-breadcrumbs' %}
 
-<section class="flex flex-col lg:flex-row gap-4">
-    <div class="lg:basis-1/2 flex flex-row gap-2">
-      <nav class="basis-1/5 flex flex-col gap-2">
-        {% for image in product.images %}
-            <img class="thumb rounded border border-1 border-base-300" width="150px" height="150px" src="{{ image.src | product_img_url:150,'cropped' }}" data-large="{{ image.src | product_img_url:600,0 }}" alt="{{ image.alt }}">
-        {% endfor %}
-      </nav>
-      <figure class="basis-4/5">
+<section class="flex flex-col lg:flex-row gap-8">
+    {% if product.images.size > 1 %}
+        {% if settings.ppThumbPosition == "left" %}
+            <div class="image-box lg:basis-1/2 flex flex-row gap-2">
+              <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll">
+                {% for image in product.images %}
+                    <img class="thumb rounded border border-1 border-base-300 " width="150px" src="{{ image.src | product_img_url:150,0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
+                {% endfor %}
+              </nav>
+              <figure class="basis-4/5">
+                  <img class="rounded m-auto max-h-full" id="main-image" src="{{ product.images[0] | product_img_url:590,0 }}" alt="{{ product.images[0].alt }}" />
+              </figure>
+            </div>
+        {% elseif settings.ppThumbPosition == "beneath" %}
+            <div class="image-box lg:basis-1/2 flex flex-col-reverse justify-end gap-2">
+              <nav class="flex flex-row gap-2 overflow-scroll">
+                {% for image in product.images %}
+                    <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
+                {% endfor %}
+              </nav>
+              <figure class="h-[50vh] grid">
+                  <img class="rounded max-h-full place-self-center" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
+              </figure>
+            </div>
+        {% else %}
+        <div class="lg:basis-1/2" style="columns: 2 300px; column-gap: 0.1rem;">
+            {% for image in product.images %}
+                <img class="rounded border border-1 border-base-300" style="min-width:100%;" src="{{ image.src | product_img_url:300,0 }}" alt="{{ image.alt }}">
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="lg:basis-1/2 grid">
+          <figure class="place-self-center">
           {% if product.images.size > 0 %}
-          <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:600,0 }}" alt="{{ product.images[0].alt }}" />
+          <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
           {% elseif product.featuredImage %}
-          <img class="rounded" id="main-image" src="{{ product.featuredImage | product_img_url:600,0 }}" alt="{{ product.featuredImage.alt }}" />
+          <img class="rounded" id="main-image" src="{{ product.featuredImage | product_img_url:800,0 }}" alt="{{ product.featuredImage.alt }}" />
           {% endif %}
-      </figure>
-    </div>
+          </figure>
+        </div>
+    {% endif %}
     <div class="lg:basis-1/2">
-        <h1 class="text-5xl mb-2">{{ meta.h1 }}</h1>
-        <p class="text-2xl mb-4">{{ product.selectedVariant.price | money }}</p>
-
+        <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
         {% if product.keyFeatures.size > 0 %}
         <ul class="mb-2">
             {% for feature in product.keyFeatures %}
@@ -28,19 +53,22 @@
             {% endfor %}            
         </ul>
         {% endif %}
-        {% form 'cart_add' %}
-            <input type="hidden" name="product" value="{{product.id}}">
-            {% if product.variants.size > 1 %}
-            <select class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
-                {% for variant in product.variants %}
-                <option value="{{variant.id}}" {% if variant.id == product.selectedVariant.id %}selected{% endif %}>{{variant.title}}</option>
-                {% endfor %}
-            </select>    
-            {% else %}
-            <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
-            {% endif %}
-            <button name="submit" class="ml-4 btn btn-success">Purchase</button>
-        {% endform %}
+        <div>
+            <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+            {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
+                <input type="hidden" name="product" value="{{product.id}}">
+                {% if product.variants.size > 1 %}
+                <select class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
+                    {% for variant in product.variants %}
+                    <option value="{{variant.id}}" {% if variant.id == product.selectedVariant.id %}selected{% endif %}>{{variant.title}}</option>
+                    {% endfor %}
+                </select>    
+                {% else %}
+                <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+                {% endif %}
+                <button name="submit" class="btn btn-accent">Add to cart</button>
+            {% endform %}            
+        </div>
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
     </div>
 </section>

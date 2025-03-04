@@ -5,6 +5,8 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
 {% assign main-nav = settings.main_nav_linklist | def: "main-menu" %}
 
 <div class="bg-{{ settings.header_colors }} text-{{ settings.header_colors }}-content {{ settings.general_shadow }} fixed top-0 w-[100vw] z-30">
+<a class="skip-link bg-primary text-primary-content link z-10 w-full p-4 text-center" href='#main-content'>Skip to content</a>
+{% if settings.headerTopEnabled %}<div class="bg-primary text-primary-content p-2 text-center">{%if settings.headerTopURL %}<a href="{{ settings.headerTopURL }}">{% endif %}<p class="max-w-8xl mx-auto">{{ settings.headerTopText }}</p>{%if settings.headerTopURL %}</a>{% endif %}</div>{% endif %}
 <div class="navbar max-w-8xl mx-auto container">
   <div class="navbar-start">
     {% if navigation[main-nav].links.size > 0 %}
@@ -46,7 +48,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
             <li class="font-semibold text-base">
                 <details>
                     <summary>{{ link.title }}</summary>
-                      <ul class="p-2 mt-4 bg-base-100 text-base-content w-40 absolute shadow">
+                      <ul class="p-2 mt-4 bg-base-200 text-base-content w-60 absolute shadow">
                         {% for childlink in navigation[link.param].links %}
                             <li class="font-semibold text-base"><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
                         {% endfor %}

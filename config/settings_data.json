@@ -2,50 +2,196 @@
   "current": "Default",
   "presets": {
     "Default": {
-      "body_colors": "base-200",
+      "body_colors": "base-100",
       "border_radius": "",
-      "closed-daisy-theme": "light",
+      "cartNotesEnabled": true,
+      "closed-daisy-theme": "lofi",
+      "closed_bgimage": "1766x768px.jpg",
+      "closed_button_link": "https://wa.me/46767589084",
+      "closed_button_text": "Get in touch!",
       "closed_daisysignup_true": true,
       "closed_dialog_colors": "base-100",
+      "closed_fgimage": "Logo_Site_50x200px-2.png",
       "closed_fgimage_size": "150",
+      "closed_fgimage_use": true,
       "closed_signup_text": "Keep me notified!",
       "closed_signup_true": false,
-      "closed_social_true": false,
-      "closed_text": "The site is not open for the moment, please check in later!",
-      "closed_title": "Coming soon!",
+      "closed_social_true": true,
+      "closed_text": "Follow us to get updates!",
+      "closed_title": "Imagine is Coming!",
+      "colProductCount": "grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+      "col_card_img_height": "max-h-52",
       "css_dev_mode": "development",
-      "daisy-theme": "emerald",
+      "daisy-theme": "pastel",
       "favicon_enable": true,
-      "footer_about_shop": "Add a text about this site here, it is also possible to add in an image and multiple link lists.",
-      "footer_colors": "neutral",
+      "favicon_svg": "favicon_imagine32x32c.png",
+      "footerButtonEnabled": true,
+      "footerButtonText": "Read about our newsletter",
+      "footerButtonURL": "/page/newsletter",
+      "footer_about_shop": "Where Imagination can fly",
+      "footer_colors": "base-200",
+      "footer_image": true,
+      "footer_image_src": "logo_small-2.png",
+      "footer_linklists": [
+        {
+          "entity": "navigation",
+          "footer_linklist_title": "Company ",
+          "id": "18299bcc-190b-8579-9bad-7ecf71fa809d",
+          "navigation": "about"
+        },
+        {
+          "entity": "navigation",
+          "footer_linklist_title": "Information",
+          "id": "18299be0-79d6-858f-a000-2ace11a612e6",
+          "navigation": "info"
+        }
+      ],
+      "footer_quicklinks_enable": true,
       "footer_social_enable": true,
+      "general_shadow": "",
       "grid_column_amount_lg": "5",
-      "grid_column_amount_md": "3",
+      "grid_column_amount_md": "5",
+      "grid_heading": "We deliver to",
+      "grid_items": [
+        {
+          "image": "2634428_ensign_flag_nation_sweden_icon (1).png"
+        },
+        {
+          "image": "2634380_ensign_flag_nation_norway_icon (1).png"
+        },
+        {
+          "image": "2634518_ensign_finland_flag_nation_icon (1).png"
+        },
+        {
+          "image": "2634500_denmark_ensign_flag_nation_icon (1).png"
+        },
+        {
+          "image": "2634311_ensign_flag_iceland_nation_icon (1).png"
+        }
+      ],
       "grid_show": true,
+      "headerTopEnabled": true,
+      "headerTopText": "We are getting there! Soon we will be open!",
+      "headerTopURL": "/collections",
       "header_colors": "base-100",
-      "header_cta_link": "/",
-      "header_cta_link_text": "Contact",
-      "header_otf_button_link": "/",
-      "header_otf_button_text": "Were to go next",
+      "header_otf_button_link": "https://www.instagram.com/imaginebooksnstuff/?__pwa=1",
+      "header_otf_button_text": "Follow us!",
+      "header_otf_fgimage": "",
+      "header_otf_fgimage_use": false,
+      "header_otf_glass": "",
+      "header_otf_image": "banner_index_noslogan_png.png",
       "header_otf_section": true,
-      "header_otf_text": "Theme for Cradle CMS built with daisyUI and Tailwind CSS",
-      "header_otf_title": "daisyUI theme",
+      "header_otf_text": "Grab your magic carpet and...",
+      "header_otf_title": "Welcome to Imagine World!",
+      "headings_alignment": "left",
       "heder_otf_height": "screen",
       "homepageCollection": {
-        "collection": "our-versions",
+        "collection": "livros-for-kids-nordic",
         "entity": "collection",
-        "id": "1749ceac-dc94-4aea-9f73-62b29e9ff610"
+        "id": "180f9943-f3ed-86a5-bb8a-7ed950100edc"
       },
-      "homepage_page_show": false,
+      "homepage_blog": {
+        "blog": "blog",
+        "entity": "blog",
+        "id": "180e90e5-ba10-8b86-85af-d2e1c000c29c"
+      },
+      "homepage_blog_enabled": true,
+      "homepage_page": {
+        "entity": "page",
+        "id": "18214f79-495e-842c-8f64-bdf181655d2b",
+        "page": "index"
+      },
+      "homepage_page_show": true,
       "hompageCollEnabled": true,
       "link_grid_column_amount_lg": "2",
       "link_grid_column_amount_md": "3",
+      "link_grid_items": [],
       "link_grid_show": false,
-      "logo_image": "",
-      "section_banner1_image_padding": true,
-      "section_banner1_show": false,
+      "logo_height": "50",
+      "logo_image": "Logo_Site_100x200px-2.png",
+      "main_nav_linklist": {
+        "entity": "navigation",
+        "id": "180e90ee-b408-892a-9a76-29f2640e38b0",
+        "navigation": "main"
+      },
+      "page_width": " max-w-[100ch]",
+      "ppThumbPosition": "columns",
+      "sectionBannerProductAmount": "5",
+      "section_banner1": [
+        {
+          "banner_bg": "secondary",
+          "collection": "turma-da-monica",
+          "entity": "collection",
+          "id": "180f79b7-f557-85cd-acf5-ef955210479f",
+          "link2_button_title": "Add to Cart",
+          "link2_url": "/",
+          "linkImageFullwidth": false,
+          "link_button_title": "More",
+          "link_image": "turma-da-monica-365-noites.png",
+          "link_image_alt": "365",
+          "link_text": "Everyday a bedtime story! All the well-known classics played by the most adorable characters of Turma da Mônica! Going to sleep is will be the most expected time of the day for your kid!",
+          "link_title": "365 Noites com a Turma da Mônica",
+          "link_url": "/collections/turma-da-monica/product/375-noite-com-a-turma-da-monica",
+          "sectionBannerBgColor": "#f6f5fa"
+        },
+        {
+          "banner_bg": "base-100",
+          "link2_button_title": "Know the Author",
+          "link2_url": "/page/brazilian-authors",
+          "linkImageFullwidth": false,
+          "link_button_title": "More",
+          "link_image": "a menina e o pescador de nuvens.jpg",
+          "link_image_alt": "princesaeopescador",
+          "link_text": "A sensible and beautiful story about a little princess who lost her father. This book deals with the loss of someone in a delicate way with breathtaking illustrations.",
+          "link_title": "A Princesa e o Pescador",
+          "link_url": "/imaginebooks.se/collections/portuguese/product/a-princesa-e-o-pescador-de-nuvens"
+        },
+        {
+          "collection": "educational-games",
+          "entity": "collection",
+          "id": "180f83cf-1a3e-837b-a0ca-2d843de491f5",
+          "link_title": "Educational Games"
+        },
+        {
+          "banner_bg": "base-100",
+          "collection": "brazilian-authors",
+          "entity": "collection",
+          "id": "180f7a58-0642-8dcf-9744-8872c3b7742c",
+          "link2_button_title": "Meet the author",
+          "link2_url": "/page/brazilian-authors",
+          "linkImageFullwidth": true,
+          "link_button_title": "Go to books",
+          "link_collectionAmount": "3",
+          "link_image": "autoresbrasileiros.png",
+          "link_image_alt": "autores",
+          "link_text": "We have a great and classic collection of Brazilians Authors to inspire all ages!",
+          "link_title": "Brazilian Authors",
+          "link_url": "/collections/brazilian-authors"
+        },
+        {
+          "linkImageFullwidth": true,
+          "linkImageURL": "/page/contact",
+          "link_image": "Slideshow_sellwithusa-1.png",
+          "link_image_alt": "Sell with us "
+        }
+      ],
+      "section_banner1_image_padding": false,
+      "section_banner1_show": true,
       "section_banner_header_text_transform": "uppercase",
-      "section_banner_title_position": "center"
+      "section_banner_title_position": "center",
+      "show_slideshow": true,
+      "slideshow_img_ratio": "landscape",
+      "slideshow_slides": [
+        {
+          "slide_image": "Slideshow_pumcollection3.png",
+          "slide_image_alt": "pumcollection"
+        },
+        {
+          "slide_image": "Slideshow_sellwithusa.png",
+          "slide_image_alt": "sellwithus"
+        }
+      ],
+      "social_instagram_url": "https://www.instagram.com/imaginebooksnstuff/"
     },
     "Initial": {
       "body_colors": "base-200",
@@ -76,7 +222,6 @@
       "header_otf_section": true,
       "header_otf_text": "Theme for Cradle CMS built with daisyUI and Tailwind CSS",
       "header_otf_title": "daisyUI theme",
-      "heder_otf_height": "screen",
       "homepage_page_show": false,
       "link_grid_column_amount_lg": "2",
       "link_grid_column_amount_md": "3",

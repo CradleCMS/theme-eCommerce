@@ -1,8 +1,8 @@
 <div class="bg-{{ settings.footer_colors }} text-{{ settings.footer_colors }}-content">
-    <footer class="footer px-2 py-10 max-w-8xl mx-auto container">
+    <footer class="footer px-2 py-10 max-w-8xl mx-auto container justify-items-center">
       <aside class="max-w-lg">
         {% if settings.footer_image %}
-            <img src="{{ settings.footer_image_src | asset_img_url:'800','0' }}" {% unless settings.footer_image_alt == empty %}alt="{{ settings.footer_image_alt }}"{% endunless %} tabindex="1">
+            <img src="{{ settings.footer_image_src | asset_img_url:'800','0' }}" {% unless settings.footer_image_alt == empty %}alt="{{ settings.footer_image_alt }}"{% endunless %}>
         {% endif %}
         {% unless settings.footer_about_shop == empty %}
         <p class="font-bold">
@@ -25,6 +25,9 @@
           </nav> 
         {% endfor %}
       {% endif %}
+      <div class="place-self-stretch ">
+        {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-secondary justify-self-center place-items-center">{{ settings.footerButtonText }}</a>{% endif %}
+      </div>
     </footer>
     <footer class="footer p-2 pb-4 max-w-8xl mx-auto container">
         <p class="">Copyright &copy; {{ site.name }} - {{ lang.all_rights_reserved | def:'All rights reserved'}}</p>

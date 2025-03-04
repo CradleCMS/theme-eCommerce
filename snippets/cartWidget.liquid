@@ -19,7 +19,7 @@
         {% endif %}
         </div>
   </summary>
-  <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+  <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-60 p-2 shadow">
     {% if cart.items.size > 0 %}
         {% for item in cart.items %}
         <div class="p-1">
@@ -40,10 +40,10 @@
         {% endfor %}
         <div class="flex flex-row p-1 border-t mt-2">
             <em>Subtotal</em> 
-            <div class="ml-auto font-bold">{{cart.amount.sub | money}}</div>
+            <div class="ml-auto font-bold">{{cart.amount.total | money}}</div>
         </div>
         <li class="card-actions mt-2">
-            <a href="/cart" class="btn btn-sm btn-success btn-block">View cart</a>
+            <a href="/cart" class="btn btn-sm btn-accent btn-block">View cart</a>
         </li>
     {% else %}
         <li>
