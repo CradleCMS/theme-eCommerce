@@ -5,8 +5,6 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
 {% assign main-nav = settings.main_nav_linklist | def: "main-menu" %}
 
 <div class="bg-{{ settings.header_colors }} text-{{ settings.header_colors }}-content {{ settings.general_shadow }} fixed top-0 w-[100vw] z-30">
-<a class="skip-link bg-primary text-primary-content link z-10 w-full p-4 text-center" href='#main-content'>Skip to content</a>
-{% if settings.headerTopEnabled %}<div class="bg-primary text-primary-content p-2 text-center">{%if settings.headerTopURL %}<a href="{{ settings.headerTopURL }}">{% endif %}<p class="max-w-8xl mx-auto">{{ settings.headerTopText }}</p>{%if settings.headerTopURL %}</a>{% endif %}</div>{% endif %}
 <div class="navbar max-w-8xl mx-auto container">
   <div class="navbar-start">
     {% if navigation[main-nav].links.size > 0 %}
@@ -14,19 +12,19 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
       </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-base-content rounded-box w-52">
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-sm bg-base-100 text-base-content rounded-box w-52">
         {% for link in navigation[main-nav].links %}
             {% if link.type == 'navigation' %}
-             <li class="font-bold">
+             <li>
                 <button>{{ link.title }}</button>
-                <ul class="p-2 bg-base-100 text-base-content shadow">
+                <ul class="p-2 bg-base-100 text-base-content shadow-sm">
                     {% for childlink in navigation[link.handle].links %}
                         <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
                     {% endfor %}
                 </ul>
             </li>           
             {% else %}
-            <li class="font-bold" ><a href="{{ link | url }}">{{ link.title }}</a></li>
+            <li><a href="{{ link | url }}">{{ link.title }}</a></li>
             {% endif %}
         {% endfor %}
       </ul>
@@ -45,18 +43,18 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
     <ul class="menu menu-horizontal px-1 hidden lg:flex">
         {% for link in navigation[main-nav].links %}
             {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
-            <li class="font-semibold text-base">
+            <li>
                 <details>
                     <summary>{{ link.title }}</summary>
-                      <ul class="p-2 mt-4 bg-base-200 text-base-content w-60 absolute shadow">
+                      <ul class="p-2 mt-4 bg-base-100 text-base-content w-40 absolute shadow-sm">
                         {% for childlink in navigation[link.param].links %}
-                            <li class="font-semibold text-base"><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                            <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
                         {% endfor %}
                       </ul>
                 </details>
             </li>
             {% else %}
-            <li class="font-semibold text-base"><a href="{{ link.url }}">{{ link.title }}</a></li>
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
@@ -76,12 +74,9 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </a>
-    <a class="btn btn-ghost btn-circle btn-sm mr-2" href="/customer/account">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" width="24" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon">
-          <path d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"/>
-        </svg>
-    </a>
-    {% include 'cartWidget' %}
+    {% if settings.header_cta_link_text %}
+    <a class="btn btn-sm" href="{{ settings.header_cta_link }}">{{ settings.header_cta_link_text }}</a>
+    {% endif %}
   </div>
 </div>
 </div>
