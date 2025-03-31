@@ -902,6 +902,11 @@
               "type": "text"
             },
             {
+              "caption": "Show collection",
+              "key": "linkShowCol",
+              "type": "checkbox"
+            },
+            {
               "caption": "Add products section",
               "default": "Select collection",
               "key": "link_collection",

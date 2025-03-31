@@ -1,10 +1,22 @@
 <section class="p-10 mx-auto">
   <header class="flex justify-between">
         <h1 class="mt-2 text-2xl uppercase">My Account</h1>
-        <a class="btn btn-sm btn-outline" href="logout" >Logout</a>
+        <p><a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ lang.view_addresses | def:'View Addresses' }}</a> <a class="btn btn-sm btn-outline" href="logout" >Logout</a></p>
   </header>
   <section>
-      <h2 class="text-4xl text-center mt-20 mb-10">Hi {{ customer.firstname }}!</h2>
+      <div class="flex flex-col md:flex-row lg:flex-row gap-4">
+          <div class="md:w-3/4 lg:w-3/4">
+            <h2 class="text-4xl text-center mt-20 mb-10">Hi {{ customer.firstname }}!</h2>
+          </div>
+          <div class="md:w-1/4 lg:w-1/4 bg-base-200 text-base-200-content mt-4 p-4">
+              <p class="mt-2">Name</p>
+              <p class="font-bold">{{ customer.name }}</p>
+              <p class="mt-2">Username</p>
+              <p class="font-bold">{{ customer.username }}</p>
+              <p class="mt-2">Email</p>
+              <p class="font-bold">{{ customer.email }}</p>
+          </div>
+      </div>
       <div class="divider"></div>
       <div class="flex flex-col md:flex-row lg:flex-row gap-4">
         <div class="md:w-3/4 lg:w-3/4">
@@ -74,12 +86,6 @@
             {% endif %}
           </div>
           <div class="md:w-1/4 lg:w-1/4">
-              <h3 class="uppercase">Account details</h3>
-              <h5 class="mt-2">{{ customer.name }}</h5>
-              {{ customer.addresses | inspect }}
-              <p class="mt-2">
-                  <a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ lang.view_addresses | def:'View Addresses' }}</a>
-              </p>
-          </div>
+         </div>
       </div>
   </section>

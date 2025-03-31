@@ -41,6 +41,7 @@ input[type=number] {
     grid-template-columns: repeat({{ settings.sectionBannerProductAmount }}, minmax(calc(1375px / {{ settings.sectionBannerProductAmount }}), 1fr));    
     overflow-x: auto;
 }
+
 {% if settings.border_radius != blank%}
 body {
   --rounded-box: {{settings.border_radius}}rem;

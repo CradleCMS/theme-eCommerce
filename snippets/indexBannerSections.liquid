@@ -35,9 +35,13 @@
                   </div>
               {% endif %}
           </div>
-        {% if links.collection %}
+        {% if links.linkShowCol %}
             {% assign collection = collections[links.id] %}
             {% unless collection == empty %}
+                <div class="flex place-content-between mb-2 text-right">
+                    <h3 class="text-2xl font-bold">{{ collection.meta.h1 }}</h3> 
+                    <a href="{{ collection | url }}" class="btn btn-sm btn-link">Show All</a>
+                </div>
                 {% let productAmount = settings.sectionBannerProductAmount %}
                 <div class="collection-row-container gap-4">
             	{% for product in collection.products limit:5 %}

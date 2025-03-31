@@ -1,5 +1,5 @@
-<details class="dropdown dropdown-end">
-  <summary tabindex="0" role="button" class="btn btn-sm btn-circle">
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-sm btn-circle">
         <div class="indicator">
             <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,13 +18,13 @@
           <div class="badge badge-sm indicator-item badge-secondary w-4 h-4" :class="{'w-8': 9 < {{cart.quantity}} }">{{cart.quantity}}</div>
         {% endif %}
         </div>
-  </summary>
-  <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-60 p-2 shadow">
+  </div>
+  <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-60 p-2 shadow-sm text-base-content">
     {% if cart.items.size > 0 %}
         {% for item in cart.items %}
         <div class="p-1">
             {% let vt = item.variant.title | split:'|' %} 
-            <h3 class="font-bold">{{vt | first}}</h3>
+            <h3 class="font-bold text-base-content">{{vt | first}}</h3>
             {% if vt.size > 1 %}
             <p class="text-xs -mt-1">
                 <em>{{ vt | slice:1 | join}}</em>
@@ -52,4 +52,4 @@
     {% endif %}
   </ul>
 
-</details>
+</div>

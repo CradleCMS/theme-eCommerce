@@ -1,5 +1,5 @@
 <h2 class="mt-8 mb-2 text-2xl">{{ blog.title }}</h2>
-<div id="blog_articles" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2 mb-4">
+<div id="blog_articles" class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-2 mb-4">
 {% for article in blog.articles limit:4 %}
     {% include 'daisy-blog-card' %}
 {% endfor %}

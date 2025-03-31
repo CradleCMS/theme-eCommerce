@@ -1,6 +1,7 @@
 {% assign cartTitle = 'Shopping Cart' %}
 {% title cartTitle %}
-<section class="mx-auto flex flex-col items-center max-w-[40rem]">
+<section class="mx-auto max-w-[40rem]">
+    {% if request.referer contains 'https://imaginebooks.se/' %}<a href="{{ request.referer }}" class="btn btn-sm btn-link">&larr; Go back</a>{% endif %}
     <div class="card w-full {{ settings.general_shadow }}">
         <div class="card-body">
             <h1 class="text-center text-4xl font-bold pt-4">{{cartTitle}}</h1>
@@ -51,19 +52,19 @@
         					    <p class="text-sm">Taxes {{ cart.amount.vat | money }}</p>
         					    <p class="text-lg pt-2">Total <span class="font-bold">{{ cart.amount.total | money }}</span></p>
         					</div>
-                            <div class="flex flex-row justify-between w-full gap-2 items-baseline">
-                                <a href="/" class="btn btn-sm btn-link">Go back to shop</a>
-            					<div class="flex flex-row gap-2 items-baseline">
+                            <div class="flex flex-row flex-wrap justify-end w-full gap-2 items-baseline">
             					    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' }}">
-            					    <input type="submit" name="checkout" class="btn btn-lg btn-accent" value="{{ 'Check out' }}">            					    
-            					</div>
+            					    <input type="submit" name="checkout" class="btn btn-sm btn-accent" value="{{ 'Check out' }}">            					    
         					</div>
             			</div>
             		</div>
             	{% endform %}
+            	 <a href="/" class="btn btn-link">Keep on shopping</a>
             {% else %}
-            <h2>Your cart is empty</h2>
-            <a href="/">Click here to continue shopping</a>
+            <div class="text-center p-4 pt-8">
+                <p>Your cart is empty</p>
+                <a class="btn btn-accent btn-lg m-4" href="/">Continue shopping</a>                
+            </div>
             {% endif %}            
         </div>
     </div>

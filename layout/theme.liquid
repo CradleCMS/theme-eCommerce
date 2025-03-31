@@ -59,12 +59,13 @@
                   </div>
                 {% endunless %}
             {% else %}
-            <div id="main-content" class="container max-w-8xl mx-auto mt-20 px-2 pb-10">
+            <div id="main-content" class="container max-w-8xl mx-auto mt-4 px-2 pb-10">
                 {{ contentForLayout }}
             </div>
             {% endif %}
         </div>
         {% include 'siteFooter' %}
+        <!-- small>Host:{{ request.host }} | Origin:{{ request.origin }} | Path:{{ request.path }} | Query:{{ request.query }} | Referer:{{ request.referer }} | Scheme:{{ request.scheme }}</small -->
     </body>
     {{ 'shop.js' | script_tag }}
 </html>

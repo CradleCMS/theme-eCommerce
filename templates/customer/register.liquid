@@ -1,5 +1,5 @@
 <section class="p-10 prose mx-auto">
-    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }} bg-base-200">
+    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }} bg-base-200 text-center">
         <h3 class="text-center">Create account</h3>
         {% form 'customer_register' %}
             {% if form.errors %}
@@ -12,25 +12,24 @@
                     <span>An account invite has been sent to your email!</span>
                 </div>
             {% else %}
-            <label for="email" class="input input-bordered flex items-center gap-2 mb-2">Email
-                <input type="email" class="grow" value="" name="customer[email]" id="email" {% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off">
-            </label>
-            
-            <label for="first_name" class="input input-bordered flex items-center gap-2 mb-2">First name
-                <input type="text" class="grow" value="" name="customer[firstname]" id="first_name" {% if form.errors contains "first_name" %} class="error"{% endif %} autocapitalize="words" autofocus>
-            </label>
-            
-            <label for="last_name" class="input input-bordered flex items-center gap-2 mb-2">Last name
-                <input type="text" class="grow" value="" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %} autocapitalize="words">
-            </label>
-            
-            <label for="password" class="input input-bordered flex items-center gap-2 mb-2">Password
-                <input type="password" class="grow" value="" name="customer[password]" id="create_password" {% if form.errors contains "password" %} class="error"{% endif %}>
-            </label>
-            <div class="form-control mt-8">
-                <input type="submit" value="{{ lang.create_an_account | def: 'Create Account' | escape }}" class="btn btn-primary">
-            </div>
-            <p class="text-center"><small>{{ lang.or | def:'or' }} <a href="/" >Return to store</a></small></p>
+            <div class="card-body">
+                <label for="email" class="w-full input input-bordered mb-2">Email
+                    <input type="email" class="grow" value="" name="customer[email]" id="email" {% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off">
+                </label>
+                
+                <label for="first_name" class="w-full input input-bordered mb-2">First name
+                    <input type="text" class="grow" value="" name="customer[firstname]" id="first_name" {% if form.errors contains "first_name" %} class="error"{% endif %} autocapitalize="words" autofocus>
+                </label>
+                
+                <label for="last_name" class="w-full input input-bordered mb-2">Last name
+                    <input type="text" class="grow" value="" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %} autocapitalize="words">
+                </label>
+    
+                <div class="form-control mt-8">
+                    <input type="submit" value="{{ lang.create_an_account | def: 'Create Account' | escape }}" class="btn btn-primary">
+                </div>
+                <p class="text-center">{{ lang.or | def:'or' }} <a href="/" >Return to store</a></p>
+            </div>            
             {% endif %}
         {% endform %}
     </div>

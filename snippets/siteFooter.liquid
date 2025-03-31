@@ -1,19 +1,21 @@
 <div class="bg-{{ settings.footer_colors }} text-{{ settings.footer_colors }}-content">
-    <footer class="footer px-2 py-10 max-w-8xl mx-auto container justify-items-center">
-      <aside class="max-w-lg">
+    <footer class="footer md:footer-horizontal lg:footer-horizontal px-4 py-10 max-w-8xl mx-auto container justify-items-center">
+      <aside class="justify-self-start flex flex-col md:flex-row lg:flex-col gap-8">
         {% if settings.footer_image %}
-            <img src="{{ settings.footer_image_src | asset_img_url:'800','0' }}" {% unless settings.footer_image_alt == empty %}alt="{{ settings.footer_image_alt }}"{% endunless %}>
+            <img class="justify-self-start" src="{{ settings.footer_image_src | asset_img_url:'300','0' }}" alt="{{ settings.footer_image_alt }}">
         {% endif %}
+        <div class="flex flex-col gap-4 max-w-lg">
         {% unless settings.footer_about_shop == empty %}
-        <p class="font-bold">
-          {{ settings.footer_about_shop }}
-        </p> 
+            <p class="font-bold">
+              {{ settings.footer_about_shop }}
+            </p> 
         {% endunless %}
         {% if settings.footer_social_enable %}
-        <div class="grid grid-flow-col gap-4">
-          {% include 'socialmedia-icon-links' %}
-        </div>
+          <div class="grid grid-flow-col gap-4">
+            {% include 'socialmedia-icon-links' %}
+          </div>
         {% endif %}
+        </div>
       </aside> 
 	  {% if settings.footer_quicklinks_enable %}
         {% for linkList in settings.footer_linklists %}
@@ -25,11 +27,11 @@
           </nav> 
         {% endfor %}
       {% endif %}
-      <div class="place-self-stretch ">
-        {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-secondary justify-self-center place-items-center">{{ settings.footerButtonText }}</a>{% endif %}
+      <div class="place-self-stretch grid place-items-center">
+        {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-primary">{{ settings.footerButtonText }}</a>{% endif %}
       </div>
     </footer>
-    <footer class="footer p-2 pb-4 max-w-8xl mx-auto container">
-        <p class="">Copyright &copy; {{ site.name }} - {{ lang.all_rights_reserved | def:'All rights reserved'}}</p>
+    <footer class="footer-horizontal p-2 pb-4 max-w-8xl mx-auto container">
+        <p class="text-sm">Copyright &copy; {{ site.name }} - {{ lang.all_rights_reserved | def:'All rights reserved'}}</p>
     </footer>
 </div>

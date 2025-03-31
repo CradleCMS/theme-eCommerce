@@ -1,22 +1,17 @@
 <section class="p-10 prose mx-auto">
-    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }} bg-base-200">
+    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }}">
         {% form 'customer_login' id:'customer_login' %}
             <div class="card-body">
                 <h3 class="text-center">Log in</h3>
                 {% include 'formErrorsCustom' %}
-                <div class="form-control">
-                    <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                      <input type="email" name="customer[email]" class="grow" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
-                    </label>
-                </div>
-                <div class="form-control">
-                    <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                      <input type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
-                    </label>
-                    <div class="label">
-                        <span></span>
-                        <span class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ lang.forgot_your_password | def:'Forgot your password?' }}</a></span>
-                    </div>
+                <label class="w-full input {% if form.errors contains 'email' %} input-error {% endif %} input-lg">
+                  <input type="email" name="customer[email]" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                </label>
+                <label class="w-full input {% if form.errors contains 'email' %} input-error {% endif %} input-lg">
+                  <input type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
+                </label>
+                <div class="label">
+                    <p class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ lang.forgot_your_password | def:'Forgot your password?' }}</a></p>
                 </div>
                 <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
             </div>
@@ -39,16 +34,14 @@
                 {% if form.success %}
                     {% assign recoverSuccess = true %}
                 {% endif %}
-                <div class="form-control">
-                    <label class="input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
-                      <input type="email" name="customer[email]" class="grow" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
-                    </label>
-                </div>
+                <label class="w-full input input-bordered{% if form.errors contains 'email' %} input-error{% endif %} flex items-center gap-2 input-lg">
+                  <input type="email" name="customer[email]" class="grow" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                </label>
                 <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
                 <div class="alert text-center alert-success" id="recoverSuccess" style="display:none;">
                     {{ lang.weve_sent_you_an_email_with_a_link_to_recover_password | def: "We've sent you an email with a link to update your password." }}
                 </div>
-                <p class="text-center"><small>{{ lang.or | def:'or' }} <a href="#" onclick="hideRecoverPasswordForm();return false;">Login</a></small></p>
+                <p class="text-center">{{ lang.or | def:'or' }} <a href="#" onclick="hideRecoverPasswordForm();return false;">Login</a></p>
             </div>
         {% endform %}
         </div>

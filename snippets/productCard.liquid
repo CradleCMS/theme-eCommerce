@@ -2,7 +2,7 @@
   <a href="{{ product | url }}">
        {% if product.featuredImage %}
       <figure>
-          <img class="{{ settings.col_card_img_height }} p-4" src="{{ product.featuredImage | product_img_url:0,500 }}" alt="{{ product.featuredImage.alt }}" />
+          <img class="{{ settings.col_card_img_height }}" src="{{ product.featuredImage | product_img_url:0,500 }}" alt="{{ product.featuredImage.alt }}" />
       </figure>
       {% endif %}
       <div class="card-body justify-between">
@@ -11,7 +11,7 @@
                 {{ product.meta.h1 }}
             </h3>
             <div class="text-left">
-                {% if product.variants.size > 1 and product.priceMin > 0 %}
+                {% if product.variants.size > 1 and product.priceMin < product.priceMax %}
                     <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold text-red-400{% endif %}">
                         {{ product.priceMin | money }}
                     </span>
