@@ -37,9 +37,10 @@
         {% endunless %}
 
         {% if settings.css_dev_mode == "development" %}
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="{{ 'typography.css' | asset_url }}">
-        <link rel="stylesheet" type="text/css" href="{{ 'daisy-full.css' | asset_url }}">
         {% else %}
         <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
         {% endif %}
