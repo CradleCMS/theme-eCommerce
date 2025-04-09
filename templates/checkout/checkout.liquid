@@ -2,20 +2,129 @@
 {% title checkoutTitle %}
 <section class="mx-auto flex flex-col items-center prose">
     <h1>{{checkoutTitle}}</h1>
-        <div class="w-full border border-1 border-base-300 rounded p-4 bg-base-100">
+    {% if cart.items.size == 0 %}
+        <h1>{{ lang.no_cart_items | def:"You have no cart items" }}</h1>
+    {% else %}
+        {% form 'checkout' class:'w-full border border-1 border-base-300 rounded p-4 bg-base-100', countrySelectorClass:"select input-outline" %}
             <div class="grid" id="checkout-grid">
                 <div>
+                            
+                    <fieldset style="outline: 1px solid lightgrey;padding: 1em;">
+                        <legend class="text-center text-2xl w-full p-1">You are ordering</legend>
+                        {% for item in cart.items %}
+                		    <div class="flex">
+                              <img width="80px" height="80px" class="rounded self-end" src="{{ item.variant | product_img_url:'100' }}"  alt="{{ item.variant.title | escape }}">
+                              <div class="self-center ml-4">
+                                {% let vt = item.variant.title | split:'|' %} 
+                                <strong>{{vt | first}}</strong>
+                                {% if vt.size > 1 %}
+                                <br>
+                                <em>{{ vt | slice:1 | join}}</em>
+                                {% endif %}
+                              </div>
+                              <div class="grow self-center text-right">
+                			    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
+                                <span class="ml-4">{{ item.amount | money }}</span>
+                              </div>
+                            </div>
+                	    {% endfor %}
+                      
+                        {% if shop.couponsCount > 0 %}
+                        	<h6>
+                        		{{ lang.have_a_special_code | def:"Coupon code" }}
+                        	</h6>
+                        	{% if form.checkout.discountCode == blank %}
+                        		{% if form.errors.discount_code %}
+                        			<div class="note form-error">
+                        			{% for discount_error in form.errors.discount_code %}
+                        				<small>
+                        					{{ discount_error }}
+                        				</small>
+                        			{% endfor %}
+                        			</div>
+                        		{% endif %}
+                        		<div class="input-group">
+                            		{{ form.code_input | add_class:'input-group-field' }}
+                            		<span class="input-group-btn">
+                            		{{ form.code_submit_btn }}
+                            		</span>
+                        		</div>
+                        	{% else %}
+                        	    <div class="note form-success">
+                            		{{ lang.discount_code }}:
+                            		{{ form.checkout.discount_code }}
+                            		<strong>{{ form.checkout.discount_code_savings | money }}</strong>
+                        		</div>
+                        	{% endif %}
+                        {% endif %}
+                           
+                        <div class="flex flex-row border-t">
+                            <em>Subtotal</em>
+                            <div class="ml-auto">{{ form.subTotal | money }}</div>
+                        </div>
+                        <div class="flex flex-row">
+                            <em>VAT %{{form.taxRate}}</em>
+                            <div class="ml-auto">{{ form.totalVAT | money }}</div>
+                        </div>
                 
-                    <div class="italic text-center">                    
-                        <p>This demoshop for Cradle eCommerce does not have any Checkout.</p>
+                        <div class="flex flex-row">
+                            <em>Total amount</em>
+                            <div class="ml-auto font-bold">{{ form.grandTotal | money }}</div>
+                        </div>
+                            
+                    </fieldset>
+                </div>
+                <div class="text-center w-full ml-auto">
+                    <h2>Payment</h2>
+                    <div class="form-control ml-auto">
+                        <div class="label">
+                            <span class="label-text">Your country</span>
+                        </div>
+                        <select class="select select-sm input-bordered" id="country" name="country" value="{{cart.country}}" required>
+                            {{form.countryOptions}}
+                        </select>
                     </div>
+                	{% if customer %}
+                    <fieldset>
+                        <p>You are logged into account for {{ customer.name }}</p>
+            	        <small><a class="btn clear" href="/customer/account">Go to account</a></small>                        
+                    </fieldset>
+                    {% endif %}
+
+                	<label class="form-control ml-auto">
+                        <div class="label">
+                            <span class="label-text">Your email</span>
+                        </div>
+            	        <input class="input input-bordered input-sm" type="email" id="email" name="email" placeholder="email address" {% if customer %}value="{{ customer.email }}"{% endif %} required/>
+            	    </label>
+            	</div>
+            	    <hr/>
+                    <div id="payment-container"></div>
+                
+                {% unless customer %}
+                    <div class="italic text-center">                    
+                        <p>When ordering an account will be created so you can login here and see orders and receipts.</p>
+                    </div>
+                {% endunless %}
             </div>
             <hr class="hr--clear">
-            <div class="flex justify-center">
+            <div class="text-center">
                 <a href="/">
         			{{ lang.return_to_store | def:"Return to frontpage" }}
         		</a>
+    		</div>
+            <hr class="hr--clear">
+            <div class="flex justify-center">
+            	<a href="{{'pages/terms' | url }}">Terms and conditions</a>
+            	<div class="divider divider-horizontal"></div>
+                <a href="{{'pages/refund' | url }}">Refund policy</a>
+                <div class="divider divider-horizontal"></div>
+                <a href="{{'pages/privacy' | url }}">Privacy policy</a>
             </div>
-        </div>
+        {% endform %}
+    {% endif %}
     </div>
+    {{checkout}}
 </section>
+
+
