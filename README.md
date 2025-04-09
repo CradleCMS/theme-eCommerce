@@ -1,4 +1,4 @@
-# daisyUI-theme
+# Cradle eCommerce theme
 Tailwind component design from daisyUI made into a Cradle CMS theme. 
 
 * Index page components
@@ -16,14 +16,7 @@ Tailwind component design from daisyUI made into a Cradle CMS theme.
 * Search page
 * Closed site template with signup form
 
-## Index page components
-* Over-the-fold hero section
-* Link Grid
-* Image Grid
-* Content from a page
-* Banner sections
-* Blogpost cards
-* Slideshow
+And eCommerce templates
 
 ## Contact page
 
@@ -43,7 +36,7 @@ Y | Submit | submit | Submit | - | -
 
 ## Development
 
-There is a builder included for generating the tailwind CSS file for production. With command `make` in the terminal it will build a new ouput.css file. The builder requires Podman or Docker (and the environment, Colima on Mac for example) to work.
+The repo contains a builder included for generating the tailwind CSS file for production. With command `make` in the terminal it will build a new ouput.css file. The builder requires Podman or Docker (and the environment, Colima on Mac for example) to work.
 
 ## References
 * <https://daisyui.com/> - daisyUI webpage
