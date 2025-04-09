@@ -1,8 +1,8 @@
 {
-  "name": "daisyUI",
-  "version": "1.0.6",
+  "name": "eCommerce",
+  "version": "0.3",
   "developer": "Cradle systems",
-  "description": "A theme based on TailwindCSS and daisyUI",
+  "description": "eCommerce theme based on TailwindCSS and daisyUI",
   "sections": [
     {
       "key": "global",
