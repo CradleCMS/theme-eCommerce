@@ -72,3 +72,14 @@
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
     </div>
 </section>
+<section>
+    <header class="flex">
+        <h2 class="text-3xl mb-4 font-bold">Related products</h2>
+    </header>
+    {% assign relatedProducts = product | related %}
+        <div class="mt-10 grid collection-row-container gap-4">
+    	{% for product in relatedProducts limit:5 %}
+            {% include 'productCard' %}
+    	{% endfor %}
+    	</div>
+</section>
