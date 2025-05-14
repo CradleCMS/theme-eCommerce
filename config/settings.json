@@ -496,20 +496,24 @@
               "value": ""
             },
             {
-              "caption": "Glass",
-              "value": " glass"
+              "caption": "Glass (dark background)",
+              "value": " glass text-neutral-content"
+            },
+            {
+              "caption": "Glass (light background)",
+              "value": " glass text-base-content"
             },
             {
               "caption": "Theme base color",
-              "value": " bg-base-100"
+              "value": " bg-base-100 text-base-content"
             },
             {
               "caption": "Darker base color",
-              "value": " bg-base-200"
+              "value": " bg-base-200 text-base-content"
             },
             {
               "caption": "Darkest base color",
-              "value": " bg-base-300"
+              "value": " bg-base-300 text-base-content"
             }
           ],
           "type": "select"
