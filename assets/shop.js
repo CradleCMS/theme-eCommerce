@@ -1,4 +1,4 @@
-var details = [...document.querySelectorAll('details')];
+var details = [...document.querySelectorAll('.nav')];
 document.addEventListener('click', function(e) {
   if (!details.some(f => f.contains(e.target))) {
     details.forEach(f => f.removeAttribute('open'));
