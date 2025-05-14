@@ -1010,6 +1010,22 @@
             }
           ],
           "type": "select"
+        },
+        {
+          "caption": "Product information box",
+          "key": "ppInfo",
+          "type": "header"
+        },
+        {
+          "caption": "Show info text",
+          "key": "ppInfoEnabled",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Text",
+          "key": "ppInfoTxt",
+          "rows": 6,
+          "type": "textarea"
         }
       ]
     },

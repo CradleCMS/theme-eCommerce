@@ -67,6 +67,9 @@
                 <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
                 {% endif %}
                 <button name="submit" class="btn btn-accent">Add to cart</button>
+                {% if settings.ppInfoEnabled %}
+                  <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
+                {% endif %}
             {% endform %}            
         </div>
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
