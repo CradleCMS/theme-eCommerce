@@ -19,7 +19,8 @@
     {% endif %}
     {% unless collection == empty %}
         <div class="mt-10 grid collection-row-container gap-4">
-    	{% for product in collection.products limit:5 %}
+        {% let productAmount = settings.secProdRowAmount | def:"4" %}
+    	{% for product in collection.products limit:productAmount %}
             {% include 'productCard' %}
     	{% endfor %}
     	</div>

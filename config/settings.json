@@ -61,6 +61,30 @@
           "type": "select"
         },
         {
+          "caption": "Products in row",
+          "default": "4",
+          "key": "secProdRowAmount",
+          "options": [
+            {
+              "caption": "3",
+              "value": "3"
+            },
+            {
+              "caption": "4",
+              "value": "4"
+            },
+            {
+              "caption": "5",
+              "value": "5"
+            },
+            {
+              "caption": "6",
+              "value": "6"
+            }
+          ],
+          "type": "select"
+        },
+        {
           "caption": "Development",
           "key": "development",
           "type": "header"
@@ -811,37 +835,6 @@
           "caption": "Padding on image",
           "key": "section_banner1_image_padding",
           "type": "checkbox"
-        },
-        {
-          "caption": "Number of products",
-          "key": "sectionBannerProductAmount",
-          "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
-            {
-              "caption": "2",
-              "value": "2"
-            },
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
         },
         {
           "caption": "Banners",

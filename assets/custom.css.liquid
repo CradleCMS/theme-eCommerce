@@ -38,7 +38,7 @@ input[type=number] {
 }
 .collection-row-container {
     display: grid;
-    grid-template-columns: repeat({{ settings.sectionBannerProductAmount }}, minmax(calc(1375px / {{ settings.sectionBannerProductAmount }}), 1fr));    
+    grid-template-columns: repeat({{ settings.secProdRowAmount | def:"4" }}, minmax(calc(1375px / {{ settings.secProdRowAmount | def:"4" }}), 1fr));    
     overflow-x: auto;
 }
 

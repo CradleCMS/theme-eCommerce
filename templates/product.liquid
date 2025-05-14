@@ -81,7 +81,8 @@
     </header>
     {% assign relatedProducts = product | related %}
         <div class="mt-10 grid collection-row-container gap-4">
-    	{% for product in relatedProducts limit:5 %}
+        {% let productAmount = settings.secProdRowAmount | def:"4" %}
+    	{% for product in relatedProducts limit:productAmount %}
             {% include 'productCard' %}
     	{% endfor %}
     	</div>
