@@ -1,19 +1,17 @@
-
 {% include 'daisy-breadcrumbs' %}
-
 <section class="mx-auto">
     <header>
         <h1 class="mt-2 text-2xl">{{ meta.h1 }}</h1>
         <div>
-            {% for tag in blog.tags %}
-                <div class="mr-1 mb-1 badge badge-{% if article.tags contains tag %}accent{% else %}neutral{% endif %}">
-                    <a href="{{ blog | url }}?tags={{ currentTags | append:tag | join:'+' }}">{{ tag }}</a>
+            {% for tag in blog.articleTags %}
+                <div class="mr-1 mb-1 badge badge-{% if currentTags contains tag %}accent{% else %}neutral{% endif %}">
+                    <a href="{{ blog | url }}?tags={{ tag }}">{{ tag }}</a>
                 </div>
             {% endfor %}    
         </div>
     </header>
 	<div class="{{ blog.format }}">{{ blog.html }}</div>
-	<div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4">
+	<div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
 		{% for article in blog.articles %}
 		    {% include 'daisy-blog-card' %}
 		{% endfor %}
