@@ -470,7 +470,7 @@
         },
         {
           "caption": "Height of Viewport",
-          "key": "heder_otf_height",
+          "key": "header_otf_height",
           "options": [
             {
               "caption": "20%",
