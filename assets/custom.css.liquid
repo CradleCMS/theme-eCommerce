@@ -55,7 +55,10 @@ body {
     margin: 0 auto;
     padding: 1em;
 }
-form input, form label, form textarea {
+form input[type="text"], 
+form input[type="email"], 
+form label, 
+form textarea {
     width: 100%;
 }
 form label {
@@ -73,11 +76,20 @@ form input[type="submit"] {
 }
 {% endunless %}
 
+/* daisyUI label design  */
+form label {
+    white-space: nowrap;
+    color: color-mix(in oklab,currentColor 60%,transparent);
+    align-items: center;
+    gap: .375rem;
+    display: inline-flex;    
+}
+/**/
+
 .skip-link {
   position: absolute;
   transform: translateY(-100%);
 }
-
 .skip-link:focus {
   transform: translateY(0%);
 }
