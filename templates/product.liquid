@@ -1,48 +1,63 @@
-{% include 'daisy-breadcrumbs' %}
-
 <section class="flex flex-col lg:flex-row gap-8">
-    {% if product.images.size > 1 %}
-        {% if settings.ppThumbPosition == "left" %}
-            <div class="image-box aspect-3/2 lg:aspect-auto lg:basis-1/2 flex flex-row gap-2">
-              <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll max-h-[80vh]">
+    {% if product.images.size > 0 %}
+        {% if product.images.size > 1 %}
+            {% if settings.ppThumbPosition == "left" %}
+                <div class="image-box aspect-3/2 lg:aspect-auto lg:basis-3/5 flex flex-row gap-2">
+                  <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll max-h-[80vh]">
+                    {% for image in product.images %}
+                        <img class="thumb rounded border border-1 border-base-300" width="150px" src="{{ image.src | product_img_url:150,0 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
+                    {% endfor %}
+                  </nav>
+                  <figure class="basis-4/5">
+                      <img id="main-image" class="product-image rounded m-auto max-h-full lg:max-h-[80vh]" src="{{ product.images[0] | product_img_url:590,0 }}" alt="{{ product.images[0].alt }}" />
+                  </figure>
+                </div>
+            {% elseif settings.ppThumbPosition == "beneath" %}
+                <div class="image-box lg:basis-3/5 flex flex-col-reverse justify-end gap-2">
+                  <nav class="flex flex-row gap-2 overflow-scroll">
+                    {% for image in product.images %}
+                        <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
+                    {% endfor %}
+                  </nav>
+                  <figure class="h-[50vh] grid">
+                      <img id="main-image" class="product-image rounded max-h-full place-self-center" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
+                  </figure>
+                </div>
+            {% else %}
+            <div class="flex h-[300px] overflow-x-auto lg:basis-3/5 lg:block lg:h-auto lg:columns-2 lg:gap-1">
                 {% for image in product.images %}
-                    <img class="thumb rounded border border-1 border-base-300 " width="150px" src="{{ image.src | product_img_url:150,0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
+                    <img class="product-image rounded border border-1 border-base-300 lg:min-w-full sm:min-w-auto" data-index="{{ forloop.index0 }}" data-modal="{{ image.src | product_img_url:1200,0 }}" data-file="{{ image.src }}" src="{{ image.src | product_img_url:300,0 }}" alt="{{ image.alt }}">
                 {% endfor %}
-              </nav>
-              <figure class="basis-4/5">
-                  <img class="rounded m-auto max-h-full lg:max-h-[90vh]" id="main-image" src="{{ product.images[0] | product_img_url:590,0 }}" alt="{{ product.images[0].alt }}" />
-              </figure>
             </div>
-        {% elseif settings.ppThumbPosition == "beneath" %}
-            <div class="image-box lg:basis-1/2 flex flex-col-reverse justify-end gap-2">
-              <nav class="flex flex-row gap-2 overflow-scroll">
-                {% for image in product.images %}
-                    <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
-                {% endfor %}
-              </nav>
-              <figure class="h-[50vh] grid">
-                  <img class="rounded max-h-full place-self-center" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
-              </figure>
-            </div>
+            {% endif %}
         {% else %}
-        <div class="lg:basis-1/2" style="columns: 2 300px; column-gap: 0.1rem;">
-            {% for image in product.images %}
-                <img class="rounded border border-1 border-base-300" style="min-width:100%;" src="{{ image.src | product_img_url:300,0 }}" alt="{{ image.alt }}">
-            {% endfor %}
-        </div>
+            <div class="lg:basis-1/2 grid">
+              <figure class="place-self-center">
+                <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
+              </figure>
+            </div>
         {% endif %}
-    {% else %}
-        <div class="lg:basis-1/2 grid">
-          <figure class="place-self-center">
-          {% if product.images.size > 0 %}
-          <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
-          {% elseif product.featuredImage %}
-          <img class="rounded" id="main-image" src="{{ product.featuredImage | product_img_url:800,0 }}" alt="{{ product.featuredImage.alt }}" />
-          {% endif %}
-          </figure>
-        </div>
+        <dialog id="slider" class="modal w-full h-full">
+          <div class="w-full h-full bg-base-100 text-base-content grid place-content-center">
+              <form method="dialog" class="fixed top-4 right-4">
+                <button class="btn btn-sm btn-circle btn-neutral">✕</button>
+              </form>
+            {% for image in product.images %}
+                <img class="modalImage max-h-[80vh]" src="{{ image.src | product_img_url:1200,0 }}" data-index="{{forloop.index0}}" alt="{{ image.alt }}" loading="lazy">
+            {% endfor %}
+            <div id="slider-arrows">								
+                <a id="slider-prev" class="btn btn-outline btn-circle top-[50%] left-4 fixed">&#10094;</a>								
+                <a id="slider-next"  class="btn btn-outline btn-circle top-[50%] right-4 fixed">&#10095;</a>							
+            </div>
+            <div id="slider-nav" class="bottom-4 fixed text-center w-full">
+              {% for image in product.images %}
+                <span class="dot btn btn-xs btn-outline" data-index="{{forloop.index0}}"></span>
+              {% endfor %}
+            </div>
+          </div>
+        </dialog>
     {% endif %}
-    <div class="lg:basis-1/2">
+    <div class="lg:basis-2/5">
         <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
         {% if product.keyFeatures.size > 0 %}
         <ul class="mb-2">
@@ -75,15 +90,131 @@
         <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
     </div>
 </section>
-<section>
+<section class="mt-10">
     <header class="flex">
         <h2 class="text-3xl mb-4 font-bold">Related products</h2>
     </header>
     {% assign relatedProducts = product | related %}
-        <div class="mt-10 grid collection-row-container gap-4">
+        <div class="grid collection-row-container gap-4">
         {% let productAmount = settings.secProdRowAmount | def:"4" %}
     	{% for product in relatedProducts limit:productAmount %}
             {% include 'productCard' %}
     	{% endfor %}
     	</div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mainImage = document.getElementById('main-image');
+    const thumbnails = document.querySelectorAll('.thumb');
+    const slider = document.getElementById("slider");
+    const sliderNav = slider.querySelector("#slider-nav");
+    const sliderArr = slider.querySelector("#slider-arrows");
+    const slides = slider.querySelectorAll(".modalImage");
+    const dots = slider.querySelectorAll(".dot");
+    const productImages = document.querySelectorAll('.product-image');
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+          const largeImageSrc = this.dataset.large;
+          const largeImageAlt = this.alt;
+          let index = this.getAttribute('data-index')
+          mainImage.setAttribute('data-index',index)
+          mainImage.src = largeImageSrc;
+          mainImage.alt = largeImageAlt;
+          mainImage.dataset.modal = largeImageSrc.replace('_590_0','_1200_0')
+        });
+    });
+
+    sliderArr.addEventListener('click', function(e) {
+        let currentSlide = 0;
+        for(let i = 0; i < slides.length; i++) {
+            if(slides.item(i).classList.contains('active')) {
+                currentSlide = i;
+            }
+        }
+        if(e.target.id == 'slider-prev') {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
+        if(e.target.id == 'slider-next') {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+    });
+    
+    sliderNav.addEventListener('click', function(e){
+        if(e.target.classList.contains('dot')) {
+            let i = e.target.getAttribute("data-index");
+            let sliderIndex = parseInt(i);
+            showSlide(sliderIndex);
+        }
+    });
+    
+    
+    {% if settings.ppThumbPosition == "left" or settings.ppThumbPosition == "beneath" %}
+    
+    mainImage.addEventListener('click', function(e) {
+        let slideIndex = this.getAttribute("data-index");
+        showSlide(parseInt(slideIndex));
+        slider.showModal();
+    });
+    
+    {% endif %}
+    
+    productImages.forEach(pimg => { 
+        pimg.addEventListener('click', function() {
+            let slideIndex = this.getAttribute("data-index");
+            showSlide(parseInt(slideIndex));
+            slider.showModal();
+        });
+    });
+    
+    
+    function showSlide(n) {
+      if (n >= slides.length) n = 0;
+      if (n < 0) n = slides.length-1;
+      for (let i = 0; i < slides.length; i++) {
+        slides.item(i).classList.remove("active");
+        dots.item(i).classList.remove("btn-active","btn-neutral");
+      }
+      slides.item(n).classList.add("active");
+      dots.item(n).classList.add("btn-active","btn-neutral");
+    } 
+});
+
+
+</script>
+<style>
+#slider img {
+    display: none;
+}
+#slider img.active {
+    display: block;
+}
+#slider form {
+    padding: 0;
+}
+#slider .dot {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin: 0 2px;
+  border-radius: 50%;
+  display: inline-block;
+}
+#slider .fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+#swipebox-close::before {
+    content: "\00d7"
+}    
+</style>

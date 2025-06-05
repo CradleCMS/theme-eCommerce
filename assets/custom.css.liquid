@@ -33,9 +33,7 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-.image-box {
-    aspect-ratio: 3 / 2;    
-}
+
 .collection-row-container {
     display: grid;
     grid-template-columns: repeat({{ settings.secProdRowAmount | def:"4" }}, minmax(calc(1375px / {{ settings.secProdRowAmount | def:"4" }}), 1fr));    
@@ -52,7 +50,7 @@ body {
 {% endif %}
 
 {% unless settings.closed_daisysignup_true %}
-form {
+.prose form {
     max-width: 500px;
     margin: 0 auto;
     padding: 1em;
