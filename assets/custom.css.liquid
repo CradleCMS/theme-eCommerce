@@ -50,11 +50,6 @@ body {
 {% endif %}
 
 {% unless settings.closed_daisysignup_true %}
-.prose form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 1em;
-}
 form label {
     display:block;
     font-size: 0.8em;
@@ -192,6 +187,7 @@ input[type="week"]
     border-color: var(--input-color);
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;    
     --size: calc(var(--size-field, 0.25rem) * 10);
+    align-self: center;
 }
 input[type="submit"],
 input[type="reset"]{
@@ -385,6 +381,7 @@ textarea {
     touch-action: manipulation;
     border-color: var(--input-color);
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;    
+    align-self: center;
 }
 select {
     border: var(--border) solid #0000;
