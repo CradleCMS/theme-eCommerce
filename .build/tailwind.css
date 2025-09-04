@@ -6,6 +6,8 @@
 
 @source '../layout/*';
 @source '../templates/*';
+@source '../templates/checkout/*';
+@source '../templates/customer/*';
 @source '../snippets/*';
 @source '../components/*';
 @source '../assets/*.liquid';
