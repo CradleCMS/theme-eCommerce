@@ -1,92 +1,89 @@
 {% assign confirmationTitle = 'Order confirmation' %}
 {% title confirmationTitle %}
 <section class="mx-auto flex flex-col items-center prose">
-    <h1>{{confirmationTitle}}</h1>
+    <h1 class="text-center">{{confirmationTitle}}</h1>
+        
     <div class="w-full border border-1 border-base-300 rounded p-4 bg-base-100">
-        {% if settings.logo_image %}
-            {% let height = settings.logo_height %}
-            <img src="{{ settings.logo_image | asset_img_url:0,height }}" alt="logo" tabindex="0" class="p-2">
-        {% else %}
-    		{{ site.name }}
-    	{% endif %}
-    	<h3>Order information</h3>
-            <fieldset>
-                <div class="grid grid-cols-2">
-                    <div>Order date</div>
-                    <div>{{ order.createdAt | date }}</div>
-                    <div>Reference</div>
-                    <div class="font-mono">{{ order.reference | reverse | truncate:8,'' | reverse }}</div>
-                    <div>Payment</div>
-                    <div>{{ order.paymentStatus | split:'_' | last }}</div>
-                    <div>Contact</div>
-                    <div>{{ order.customerName }}</div>
-                    <div>Country</div>
-                    <div>{{ countries[order.cart.country].name }} [{{order.cart.country}}]</div>
-                    <div>Email</div>
-                    <div>{{ order.customerEmail }}</div>
-                    
-                </div>
-                <h3>Order items</h3>
-                    <div class="flex flex-row">
-                        {% for item in order.cart.items %}
-            		    <div class="grid grid-cols-4">
-                          <img width="50px" height="50px" class="rounded place-self-center" src="{{ item.variant | product_img_url:'thumb' }}"  alt="{{ item.variant.title | escape }}">
-                          <div class="self-center col-span-2">
-                            {% let vt = item.variant.title | split:'|' %} 
-                            <strong>{{vt | first}}</strong>
-                            {% if vt.size > 1 %}
+        <div class="text-center">Receipt</div>
+        <div class="flex flex-row px-2">
+            <img src="/favicon-32.png" alt="logo" tabindex="0">
+            <h3 class="place-items-center ml-2">{{site.name}}</h3>
+        </div>
+        <fieldset>
+            <div class="grid grid-cols-2 px-2">
+                <div>Order date</div>
+                <div>{{ order.createdAt | date }}</div>
+                <div>Reference</div>
+                <div class="font-mono">{{ order.reference | reverse | truncate:8,'' | reverse }}</div>
+                <div>Payment</div>
+                <div>{{ order.payment | split:'_' | last }}</div>
+                <div>Contact</div>
+                <div>{{ order.customerName }}</div>
+                <div>Email</div>
+                <div>{{ order.customerEmail }}</div>
+                <div>Country</div>
+                <div>{{ countries[order.cart.country].name }} [{{order.cart.country}}]</div>
+            </div>
+            <p class="px-2">Line items</p>
+            <div class="grid grid-cols-4 px-2">
+            {% for item in order.cart.items %}
+                <div class="col-span-2">
+                    <span>
+                        <img src="{{item | product_img_url:'thumb'}}" class="rounded" style="margin:0; display:inline-block"/>
+                        {% let vt = item.title | split:'|' %} 
+                        <strong class="ml-2">{{vt | first}}</strong>
+                        {% if vt.size > 1 %}
                             <br>
                             <em>{{ vt | slice:1 | join}}</em>
-                            {% endif %}
-                          </div>
-                          <div class="grow place-self-center text-right">
-            			    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
-                            <span class="ml-4">{{ item.amount | money }}</span>
-                          </div>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="text-right col-span-2">
+                    <em class="text-xs">({{ item.price | money }}&times;{{ item.quantity }})</em>     
+                    <span class="ml-4">{{ item.amount | money }}</span>
+                </div>
+    	    {% endfor %}
+                <div class="col-span-2"></div>
+                    <div class="col-span-2 place-self-center text-right border-t border-b w-full mt-4">
+                        <div class="grid grid-cols-2">
+                            <em>Sub</em>
+                            <div class="ml-auto">{{ order.cart.amount.sub | money }}</div>
                         </div>
-            	    {% endfor %}
-                    </div>
-                <div class="flex flex-row">
-                    <div class="grid grid-cols-3 place-center">
-                        <div class="col-span-2"></div>
-                        <div class="grow place-self-center text-right border-t border-b">
-                            <div class="grid grid-cols-2">
-                                <em>Subtotal</em>
-                                <div class="ml-auto">{{ order.cart.amount.sub | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <em>VAT %{{form.taxRate}}</em>
-                                <div class="ml-auto">{{ order.cart.amount.vat | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <em>Total amount</em>
-                                <div class="ml-auto font-bold">{{ order.cart.amount.total | money }}</div>
-                            </div>
+                        <div class="grid grid-cols-2">
+                            <em>VAT</em>
+                            <div class="ml-auto">{{ order.cart.amount.vat | money }}</div>
+                        </div>
+                        <div class="grid grid-cols-2">
+                            <em>Total amount</em>
+                            <div class="ml-auto font-bold">{{ order.cart.amount.total | money }}</div>
                         </div>
                     </div>
                 </div>
-                
-            </fieldset>
-            <div class="text-center">
-                <p class="font-bold">Thank you for purchasing our products!</p>
-                <div role="alert" class="alert alert-bordered bg-base-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="stroke-gray-400 h-8 w-8 shrink-0">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <div>
-                    <div>Order confirmation email sent to <span class="font-bold">{{ order.customerEmail }}</span></div>
-                    <div class="text-xs">Login to your <a href="/customer/account">account</a> page to see your order status and history.</div>
-                  </div>
+                <br/>
+                <div class="border-t w-full mt-4 border-base-300 text-center pt-2">
+                    <span class="text-sm opacity-75">{{ site.name }}, {{ site.organisation }}, {{ site.location }}. {{ site.contact }}</span>
                 </div>
-                
             </div>
+        </fieldset>
+        <div class="text-center">
+            <p class="font-bold">Thank you for purchasing our products!</p>
+            <div role="alert" class="alert alert-bordered bg-base-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="stroke-gray-400 h-8 w-8 shrink-0">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <div>Order confirmation email sent to <span class="font-bold">{{ order.customerEmail }}</span></div>
+                <div class="text-xs">Login to your <a href="/customer/account">account</a> page to see your order status and history.</div>
+              </div>
+            </div>
+        </div>
     </div>
 </section>
