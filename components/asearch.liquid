@@ -111,7 +111,7 @@ searchCSS.replaceSync(`
 class AutoSearch extends HTMLElement {
     options = {
         source      : "/search",            // search endpoint
-    	notFound	: "no results",         // not found message
+    	notfound	: "no results",         // not found message
     	handle      : "",                   // search handle
     	delay       : 250,         	        // search delay in ms
         chars       : 3,                    // input threshold
@@ -289,9 +289,9 @@ class AutoSearch extends HTMLElement {
         }
     	// if empty insert not found or hide
     	if(!content) {
-    	    if(this.options.notFound) {
+    	    if(this.options.notfound) {
     		    content+= `<p class="not-found">`;
-    		    content+= this.options.notFound;
+    		    content+= this.options.notfound;
     		    content+= "</p>";
     	    } else {
     	        this.toggle(false);
