@@ -11,7 +11,7 @@
             		{% for item in cart.items %}
             		    <div class="p-2 pb-4">
                 		    {% let vt = item.title | split:'|' %}
-                            <div class="flex items-top">
+                            <div class="flex items-top place-items-center">
                                 <img src="{{item | product_img_url:'thumb'}}" class="rounded mr-2 w-12"/>
                                 <h3 class="text-lg text-base-content">{{vt | first}}
                                 {% if vt.size > 1 -%}
@@ -21,17 +21,16 @@
                                 {% endif -%}
                                 </h3>
                             </div>
-                            <div class="grid grid-cols-2 items-center pt-2">
-                                <div class="col-span-2 text-left">
-                                    <div class="join">
-                            		    <button class="btn btn-sm btn-outline join-item w-2" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
-                            			<input class="input input-sm border-base-300 join-item w-8 p-1 text-center" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
-                            			<button class="btn btn-sm btn-outline join-item w-2" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
-                        			</div>
-                        			<span>&times;</span>
-                        			<span class="text-sm">{{ item.price | money }}</span>
-                    			</div>
-                                <div class="ml-4 font-bold text-right">{{ item.amount | money }}</div>
+                            <div class="flex flex-row w-full place-items-center">
+                                <div class="flex flex-row place-items-center ml-auto">
+                                    <div class="join mr-2">
+                                		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
+                                		<input class="input join-item text-center w-4" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
+                                		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
+                            		</div>
+                            		<div class="text-sm">&times;&nbsp;{{ item.price | money }}</div>
+                        		</div>
+                    			<div class="flex-0 font-bold text-right ml-auto">{{ item.amount | money }}</div>
                             </div>            		        
             		    </div>
                         {% if item.quantity > item.variant.quantity %}<div role="alert" class="place-self-end pt-2"><p class="badge badge-soft badge-error">Wops, we only have {{ item.variant.quantity }} in stock!</p></div>{% endif %}
