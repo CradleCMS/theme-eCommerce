@@ -1,0 +1,19 @@
+{% assign x = form.subTotal %}
+{% assign y = form.totalVAT %}
+{% assign totalProducts = x | plus:y %}
+<fieldset class="px-4 mb-4">
+    <div class="flex flex-row">
+        <p>Books and Games</p>
+        <div class="ml-auto">{{ totalProducts | money }}</div>
+    </div>
+    {% if form.shipping %}
+    <div class="flex flex-row mt-2">
+        <p>Shipping ({{form.shipping.serviceName}})</p>
+        <div class="ml-auto">{{ form.shipping.cost.total | money }}</div>
+    </div>
+    {% endif %}
+    <div class="flex flex-row mt-2">
+        <strong>Total amount {% if form.totalVAT > 0 %}(incl. VAT){% endif %}</strong>
+        <div class="ml-auto font-bold">{{ form.grandTotal | money }}</div>
+    </div>
+</fieldset>

@@ -1106,6 +1106,20 @@
       ]
     },
     {
+      "key": "checkout",
+      "type": "section",
+      "caption": "Checkout",
+      "settings": [
+        {
+          "caption": "Terms pages",
+          "default": "Select linklist",
+          "description": "Setup a linklist for displaying links to terms and conditions",
+          "key": "termsLinklist",
+          "type": "linklist"
+        }
+      ]
+    },
+    {
       "key": "closed",
       "type": "section",
       "caption": "Closed site",

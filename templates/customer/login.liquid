@@ -16,11 +16,13 @@
                 <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
             </div>
         {% endform %}
+        {% if shop.settings.registration %}
         <p class="text-center">
             <small>Don't have an account yet?</small>
             <br>
             <a href="/customer/register">Register now</a>
         </p>
+        {% endif %}
         <div id="customer_recover_password" style="display: none;">
         {% form 'customer_recover_password' %}
             <div class="card-body">

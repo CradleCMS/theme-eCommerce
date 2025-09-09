@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html data-theme="{{ settings.daisy-theme }}">
+    <head>
+        <meta charset="utf-8" />
+        {% if settings.content-security-policy-usage %}
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ site.name }}{% if meta.title != blank and meta.title != site.name %} | {{ meta.title }}{% endif %}</title>	
+        <link rel="canonical" href="{{ canonicalUrl }}" />
+        {% if settings.favicon_enable %}
+        <link rel="icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+        {% if settings.favicon_svg %}
+            <link rel="icon" href="{{ settings.favicon_svg | asset_img_url }}" type="image/svg+xml">
+        {% endif %}
+        {% endif %}
+        {% unless settings.branding-theme-color-light == empty %}
+            <meta name="theme-color" media="(prefers-color-scheme: light)" content="{{ settings.branding-theme-color-light }}" />
+        {% endunless %}
+        {% unless settings.branding-theme-color-dark == empty %}
+            <meta name="theme-color" media="(prefers-color-scheme: dark)" content="{{ settings.branding-theme-color-dark }}" />
+        {% endunless %}
+
+        {% if settings.css_dev_mode == "development" %}
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ 'typography.css' | asset_url }}">
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
+        {% endif %}
+    </head>
+    <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
+        {{ 'alpine.min.js' | script_tag }}
+        <div class="mx-auto">
+            <div class="grid justify-center w-full">
+                <a href="/" class="btn btn-sm btn-link">Back to shop</a>
+                {% if settings.logo_image %}
+                    {% let height = settings.logo_height %}
+                    <img src="{{ settings.logo_image | asset_img_url:0,height }}" alt="logo" tabindex="0" class="p-2">
+                {% else %}
+            		{{ site.name }}
+            	{% endif %}
+            </div>            
+            <div id="main-content" class="container mx-auto mt-4 px-2 pb-10 checkout">
+                {{ contentForLayout }}
+            </div>
+        </div>
+        <!-- small>Host:{{ request.host }} | Origin:{{ request.origin }} | Path:{{ request.path }} | Query:{{ request.query }} | Referer:{{ request.referer }} | Scheme:{{ request.scheme }}</small -->
+    </body>
+    {{ 'shop.js' | script_tag }}
+</html>

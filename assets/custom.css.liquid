@@ -1,3 +1,20 @@
+@view-transition {
+    navigation: auto;
+}
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+::view-transition-old(root) {
+    animation: 0.15s ease-in both fade-out;
+}
+::view-transition-new(root) {
+   animation: 0.15s ease-in both fade-in;
+}
 :root {
     --padding-card: 1rem;    
 }
@@ -145,7 +162,9 @@ form label {
   width: 100%;
   height: 100%;
 }
+
 /* daisyUI form design  */
+/*
 form label {
     white-space: nowrap;
     color: color-mix(in oklab,currentColor 60%,transparent);
@@ -414,3 +433,4 @@ select {
     --input-color: var(--color-base-content);
 }
 /**/
+*/

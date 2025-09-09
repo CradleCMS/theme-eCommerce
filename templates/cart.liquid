@@ -25,7 +25,7 @@
                                 <div class="flex flex-row place-items-center ml-auto">
                                     <div class="join mr-2">
                                 		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
-                                		<input class="input join-item text-center w-4" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
+                                		<input class="input join-item text-center w-12" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" min="0" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
                                 		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
                             		</div>
                             		<div class="text-sm">&times;&nbsp;{{ item.price | money }}</div>
