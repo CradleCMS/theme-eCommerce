@@ -8,12 +8,12 @@
     </div>
     {% if form.shipping %}
     <div class="flex flex-row mt-2">
-        <p>Shipping ({{form.shipping.serviceName}})</p>
+        <p>Shipping <span class="text-sm">({{ form.shipping.carrierName }})</span></p>
         <div class="ml-auto">{{ form.shipping.cost.total | money }}</div>
     </div>
     {% endif %}
     <div class="flex flex-row mt-2">
-        <strong>Total amount {% if form.totalVAT > 0 %}(incl. VAT){% endif %}</strong>
-        <div class="ml-auto font-bold">{{ form.grandTotal | money }}</div>
+        <p class="text-lg"><span class="font-bold">Total amount </span>{% if form.totalVAT > 0 %}<span class="text-sm">(incl. VAT)</span>{% endif %}</p>
+        <p class="ml-auto font-bold text-lg">{{ form.grandTotal | money }}</p>
     </div>
 </fieldset>

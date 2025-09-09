@@ -34,14 +34,18 @@
     <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {{ 'alpine.min.js' | script_tag }}
         <div class="mx-auto">
-            <div class="grid justify-center w-full">
-                <a href="/" class="btn btn-sm btn-link">Back to shop</a>
-                {% if settings.logo_image %}
-                    {% let height = settings.logo_height %}
-                    <img src="{{ settings.logo_image | asset_img_url:0,height }}" alt="logo" tabindex="0" class="p-2">
-                {% else %}
-            		{{ site.name }}
-            	{% endif %}
+            <div class="w-full flex items-center gap-4">
+                <div>
+                	<a class="flex flex-col" href="{% if request.referer contains 'https://imaginebooks.se/' %}{{ request.referer }}{% else %}/{% endif %}" >
+                    	{% if settings.logo_image %}
+                            <img src="{{ settings.logo_image | asset_img_url:0,80 }}" alt="logo" tabindex="0">
+                        {% else %}
+                    		{{ site.name }} 
+                    	{% endif %}
+                	    <span class="btn btn-sm btn-link">&larr; Back to shop</span>
+                	</a>
+                </div> 
+                <h1 class="text-2xl text-left">{{checkoutTitle}}</h1>
             </div>            
             <div id="main-content" class="container mx-auto mt-4 px-2 pb-10 checkout">
                 {{ contentForLayout }}

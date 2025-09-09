@@ -1,7 +1,6 @@
 {% assign cartTitle = 'Shopping Cart' %}
 {% title cartTitle %}
 <section class="mx-auto max-w-[40rem]">
-    {% if request.referer contains 'https://imaginebooks.se/' %}<a href="{{ request.referer }}" class="btn btn-sm btn-link">&larr; Go back</a>{% endif %}
     <div class="card w-full {{ settings.general_shadow }}">
         <div class="card-body">
             <h1 class="text-center text-4xl font-bold pt-4">{{cartTitle}}</h1>

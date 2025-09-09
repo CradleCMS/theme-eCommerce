@@ -1,204 +1,167 @@
 {% layout 'checkoutLayout' %}
-
 {% assign checkoutTitle = 'Checkout' %}
 {% title checkoutTitle %}
 <section class="mx-auto flex flex-col items-center">
-<h1 class="text-2xl text-left">{{checkoutTitle}}</h1>
-{% unless cart or cart.items.size > 0 %}
+{% if cart == empty %}
     <h2>{{ lang.no_cart_items | def:"You have no cart items" }}</h2>
     <a href="/" class="btn btn-sm btn-link">Back to shop</a>
 {% else %}
-    {% if request.referer contains 'https://imaginebooks.se/' %}<a href="{{ request.referer }}" class="btn btn-sm btn-link">&larr; Go back</a>{% else %}<a href="/" class="btn btn-sm btn-link">Back to shop</a>{% endif %}
-{% form 'checkout' class:'checkout', countrySelectorClass:"select input-outline", nonce:nonce %}
-<div>
-    {% form %}{% select countries name:"country" class:"select select-md grow" %}{% endselect %}{% endform %}
-</div>
-<div class="grid lg:grid-cols-2 gap-4">
-    <input type="hidden" name="_" value="{{nonce}}">
-	<div class="p-4 w-full lg:w-120" x-data="{billingSameAsShipping:true}">
-	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
-            <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Shipping</legend>
-            <label class="floating-label"><span>Delivery to</span>
-                 {% select countries name:"country" class:"select select-md grow w-full" value:form.country required %}{% endselect %}
-            </label>
-            <legend class="fieldset-legend">Select Shipping</legend>
-            <ul class="items-center w-full text-sm font-medium border border-base-200 flex flex-col py-2">
-            
-            {% for shipping in cart.shippings %}
-            <li class="w-full m-2">
-                <div class="flex items-center ps-3 gap-4">
-                    <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
-                    <label for="{{shipping.id}}" class="label">{{shipping.serviceName}} - {{shipping.carrierName}}</label>
-                    <span class="text-xs">in {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}}</span>
-                    <span class="ml-2">{{shipping.cost.total | money }}</span>
-                </div>
-            </li>
-            {% endfor %}
-            </ul>
-        </fieldset>
-	    
-	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
-	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
-	        <h3 class="text-lg font-bold">Customer information</h3>
-            {% if customer %}
-                <p>You are logged into account <a class="link" href="/customer/account">{{ customer.name }}</a></p>
-            {% else %}
-            <legend class="fieldset-legend">Email</legend>
-            <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
-            {% endif %}
+    {% form 'checkout' class:'checkout', countrySelectorClass:"select input-outline", nonce:nonce %}
+        <div class="grid lg:grid-cols-2 gap-4">
+            <input type="hidden" name="_" value="{{nonce}}">
             <input type="hidden" id="country" name="country" value="{{form.country}}">
-
-	    {% if cart.requiresShipping %}
-            <h3 class="text-lg font-bold mt-4">Delivery address</h3>
-            <fieldset class="fieldset">
-                <legend class="fieldset-legend w-full">Name*</legend>
-                <input class="input input-md w-full" type="text" name="shippingAddress[name]" value="{{form.shippingAddress.recipients | first}}" required/>
-                <legend class="fieldset-legend w-full">Address*</legend>
-                <input class="input input-md w-full" type="text" name="shippingAddress[address1]" value="{{form.shippingAddress.addresses[0]}}" required/>
-                <legend class="fieldset-legend w-full">Apartment, suite, etc..</legend>
-                <input class="input input-md w-full" type="text" name="shippingAddress[address2]" value="{{form.shippingAddress.addresses[1]}}"/>
-                <div class="flex gap-2">
-                    <div class="w-1/2">
-                        <legend class="fieldset-legend w-full text-base-content/50">Postal code*</legend>
-                        <input class="input input-md w-full" type="text" name="shippingAddress[postalCode]" value="{{form.shippingAddress.postalCode}}" required/>
-                    </div>
-                    <div class="w-1/2">
-                        <legend class="fieldset-legend">Postal area*</legend>
-                        <input class="input input-md w-full" type="text" name="shippingAddress[city]" value="{{form.shippingAddress.city}}" required/>
-                    </div>
-                </div>
-                <legend class="fieldset-legend w-full">Country*</legend>
-                {% let shippingCountry = form.shippingAddress.country | def:form.country %}
-                {% select countries name:"shippingAddress[country]" class:"select select-md grow w-full" disabled value:shippingCountry required %}{% endselect %}
-                <input type="hidden" id="country" name="country" value="{{shippingCountry}}">
-            </fieldset> 
-        {% endif %}
-        {% if cart.requiresShipping %}
-
-        <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
-        <fieldset class="flex flex-col gap-2 billing-address">
-            <h3 class="text-lg font-bold mt-4">Billing address</h3>
-            <label class="floating-label"><span>Name</span>
-                <input class="input input-md" type="text" name="billingAddress[name]" value="{{form.billingAddress.recipients | first}}"/>
-            </label>
-            <label class="floating-label"><span>Organisation</span>
-                <input class="input input-md" type="text" name="billingAddress[organisation]" value="{{form.billingAddress.organisation}}"/>
-            </label>
-            <label class="floating-label"><span>Address</span>
-                <input class="input input-md" type="text" name="billingAddress[address]" value="{{form.billingAddress.addresses | first}}"/>
-            </label>
-            <label class="floating-label"><span>Postal code</span>
-                <input class="input input-md" type="text" name="billingAddress[postalCode]" value="{{form.billingAddress.postalCode}}"/>
-            </label>
-            <label class="floating-label"><span>City/area</span>
-                <input class="input input-md" type="text" name="billingAddress[city]" value="{{form.billingAddress.city}}"/>
-            </label>
-            <label class="floating-label"><span>Province/state</span>
-                <input class="input input-md" type="text" name="billingAddress[province]" value="{{form.billingAddress.province}}"/>
-            </label>
-            <label class="floating-label"><span>Country</span>
-            {% let billingCountry = form.billingAddress.country | def:form.country %}
-            {% select countries name:"billingAddress[country]" class:"select select-md grow" bind:"country" value:billingCountry %}{% endselect %}
-            
-            </label>
-        </fieldset>
-
-        {% endif %}
-        {% if shop.settings.b2b %}
-        <div class="p-4">
-            <label class="label m-2">VAT identification</label>
-            <label class="floating-label"><span>Company name</span>
-                <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
-            </label>
-            <label class="floating-label mt-2"><span>VAT number</span>
-                <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
-            </label>
-        </div>
-        {% endif %}
-         </fieldset>
-        <fieldset class="outline-1 outline-gray-300 p-4 mb-8">
-            <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Payment</legend>
-            {% if providers != empty %}
-                {% if providers.size > 1 %}
-                    <div class="filter">
-                    <input class="btn filter-reset" type="radio" name="gateway" aria-label="All"/>
-                    {% for p in providers %}
-                    <input class="btn" type="radio" name="gateway" value="{{p.gatewayId}}" aria-label="{{p.title}}" {% if p.gatewayId == cart.gatewayId%}checked{% endif %}/>
+        	<div class="p-4 w-full lg:w-120" x-data="{billingSameAsShipping:true}">
+        	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
+                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Shipping</legend>
+                    <label class="floating-label"><span>Delivery to</span>
+                        {% select countries name:"country" class:"select select-md grow w-full" bind:"country" value:form.country required %}{% endselect %}
+                    </label>
+                    <legend class="fieldset-legend">Select Shipping</legend>
+                    <ul class="items-center w-full text-sm font-medium border border-base-200 flex flex-col py-2">
+                    
+                    {% for shipping in cart.shippings %}
+                    <li class="w-full m-2">
+                        <div class="flex items-center justify-between ps-3 gap-4">
+                            <div class="flex gap-4 items-center">
+                                <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
+                                <label for="{{shipping.id}}" class="label flex flex-col items-start">
+                                    <span class="text-strong">{{ shipping.carrierName }}</span>
+                                    <span class="text-xs">delivery in {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} (weekdays)</span>
+                                </label>
+                            </div>
+                            <p class="mr-2 text-strong">{{shipping.cost.total | money }}</p>
+                        </div>
+                    </li>
                     {% endfor %}
-                    </div>
-                {% else %}
-                    {% assign p = providers | first %}
-                    <input class="btn" type="hidden" name="gateway" value="{{p.gatewayId}}"/>
-                    <h3 class="text-center">{{provider.title}}</h3>
-                {% endif %}
-            {% endif %}
-            <div id="payment-container"></div>
-        </fieldset>
-	</div>
-	
-	<div class="h-full">
-        <fieldset class="p-4 w-full lg:w-120 sticky top-8">
-            <div class="bg-base-200 p-2">
-                <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>
-                {% for item in cart.items %}
-        	    <div class="flex px-4 border-b border-base-300 pb-4 mb-4">
-                  <img width="60px" height="60px" class="rounded self-end"  src="{{ item.image | product_img_url:item.productId,'100' }}"  alt="{{ item.title | escape }}">
-                  <div class="self-center ml-4">
-                    {% let vt = item.title | split:'|' %} 
-                    <strong>{{vt | first}}</strong>
-                    {% if vt.size > 1 %}
-                    <br>
-                    <em>{{ vt | slice:1 | join}}</em>
+                    </ul>
+                </fieldset>
+        	    
+        	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
+        	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
+        	        <h3 class="text-lg font-bold">Customer information</h3>
+                    {% if customer %}
+                        <p>You are logged into account <a class="link" href="/customer/account">{{ customer.name }}</a></p>
+                    {% else %}
+                    <legend class="fieldset-legend">Email</legend>
+                    <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
                     {% endif %}
-                  </div>
-                  <div class="grow self-center text-right">
-        		    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
-                    <span class="ml-4">{{ item.amount | money }}</span>
-                  </div>
-                </div>
-        	    {% endfor %}  
-                {% if shop.couponsCount > 0 %}
-                	<h6>
-                		{{ lang.have_a_special_code | def:"Coupon code" }}
-                	</h6>
-                	{% if form.discountCode == blank %}
-                		{% if form.errors.discount_code %}
-                			<div class="note form-error">
-                			{% for discount_error in form.errors.discount_code %}
-                				<small>
-                					{{ discount_error }}
-                				</small>
-                			{% endfor %}
-                			</div>
-                		{% endif %}
-                		<div class="input-group">
-                    		{{ form.code_input | add_class:'input-group-field' }}
-                    		<span class="input-group-btn">
-                    		{{ form.code_submit_btn }}
-                    		</span>
-                		</div>
-                	{% else %}
-                	    <div class="note form-success">
-                    		{{ lang.discount_code }}:
-                    		{{ form.discountCode }}
-                    		<strong>{{ form.discountSavings | money }}</strong>
-                		</div>
-                	{% endif %}
+        
+        	    {% if cart.requiresShipping %}
+                    <h3 class="text-lg font-bold mt-4">Delivery address</h3>
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend w-full">Name*</legend>
+                        <input class="input input-md w-full" type="text" name="shippingAddress[name]" value="{{form.shippingAddress.recipients | first}}" required/>
+                        <legend class="fieldset-legend w-full">Address*</legend>
+                        <input class="input input-md w-full" type="text" name="shippingAddress[address1]" value="{{form.shippingAddress.addresses[0]}}" required/>
+                        <legend class="fieldset-legend w-full">Apartment, suite, etc..</legend>
+                        <input class="input input-md w-full" type="text" name="shippingAddress[address2]" value="{{form.shippingAddress.addresses[1]}}"/>
+                        <div class="flex gap-2">
+                            <div class="w-1/2">
+                                <legend class="fieldset-legend w-full text-base-content/50">Postal code*</legend>
+                                <input class="input input-md w-full" type="text" name="shippingAddress[postalCode]" value="{{form.shippingAddress.postalCode}}" required/>
+                            </div>
+                            <div class="w-1/2">
+                                <legend class="fieldset-legend">Postal area*</legend>
+                                <input class="input input-md w-full" type="text" name="shippingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                            </div>
+                        </div>
+                        <legend class="fieldset-legend w-full">Country*</legend>
+                        {% let shippingCountry = form.shippingAddress.country | def:form.country %}
+                        {% select countries name:"shippingAddress[country]" class:"select select-md grow w-full" disabled value:shippingCountry required %}{% endselect %}
+                    </fieldset> 
                 {% endif %}
-                {% include 'coMinimalCosts' %}
-            </div>
+                {% if cart.requiresShipping %}                                                                                                                                                  
+                    <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
+                    <div class="billing-address">
+                        <h3 class="text-lg font-bold mt-4">Billing address</h3>
+                        <fieldset class="flex flex-col gap-2">
+                            <legend class="fieldset-legend w-full">Name</legend>
+                            <input class="input input-md w-full" type="text" name="billingAddress[name]" value="{{form.billingAddress.recipients | first}}"/>
+                            <legend class="fieldset-legend w-full">Address</legend>
+                            <input class="input input-md w-full" type="text" name="billingAddress[address]" value="{{form.billingAddress.addresses | first}}"/>
+                            <div class="flex gap-2">
+                                <div class="w-1/2">
+                                    <legend class="fieldset-legend w-full text-base-content/50">Postal code</legend>
+                                    <input class="input input-md w-full" type="text" name="billingAddress[postalCode]" value="{{form.billingAddress.postalCode}}"/>
+                                </div>
+                                <div class="w-1/2">
+                                    <legend class="fieldset-legend">Postal area</legend>
+                                    <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                                </div>
+                            </div>
+                            <legend class="fieldset-legend">Country</legend>
+                            {% let billingCountry = form.billingAddress.country | def:form.country %}
+                            {% select countries name:"billingAddress[country]" class:"select select-md w-full" bind:"country" disabled value:billingCountry %}{% endselect %}
+                        </fieldset>                        
+                    </div>
+                {% endif %}
+                {% if shop.settings.b2b %}
+                <div class="p-4">
+                    <label class="label m-2">VAT identification</label>
+                    <label class="floating-label"><span>Company name</span>
+                        <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
+                    </label>
+                    <label class="floating-label mt-2"><span>VAT number</span>
+                        <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
+                    </label>
+                </div>
+                {% endif %}
+                 </fieldset>
+                <fieldset class="outline-1 outline-gray-300 p-4 mb-8">
+                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Payment</legend>
+                    {% if providers != empty %}
+                        {% if providers.size > 1 %}
+                            <div class="filter">
+                            <input class="btn filter-reset" type="radio" name="gateway" aria-label="All"/>
+                            {% for p in providers %}
+                            <input class="btn" type="radio" name="gateway" value="{{p.gatewayId}}" aria-label="{{p.title}}" {% if p.gatewayId == cart.gatewayId%}checked{% endif %}/>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {% assign p = providers | first %}
+                            <input class="btn" type="hidden" name="gateway" value="{{p.gatewayId}}"/>
+                            <h3 class="text-center">{{provider.title}}</h3>
+                        {% endif %}
+                    {% endif %}
+                    <div id="payment-container"></div>
+                </fieldset>
+        	</div>
+        	
+        	<div class="h-full">
+                <fieldset class="p-4 w-full lg:w-120 sticky top-8">
+                    <div class="bg-base-200 p-2">
+                        <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>
+                        {% for item in cart.items %}
+                	    <div class="flex px-4 border-b border-base-300 pb-4 mb-4">
+                          <img width="60px" height="60px" class="rounded self-end"  src="{{ item.image | product_img_url:item.productId,'100' }}"  alt="{{ item.title | escape }}">
+                          <div class="self-center ml-4">
+                            {% let vt = item.title | split:'|' %} 
+                            <strong>{{vt | first}}</strong>
+                            {% if vt.size > 1 %}
+                            <br>
+                            <em>{{ vt | slice:1 | join}}</em>
+                            {% endif %}
+                          </div>
+                          <div class="grow self-center text-right">
+                		    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
+                            <span class="ml-4">{{ item.amount | money }}</span>
+                          </div>
+                        </div>
+                	    {% endfor %}  
+                        {% include 'coMinimalCosts' %}
+                    </div>
+                    
             
-    
-            {% unless customer %}
-            <div class="italic text-center border-t border-b border-base-300 mt-4 mb-4 p-4">                    
-                <p>When ordering an account will be created,<br> where you can login and track your order.</p>
-            </div>
-            {% endunless %}
-        </fieldset>	    
-	</div>
-
-</div>
-{% endform %}
+                    {% unless customer %}
+                    <div class="italic text-center border-t border-b border-base-300 mt-4 mb-4 p-4">                    
+                        <p>When ordering an account will be created,<br> where you can login and track your order.</p>
+                    </div>
+                    {% endunless %}
+                </fieldset>	    
+        	</div>
+        
+        </div>
+    {% endform %}
 {{ checkout }}
 <div class="text-center mt-20">
     <div class="flex justify-center mb-6 gap-8">
@@ -210,17 +173,15 @@
     <a class="link" href="/"><span>Return to frontpage</span></a>
 </div>
 
-{% endunless %}
+{% endif %}
 </div>
 </section>
 
 
 <style>
-
 .billing-check:checked + .billing-address {
     display: none;
 }
-
 .billing-check::after {
     content:"Billing address same as delivery address";
     position: absolute;
@@ -228,7 +189,6 @@
   left: 3em;
   width: 22em;
 }
-
 .fieldset-legend {
     padding-bottom: 2px;
     color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
