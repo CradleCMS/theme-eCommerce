@@ -33,7 +33,8 @@
             {% endif %}
             {% if customer.orders.size != 0 %}
             <h3 class="uppercase">Orders</h3>
-                  <table class="full">
+            <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                  <table class="table">
                       <thead>
                           <tr>
                               <th>{{ lang.order | def:'Order' }}</th>
@@ -46,9 +47,10 @@
                       <tbody>
                       {% for order in customer.orders %}
                       <tr>
-                          <td>{{ order | url | link_tag:order.name }}</td>
-                          <td>{{ order.created_at | date: "Y-m-d" }}</td>
+                          <td>{{ order | url | link_tag:order.number }}</td>
+                          <td>{{ order.created_at | date: "%F" }}</td>
                           <td>
+                              {{ order.payment }}
                               {% case order.financial_status %}
                                   {% when 'authorized' %}
                                       {{ lang.authorized | def:'Authorized' }}
@@ -67,20 +69,14 @@
                               {% endcase %}
                           </td>
                           <td>
-                              {% case order.fulfillment_status %}
-                                  {% when 'fulfilled' %}
-                                      {{ lang.fulfilled | def:'Fulfilled' }}
-                                  {% when 'partial' %}
-                                      {{ lang.partially_fulfilled | def:'Partially Fulfilled' }}
-                                  {% else %}
-                                      {{ lang.unfulfilled | def:'Unfulfilled' }}
-                              {% endcase %}
+                              {{ order.status }}
                           </td>
-                          <td>{{ order.total_price | money }}</td>
+                          <td>{{ order.amount | money }}</td>
                       </tr>
                       {% endfor %}
                       </tbody>
                   </table>
+            </div>
             {% else %}
                 <p>{{ lang.you_havent_placed_any_orders_yet | def:"You haven't placed any orders yet." }}</p>
             {% endif %}
