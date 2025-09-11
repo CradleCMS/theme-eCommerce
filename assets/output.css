@@ -4,7 +4,6 @@
 @layer theme {
   :root, :host {
     --color-red-400: oklch(70.4% 0.191 22.216);
-    --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -2373,6 +2372,9 @@
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
   }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
@@ -2472,9 +2474,6 @@
   }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
-  }
-  .mb-6 {
-    margin-bottom: calc(var(--spacing) * 6);
   }
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
@@ -2928,14 +2927,23 @@
   .w-24 {
     width: calc(var(--spacing) * 24);
   }
+  .w-36 {
+    width: calc(var(--spacing) * 36);
+  }
   .w-52 {
     width: calc(var(--spacing) * 52);
   }
   .w-60 {
     width: calc(var(--spacing) * 60);
   }
+  .w-96 {
+    width: calc(var(--spacing) * 96);
+  }
   .w-\[100vw\] {
     width: 100vw;
+  }
+  .w-\[950px\] {
+    width: 950px;
   }
   .w-full {
     width: 100%;
@@ -3607,9 +3615,6 @@
   }
   .text-secondary-content {
     color: var(--color-secondary-content);
-  }
-  .text-slate-200 {
-    color: var(--color-slate-200);
   }
   .uppercase {
     text-transform: uppercase;

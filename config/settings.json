@@ -1111,6 +1111,12 @@
       "caption": "Checkout",
       "settings": [
         {
+          "caption": "Checkout message",
+          "description": "Shown in the bottom of the checkout page",
+          "key": "coMessage",
+          "type": "textarea"
+        },
+        {
           "caption": "Terms pages",
           "default": "Select linklist",
           "description": "Setup a linklist for displaying links to terms and conditions",
@@ -1125,7 +1131,7 @@
       "caption": "Closed site",
       "settings": [
         {
-          "caption": "Daisy UI Theme",
+          "caption": "Color Theme",
           "key": "closed-header-color-themes",
           "type": "header"
         },
@@ -1375,7 +1381,7 @@
         },
         {
           "caption": "Use daisyUI markup",
-          "description": "NOTE the form can only contain a email input field",
+          "description": "NOTE the form can only contain an email input field, read the documentation for more info",
           "key": "closed_daisysignup_true",
           "type": "checkbox"
         },

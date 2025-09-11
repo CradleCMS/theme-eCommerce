@@ -15,7 +15,7 @@
       </header>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 mt-4 gap-2">
           {% for address in customer.addresses %}
-            {% if address.type == "ADDRESS_SHIPPING" %}
+            {% if address.type == "shipping" %}
                 <div class="p-4 bg-base-200 text-base-200-content">
                     {% for recipient in address.info.oneof.postal.recipients %}
                     <p class="font-bold" >{{ recipient }}</p>

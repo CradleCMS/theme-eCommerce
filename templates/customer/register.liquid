@@ -1,36 +1,37 @@
 <section class="p-10 prose mx-auto">
-    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }} bg-base-200 text-center">
+    <div class="card bg-base-100 text-base-content shrink-0 w-full max-w-m {{ settings.general_shadow }} text-center">
         <h3 class="text-center">Create account</h3>
-        {% form 'customer_register' %}
-            {% if form.errors %}
-                <div class="alert alert-error">
-                    <span>Sorry, looks like something went wrong, please try again.</span>
-                </div>
-            {% endif %}
-            {% if form.success %}
-                <div class="alert alert-success">
-                    <span>An account invite has been sent to your email!</span>
-                </div>
-            {% else %}
+        {% form 'customer_register' class:'customer' %}
             <div class="card-body">
-                <label for="email" class="w-full input input-bordered mb-2">Email
-                    <input type="email" class="grow" value="" name="customer[email]" id="email" {% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off">
+                {% if request.query contains 'form-customer_register=.errors' %}
+                    <div class="alert alert-error">
+                        <span>Sorry, looks like something went wrong, please try again.</span>
+                    </div>
+                {% endif %}
+                {% if request.query contains 'form-customer_register=.success' %}
+                    <div class="alert alert-success">
+                        <span>An account invite has been sent to your email!</span>
+                    </div>
+                {% else %}
+                <label class="floating-label {% if form.errors contains 'email' %} input-error {% endif %}">
+                    <span>Email</span>
+                    <input class="input w-full" type="email" name="customer[email]" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
                 </label>
-                
-                <label for="first_name" class="w-full input input-bordered mb-2">First name
-                    <input type="text" class="grow" value="" name="customer[firstname]" id="first_name" {% if form.errors contains "first_name" %} class="error"{% endif %} autocapitalize="words" autofocus>
+                <label class="floating-label">
+                    <span>First name</span>
+                    <input class="input w-full" type="text" placeholder="First name" name="customer[firstname]">
                 </label>
-                
-                <label for="last_name" class="w-full input input-bordered mb-2">Last name
-                    <input type="text" class="grow" value="" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %} autocapitalize="words">
+                <label class="floating-label">
+                    <span>Last name</span>
+                    <input type="text" class="input w-full" placeholder="Last name" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %}>
                 </label>
     
                 <div class="form-control mt-8">
                     <input type="submit" value="{{ lang.create_an_account | def: 'Create Account' | escape }}" class="btn btn-primary">
                 </div>
+                {% endif %}
                 <p class="text-center">{{ lang.or | def:'or' }} <a href="/" >Return to store</a></p>
             </div>            
-            {% endif %}
         {% endform %}
     </div>
 </section>

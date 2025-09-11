@@ -1,5 +1,5 @@
 <section class="p-10 prose mx-auto">
-    <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }} bg-base-200">
+    <div class="card bg-base-100 text-base-content shrink-0 w-full max-w-m {{ settings.general_shadow }}">
         
 {% unless invite %}
     <div class="card-body text-center">
@@ -11,7 +11,7 @@
     </div>
 {% else %}
     <div class="card-body text-center">
-        {% form 'customer_invite' id:'customer_invite' %}
+        {% form 'customer_invite' id:'customer_invite' onSuccess:'/login' %}
             {% include 'form-errors-custom' %}
             <div class="login-header mb-8">
               <h1 class="text-center">Account activation</h1> 
@@ -22,20 +22,25 @@
             <p class="text-sm text-center">Set a password to activate your account</p>
             <br>
             <div class="grid grid-cols-2 gap-2">
-              <div class="form-control">
-                <label class="text-left">Password</label>
-                <input class="input" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
-              </div>
-              <div class="form-control">
-                <label class="text-left">Confirm password</label>
-                <input class="input" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
-              </div>  
+                <label class="floating-label">
+                    <span>Password</span>
+                    <input class="input w-full" placeholder="Password" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
+                </label>
+                <label class="floating-label">
+                    <span>Confirm password</span>
+                    <input class="input w-full" placeholder="Confirm password" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
+                </label>
             </div>
             <p class="form-contro">
-              <button class="btn btn-primary border-none text-slate-200"> 
+              <button class="btn btn-primary border-none"> 
                 Activate account
               </button>
             </p>
+            {% if request.query contains 'form-customer_invite=.errors' %}
+                    <div class="alert alert-error">
+                        <span>Sorry, looks like something went wrong, please try again.</span>
+                    </div>
+            {% endif %}
             <input type="hidden" name="invite" value="{{invite.id}}">
             <input type="hidden" name="token" value="{{invite.token}}">
         {% endform %}
