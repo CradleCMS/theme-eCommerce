@@ -56,39 +56,72 @@
             </div>
           </div>
         </dialog>
-    {% endif %}
-    <div class="lg:basis-2/5">
-        <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
-        {% if product.keyFeatures.size > 0 %}
-        <ul class="mb-2">
-            {% for feature in product.keyFeatures %}
-            <li class="checkmark">
-                {{ feature }}
-            </li>
-            {% endfor %}            
-        </ul>
-        {% endif %}
-        <div>
-            <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
-            {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
-                <input type="hidden" name="product" value="{{product.id}}">
-                {% if product.variants.size > 1 %}
-                <select class="select select-bordered max-w-xs mb-2" name="variant" value="{{product.selectedVariant.id}}">
-                    {% for variant in product.variants %}
-                    <option class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title}}</option>
-                    {% endfor %}
-                </select>    
-                {% else %}
-                <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
-                {% endif %}
-                <button name="submit" class="btn btn-accent">Add to cart</button>
-                {% if settings.ppInfoEnabled %}
-                  <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
-                {% endif %}
-            {% endform %}            
+        <div class="lg:basis-2/5">
+            <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
+            {% if product.keyFeatures.size > 0 %}
+            <ul class="mb-2">
+                {% for feature in product.keyFeatures %}
+                <li class="checkmark">
+                    {{ feature }}
+                </li>
+                {% endfor %}            
+            </ul>
+            {% endif %}
+            <div>
+                <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+                {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
+                    <input type="hidden" name="product" value="{{product.id}}">
+                    {% if product.variants.size > 1 %}
+                    <select class="select select-bordered max-w-xs mb-2" name="variant" value="{{product.selectedVariant.id}}">
+                        {% for variant in product.variants %}
+                        <option class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title}}</option>
+                        {% endfor %}
+                    </select>    
+                    {% else %}
+                    <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+                    {% endif %}
+                    <button name="submit" class="btn btn-accent">Add to cart</button>
+                    {% if settings.ppInfoEnabled %}
+                      <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
+                    {% endif %}
+                {% endform %}            
+            </div>
+            <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
         </div>
-        <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
-    </div>
+    {% else %}
+        <div class="basis-3/5 mx-auto">
+            <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
+            {% if product.keyFeatures.size > 0 %}
+            <ul class="mb-2">
+                {% for feature in product.keyFeatures %}
+                <li class="checkmark">
+                    {{ feature }}
+                </li>
+                {% endfor %}            
+            </ul>
+            {% endif %}
+            <div>
+                <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+                {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
+                    <input type="hidden" name="product" value="{{product.id}}">
+                    {% if product.variants.size > 1 %}
+                    <select class="select select-bordered max-w-xs mb-2" name="variant" value="{{product.selectedVariant.id}}">
+                        {% for variant in product.variants %}
+                        <option class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title}}</option>
+                        {% endfor %}
+                    </select>    
+                    {% else %}
+                    <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+                    {% endif %}
+                    <button name="submit" class="btn btn-accent">Add to cart</button>
+                    {% if settings.ppInfoEnabled %}
+                      <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
+                    {% endif %}
+                {% endform %}            
+            </div>
+            <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
+        </div>
+    {% endif %}
 </section>
 <section class="mt-10">
     <header class="flex">
@@ -102,6 +135,7 @@
     	{% endfor %}
     	</div>
 </section>
+{% if product.images.size > 0 %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const mainImage = document.getElementById('main-image');
@@ -183,8 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
       dots.item(n).classList.add("btn-active","btn-neutral");
     } 
 });
-
-
 </script>
 <style>
 #slider img {
@@ -218,3 +250,4 @@ document.addEventListener('DOMContentLoaded', function() {
     content: "\00d7"
 }    
 </style>
+{% endif %}
