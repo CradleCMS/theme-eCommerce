@@ -10,7 +10,7 @@
             <h3 class="place-items-center ml-2">{{site.name}}</h3>
         </div>
         <fieldset>
-            <div class="grid grid-cols-2 px-2">
+            <div class="grid grid-cols-2 p-2 outline m-2 rounded">
                 <div>Order date</div>
                 <div>{{ order.createdAt | date }}</div>
                 <div>Reference</div>
@@ -24,7 +24,7 @@
                 <div>Country</div>
                 <div>{{ countries[order.cart.country].name }} [{{order.cart.country}}]</div>
             </div>
-            <p class="px-2">Line items</p>
+            <p class="px-2 pt-4">Line items</p>
             <div class="grid grid-cols-4 px-2">
             {% for item in order.cart.items %}
                 <div class="col-span-2">
@@ -44,7 +44,7 @@
                 </div>
     	    {% endfor %}
                 <div class="col-span-2"></div>
-                    <div class="col-span-2 place-self-center text-right border-t border-b w-full mt-4">
+                    <div class="col-span-2 place-self-center border-t border-b w-full mt-4">
                         <div class="grid grid-cols-2">
                             <em>Sub</em>
                             <div class="ml-auto">{{ order.cart.amount.sub | money }}</div>
@@ -53,6 +53,12 @@
                             <em>VAT</em>
                             <div class="ml-auto">{{ order.cart.amount.vat | money }}</div>
                         </div>
+                        {% if order.cart.requiresShipping %}
+                        <div class="grid grid-cols-2">
+                            <em>Shipping</em>
+                            <div class="ml-auto">{{ order.cart.selectedShipping.cost.total | money }}</div>
+                        </div> 
+                        {% endif %}
                         <div class="grid grid-cols-2">
                             <em>Total amount</em>
                             <div class="ml-auto font-bold">{{ order.cart.amount.total | money }}</div>
@@ -61,10 +67,11 @@
                 </div>
                 <br/>
                 <div class="border-t w-full mt-4 border-base-300 text-center pt-2">
-                    <span class="text-sm opacity-75">{{ site.name }}, {{ site.organisation }}, {{ site.location }}. {{ site.contact }}</span>
+                    <span class="text-sm opacity-75">{{ site.name }}{{ site.organisation | prepend:', ' }}{{ site.location | prepend:', ' }}{{ site.contact | prepend:', ' }}</span>
                 </div>
             </div>
         </fieldset>
+        {{ order | print_r }}
         <div class="text-center">
             <p class="font-bold">Thank you for purchasing our products!</p>
             <div role="alert" class="alert alert-bordered bg-base-100">

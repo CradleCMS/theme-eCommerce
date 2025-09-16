@@ -4,6 +4,7 @@
 @layer theme {
   :root, :host {
     --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -3615,6 +3616,9 @@
   }
   .text-secondary-content {
     color: var(--color-secondary-content);
+  }
+  .text-slate-200 {
+    color: var(--color-slate-200);
   }
   .uppercase {
     text-transform: uppercase;

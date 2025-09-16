@@ -20,9 +20,7 @@
         <legend class="fieldset-legend w-full">Country*</legend>
         {% let shippingCountry = form.shippingAddress.country | def:form.country %}
         {% select countries name:"shippingAddress[country]" class:"select select-md grow w-full" disabled value:shippingCountry required %}{% endselect %}
-    </fieldset> 
-{% endif %}
-{% if cart.requiresShipping %}                                                                                                                                                  
+    </fieldset>
     <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
     <div class="billing-address">
         <h3 class="text-lg font-bold mt-4">Billing address</h3>
@@ -38,12 +36,36 @@
                 </div>
                 <div class="w-1/2">
                     <legend class="fieldset-legend">Postal area</legend>
-                    <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                    <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.shippingAddress.city}}"/>
                 </div>
             </div>
             <legend class="fieldset-legend">Country</legend>
             {% let billingCountry = form.billingAddress.country | def:form.country %}
             {% select countries name:"billingAddress[country]" class:"select select-md w-full" disabled value:billingCountry %}{% endselect %}
+        </fieldset>                        
+    </div>
+{% else %}
+   <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
+    <div class="billing-address">
+        <h3 class="text-lg font-bold mt-4">Billing address</h3>
+        <fieldset class="flex flex-col gap-2">
+            <legend class="fieldset-legend w-full">Name</legend>
+            <input class="input input-md w-full" type="text" name="billingAddress[name]" value="{{form.billingAddress.recipients | first}}" required/>
+            <legend class="fieldset-legend w-full">Address</legend>
+            <input class="input input-md w-full" type="text" name="billingAddress[address]" value="{{form.billingAddress.addresses | first}}" required/>
+            <div class="flex gap-2">
+                <div class="w-1/2">
+                    <legend class="fieldset-legend w-full text-base-content/50">Postal code</legend>
+                    <input class="input input-md w-full" type="text" name="billingAddress[postalCode]" value="{{form.billingAddress.postalCode}}" required/>
+                </div>
+                <div class="w-1/2">
+                    <legend class="fieldset-legend">Postal area</legend>
+                    <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                </div>
+            </div>
+            <legend class="fieldset-legend">Country</legend>
+            {% let billingCountry = form.billingAddress.country | def:form.country %}
+            {% select countries name:"billingAddress[country]" class:"select select-md w-full" disabled value:billingCountry required %}{% endselect %}
         </fieldset>                        
     </div>
 {% endif %}

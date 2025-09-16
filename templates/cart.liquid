@@ -10,7 +10,7 @@
             		{% for item in cart.items %}
             		    <div class="p-2 pb-4">
                 		    {% let vt = item.title | split:'|' %}
-                            <div class="flex items-top place-items-center">
+                            <a href="{{item | url}}" class="flex items-top place-items-center">
                                 <img src="{{item | product_img_url:'thumb'}}" class="rounded mr-2 w-12"/>
                                 <h3 class="text-lg text-base-content">{{vt | first}}
                                 {% if vt.size > 1 -%}
@@ -19,7 +19,7 @@
                                     </p>
                                 {% endif -%}
                                 </h3>
-                            </div>
+                            </a>
                             <div class="flex flex-row w-full place-items-center">
                                 <div class="flex flex-row place-items-center ml-auto">
                                     <div class="join mr-2">
