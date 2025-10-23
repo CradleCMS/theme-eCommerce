@@ -45,7 +45,9 @@
         </fieldset>                        
     </div>
 {% else %}
-   <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
+    <template x-if="{{cart.requiresShipping}}">
+    <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" :checked="billingSameAsShipping" />
+    </template>
     <div class="billing-address">
         <h3 class="text-lg font-bold mt-4">Billing address</h3>
         <fieldset class="flex flex-col gap-2">
