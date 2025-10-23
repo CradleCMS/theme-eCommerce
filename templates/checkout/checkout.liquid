@@ -109,8 +109,14 @@
                         {% include 'coMinimalCosts' %}
                     </div>
                     {% unless customer %}
-                    <div class="italic text-center border-t border-b border-base-300 mt-4 mb-4 p-4">                    
-                        <p>When ordering an account will be created,<br> where you can login and track your order.</p>
+                    <div role="alert" class="alert alert-bordered bg-base-100 mt-4 mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-gray-400 h-8 w-8 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <div>
+                        <p>When ordering an account will be created</p>
+                        <div class="text-xs">There you can follow your order status and history</div>
+                      </div>
                     </div>
                     {% endunless %}
                 </fieldset>	    
