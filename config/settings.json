@@ -1,6 +1,6 @@
 {
   "name": "eCommerce",
-  "version": "0.3",
+  "version": "0.4",
   "developer": "Cradle systems",
   "description": "eCommerce theme based on TailwindCSS and daisyUI",
   "sections": [
@@ -80,26 +80,6 @@
             {
               "caption": "6",
               "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Development",
-          "key": "development",
-          "type": "header"
-        },
-        {
-          "caption": "Theme CSS mode",
-          "key": "css_dev_mode",
-          "options": [
-            {
-              "caption": "Production",
-              "value": "production"
-            },
-            {
-              "caption": "Development",
-              "value": "development"
             }
           ],
           "type": "select"
@@ -596,27 +576,6 @@
           "type": "checkbox"
         },
         {
-          "caption": "Collection",
-          "key": "hompageCollHeader",
-          "type": "header"
-        },
-        {
-          "caption": "Show section",
-          "key": "hompageCollEnabled",
-          "type": "checkbox"
-        },
-        {
-          "caption": "Section heading",
-          "key": "homepageCollHeading",
-          "type": "text"
-        },
-        {
-          "caption": "Collection",
-          "default": "Select collection",
-          "key": "homepageCollection",
-          "type": "collection"
-        },
-        {
           "caption": "Linkcard grid",
           "description": "Grid for links",
           "key": "link_grid",
@@ -767,57 +726,6 @@
             }
           ],
           "type": "select"
-        },
-        {
-          "caption": "Columns on desktop",
-          "key": "grid_column_amount_lg",
-          "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
-            {
-              "caption": "2",
-              "value": "2"
-            },
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Images",
-          "key": "grid_items",
-          "settings": [
-            {
-              "caption": "Image",
-              "description": "Recommended format: 500 px wide and jpg format.",
-              "key": "image",
-              "maxHeight": 1024,
-              "maxWidth": 1300,
-              "type": "image"
-            },
-            {
-              "caption": "Image alt-text",
-              "key": "image_alt",
-              "type": "text"
-            }
-          ],
-          "type": "struct"
         },
         {
           "caption": "Banner sections",
@@ -1023,6 +931,16 @@
           "key": "ppInfoTxt",
           "rows": 6,
           "type": "textarea"
+        },
+        {
+          "caption": "Related products",
+          "key": "ppRelated",
+          "type": "header"
+        },
+        {
+          "caption": "Show related products",
+          "key": "ppRelatedProducts",
+          "type": "checkbox"
         }
       ]
     },
@@ -1546,6 +1464,39 @@
           "caption": "Theme color (dark)",
           "key": "branding-theme-color-dark",
           "type": "color"
+        }
+      ]
+    },
+    {
+      "key": "dev",
+      "type": "section",
+      "caption": "Developer settings",
+      "settings": [
+        {
+          "caption": "Development",
+          "key": "development",
+          "type": "header"
+        },
+        {
+          "caption": "Theme CSS mode",
+          "key": "css_dev_mode",
+          "options": [
+            {
+              "caption": "Production",
+              "value": "production"
+            },
+            {
+              "caption": "Development",
+              "value": "development"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Debug enabled",
+          "description": "Objects will be shown on the website, can only be used for development sites.",
+          "key": "debugEnabled",
+          "type": "checkbox"
         }
       ]
     }

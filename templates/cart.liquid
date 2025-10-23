@@ -47,8 +47,8 @@
         					</div>
         					{% endif %}
         					<div class="w-full text-right text-base pt-4 pb-2">
-        					    <p class="text-sm">Subtotal {{ cart.amount.sub | money }}</p>
-        					    <p class="text-sm">Taxes {{ cart.amount.vat | money }}</p>
+        					    {% unless shop.priceIncludesVat %}<p class="text-sm">Subtotal {{ cart.amount.sub | money }}</p>{% endunless %}
+        					    <p class="text-sm">Taxes{% if shop.priceIncludesVat %} <small>(included)</small>{% endif %} {{ cart.amount.vat | money }}</p>
         					    <p class="text-lg pt-2">Total <span class="font-bold">{{ cart.amount.total | money }}</span></p>
         					</div>
         					<div class="flex flex-row flex-wrap justify-end w-full gap-2 items-baseline">
@@ -67,5 +67,16 @@
             </div>
             {% endif %}            
         </div>
+        {% if settings.debugEnabled %}
+        <hr>
+        <p>Cart object</p>
+        {{ cart | print_r }}
+        <hr>
+        <p>Shop object</p>
+        {{ shop | print_r }}
+        <hr>
+        <p>Site object</p>
+        {{ site | print_r }}
+        {% endif %}
     </div>
 </section>
