@@ -46,7 +46,8 @@
         	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
         	        <h3 class="text-lg font-bold">Customer information</h3>
                     {% if customer %}
-                        <p>You are logged into account <a class="link" href="/customer/account">{{ customer.name }}</a></p>
+                        <p>You are logged into account for <a class="link" href="/customer/account">{{ customer.name }}</a></p>
+                        <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
                     {% else %}
                     <legend class="fieldset-legend">Email</legend>
                     <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>

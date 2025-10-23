@@ -14,6 +14,6 @@
     {% endif %}
     <div class="flex flex-row mt-2">
         <p class="text-lg"><span class="font-bold">Total amount </span>{% if form.totalVAT > 0 %}<span class="text-sm">(incl. VAT)</span>{% endif %}</p>
-        <p class="ml-auto font-bold text-lg">{{ form.grandTotal | money }}</p>
+        <p class="ml-auto font-bold text-lg">{{ form.totalAmount | money }}</p>
     </div>
 </fieldset>
