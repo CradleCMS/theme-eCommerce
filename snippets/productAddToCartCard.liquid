@@ -21,6 +21,6 @@
         {% else %}
         <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
         {% endif %}
-        <button name="submit" class="btn btn-accent">Add to cart</button>
+        <button name="submit" class="btn btn-accent"{% unless product.selectedVariant.available %} disabled{% endunless %}>{% if product.selectedVariant.available %}Add to cart{% else %}Sold out{% endif %}</button>
     {% endform %}            
 </div>
