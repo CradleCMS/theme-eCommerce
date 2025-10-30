@@ -56,49 +56,41 @@
             </div>
           </div>
         </dialog>
-        <div class="lg:basis-2/5">
-            {% include 'productAddToCartCard' %}
-            {% if settings.ppInfoEnabled %}
-                <div role="alert" class="alert alert-bordered bg-base-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="stroke-gray-400 h-8 w-8 shrink-0">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span>{{ settings.ppInfoTxt }}</span>
-                </div>
-            {% endif %}
-            <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
-        </div>
-    {% else %}
-        <div class="basis-3/5 mx-auto">
-            {% include 'productAddToCartCard' %}
-            {% if settings.ppInfoEnabled %}
-            <div role="alert" class="alert alert-bordered bg-base-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-gray-400 h-8 w-8 shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span>{{ settings.ppInfoTxt }}</span>
-            </div>
-            {% endif %}
-            <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>
-        </div>
     {% endif %}
+    <div class="lg:basis-2/5">
+        <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
+        {% if product.keyFeatures.size > 0 %}
+        <ul class="mb-2">
+            {% for feature in product.keyFeatures %}
+            <li class="checkmark">
+                {{ feature }}
+            </li>
+            {% endfor %}            
+        </ul>
+        {% endif %}
+        <div>
+            <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+            {% form 'cart_update' class:'ml-2 mb-12' onSuccess:'/cart' %}
+                <input type="hidden" name="product" value="{{product.id}}">
+                <input type="hidden" name="quantity" value="1">
+                {% if product.variants.size > 1 %}
+                <select id="variant-select" class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
+                    {% for variant in product.variants %}
+                    <option class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title}}</option>
+                    {% endfor %}
+                </select>    
+                {% else %}
+                <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+                {% endif %}
+                <button name="submit" class="btn btn-accent">Add to cart</button>
+                {% if settings.ppInfoEnabled %}
+                  <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
+                {% endif %}
+            {% endform %}            
+        </div>
+        <div class="{{ product.format }} prose mt-4">{{ product.html }}</div>        
+    </div>
 </section>
-{% if settings.debugEnabled %}
-<section>
-    <hr>
-    <p>Cart object</p>
-    {{ product | print_r }}
-    <hr>    
-</section>
-{% endif %}
 {% if settings.ppRelatedProducts %}
 <section class="mt-10">
     <header class="flex">
@@ -113,87 +105,112 @@
     	</div>
 </section>
 {% endif %}
-{% if product.images.size > 0 %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const mainImage = document.getElementById('main-image');
     const thumbnails = document.querySelectorAll('.thumb');
-    const slider = document.getElementById("slider");
-    const sliderNav = slider.querySelector("#slider-nav");
-    const sliderArr = slider.querySelector("#slider-arrows");
-    const slides = slider.querySelectorAll(".modalImage");
-    const dots = slider.querySelectorAll(".dot");
-    const productImages = document.querySelectorAll('.product-image');
-
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function() {
-          const largeImageSrc = this.dataset.large;
-          const largeImageAlt = this.alt;
-          let index = this.getAttribute('data-index')
-          mainImage.setAttribute('data-index',index)
-          mainImage.src = largeImageSrc;
-          mainImage.alt = largeImageAlt;
-          mainImage.dataset.modal = largeImageSrc.replace('_590_0','_1200_0')
+    const variantSelector = document.getElementById('variant-select');
+    
+    // thumbnails image select
+    if(thumbnails) {
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+              const largeImageSrc = this.dataset.large;
+              const largeImageAlt = this.alt;
+              let index = this.getAttribute('data-index')
+              mainImage.setAttribute('data-index',index)
+              mainImage.src = largeImageSrc;
+              mainImage.alt = largeImageAlt;
+              mainImage.dataset.modal = largeImageSrc.replace('_590_0','_1200_0')
+            });
         });
-    });
-
-    sliderArr.addEventListener('click', function(e) {
-        let currentSlide = 0;
-        for(let i = 0; i < slides.length; i++) {
-            if(slides.item(i).classList.contains('active')) {
-                currentSlide = i;
+    }
+    
+    // variant image select
+    if(variantSelector && mainImage) {
+        variantSelector.addEventListener('change', function(e){
+            let selectedVariant, selectedImage;
+            
+            for(let i = 0; i < e.target.options.length; i++) {
+                if( e.target.options[i].selected) {
+                    selectedVariant = e.target.options[i].value;
+                    selectedImage = e.target.options[i].getAttribute("data-large");
+                    break;
+                }
             }
-        }
-        if(e.target.id == 'slider-prev') {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
+            
+            if(selectedVariant && selectedImage) {
+                mainImage.src = selectedImage;
+            }
+        });
+    }
+    
+    
+    // image slider 
+    (function (el) {
+        const slider = document.querySelector(el);
+        if(!slider) return;
+    
+        const productImages = document.querySelectorAll('.product-image');
+        const sliderNav = slider.querySelector("#slider-nav");
+        const sliderArr = slider.querySelector("#slider-arrows");
+        const slides = slider.querySelectorAll(".modalImage");
+        const dots = slider.querySelectorAll(".dot");
+    
+        sliderArr.addEventListener('click', function(e) {
+            let currentSlide = 0;
+            for(let i = 0; i < slides.length; i++) {
+                if(slides.item(i).classList.contains('active')) {
+                    currentSlide = i;
+                }
+            }
+            if(e.target.id == 'slider-prev') {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+            
+            if(e.target.id == 'slider-next') {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+            
+        });
         
-        if(e.target.id == 'slider-next') {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
+        sliderNav.addEventListener('click', function(e){
+            if(e.target.classList.contains('dot')) {
+                let i = e.target.getAttribute("data-index");
+                let sliderIndex = parseInt(i);
+                showSlide(sliderIndex);
+            }
+        });
         
-    });
-    
-    sliderNav.addEventListener('click', function(e){
-        if(e.target.classList.contains('dot')) {
-            let i = e.target.getAttribute("data-index");
-            let sliderIndex = parseInt(i);
-            showSlide(sliderIndex);
-        }
-    });
-    
-    
-    {% if settings.ppThumbPosition == "left" or settings.ppThumbPosition == "beneath" %}
-    
-    mainImage.addEventListener('click', function(e) {
-        let slideIndex = this.getAttribute("data-index");
-        showSlide(parseInt(slideIndex));
-        slider.showModal();
-    });
-    
-    {% endif %}
-    
-    productImages.forEach(pimg => { 
-        pimg.addEventListener('click', function() {
+        {% if settings.ppThumbPosition == "left" or settings.ppThumbPosition == "beneath" %}
+        mainImage.addEventListener('click', function(e) {
             let slideIndex = this.getAttribute("data-index");
             showSlide(parseInt(slideIndex));
             slider.showModal();
         });
-    });
-    
-    
-    function showSlide(n) {
-      if (n >= slides.length) n = 0;
-      if (n < 0) n = slides.length-1;
-      for (let i = 0; i < slides.length; i++) {
-        slides.item(i).classList.remove("active");
-        dots.item(i).classList.remove("btn-active","btn-neutral");
-      }
-      slides.item(n).classList.add("active");
-      dots.item(n).classList.add("btn-active","btn-neutral");
-    } 
+        {% endif %}
+        
+        productImages.forEach(pimg => { 
+            pimg.addEventListener('click', function() {
+                let slideIndex = this.getAttribute("data-index");
+                showSlide(parseInt(slideIndex));
+                slider.showModal();
+            });
+        });
+        
+        function showSlide(n) {
+          if (n >= slides.length) n = 0;
+          if (n < 0) n = slides.length-1;
+          for (let i = 0; i < slides.length; i++) {
+            slides.item(i).classList.remove("active");
+            dots.item(i).classList.remove("btn-active","btn-neutral");
+          }
+          slides.item(n).classList.add("active");
+          dots.item(n).classList.add("btn-active","btn-neutral");
+        } 
+    })("#slider");
 });
 </script>
 <style>
@@ -228,4 +245,3 @@ document.addEventListener('DOMContentLoaded', function() {
     content: "\00d7"
 }    
 </style>
-{% endif %}
