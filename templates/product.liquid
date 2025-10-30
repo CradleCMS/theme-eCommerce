@@ -70,9 +70,10 @@
         {% endif %}
         <div>
             <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
-            {% form 'cart_update' class:'ml-2 mb-12' onSuccess:'/cart' %}
+            {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
                 <input type="hidden" name="product" value="{{product.id}}">
                 <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="_" value="{{nonce}}">
                 {% if product.variants.size > 1 %}
                 <select id="variant-select" class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
                     {% for variant in product.variants %}
@@ -96,7 +97,7 @@
     <header class="flex">
         <h2 class="text-3xl mb-4 font-bold">Related products</h2>
     </header>
-    {% assign relatedProducts = product | related %}
+    {% assign relatedProducts = product | related:'tags,collection' %}
         <div class="grid collection-row-container gap-4">
         {% let productAmount = settings.secProdRowAmount | def:"4" %}
     	{% for product in relatedProducts limit:productAmount %}
@@ -144,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
     
     // image slider 
     (function (el) {
