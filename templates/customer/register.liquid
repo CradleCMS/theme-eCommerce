@@ -3,7 +3,7 @@
         <h3 class="text-center">Create account</h3>
         {% form 'customer_register' class:'customer' %}
             <div class="card-body">
-                {% if request.query contains 'form-customer_register=.errors' %}
+                {% if request.query contains '.errors' %}
                     <div class="alert alert-error">
                         <span>Sorry, looks like something went wrong, please try again.</span>
                     </div>
