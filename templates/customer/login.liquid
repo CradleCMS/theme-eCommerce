@@ -4,13 +4,16 @@
             <div class="card-body">
                 <h3 class="text-center">Log in</h3>
                 {% include 'formErrorsCustom' %}
-                <label class="floating-label {% if form.errors contains 'email' %} input-error {% endif %}">
-                    <span>Email</span>
-                    <input class="input w-full" type="email" name="customer[email]" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
-                </label>
-                <label class="floating-label {% if form.errors contains 'email' %} input-error {% endif %}">
-                    <span>Password</span>
-                    <input class="input w-full" type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
+                <div>
+                    <label class="input validator w-full">
+                        <span class="w-20">Email</span>
+                        <input class="w-full px-2" type="email" name="customer[email]" value="" placeholder="mail@domain.com" autocorrect="off" autocapitalize="off" required />
+                    </label>
+                    <div class="validator-hint hidden m-0">Enter valid email address</div>
+                </div>
+                <label class="input validator w-full">
+                    <span class="w-20">Password</span>
+                    <input class="w-full px-2" type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
                 </label>
                 <div class="label">
                     <p class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ lang.forgot_your_password | def:'Forgot your password?' }}</a></p>
@@ -39,7 +42,10 @@
                     {% assign recoverSuccess = true %}
                 {% endif %}
                 <div class="join w-full{% if form.errors contains 'email' %} input-error{% endif %}">
-                    <input class="input join-item w-full" type="email" name="customer[email]" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                    <div class="w-full">
+                        <input class="input join-item w-full validator" type="email" name="customer[email]" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                        <div class="validator-hint hidden m-0">Enter valid email address</div>
+                    </div>
                     <input class="btn join-item w-36" type="submit" name="Submit" value="Submit">
                 </div>
                 <div class="alert text-center alert-success" id="recoverSuccess" style="display:none;">

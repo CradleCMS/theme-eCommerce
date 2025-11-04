@@ -228,6 +228,15 @@
           scale: 1;
           opacity: 1;
         }
+        :root:has(&) {
+          --page-has-backdrop: 1;
+          --page-overflow: hidden;
+          --page-scroll-bg: var(--page-scroll-bg-on);
+          --page-scroll-gutter: stable;
+          --page-scroll-transition: var(--page-scroll-transition-on);
+          animation: set-page-has-scroll forwards;
+          animation-timeline: scroll();
+        }
       }
       @starting-style {
         &.modal-open, &[open], &:target, .modal-toggle:checked + & {
@@ -476,7 +485,7 @@
       position: relative;
       display: inline-block;
       position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
-      & > *:not(summary):focus {
+      & > *:not(:has(~ [class*="dropdown-content"])):focus {
         --tw-outline-style: none;
         outline-style: none;
         @media (forced-colors: active) {
@@ -768,6 +777,36 @@
             --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
           }
         }
+      }
+    }
+  }
+  .validator-hint {
+    @layer daisyui.component {
+      visibility: hidden;
+      margin-top: calc(0.25rem * 2);
+      font-size: 0.75rem;
+    }
+  }
+  .validator {
+    @layer daisyui.component {
+      &:user-valid, &:has(:user-valid) {
+        &, &:focus, &:checked, &[aria-checked="true"], &:focus-within {
+          --input-color: var(--color-success);
+        }
+      }
+      &:user-invalid, &:has(:user-invalid), &[aria-invalid]:not([aria-invalid="false"]), &:has([aria-invalid]:not([aria-invalid="false"])) {
+        &, &:focus, &:checked, &[aria-checked="true"], &:focus-within {
+          --input-color: var(--color-error);
+        }
+        & ~ .validator-hint {
+          visibility: visible;
+          color: var(--color-error);
+        }
+      }
+    }
+    &:user-invalid, &:has(:user-invalid), &[aria-invalid]:not([aria-invalid="false"]), &:has([aria-invalid]:not([aria-invalid="false"])) {
+      & ~ .validator-hint {
+        display: revert-layer;
       }
     }
   }
@@ -3083,6 +3122,9 @@
   }
   .w-12 {
     width: calc(var(--spacing) * 12);
+  }
+  .w-20 {
+    width: calc(var(--spacing) * 20);
   }
   .w-24 {
     width: calc(var(--spacing) * 24);
@@ -5895,106 +5937,25 @@
   }
 }
 @layer base {
-  :root:has(.modal-open, .modal[open], .modal:target, .modal-toggle:checked) {
-    overflow: hidden;
-    --page-has-backdrop: 1;
-  }
-  :root:has(.drawer:not([class*="drawer-open"]) > .drawer-toggle:checked) {
-    overflow: hidden;
-    --page-has-backdrop: 1;
-  }
-  :root:has(.sm\:drawer-open > .drawer-toggle:checked) {
-    @media (width < 40rem) {
-      overflow: hidden;
-    }
-    @media (width < 40rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.md\:drawer-open > .drawer-toggle:checked) {
-    @media (width < 48rem) {
-      overflow: hidden;
-    }
-    @media (width < 48rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.lg\:drawer-open > .drawer-toggle:checked) {
-    @media (width < 64rem) {
-      overflow: hidden;
-    }
-    @media (width < 64rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.xl\:drawer-open > .drawer-toggle:checked) {
-    @media (width < 80rem) {
-      overflow: hidden;
-    }
-    @media (width < 80rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.\32xl\:drawer-open > .drawer-toggle:checked) {
-    @media (width < 96rem) {
-      overflow: hidden;
-    }
-    @media (width < 96rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.max-sm\:drawer-open > .drawer-toggle:checked) {
-    @media (width >= 40rem) {
-      overflow: hidden;
-    }
-    @media (width >= 40rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.max-md\:drawer-open > .drawer-toggle:checked) {
-    @media (width >= 48rem) {
-      overflow: hidden;
-    }
-    @media (width >= 48rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.max-lg\:drawer-open > .drawer-toggle:checked) {
-    @media (width >= 64rem) {
-      overflow: hidden;
-    }
-    @media (width >= 64rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.max-xl\:drawer-open > .drawer-toggle:checked) {
-    @media (width >= 80rem) {
-      overflow: hidden;
-    }
-    @media (width >= 80rem) {
-      --page-has-backdrop: 1;
-    }
-  }
-  :root:has(.max-2xl\:drawer-open > .drawer-toggle:checked) {
-    @media (width >= 96rem) {
-      overflow: hidden;
-    }
-    @media (width >= 96rem) {
-      --page-has-backdrop: 1;
-    }
+  :root:not(span) {
+    overflow: var(--page-overflow);
   }
 }
 @layer base {
-  :root:has( .modal-open, .modal[open], .modal:target, .modal-toggle:checked, .drawer:not(.drawer-open) > .drawer-toggle:checked ) {
-    background-image: linear-gradient(var(--root-bg), var(--root-bg));
-    background-color: var(--root-bg);
+  :root {
+    --page-scroll-bg-on: linear-gradient(var(--root-bg), var(--root-bg))
+    var(--root-bg);
     @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix( in srgb, var(--root-bg), oklch(0% 0 0) calc(var(--page-has-backdrop, 0) * 40%) );
+      --page-scroll-bg-on: linear-gradient(var(--root-bg), var(--root-bg))
+    color-mix(in srgb, var(--root-bg), oklch(0% 0 0) calc(var(--page-has-backdrop, 0) * 40%));
     }
-    animation: set-page-has-scroll forwards;
-    animation-timeline: scroll();
-    scrollbar-gutter: stable;
-    scrollbar-gutter: if(style(--page-has-scroll: 1): stable; else: unset);
+    --page-scroll-transition-on: background-color 0.3s ease-out;
+    transition: var(--page-scroll-transition);
+    scrollbar-gutter: var(--page-scroll-gutter, unset);
+    scrollbar-gutter: if(style(--page-has-scroll: 1): var(--page-scroll-gutter, unset) ; else: unset);
+  }
+  :root:root {
+    background: var(--page-scroll-bg, var(--root-bg, var(--color-base-100)));
   }
   @keyframes set-page-has-scroll {
     0%, to {
