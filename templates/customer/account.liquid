@@ -30,54 +30,37 @@
             </div>
             {% endfor %}
         {% endif %}
-        {% if customer.orders.size != 0 %}
         <h3 class="uppercase mb-2">Orders</h3>
-        <div class="overflow-x-auto border border-base-content/5 bg-base-100 w-full rounded-box">
-              <table class="table">
-                  <thead>
-                      <tr>
-                          <th>{{ lang.order | def:'Order' }}</th>
-                          <th>{{ lang.date | def:'Date' }}</th>
-                          <th>{{ lang.payment_status | def:'Payment Status' }}</th>
-                          <th>{{ lang.fulfillment_status | def:'Fulfillment Status' }}</th>
-                          <th>{{ lang.grandtotal | def:'Grand total' }}</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                  {% for order in customer.orders %}
-                  <tr>
-                      <td>{{ order | url | link_tag:order.number }}</td>
-                      <td>{{ order.createdAt | date: "%F" }}</td>
-                      <td>
-                          {{ order.payment }}
-                          {% case order.financial_status %}
-                              {% when 'authorized' %}
-                                  {{ lang.authorized | def:'Authorized' }}
-                              {% when 'pending' %}
-                                  {{ lang.pending | def:'Pending' }}
-                              {% when 'partially_paid' %}
-                                  {{ lang.partially_paid | def:'Partially Paid' }}
-                              {% when 'paid' %}
-                                  {{ lang.paid | def:'Paid' }}
-                              {% when 'voided' %}
-                                  {{ lang.voided | def:'Voided' }}
-                              {% when 'refunded' %}
-                                  {{ lang.refunded | def:'Refunded' }}
-                              {% when 'partially_refunded' %}
-                                  {{ lang.partially_refunded | def:'Partially Refunded' }}
-                          {% endcase %}
-                      </td>
-                      <td>
-                          {{ order.status }}
-                      </td>
-                      <td>{{ order.totalAmount | money }}</td>
-                  </tr>
-                  {% endfor %}
-                  </tbody>
-              </table>
-        </div>
+        {% if customer.orders.size != 0 %}
+            {% for order in customer.orders %}
+                <div class="border border-base-300 mb-4 rounded">
+                    <header class="p-4 bg-base-300 flex flex-row justify-between">
+                        <div class="font-bold">Order #{{ order.number }}</div>
+                        <div><a href="{{ order | url }}" class="btn-link">View details</a></div>
+                    </header>
+                    <div class="flex flex-col md:flex-row gap-4 p-4">
+                       <span>Order amount: {{ order.amount | money }}</span>
+                       <span>Created at: {{ order.createdAt | date: "%F" }}</span> 
+                       <span>Order reference: {{ order.reference }}</span>
+                    </div> 
+                    <div class="p-4 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        {% for item in order.items %}
+                	    <div class="card shadow bg-base-100 justify-between">
+                          <img width="200px" height="200px" class="rounded-t w-full"  src="{{ item.image | product_img_url:item.productId,'200' }}"  alt="{{ item.title | escape }}">
+                          <div class="card-body p-2 justify-end grow-0">
+                            {% let vt = item.title | split:'|' %} 
+                                <strong>{{vt | first}}</strong>                            
+                                {% if vt.size > 1 %}
+                                <em>{{ vt | slice:1 | join}}</em>
+                                {% endif %}
+                          </div>
+                        </div>
+                	    {% endfor %}
+                	</div>
+                </div>
+            {% endfor %}
         {% else %}
-            <p>{{ lang.you_havent_placed_any_orders_yet | def:"You haven't placed any orders yet." }}</p>
+            <p>You haven't placed any orders yet.</p>
         {% endif %}
       </div>
   </section>
