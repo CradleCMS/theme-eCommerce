@@ -1,24 +1,22 @@
 {% layout 'checkoutLayout' %}
-{% assign checkoutTitle = 'Checkout' %}
-{% title checkoutTitle %}
+
 <section class="mx-auto flex flex-col items-center">
 {% if cart == empty %}
     <div class="card w-96 bg-base-100 shadow-sm">
         <div class="card-body items-center text-center">
-            <h1 class="text-2xl font-bold">{{checkoutTitle}}</h1>
-            <h2>{{ lang.no_cart_items | def:"You have no cart items" }}</h2>
-            <a href="/" class="btn btn-primary">Back to shop</a>   
+            <h1 class="text-2xl font-bold">{{ 'Checkout' | t }}</h1>
+            <h2>{{ 'You have no cart items' | t }}</h2>
+            <a href="/" class="btn btn-primary">{{ 'Back to shop' | t }}</a>   
         </div>
     </div>
 {% else %}
     {% form 'checkout' class:'checkout bg-base-100 p-4', countrySelectorClass:"select input-outline", nonce:nonce %}
             <div class="flex flex-col-reverse lg:flex-row gap-4">
-            <input type="hidden" name="_" value="{{nonce}}">
             <input type="hidden" id="country" name="country" value="{{form.country}}">
             <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
-        	<div class="w-full lg:w-120" x-data="{billingSameAsShipping:{{cart.requiresShipping}} }">
+        	<div class="w-full lg:w-1/2" x-data="{billingSameAsShipping:{{cart.requiresShipping}} }">
         	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
-                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Shipping</legend>
+                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">{{ 'Shipping' | t }}</legend>
                     <legend class="fieldset-legend">Delivery to</legend>
                     {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
                     {% if cart.requiresShipping %}
@@ -44,7 +42,7 @@
         	    
         	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
         	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
-        	        <h3 class="text-lg font-bold">Customer information</h3>
+        	        <h3 class="text-lg font-bold">{{ 'Customer information' | t }}</h3>
                     {% if customer %}
                         <p>You are logged into account for <a class="link" href="/customer/account">{{ customer.name }}</a></p>
                         <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
@@ -86,7 +84,7 @@
                 </fieldset>
         	</div>
         	
-        	<div class="h-full">
+        	<div class="h-full lg:w-1/2">
                 <fieldset class="w-full lg:w-120 sticky top-8">
                     <div class="bg-base-200 p-2">
                         <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>

@@ -70,14 +70,13 @@
         {% endif %}
         <div>
             <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
-            {% form 'cart_add' class:'ml-2 mb-12' onSuccess:'/cart' %}
+            {% form 'cart_update' class:'ml-2 mb-12' onSuccess:'/cart' %}
                 <input type="hidden" name="product" value="{{product.id}}">
                 <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="_" value="{{nonce}}">
                 {% if product.variants.size > 1 %}
                 <select id="variant-select" class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
                     {% for variant in product.variants %}
-                    <option class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title}}</option>
+                    <option{% unless variant.available %} disabled{% endunless %} class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title | remove_first:' | ' | capitalize  }}</option>
                     {% endfor %}
                 </select>    
                 {% else %}
