@@ -2,7 +2,25 @@
     <h1>{{ meta.h1 }}</h1>
     <div>
         <div class="{{ article.format }}">{{ page.html }}</div>
-        {% include 'contact-form' %}
+        <div class="card shrink-0 w-full max-w-m {{ settings.general_shadow }}">
+            {% form 'contact' class:'card-body' %}
+                <h3 class="text-center">{{ 'Say hello!' | t }}</h3>
+                {% if form.errors %}
+                    <div class="alert alert-error">
+                        <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
+                    </div>
+                {% endif %}
+                {% if form.success %}
+                    <div class="alert alert-success">
+                        <span>{{ 'Thank you for the message, we will contact you shortly!' | t }}</span>
+                    </div>
+                {% else %}
+                <input type="text" name="name" class="grow input w-full" placeholder="Name" value="{{form.name}}" required/>
+                <input type="email" name="email" class="grow input w-full" value="{% if customer %}{{ customer.email }}{% else %}{{ form.email }}{% endif %}" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                <textarea placeholder="Message" name="message" rows="4" class="textarea textarea-bordered{% if form.errors contains 'message' %} textarea-error{% endif %} textarea-lg w-full" required >{{form.message}}</textarea>
+                <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                {% endif %}
+            {% endform %}
+        </div>
     </div>
 </section>
-
