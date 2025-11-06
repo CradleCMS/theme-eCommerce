@@ -10,7 +10,7 @@
         </div>
     </div>
 {% else %}
-    {% form 'checkout' class:'checkout bg-base-100 p-4', countrySelectorClass:"select input-outline", nonce:nonce %}
+    {% form 'checkout' class:'checkout bg-base-100 w-full', countrySelectorClass:"select input-outline", nonce:nonce %}
             <div class="flex flex-col-reverse lg:flex-row gap-4">
             <input type="hidden" id="country" name="country" value="{{form.country}}">
             <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
@@ -85,7 +85,7 @@
         	</div>
         	
         	<div class="h-full lg:w-1/2">
-                <fieldset class="w-full lg:w-120 sticky top-8">
+                <fieldset class="w-full sticky top-8">
                     <div class="bg-base-200 p-2">
                         <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>
                         {% for item in cart.items %}
