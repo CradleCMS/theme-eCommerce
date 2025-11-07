@@ -1,13 +1,16 @@
 {
   "name": "eCommerce",
-  "version": "0.4",
-  "developer": "Cradle systems",
-  "description": "eCommerce theme based on TailwindCSS and daisyUI",
+  "version": "1.0.0",
+  "developer": "CradleCMS",
+  "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
+  "source": "https://github.com/CradleCMS/theme-eCommerce",
+  "homepage": "https://cradlecms.com",
+  "support": "",
   "sections": [
     {
       "key": "global",
       "type": "section",
-      "caption": "Global settings",
+      "caption": "Global",
       "settings": [
         {
           "caption": "General",
@@ -27,7 +30,7 @@
               "value": "0"
             },
             {
-              "caption": "Minmal",
+              "caption": "Minimal",
               "value": "0.25"
             },
             {
@@ -50,7 +53,7 @@
               "value": ""
             },
             {
-              "caption": "Minmal",
+              "caption": "Minimal",
               "value": "shadow"
             },
             {
@@ -61,38 +64,26 @@
           "type": "select"
         },
         {
-          "caption": "Products in row",
-          "default": "4",
-          "key": "secProdRowAmount",
-          "options": [
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Content security policy",
-          "key": "content-security-policy",
+          "caption": "Development",
+          "description": "When adapting this theme you need to build an optimised css for production. Read more about that on \u003ca class='link' href='https://github.com/CradleCMS/theme-eCommerce' target='_blank'\u003egithub\u003c/a\u003e",
+          "key": "development",
           "type": "header"
         },
         {
-          "caption": "Script source self only",
-          "key": "content-security-policy-usage",
-          "type": "checkbox"
+          "caption": "Theme CSS mode",
+          "description": "Development mode includes full tailwind and daisyUI css served from cdn.jsdelivr.net",
+          "key": "css_dev_mode",
+          "options": [
+            {
+              "caption": "Production",
+              "value": "production"
+            },
+            {
+              "caption": "Development",
+              "value": "development"
+            }
+          ],
+          "type": "select"
         }
       ]
     },
@@ -103,12 +94,12 @@
       "settings": [
         {
           "caption": "Daisy UI Theme",
+          "description": "See \u003ca class='link' href='https://daisyui.com/docs/themes/' target='_blank'\u003ehttps://daisyui.com/docs/themes/\u003c/a\u003e for more information about daisyUI.",
           "key": "color-themes",
           "type": "header"
         },
         {
           "caption": "Select preset",
-          "description": "Go to \u003ca href='https://daisyui.com/docs/themes/' target='_blank'\u003ehttps://daisyui.com/docs/themes/\u003c/a\u003e to learn more",
           "key": "daisy-theme",
           "options": [
             {
@@ -745,6 +736,30 @@
           "type": "checkbox"
         },
         {
+          "caption": "Products in row",
+          "default": "4",
+          "key": "secProdRowAmount",
+          "options": [
+            {
+              "caption": "3",
+              "value": "3"
+            },
+            {
+              "caption": "4",
+              "value": "4"
+            },
+            {
+              "caption": "5",
+              "value": "5"
+            },
+            {
+              "caption": "6",
+              "value": "6"
+            }
+          ],
+          "type": "select"
+        },
+        {
           "caption": "Banners",
           "key": "section_banner1",
           "settings": [
@@ -868,7 +883,7 @@
           "key": "page_width",
           "options": [
             {
-              "caption": "Narrow (default)",
+              "caption": "Narrow",
               "value": ""
             },
             {
@@ -895,7 +910,7 @@
     {
       "key": "products",
       "type": "section",
-      "caption": "Product pages",
+      "caption": "Products",
       "settings": [
         {
           "caption": "Thumbnail position",
@@ -951,7 +966,7 @@
       "settings": [
         {
           "caption": "Product image height",
-          "description": "Sets a maximum height on the product card",
+          "description": "Max height on product card",
           "key": "col_card_img_height",
           "options": [
             {
@@ -979,7 +994,6 @@
         },
         {
           "caption": "Products per row",
-          "description": "Sets amount of products displayed on a row",
           "key": "colProductCount",
           "options": [
             {
@@ -1012,22 +1026,25 @@
       ]
     },
     {
-      "key": "cart",
+      "key": "shop",
       "type": "section",
-      "caption": "Cart",
+      "caption": "Ecommerce",
       "settings": [
+        {
+          "caption": "Cart",
+          "key": "cart",
+          "type": "header"
+        },
         {
           "caption": "Enable cart note",
           "key": "cartNotesEnabled",
           "type": "checkbox"
-        }
-      ]
-    },
-    {
-      "key": "checkout",
-      "type": "section",
-      "caption": "Checkout",
-      "settings": [
+        },
+        {
+          "caption": "Checkout",
+          "key": "checkout",
+          "type": "header"
+        },
         {
           "caption": "Checkout message",
           "description": "Shown in the bottom of the checkout page",
@@ -1044,18 +1061,19 @@
       ]
     },
     {
-      "key": "closed",
+      "key": "restricted",
       "type": "section",
       "caption": "Closed site",
+      "description": "These settings are used when the site is closed.",
       "settings": [
         {
           "caption": "Color Theme",
+          "description": "Go to \u003ca href='https://daisyui.com/docs/themes/' target='_blank'\u003ehttps://daisyui.com/docs/themes/\u003c/a\u003e to learn more",
           "key": "closed-header-color-themes",
           "type": "header"
         },
         {
           "caption": "Select preset",
-          "description": "Go to \u003ca href='https://daisyui.com/docs/themes/' target='_blank'\u003ehttps://daisyui.com/docs/themes/\u003c/a\u003e to learn more",
           "key": "closed-daisy-theme",
           "options": [
             {
@@ -1413,90 +1431,6 @@
           "caption": "Button text",
           "key": "footerButtonText",
           "type": "text"
-        }
-      ]
-    },
-    {
-      "key": "branding",
-      "type": "section",
-      "caption": "Branding",
-      "settings": [
-        {
-          "caption": "Logo",
-          "key": "logo_options",
-          "type": "header"
-        },
-        {
-          "caption": "Custom Logo",
-          "description": "A logo in png format with max-height 50px and max-width 200px.",
-          "key": "logo_image",
-          "type": "image"
-        },
-        {
-          "caption": "Favicons",
-          "key": "favicon",
-          "type": "header"
-        },
-        {
-          "caption": "Enable custom favicon",
-          "default": false,
-          "key": "favicon_enable",
-          "type": "checkbox"
-        },
-        {
-          "caption": "Favicon svg-type",
-          "description": "Format: An SVG-file with light and dark version for modern browsers",
-          "key": "favicon_svg",
-          "type": "asset"
-        },
-        {
-          "caption": "Theme colors",
-          "description": "Suggested colors for user agents.",
-          "key": "theme-color",
-          "type": "header"
-        },
-        {
-          "caption": "Theme color (light)",
-          "key": "branding-theme-color-light",
-          "type": "color"
-        },
-        {
-          "caption": "Theme color (dark)",
-          "key": "branding-theme-color-dark",
-          "type": "color"
-        }
-      ]
-    },
-    {
-      "key": "dev",
-      "type": "section",
-      "caption": "Developer settings",
-      "settings": [
-        {
-          "caption": "Development",
-          "key": "development",
-          "type": "header"
-        },
-        {
-          "caption": "Theme CSS mode",
-          "key": "css_dev_mode",
-          "options": [
-            {
-              "caption": "Production",
-              "value": "production"
-            },
-            {
-              "caption": "Development",
-              "value": "development"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Debug enabled",
-          "description": "Objects will be shown on the website, can only be used for development sites.",
-          "key": "debugEnabled",
-          "type": "checkbox"
         }
       ]
     }

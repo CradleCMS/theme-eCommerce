@@ -2,9 +2,6 @@
 <html data-theme="{{ settings.daisy-theme }}">
     <head>
         <meta charset="utf-8" />
-        {% if settings.content-security-policy-usage %}
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
-        {% endif %}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{{ site.name }}{% if meta.title != blank and meta.title != site.name %} | {{ meta.title }}{% endif %}</title>	
         <link rel="canonical" href="{{ canonicalUrl }}" />
