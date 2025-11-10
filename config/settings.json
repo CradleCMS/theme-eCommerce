@@ -1,6 +1,6 @@
 {
   "name": "eCommerce",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "developer": "CradleCMS",
   "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
   "source": "https://github.com/CradleCMS/theme-eCommerce",
