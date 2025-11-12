@@ -162,9 +162,17 @@ body {
     text-align: left;
     padding: 0 0.5em
     white-space: nowrap;
-    color: color-mix(in oklab,currentColor 60%,transparent);
+    color: color-mix(in oklab,currentColor 100%,transparent);
     align-items: center;
     gap: .375rem;
+}
+.cradle input,
+.cradle textarea,
+.cradle select {
+    width: clamp(10rem, 30rem, 100%);
+    margin-bottom: 0.5rem;
+    border: var(--border) solid #0000;
+    border-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
 }
 .cradle input[type="text"],
 .cradle input[type="tel"],
@@ -178,7 +186,6 @@ body {
 .cradle input[type="week"]
 {
     cursor: text;
-    border: var(--border) solid #0000;
     position: relative;
     display: inline-flex;
     flex-shrink: 1;
@@ -189,7 +196,6 @@ body {
     padding-inline: calc(0.25rem * 3);
     vertical-align: middle;
     white-space: nowrap;
-    width: clamp(3rem, 20rem, 100%);
     height: var(--size);
     font-size: 0.875rem;
     touch-action: manipulation;
@@ -197,7 +203,6 @@ body {
     border-start-end-radius: var(--join-se, var(--radius-field));
     border-end-start-radius: var(--join-es, var(--radius-field));
     border-end-end-radius: var(--join-ee, var(--radius-field));
-    border-color: var(--input-color);
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;    
     --size: calc(var(--size-field, 0.25rem) * 10);
     align-self: center;
@@ -245,7 +250,6 @@ body {
     --size: calc(var(--size-field, 0.25rem) * 10);
     --btn-p: 1rem;
     --btn-border: var(--btn-bg);  
-    width: clamp(3rem, 20rem, 100%);
     display: inline-block;
 }
 .cradle input[type="checkbox"] {
@@ -379,7 +383,6 @@ body {
     overflow: hidden;
 }
 .cradle textarea {
-    border: var(--border) solid #0000;
     min-height: calc(0.25rem * 20);
     flex-shrink: 1;
     appearance: none;
@@ -387,17 +390,14 @@ body {
     background-color: var(--color-base-100);
     padding-block: calc(0.25rem * 2);
     vertical-align: middle;
-    width: clamp(3rem, 20rem, 100%);
     padding-inline-start: 0.75rem;
     padding-inline-end: 0.75rem;
     font-size: 0.875rem;
     touch-action: manipulation;
-    border-color: var(--input-color);
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;    
     align-self: center;
 }
 .cradle select {
-    border: var(--border) solid #0000;
     position: relative;
     display: inline-flex;
     flex-shrink: 1;
@@ -408,7 +408,6 @@ body {
     padding-inline-start: calc(0.25rem * 4);
     padding-inline-end: calc(0.25rem * 7);
     vertical-align: middle;
-    width: clamp(3rem, 20rem, 100%);
     height: var(--size);
     font-size: 0.875rem;
     touch-action: manipulation;
@@ -423,7 +422,5 @@ body {
     text-overflow: ellipsis;
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
     --size: calc(var(--size-field, 0.25rem) * 10);
-    border-color: var(--input-color);
-    --input-color: var(--color-base-content);
 }
 /**/
