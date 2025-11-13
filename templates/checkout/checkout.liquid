@@ -10,133 +10,125 @@
         </div>
     </div>
 {% else %}
-    {% form 'checkout' class:'checkout bg-base-100 w-full', countrySelectorClass:"select input-outline", nonce:nonce %}
-            <div class="flex flex-col-reverse lg:flex-row gap-4">
-            <input type="hidden" id="country" name="country" value="{{form.country}}">
-            <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
-        	<div class="w-full lg:w-1/2" x-data="{billingSameAsShipping:{{cart.requiresShipping}} }">
-        	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
-                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">{{ 'Shipping' | t }}</legend>
-                    <legend class="fieldset-legend">Delivery to</legend>
-                    {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
-                    {% if cart.requiresShipping %}
-                        <legend class="fieldset-legend">Select Shipping</legend>
-                        <ul class="items-center w-full text-sm font-medium border border-base-200 flex flex-col py-2">
-                        {% for shipping in cart.shippings %}
-                        <li class="w-full m-2">
-                            <div class="flex items-center justify-between ps-3 gap-4">
-                                <div class="flex gap-4 items-center">
-                                    <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
-                                    <label for="{{shipping.id}}" class="label flex flex-col items-start">
-                                        <span class="text-strong">{{ shipping.carrierName }}</span>
-                                        <span class="text-xs">delivery in {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} (weekdays)</span>
-                                    </label>
-                                </div>
-                                <p class="mr-2 text-strong">{{shipping.cost.total | money }}</p>
+{% form 'checkout' class:'checkout bg-base-100 p-4', countrySelectorClass:"select input-outline", nonce:nonce %}
+        <div class="flex flex-col-reverse lg:flex-row gap-4">
+        <input type="hidden" id="country" name="country" value="{{form.country}}">
+        <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
+    	<div class="w-full lg:w-1/2" x-data="{billingSameAsShipping:{{cart.requiresShipping}} }">
+    	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
+                <legend class="text-center text-lg w-full p-1 mt-4 uppercase">{{ 'Shipping' | t }}</legend>
+                <legend class="fieldset-legend">Delivery to</legend>
+                {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
+                {% if cart.requiresShipping %}
+                    <legend class="fieldset-legend">Select Shipping</legend>
+                    <ul class="items-center w-full text-sm font-medium border border-base-300 flex flex-col py-2">
+                    {% for shipping in cart.shippings %}
+                    <li class="w-full m-2">
+                        <div class="flex items-center justify-between ps-3 gap-4">
+                            <div class="flex gap-4 items-center">
+                                <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
+                                <label for="{{shipping.id}}" class="label flex flex-col items-start">
+                                    <span class="text-strong">{{ shipping.carrierName }}</span>
+                                    <span class="text-xs">delivery in {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} (weekdays)</span>
+                                </label>
                             </div>
-                        </li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                </fieldset>
-        	    
-        	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
-        	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
-        	        <h3 class="text-lg font-bold">{{ 'Customer information' | t }}</h3>
-                    {% if customer %}
-                        <p>You are logged into account for <a class="link" href="/customer/account">{{ customer.name }}</a></p>
-                        <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
-                    {% else %}
-                    <legend class="fieldset-legend">Email</legend>
-                    <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
-                    {% endif %}
-                    
-                    {% include 'coAddresses' %}
-                    {% if shop.settings.b2b %}
-                    <div class="p-4">
-                        <label class="label m-2">VAT identification</label>
-                        <label class="floating-label"><span>Company name</span>
-                            <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
-                        </label>
-                        <label class="floating-label mt-2"><span>VAT number</span>
-                            <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
-                        </label>
-                    </div>
-                    {% endif %}
-                 </fieldset>
-                <fieldset class="outline-1 outline-gray-300 p-4 mb-8">
-                    <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Payment</legend>
-                    {% if providers != empty %}
-                        {% if providers.size > 1 %}
-                            <div class="filter">
-                            <input class="btn filter-reset" type="radio" name="gateway" aria-label="All"/>
-                            {% for p in providers %}
-                            <input class="btn" type="radio" name="gateway" value="{{p.gatewayId}}" aria-label="{{p.title}}" {% if p.gatewayId == cart.gatewayId%}checked{% endif %}/>
-                            {% endfor %}
-                            </div>
-                        {% else %}
-                            {% assign p = providers | first %}
-                            <input class="btn" type="hidden" name="gateway" value="{{p.gatewayId}}"/>
-                            <h3 class="text-center">{{provider.title}}</h3>
-                        {% endif %}
-                    {% endif %}
-                    <div id="payment-container"></div>
-                </fieldset>
-        	</div>
-        	
-        	<div class="h-full lg:w-1/2">
-                <fieldset class="w-full sticky top-8">
-                    <div class="bg-base-200 p-2">
-                        <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>
-                        {% for item in cart.items %}
-                	    <div class="flex px-4 border-b border-base-300 pb-4 mb-4">
-                          <img width="60px" height="60px" class="rounded self-end"  src="{{ item.image | product_img_url:item.productId,'100' }}"  alt="{{ item.title | escape }}">
-                          <div class="self-center ml-4">
-                            {% let vt = item.title | split:'|' %} 
-                            <strong>{{vt | first}}</strong>
-                            {% if vt.size > 1 %}
-                            <br>
-                            <em>{{ vt | slice:1 | join}}</em>
-                            {% endif %}
-                          </div>
-                          <div class="grow self-center text-right">
-                		    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
-                            <span class="ml-4">{{ item.amount | money }}</span>
-                          </div>
+                            <p class="mr-2 text-strong">{{shipping.cost.total | money }}</p>
                         </div>
-                	    {% endfor %}  
-                        {% include 'coMinimalCosts' %}
-                    </div>
-                    {% unless customer %}
-                    <div role="alert" class="alert alert-bordered bg-base-100 mt-4 mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-gray-400 h-8 w-8 shrink-0">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                      <div>
-                        <p>When ordering an account will be created</p>
-                        <div class="text-xs">There you can follow your order status and history</div>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </fieldset>
+    	    
+    	    <fieldset class="outline-1 outline-gray-300 p-4 mb-8 fieldset">
+    	        <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Details</legend>
+    	        <h3 class="text-lg font-bold">{{ 'Customer information' | t }}</h3>
+                {% if customer %}
+                    <p>You are logged into account for <a class="link" href="/customer/account">{{ customer.name }}</a></p>
+                    <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
+                {% else %}
+                <legend class="fieldset-legend">Email</legend>
+                <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
+                {% endif %}
+                
+                {% include 'coAddresses' %}
+                {% if shop.settings.b2b %}
+                <div class="p-4">
+                    <label class="label m-2">VAT identification</label>
+                    <label class="floating-label"><span>Company name</span>
+                        <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
+                    </label>
+                    <label class="floating-label mt-2"><span>VAT number</span>
+                        <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
+                    </label>
+                </div>
+                {% endif %}
+             </fieldset>
+            <fieldset class="outline-1 outline-gray-300 p-4 mb-8">
+                <legend class="text-center text-lg w-full p-1 mt-4 uppercase">Payment</legend>
+                {% if providers != empty %}
+                    {% if providers.size > 1 %}
+                        <div class="filter">
+                        <input class="btn filter-reset" type="radio" name="gateway" aria-label="All"/>
+                        {% for p in providers %}
+                        <input class="btn" type="radio" name="gateway" value="{{p.gatewayId}}" aria-label="{{p.title}}" {% if p.gatewayId == cart.gatewayId%}checked{% endif %}/>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {% assign p = providers | first %}
+                        <input class="btn" type="hidden" name="gateway" value="{{p.gatewayId}}"/>
+                        <h3 class="text-center">{{provider.title}}</h3>
+                    {% endif %}
+                {% endif %}
+            </fieldset>
+    	</div>
+    	
+    	<div class="h-full lg:w-1/2 block md:sticky top-4">
+            <fieldset class="w-full">
+                <div class="bg-base-200 p-2">
+                    <h2 class="text-center text-2xl w-full p-1">You are ordering</h2>
+                    {% for item in cart.items %}
+            	    <div class="flex px-4 border-b border-base-300 pb-4 mb-4">
+                      <img width="60px" height="60px" class="rounded self-end"  src="{{ item.image | product_img_url:item.productId,'100' }}"  alt="{{ item.title | escape }}">
+                      <div class="self-center ml-4">
+                        {% let vt = item.title | split:'|' %} 
+                        <strong>{{vt | first}}</strong>
+                        {% if vt.size > 1 %}
+                        <br>
+                        <em>{{ vt | slice:1 | join}}</em>
+                        {% endif %}
+                      </div>
+                      <div class="grow self-center text-right">
+            		    <en class="text-sm">{{ item.price | money }}&times;{{ item.quantity }}</em>     
+                        <span class="ml-4">{{ item.amount | money }}</span>
                       </div>
                     </div>
-                    {% endunless %}
-                </fieldset>	    
-        	</div>
-        
-        </div>
-    {% endform %}
-<a-checkout>{{ checkout }}</a-checkout>
+            	    {% endfor %}  
+                    {% include 'coMinimalCosts' %}
+                </div>
+                {% unless customer %}
+                <div role="alert" class="alert alert-bordered bg-base-100 mt-4 mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-gray-400 h-8 w-8 shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <p>When ordering an account will be created</p>
+                    <div class="text-xs">There you can follow your order status and history</div>
+                  </div>
+                </div>
+                {% endunless %}
+            </fieldset>	    
+    	</div>
+    
+    </div>
+{% endform %}
+<div class="w-full p-8 bg-base-100">
+    <a-checkout >{{ checkout }}</a-checkout>
+    <div id="payment-container"></div>
+</div>
 
 {% endif %}
-{% if settings.debugEnabled %}
 <hr>
-<p>Cart object</p>
-{{ cart | print_r }}
-<hr>
-<p>Shop object</p>
-{{ shop | print_r }}
-<hr>
-<p>Site object</p>
-{{ site | print_r }}
-{% endif %}
 </section>
 
 {% component 'acheckout' %}
