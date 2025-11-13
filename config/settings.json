@@ -1069,12 +1069,12 @@
         {
           "caption": "Color Theme",
           "description": "Go to \u003ca href='https://daisyui.com/docs/themes/' target='_blank'\u003ehttps://daisyui.com/docs/themes/\u003c/a\u003e to learn more",
-          "key": "closed-header-color-themes",
+          "key": "closedHeaderColorThemes",
           "type": "header"
         },
         {
           "caption": "Select preset",
-          "key": "closed-daisy-theme",
+          "key": "closedDaisyTheme",
           "options": [
             {
               "caption": "Light",
@@ -1209,27 +1209,19 @@
         },
         {
           "caption": "Dialogue style",
-          "key": "closed_dialog_colors",
+          "key": "closedDialogColors",
           "options": [
             {
-              "caption": "Base 100 (default)",
+              "caption": "Base (default)",
               "value": "base-100"
             },
             {
-              "caption": "Base 200",
+              "caption": "Darker base",
               "value": "base-200"
             },
             {
-              "caption": "Base 300",
+              "caption": "Darkest base",
               "value": "base-300"
-            },
-            {
-              "caption": "Secondary",
-              "value": "secondary"
-            },
-            {
-              "caption": "Accent",
-              "value": "accent"
             },
             {
               "caption": "Neutral",
@@ -1240,43 +1232,44 @@
         },
         {
           "caption": "Background image",
-          "key": "closed_header_bg_image",
+          "key": "closedHeaderBgImage",
           "type": "header"
         },
         {
           "caption": "Background image",
           "description": "Recommended format: jpg-file, minimum 1024px x 1024p",
-          "key": "closed_bgimage",
+          "key": "closedBgimage",
           "type": "image"
         },
         {
           "caption": "Message",
-          "key": "closed_header_text",
+          "key": "closedHeaderText",
           "type": "header"
         },
         {
           "caption": "Title",
-          "key": "closed_title",
+          "key": "closedTitle",
           "type": "text"
         },
         {
           "caption": "Text",
-          "key": "closed_text",
+          "key": "closedText",
           "type": "text"
         },
         {
           "caption": "Image",
-          "key": "closed_header_fg_image_header",
+          "key": "closedHeaderFgImageHeader",
           "type": "header"
         },
         {
-          "caption": "Use foreground image",
-          "key": "closed_fgimage_use",
-          "type": "checkbox"
+          "caption": "Foreground image",
+          "description": "Format: png-file, minimum 450px wide",
+          "key": "closedFgimage",
+          "type": "image"
         },
         {
           "caption": "Size",
-          "key": "closed_fgimage_size",
+          "key": "closedFgimageSize",
           "options": [
             {
               "caption": "Small",
@@ -1294,57 +1287,51 @@
           "type": "select"
         },
         {
-          "caption": "Foreground image",
-          "description": "Format: png-file, minimum 450px wide",
-          "key": "closed_fgimage",
-          "type": "image"
+          "caption": "Button",
+          "key": "closedHeaderButton",
+          "type": "header"
+        },
+        {
+          "caption": "Button text",
+          "key": "closedButtonText",
+          "type": "text"
+        },
+        {
+          "caption": "Add link",
+          "key": "closedButtonLink",
+          "type": "text"
         },
         {
           "caption": "Signup",
-          "key": "closed_header_signup",
+          "key": "closedHeaderSignup",
           "type": "header"
         },
         {
           "caption": "Message",
-          "key": "closed_signup_text",
+          "key": "closedSignupText",
           "type": "text"
         },
         {
           "caption": "Display signup form",
           "description": "NOTE you need to create a form named signup in admin.",
-          "key": "closed_signup_true",
+          "key": "closedSignupTrue",
           "type": "checkbox"
         },
         {
           "caption": "Use daisyUI markup",
           "description": "NOTE the form can only contain an email input field, read the documentation for more info",
-          "key": "closed_daisysignup_true",
+          "key": "closedDaisysignupTrue",
           "type": "checkbox"
         },
         {
           "caption": "Social media",
-          "key": "closed_header_social",
+          "key": "closedHeaderSocial",
           "type": "header"
         },
         {
           "caption": "Display social media links",
-          "key": "closed_social_true",
+          "key": "closedSocialTrue",
           "type": "checkbox"
-        },
-        {
-          "caption": "Button",
-          "key": "closed_header_button",
-          "type": "header"
-        },
-        {
-          "caption": "Button text",
-          "key": "closed_button_text",
-          "type": "text"
-        },
-        {
-          "caption": "Add link",
-          "key": "closed_button_link",
-          "type": "text"
         }
       ]
     },
