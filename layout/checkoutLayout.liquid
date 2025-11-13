@@ -31,15 +31,16 @@
     <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col min-h-[100vh] justify-between {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {{ 'alpine.min.js' | script_tag }}
         <div class="mx-auto max-w-full">
-            <div class="w-full flex relative place-items-center justify-center gap-4 py-4">
-            	<a class="flex flex-col text-center p-2 absolute left-0" href="{{ request.referer }}" >
-                	<span class="btn btn-sm btn-link">&larr; {{ 'Back to shop' | t:'default' }}</span>
-                </a>
-                <a class="p-2" href="{{ site | url }}">
-                    <img src="/logo-small.png" alt="{{ site.name }} logo" tabindex="0">
-            	</a>
-            </div>            
-            <div id="main-content" class="container mx-auto mt-4 px-2 pb-2 checkout">
+                   
+            <div id="main-content" class="container mx-auto px-2 pb-2 checkout">
+                <div class="w-full flex relative place-items-center justify-center gap-4 py-4 bg-neutral text-neutral-content shadow-xl">
+                	<a class="flex flex-col text-center ml-2" href="{{ request.referer }}" >
+                    	<span class="btn btn-sm btn-link">&larr; {{ 'Back to shop' | t:'default' }}</span>
+                    </a>
+                    <a class="p-2 ml-auto mr-4" href="{{ site | url }}">
+                        <img class="h-8 w-auto ml-auto" src="/logo.png" alt="{{ site.name }} logo" tabindex="0">
+                	</a>
+                </div> 
                 {{ contentForLayout }}
             </div>
         </div>
