@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.16 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.1.17 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -192,7 +192,7 @@
 }
 @layer utilities {
   .modal {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       pointer-events: none;
       visibility: hidden;
       position: fixed;
@@ -217,7 +217,7 @@
         display: none;
       }
     }
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &.modal-open, &[open], &:target, .modal-toggle:checked + & {
         pointer-events: auto;
         visibility: visible;
@@ -247,7 +247,7 @@
     }
   }
   .menu {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       width: fit-content;
       flex-direction: column;
@@ -318,6 +318,22 @@
           box-shadow: 2px 2px inset;
           pointer-events: none;
         }
+      }
+      details {
+        overflow: hidden;
+        interpolate-size: allow-keywords;
+      }
+      details::details-content {
+        block-size: 0;
+        @media (prefers-reduced-motion: no-preference) {
+          transition-behavior: allow-discrete;
+          transition-property: block-size, content-visibility;
+          transition-duration: 0.2s;
+          transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+      details[open]::details-content {
+        block-size: auto;
       }
       :where(li > details[open] > summary):after, :where(li > .menu-dropdown-toggle.menu-dropdown-show):after {
         rotate: 45deg;
@@ -408,7 +424,7 @@
     }
   }
   .floating-label {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: block;
       input {
@@ -482,7 +498,7 @@
     }
   }
   .dropdown {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: inline-block;
       position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
@@ -497,7 +513,7 @@
       .dropdown-content {
         position: absolute;
       }
-      &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) .dropdown-content, &.dropdown-hover:not(:hover) [tabindex]:first-child:focus:not(:focus-visible) ~ .dropdown-content {
+      &.dropdown-close .dropdown-content, &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) .dropdown-content, &.dropdown-hover:not(:hover) [tabindex]:first-child:focus:not(:focus-visible) ~ .dropdown-content {
         display: none;
         transform-origin: top;
         opacity: 0%;
@@ -519,18 +535,21 @@
           opacity: 0;
         }
       }
-      &.dropdown-open, &:not(.dropdown-hover):focus, &:focus-within {
-        > [tabindex]:first-child {
-          pointer-events: none;
+      &:not(.dropdown-close) {
+        &.dropdown-open, &:not(.dropdown-hover):focus, &:focus-within {
+          > [tabindex]:first-child {
+            pointer-events: none;
+          }
+          .dropdown-content {
+            opacity: 100%;
+            scale: 100%;
+          }
         }
-        .dropdown-content {
-          opacity: 100%;
-        }
-      }
-      &.dropdown-hover:hover {
-        .dropdown-content {
-          opacity: 100%;
-          scale: 100%;
+        &.dropdown-hover:hover {
+          .dropdown-content {
+            opacity: 100%;
+            scale: 100%;
+          }
         }
       }
       &:is(details) {
@@ -538,11 +557,6 @@
           &::-webkit-details-marker {
             display: none;
           }
-        }
-      }
-      &.dropdown-open, &:focus, &:focus-within {
-        .dropdown-content {
-          scale: 100%;
         }
       }
       &:where([popover]) {
@@ -553,7 +567,7 @@
         color: inherit;
         @supports not (position-area: bottom) {
           margin: auto;
-          &.dropdown-open:not(:popover-open) {
+          &.dropdown-close, &.dropdown-open:not(:popover-open) {
             display: none;
             transform-origin: top;
             opacity: 0%;
@@ -563,7 +577,7 @@
             background-color: color-mix(in oklab, #000 30%, #0000);
           }
         }
-        &:not(.dropdown-open, :popover-open) {
+        &.dropdown-close, &:not(.dropdown-open, :popover-open) {
           display: none;
           transform-origin: top;
           opacity: 0%;
@@ -574,14 +588,11 @@
   }
   .btn {
     :where(&) {
-      @layer daisyui.component {
+      @layer daisyui.l1.l2.l3 {
         width: unset;
       }
     }
-    .prose & {
-      text-decoration-line: none;
-    }
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-flex;
       flex-shrink: 0;
       cursor: pointer;
@@ -671,7 +682,7 @@
       }
     }
     &:disabled {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         &:not(.btn-link, .btn-ghost) {
           background-color: var(--color-base-content);
           @supports (color: color-mix(in lab, red, red)) {
@@ -685,25 +696,11 @@
         --btn-fg: var(--color-base-content);
         @supports (color: color-mix(in lab, red, red)) {
           --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
-        }
-        @media (hover: hover) {
-          &:hover {
-            pointer-events: none;
-            background-color: var(--color-neutral);
-            @supports (color: color-mix(in lab, red, red)) {
-              background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
-            }
-            --btn-border: #0000;
-            --btn-fg: var(--color-base-content);
-            @supports (color: color-mix(in lab, red, red)) {
-              --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
-            }
-          }
         }
       }
     }
     &[disabled] {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         &:not(.btn-link, .btn-ghost) {
           background-color: var(--color-base-content);
           @supports (color: color-mix(in lab, red, red)) {
@@ -717,26 +714,12 @@
         --btn-fg: var(--color-base-content);
         @supports (color: color-mix(in lab, red, red)) {
           --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
-        }
-        @media (hover: hover) {
-          &:hover {
-            pointer-events: none;
-            background-color: var(--color-neutral);
-            @supports (color: color-mix(in lab, red, red)) {
-              background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
-            }
-            --btn-border: #0000;
-            --btn-fg: var(--color-base-content);
-            @supports (color: color-mix(in lab, red, red)) {
-              --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
-            }
-          }
         }
       }
     }
   }
   .loading {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       pointer-events: none;
       display: inline-block;
       aspect-ratio: 1 / 1;
@@ -750,7 +733,7 @@
     }
   }
   .btn-disabled {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:not(.btn-link, .btn-ghost) {
         background-color: var(--color-base-content);
         @supports (color: color-mix(in lab, red, red)) {
@@ -765,31 +748,17 @@
       @supports (color: color-mix(in lab, red, red)) {
         --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
       }
-      @media (hover: hover) {
-        &:hover {
-          pointer-events: none;
-          background-color: var(--color-neutral);
-          @supports (color: color-mix(in lab, red, red)) {
-            background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
-          }
-          --btn-border: #0000;
-          --btn-fg: var(--color-base-content);
-          @supports (color: color-mix(in lab, red, red)) {
-            --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
-          }
-        }
-      }
     }
   }
   .validator-hint {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       visibility: hidden;
       margin-top: calc(0.25rem * 2);
       font-size: 0.75rem;
     }
   }
   .validator {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       &:user-valid, &:has(:user-valid) {
         &, &:focus, &:checked, &[aria-checked="true"], &:focus-within {
           --input-color: var(--color-success);
@@ -812,7 +781,7 @@
     }
   }
   .toggle {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       border: var(--border) solid currentColor;
       color: var(--input-color);
       position: relative;
@@ -947,7 +916,7 @@
     }
   }
   .input {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       cursor: text;
       border: var(--border) solid #0000;
       position: relative;
@@ -1070,7 +1039,7 @@
     }
   }
   .indicator {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: inline-flex;
       width: max-content;
@@ -1087,10 +1056,14 @@
     }
   }
   .table {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       font-size: 0.875rem;
       position: relative;
       width: 100%;
+      border-collapse: separate;
+      --tw-border-spacing-x: calc(0.25rem * 0);
+      --tw-border-spacing-y: calc(0.25rem * 0);
+      border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
       border-radius: var(--radius-box);
       text-align: left;
       &:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
@@ -1119,7 +1092,7 @@
         font-size: 0.875rem;
         font-weight: 600;
       }
-      :where(tfoot) {
+      :where(tfoot tr:first-child :is(td, th)) {
         border-top: var(--border) solid var(--color-base-content);
         @supports (color: color-mix(in lab, red, red)) {
           border-top: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
@@ -1143,7 +1116,7 @@
         left: calc(0.25rem * 0);
         background-color: var(--color-base-100);
       }
-      :where(thead tr, tbody tr:not(:last-child)) {
+      :where(thead tr :is(td, th), tbody tr:not(:last-child) :is(td, th)) {
         border-bottom: var(--border) solid var(--color-base-content);
         @supports (color: color-mix(in lab, red, red)) {
           border-bottom: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
@@ -1152,7 +1125,7 @@
     }
   }
   .range {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       appearance: none;
       webkit-appearance: none;
       --range-thumb: var(--color-base-100);
@@ -1247,7 +1220,7 @@
     }
   }
   .select {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       border: var(--border) solid #0000;
       position: relative;
       display: inline-flex;
@@ -1417,7 +1390,7 @@
     }
   }
   .menu-horizontal {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       display: inline-flex;
       flex-direction: row;
       & > li:not(.menu-title) > details > ul {
@@ -1441,7 +1414,7 @@
     }
   }
   .checkbox {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       border: var(--border) solid var(--input-color, var(--color-base-content));
       @supports (color: color-mix(in lab, red, red)) {
         border: var(--border) solid var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, #0000));
@@ -1520,14 +1493,14 @@
       }
     }
     &:disabled {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         cursor: not-allowed;
         opacity: 20%;
       }
     }
   }
   .radio {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: inline-block;
       flex-shrink: 0;
@@ -1584,14 +1557,14 @@
       }
     }
     &:disabled {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         cursor: not-allowed;
         opacity: 20%;
       }
     }
   }
   .rating {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: inline-flex;
       vertical-align: middle;
@@ -1635,7 +1608,7 @@
         scale: 1.1;
       }
     }
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &.rating-xs :where(*:not(.rating-hidden)) {
         width: calc(0.25rem * 4);
         height: calc(0.25rem * 4);
@@ -1659,7 +1632,7 @@
     }
   }
   .navbar {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       width: 100%;
       align-items: center;
@@ -1667,13 +1640,13 @@
       min-height: 4rem;
     }
     :where(&) {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         position: relative;
       }
     }
   }
   .card {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       position: relative;
       display: flex;
       flex-direction: column;
@@ -1734,7 +1707,7 @@
     position: sticky;
   }
   .dropdown-end {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --anchor-h: span-left;
       :where(.dropdown-content) {
         inset-inline-end: calc(0.25rem * 0);
@@ -1786,7 +1759,7 @@
     left: calc(var(--spacing) * 4);
   }
   .hero-content {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       isolation: isolate;
       display: flex;
       max-width: 80rem;
@@ -1797,7 +1770,7 @@
     }
   }
   .textarea {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       border: var(--border) solid #0000;
       min-height: calc(0.25rem * 20);
       flex-shrink: 1;
@@ -1872,7 +1845,7 @@
     }
   }
   .btn-active {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --btn-bg: var(--btn-color, var(--color-base-200));
       @supports (color: color-mix(in lab, red, red)) {
         --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
@@ -1894,7 +1867,7 @@
     grid-column: span 2 / span 2;
   }
   .hero {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: grid;
       width: 100%;
       place-items: center;
@@ -1907,7 +1880,7 @@
     }
   }
   .hero-overlay {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       grid-column-start: 1;
       grid-row-start: 1;
       height: 100%;
@@ -1926,6 +1899,9 @@
   }
   .container {
     width: 100%;
+    @media (width >= 30rem) {
+      max-width: 30rem;
+    }
     @media (width >= 40rem) {
       max-width: 40rem;
     }
@@ -1943,7 +1919,7 @@
     }
   }
   .divider {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       height: calc(0.25rem * 4);
       flex-direction: row;
@@ -1988,7 +1964,7 @@
     margin: auto;
   }
   .filter {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       flex-wrap: wrap;
       input[type="radio"] {
@@ -2036,7 +2012,7 @@
     margin-inline: auto;
   }
   .input-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 12);
       font-size: max(var(--font-size, 1.125rem), 1.125rem);
       &[type="number"] {
@@ -2048,7 +2024,7 @@
     }
   }
   .input-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 10);
       font-size: max(var(--font-size, 0.875rem), 0.875rem);
       &[type="number"] {
@@ -2060,7 +2036,7 @@
     }
   }
   .input-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 8);
       font-size: max(var(--font-size, 0.75rem), 0.75rem);
       &[type="number"] {
@@ -2072,7 +2048,7 @@
     }
   }
   .input-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 14);
       font-size: max(var(--font-size, 1.375rem), 1.375rem);
       &[type="number"] {
@@ -2084,7 +2060,7 @@
     }
   }
   .input-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 6);
       font-size: max(var(--font-size, 0.6875rem), 0.6875rem);
       &[type="number"] {
@@ -2096,7 +2072,7 @@
     }
   }
   .label {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-flex;
       align-items: center;
       gap: calc(0.25rem * 1.5);
@@ -2561,9 +2537,6 @@
   .-mt-1 {
     margin-top: calc(var(--spacing) * -1);
   }
-  .-mt-2 {
-    margin-top: calc(var(--spacing) * -2);
-  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -2592,7 +2565,7 @@
     margin-top: calc(var(--spacing) * 20);
   }
   .breadcrumbs {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       max-width: 100%;
       overflow-x: auto;
       padding-block: calc(0.25rem * 2);
@@ -2654,7 +2627,7 @@
     margin-right: calc(var(--spacing) * 2);
   }
   .fieldset-legend {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       margin-bottom: calc(0.25rem * -1);
       display: flex;
       align-items: center;
@@ -2666,7 +2639,7 @@
     }
   }
   .footer-title {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       margin-bottom: calc(0.25rem * 2);
       text-transform: uppercase;
       opacity: 60%;
@@ -2713,7 +2686,7 @@
     margin-left: auto;
   }
   .status {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-block;
       aspect-ratio: 1 / 1;
       width: calc(0.25rem * 2);
@@ -2738,7 +2711,7 @@
     }
   }
   .badge {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -2760,7 +2733,7 @@
     }
   }
   .footer {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: grid;
       width: 100%;
       grid-auto-flow: row;
@@ -2785,7 +2758,7 @@
     }
   }
   .navbar-end {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-flex;
       align-items: center;
       width: 50%;
@@ -2793,7 +2766,7 @@
     }
   }
   .navbar-start {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-flex;
       align-items: center;
       width: 50%;
@@ -2801,7 +2774,7 @@
     }
   }
   .card-body {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       flex: auto;
       flex-direction: column;
@@ -2813,17 +2786,10 @@
       }
     }
   }
-  .navbar-center {
-    @layer daisyui.component {
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-  }
   .alert {
     border-width: var(--border);
     border-color: var(--alert-border-color, var(--color-base-200));
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       border-style: solid;
       --alert-border-color: var(--color-base-200);
       display: grid;
@@ -2853,7 +2819,7 @@
     }
   }
   .fieldset {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: grid;
       gap: calc(0.25rem * 1.5);
       padding-block: calc(0.25rem * 1);
@@ -2863,7 +2829,7 @@
     }
   }
   .card-actions {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
@@ -2871,7 +2837,7 @@
     }
   }
   .card-title {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: flex;
       align-items: center;
       gap: calc(0.25rem * 2);
@@ -2989,6 +2955,7 @@
         border-radius: var(--radius-selector);
         border: var(--border) solid var(--color-base-300);
         padding-inline: 0.5em;
+        padding-block: 0.2em;
         font-weight: inherit;
         &:before, &:after {
           display: none;
@@ -2997,7 +2964,7 @@
     }
   }
   .mask {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       display: inline-block;
       vertical-align: middle;
       mask-size: contain;
@@ -3024,7 +2991,7 @@
     aspect-ratio: 3/2;
   }
   .btn-circle {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       border-radius: calc(infinity * 1px);
       padding-inline: calc(0.25rem * 0);
       width: var(--size);
@@ -3032,7 +2999,7 @@
     }
   }
   .btn-square {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding-inline: calc(0.25rem * 0);
       width: var(--size);
       height: var(--size);
@@ -3108,13 +3075,13 @@
     min-height: 100vh;
   }
   .btn-wide {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       width: 100%;
       max-width: calc(0.25rem * 64);
     }
   }
   .btn-block {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       width: 100%;
     }
   }
@@ -3132,6 +3099,9 @@
   }
   .w-12 {
     width: calc(var(--spacing) * 12);
+  }
+  .w-18 {
+    width: calc(var(--spacing) * 18);
   }
   .w-20 {
     width: calc(var(--spacing) * 20);
@@ -3199,6 +3169,9 @@
   .max-w-xs {
     max-width: var(--container-xs);
   }
+  .min-w-40 {
+    min-width: calc(var(--spacing) * 40);
+  }
   .flex-0 {
     flex: 0;
   }
@@ -3224,7 +3197,7 @@
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .link {
-    @layer daisyui.component {
+    @layer daisyui.l1.l2.l3 {
       cursor: pointer;
       text-decoration-line: underline;
       &:focus {
@@ -3242,7 +3215,7 @@
     }
   }
   .footer-horizontal {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       grid-auto-flow: column;
       &.footer-center {
         grid-auto-flow: row dense;
@@ -3374,19 +3347,17 @@
     border-bottom-width: 1px;
   }
   .btn-dash {
-    @layer daisyui.modifier {
-      &:not( .btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled, :checked ) {
+    @layer daisyui.l1 {
+      &:not( .btn-active, :hover, :active:focus, :focus-visible, input:checked:not(.filter .btn), :disabled, [disabled], .btn-disabled ) {
         --btn-shadow: "";
-        border-style: dashed;
         --btn-bg: #0000;
         --btn-fg: var(--btn-color);
         --btn-border: var(--btn-color);
         --btn-noise: none;
       }
       @media (hover: none) {
-        &:hover:not( .btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled, :checked ) {
+        &:not(.btn-active, :active, :focus-visible, input:checked:not(.filter .btn)):hover {
           --btn-shadow: "";
-          border-style: dashed;
           --btn-bg: #0000;
           --btn-fg: var(--btn-color);
           --btn-border: var(--btn-color);
@@ -3394,13 +3365,14 @@
         }
       }
     }
+    border-style: dashed;
   }
   .border-none {
     --tw-border-style: none;
     border-style: none;
   }
   .select-ghost {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       background-color: transparent;
       transition: background-color 0.2s;
       box-shadow: none;
@@ -3414,7 +3386,7 @@
     }
   }
   .input-ghost {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       background-color: transparent;
       box-shadow: none;
       border-color: #0000;
@@ -3427,7 +3399,7 @@
     }
   }
   .textarea-ghost {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       background-color: transparent;
       box-shadow: none;
       border-color: #0000;
@@ -3487,15 +3459,18 @@
   .bg-secondary-content {
     background-color: var(--color-secondary-content);
   }
+  .bg-transparent {
+    background-color: transparent;
+  }
   .divider-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:before, &:after {
         background-color: var(--color-accent);
       }
     }
   }
   .mask-star {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       mask-image: url("data:image/svg+xml,%3csvg width='192' height='180' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill='black' d='m96 137.263-58.779 42.024 22.163-68.389L.894 68.481l72.476-.243L96 0l22.63 68.238 72.476.243-58.49 42.417 22.163 68.389z' fill-rule='evenodd'/%3e%3c/svg%3e");
     }
   }
@@ -3509,37 +3484,37 @@
     object-fit: scale-down;
   }
   .checkbox-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.3125rem;
       --size: calc(var(--size-selector, 0.25rem) * 7);
     }
   }
   .checkbox-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.25rem;
       --size: calc(var(--size-selector, 0.25rem) * 6);
     }
   }
   .checkbox-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.1875rem;
       --size: calc(var(--size-selector, 0.25rem) * 5);
     }
   }
   .checkbox-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.375rem;
       --size: calc(var(--size-selector, 0.25rem) * 8);
     }
   }
   .checkbox-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.125rem;
       --size: calc(var(--size-selector, 0.25rem) * 4);
     }
   }
   .radio-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.3125rem;
       &:is([type="radio"]) {
         --size: calc(var(--size-selector, 0.25rem) * 7);
@@ -3547,7 +3522,7 @@
     }
   }
   .radio-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.25rem;
       &:is([type="radio"]) {
         --size: calc(var(--size-selector, 0.25rem) * 6);
@@ -3555,7 +3530,7 @@
     }
   }
   .radio-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.1875rem;
       &:is([type="radio"]) {
         --size: calc(var(--size-selector, 0.25rem) * 5);
@@ -3563,7 +3538,7 @@
     }
   }
   .radio-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.375rem;
       &:is([type="radio"]) {
         --size: calc(var(--size-selector, 0.25rem) * 8);
@@ -3571,7 +3546,7 @@
     }
   }
   .radio-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       padding: 0.125rem;
       &:is([type="radio"]) {
         --size: calc(var(--size-selector, 0.25rem) * 4);
@@ -3597,7 +3572,7 @@
     padding: calc(var(--spacing) * 10);
   }
   .select-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 12);
       font-size: 1.125rem;
       option {
@@ -3607,7 +3582,7 @@
     }
   }
   .select-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 10);
       font-size: 0.875rem;
       option {
@@ -3617,7 +3592,7 @@
     }
   }
   .select-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 8);
       font-size: 0.75rem;
       option {
@@ -3627,7 +3602,7 @@
     }
   }
   .select-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 14);
       font-size: 1.375rem;
       option {
@@ -3637,7 +3612,7 @@
     }
   }
   .select-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-field, 0.25rem) * 6);
       font-size: 0.6875rem;
       option {
@@ -3647,7 +3622,7 @@
     }
   }
   .badge-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --size: calc(var(--size-selector, 0.25rem) * 5);
       font-size: 0.75rem;
       padding-inline: calc(0.25rem * 2.5 - var(--border));
@@ -3677,6 +3652,9 @@
   .ps-3 {
     padding-inline-start: calc(var(--spacing) * 3);
   }
+  .pt-0 {
+    padding-top: calc(var(--spacing) * 0);
+  }
   .pt-1 {
     padding-top: calc(var(--spacing) * 1);
   }
@@ -3703,6 +3681,9 @@
   }
   .pb-10 {
     padding-bottom: calc(var(--spacing) * 10);
+  }
+  .pl-0 {
+    padding-left: calc(var(--spacing) * 0);
   }
   .text-center {
     text-align: center;
@@ -3750,27 +3731,27 @@
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
   .textarea-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       font-size: max(var(--font-size, 1.125rem), 1.125rem);
     }
   }
   .textarea-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       font-size: max(var(--font-size, 0.875rem), 0.875rem);
     }
   }
   .textarea-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       font-size: max(var(--font-size, 0.75rem), 0.75rem);
     }
   }
   .textarea-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       font-size: max(var(--font-size, 1.375rem), 1.375rem);
     }
   }
   .textarea-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       font-size: max(var(--font-size, 0.6875rem), 0.6875rem);
     }
   }
@@ -3787,111 +3768,111 @@
     font-weight: var(--font-weight-semibold);
   }
   .alert-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-error-content);
       --alert-border-color: var(--color-error);
       --alert-color: var(--color-error);
     }
   }
   .alert-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-success-content);
       --alert-border-color: var(--color-success);
       --alert-color: var(--color-success);
     }
   }
   .checkbox-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-accent-content);
       --input-color: var(--color-accent);
     }
   }
   .checkbox-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-error-content);
       --input-color: var(--color-error);
     }
   }
   .checkbox-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-info-content);
       --input-color: var(--color-info);
     }
   }
   .checkbox-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-neutral-content);
       --input-color: var(--color-neutral);
     }
   }
   .checkbox-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-primary-content);
       --input-color: var(--color-primary);
     }
   }
   .checkbox-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-secondary-content);
       --input-color: var(--color-secondary);
     }
   }
   .checkbox-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-success-content);
       --input-color: var(--color-success);
     }
   }
   .checkbox-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-warning-content);
       --input-color: var(--color-warning);
     }
   }
   .range-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-accent);
       --range-thumb: var(--color-accent-content);
     }
   }
   .range-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-error);
       --range-thumb: var(--color-error-content);
     }
   }
   .range-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-info);
       --range-thumb: var(--color-info-content);
     }
   }
   .range-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-neutral);
       --range-thumb: var(--color-neutral-content);
     }
   }
   .range-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-primary);
       --range-thumb: var(--color-primary-content);
     }
   }
   .range-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-secondary);
       --range-thumb: var(--color-secondary-content);
     }
   }
   .range-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-success);
       --range-thumb: var(--color-success-content);
     }
   }
   .range-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       color: var(--color-warning);
       --range-thumb: var(--color-warning-content);
     }
@@ -3927,28 +3908,27 @@
     text-transform: uppercase;
   }
   .btn-link {
-    @layer daisyui.modifier {
+    .prose :where(&):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+      text-decoration-line: none;
+    }
+    @layer daisyui.l1 {
       text-decoration-line: underline;
       outline-color: currentcolor;
       --btn-border: #0000;
       --btn-bg: #0000;
-      --btn-fg: var(--color-primary);
       --btn-noise: none;
       --btn-shadow: "";
+      &:not(.btn-disabled, .btn:disabled, .btn[disabled]) {
+        --btn-fg: var(--btn-color, var(--color-primary));
+      }
       &:is(.btn-active, :hover, :active:focus, :focus-visible) {
-        text-decoration-line: underline;
         --btn-border: #0000;
         --btn-bg: #0000;
-      }
-      @media (hover: none) {
-        &:hover:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled) {
-          text-decoration-line: none;
-        }
       }
     }
   }
   .link-hover {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       text-decoration-line: none;
       &:hover {
         @media (hover: hover) {
@@ -3956,6 +3936,14 @@
         }
       }
     }
+  }
+  .prose {
+    & :where(.btn-link):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+      text-decoration-line: none;
+    }
+  }
+  .opacity-50 {
+    opacity: 50%;
   }
   .opacity-75 {
     opacity: 75%;
@@ -3985,24 +3973,25 @@
     outline-width: 1px;
   }
   .btn-ghost {
-    @layer daisyui.modifier {
-      &:not(.btn-active, :hover, :active:focus, :focus-visible) {
+    @layer daisyui.l1 {
+      &:not(.btn-active, :hover, :active:focus, :focus-visible, input:checked:not(.filter .btn)) {
         --btn-shadow: "";
         --btn-bg: #0000;
         --btn-border: #0000;
         --btn-noise: none;
         &:not(:disabled, [disabled], .btn-disabled) {
           outline-color: currentcolor;
-          --btn-fg: currentColor;
+          --btn-fg: var(--btn-color, currentColor);
         }
       }
       @media (hover: none) {
-        &:hover:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled) {
+        &:not(.btn-active, :active, :focus-visible, input:checked:not(.filter .btn)):hover {
+          outline-color: currentcolor;
           --btn-shadow: "";
           --btn-bg: #0000;
+          --btn-fg: var(--btn-color, currentColor);
           --btn-border: #0000;
           --btn-noise: none;
-          --btn-fg: currentColor;
         }
       }
     }
@@ -4023,8 +4012,8 @@
     transition-timing-function: var(--ease-in);
   }
   .btn-outline {
-    @layer daisyui.modifier {
-      &:not( .btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled, :checked ) {
+    @layer daisyui.l1 {
+      &:not( .btn-active, :hover, :active:focus, :focus-visible, input:checked:not(.filter .btn), :disabled, [disabled], .btn-disabled ) {
         --btn-shadow: "";
         --btn-bg: #0000;
         --btn-fg: var(--btn-color);
@@ -4032,7 +4021,7 @@
         --btn-noise: none;
       }
       @media (hover: none) {
-        &:hover:not( .btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled, :checked ) {
+        &:not(.btn-active, :active, :focus-visible, input:checked:not(.filter .btn)):hover {
           --btn-shadow: "";
           --btn-bg: #0000;
           --btn-fg: var(--btn-color);
@@ -4043,8 +4032,8 @@
     }
   }
   .btn-soft {
-    @layer daisyui.modifier {
-      &:not( .btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled ) {
+    @layer daisyui.l1 {
+      &:not( .btn-active, :hover, :active:focus, :focus-visible, input:checked:not(.filter .btn), :disabled, [disabled], .btn-disabled ) {
         --btn-shadow: "";
         --btn-fg: var(--btn-color, var(--color-base-content));
         --btn-bg: var(--btn-color, var(--color-base-content));
@@ -4066,7 +4055,7 @@
         --btn-noise: none;
       }
       @media (hover: none) {
-        &:hover:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled) {
+        &:not(.btn-active, :active, :focus-visible, input:checked:not(.filter .btn)):hover {
           --btn-shadow: "";
           --btn-fg: var(--btn-color, var(--color-base-content));
           --btn-bg: var(--btn-color, var(--color-base-content));
@@ -4091,427 +4080,448 @@
     }
   }
   .btn-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --fontsize: 1.125rem;
       --btn-p: 1.25rem;
       --size: calc(var(--size-field, 0.25rem) * 12);
     }
   }
   .btn-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --fontsize: 0.875rem;
       --btn-p: 1rem;
       --size: calc(var(--size-field, 0.25rem) * 10);
     }
   }
   .btn-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --fontsize: 0.75rem;
       --btn-p: 0.75rem;
       --size: calc(var(--size-field, 0.25rem) * 8);
     }
   }
   .btn-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --fontsize: 1.375rem;
       --btn-p: 1.5rem;
       --size: calc(var(--size-field, 0.25rem) * 14);
     }
   }
   .btn-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --fontsize: 0.6875rem;
       --btn-p: 0.5rem;
       --size: calc(var(--size-field, 0.25rem) * 6);
     }
   }
   .badge-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --badge-color: var(--color-accent);
       --badge-fg: var(--color-accent-content);
     }
   }
   .badge-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --badge-color: var(--color-secondary);
       --badge-fg: var(--color-secondary-content);
     }
   }
   .btn-accent {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-accent);
       --btn-fg: var(--color-accent-content);
     }
   }
   .btn-error {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-error);
       --btn-fg: var(--color-error-content);
     }
   }
   .btn-info {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-info);
       --btn-fg: var(--color-info-content);
     }
   }
   .btn-neutral {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-neutral);
       --btn-fg: var(--color-neutral-content);
     }
   }
   .btn-primary {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-primary);
       --btn-fg: var(--color-primary-content);
     }
   }
   .btn-secondary {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-secondary);
       --btn-fg: var(--color-secondary-content);
     }
   }
   .btn-success {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-success);
       --btn-fg: var(--color-success-content);
     }
   }
   .btn-warning {
-    @layer daisyui.modifier.color {
+    @layer daisyui.l1.l2 {
       --btn-color: var(--color-warning);
       --btn-fg: var(--color-warning-content);
     }
   }
   .input-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-accent);
       }
     }
   }
   .input-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-error);
       }
     }
   }
   .input-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-info);
       }
     }
   }
   .input-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-neutral);
       }
     }
   }
   .input-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-primary);
       }
     }
   }
   .input-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-secondary);
       }
     }
   }
   .input-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-success);
       }
     }
   }
   .input-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-warning);
       }
     }
   }
   .radio-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-accent);
     }
   }
   .radio-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-error);
     }
   }
   .radio-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-info);
     }
   }
   .radio-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-neutral);
     }
   }
   .radio-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-primary);
     }
   }
   .radio-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-secondary);
     }
   }
   .radio-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-success);
     }
   }
   .radio-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --input-color: var(--color-warning);
     }
   }
   .range-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --range-thumb-size: calc(var(--size-selector, 0.25rem) * 7);
     }
   }
   .range-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --range-thumb-size: calc(var(--size-selector, 0.25rem) * 6);
     }
   }
   .range-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --range-thumb-size: calc(var(--size-selector, 0.25rem) * 5);
     }
   }
   .range-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --range-thumb-size: calc(var(--size-selector, 0.25rem) * 8);
     }
   }
   .range-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       --range-thumb-size: calc(var(--size-selector, 0.25rem) * 4);
     }
   }
   .select-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-accent);
       }
     }
   }
   .select-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-error);
       }
     }
   }
   .select-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-info);
       }
     }
   }
   .select-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-neutral);
       }
     }
   }
   .select-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-primary);
       }
     }
   }
   .select-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-secondary);
       }
     }
   }
   .select-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-success);
       }
     }
   }
   .select-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-warning);
       }
     }
   }
   .textarea-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-accent);
       }
     }
   }
   .textarea-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-error);
       }
     }
   }
   .textarea-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-info);
       }
     }
   }
   .textarea-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-neutral);
       }
     }
   }
   .textarea-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-primary);
       }
     }
   }
   .textarea-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-secondary);
       }
     }
   }
   .textarea-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-success);
       }
     }
   }
   .textarea-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-warning);
       }
     }
   }
   .toggle-accent {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-accent);
       }
     }
   }
   .toggle-error {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-error);
       }
     }
   }
   .toggle-info {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-info);
       }
     }
   }
   .toggle-lg {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:is([type="checkbox"]), &:has([type="checkbox"]) {
         --size: calc(var(--size-selector, 0.25rem) * 7);
       }
     }
   }
   .toggle-md {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:is([type="checkbox"]), &:has([type="checkbox"]) {
         --size: calc(var(--size-selector, 0.25rem) * 6);
       }
     }
   }
   .toggle-neutral {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-neutral);
       }
     }
   }
   .toggle-primary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-primary);
       }
     }
   }
   .toggle-secondary {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-secondary);
       }
     }
   }
   .toggle-sm {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:is([type="checkbox"]), &:has([type="checkbox"]) {
         --size: calc(var(--size-selector, 0.25rem) * 5);
       }
     }
   }
   .toggle-success {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-success);
       }
     }
   }
   .toggle-warning {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:checked, &[aria-checked="true"] {
         --input-color: var(--color-warning);
       }
     }
   }
   .toggle-xl {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:is([type="checkbox"]), &:has([type="checkbox"]) {
         --size: calc(var(--size-selector, 0.25rem) * 8);
       }
     }
   }
   .toggle-xs {
-    @layer daisyui.modifier {
+    @layer daisyui.l1.l2 {
       &:is([type="checkbox"]), &:has([type="checkbox"]) {
         --size: calc(var(--size-selector, 0.25rem) * 4);
       }
     }
   }
+  .focus-within\:outline-none {
+    &:focus-within {
+      --tw-outline-style: none;
+      outline-style: none;
+    }
+  }
+  .xs\:flex-col-reverse {
+    @media (width >= 30rem) {
+      flex-direction: column-reverse;
+    }
+  }
   .sm\:min-w-auto {
     @media (width >= 40rem) {
       min-width: auto;
+    }
+  }
+  .md\:hidden {
+    @media (width >= 48rem) {
+      display: none;
+    }
+  }
+  .md\:inline-block {
+    @media (width >= 48rem) {
+      display: inline-block;
     }
   }
   .md\:max-h-\[150px\] {
@@ -4546,7 +4556,7 @@
   }
   .md\:footer-horizontal {
     @media (width >= 48rem) {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         grid-auto-flow: column;
         &.footer-center {
           grid-auto-flow: row dense;
@@ -4676,11 +4686,6 @@
       width: calc(3/4 * 100%);
     }
   }
-  .lg\:w-120 {
-    @media (width >= 64rem) {
-      width: calc(var(--spacing) * 120);
-    }
-  }
   .lg\:w-auto {
     @media (width >= 64rem) {
       width: auto;
@@ -4723,7 +4728,7 @@
   }
   .lg\:footer-horizontal {
     @media (width >= 64rem) {
-      @layer daisyui.modifier {
+      @layer daisyui.l1.l2 {
         grid-auto-flow: column;
         &.footer-center {
           grid-auto-flow: row dense;
@@ -6012,6 +6017,17 @@
   100% {
     scale: 1;
     opacity: 1;
+  }
+}
+@keyframes rotator {
+  89.9999%, 100% {
+    --first-item-position: 0 0%;
+  }
+  90%, 99.9999% {
+    --first-item-position: 0 calc(var(--items) * 100%);
+  }
+  100% {
+    translate: 0 -100%;
   }
 }
 @keyframes skeleton {

@@ -353,22 +353,18 @@
       "settings": [
         {
           "caption": "Logo height",
-          "key": "logo_height",
+          "key": "logoHeight",
           "options": [
             {
-              "caption": "Small, 20px",
-              "value": "20"
-            },
-            {
-              "caption": "Medium, 30px",
+              "caption": "Small, 30px",
               "value": "30"
             },
             {
-              "caption": "Large, 40px",
+              "caption": "Medium, 40px",
               "value": "40"
             },
             {
-              "caption": "Maximum, 50px",
+              "caption": "Large, 50px",
               "value": "50"
             }
           ],
