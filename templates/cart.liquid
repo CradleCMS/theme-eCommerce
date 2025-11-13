@@ -1,44 +1,45 @@
 {% assign cartTitle = 'Shopping Cart' %}
 {% title cartTitle %}
 <section class="mx-auto max-w-[40rem]">
-    <div class="card w-full {{ settings.general_shadow }}">
+    <div class="card w-full {{ settings.general_shadow }} bg-base-100">
         <div class="card-body">
             <h1 class="text-center text-4xl font-bold pt-4">{{cartTitle}}</h1>
             {% if cart.items.size > 0 %}
             	{% form 'cart' class:'w-full border border-1 border-base-300 rounded p-4 mt-4' method:"POST" %}
             	    
             		{% for item in cart.items %}
-            		    <div class="p-2 pb-4">
+            		    <div class="p-2">
                 		    {% let vt = item.title | split:'|' %}
                             <a href="{{item | url}}" class="flex items-top place-items-center gap-2">
                                 <img src="{{item | product_img_url:'thumb'}}" class="rounded"/>
                                 <h3 class="text-lg text-base-content">{{vt | first}}
                                 {% if vt.size > 1 -%}
-                                    <p class="text-xs -mt-2">
+                                    <p class="text-xs -mt-1">
                                         <em>{{ vt | slice:1 | join}}</em>
                                     </p>
                                 {% endif -%}
                                 </h3>
+                                <button class="btn btn-xs btn-muted ml-auto" title="{{'remove item' | t }}" @click.prevent="shop.quantityAdjust('{{item.id}}',0)">&times;</button>
                             </a>
-                            <div class="flex flex-row w-full place-items-center border-b pb-2 border-base-300">
+                            <div class="flex flex-row w-full place-items-center pb-2">
                                 <div class="flex flex-row place-items-center ml-auto">
+                                    <div class="text-sm mr-2">{{ item.price | money }}&nbsp;&times</div>
                                     <div class="join mr-2">
-                                		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.nextElementSibling.value > 0 && $event.target.nextElementSibling.value--">&minus;</button>
-                                		<input class="input join-item text-center w-12" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" @change.prevent="if($event.target.value < 0) $event.target.value = 0">
-                                		<button class="btn join-item btn-outline border-base-300" @click.prevent="$event.target.previousElementSibling.value++">&plus;</button>
+                                		<button class="btn btn-sm join-item btn-outline border-base-300" @click.prevent="shop.quantityAdjust('{{item.id}}',{{ item.quantity }}-1)">&minus;</button>
+                                		<input class="input input-sm join-item text-center w-12" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" readonly>
+                                		<button class="btn btn-sm join-item btn-outline border-base-300" @click.prevent="shop.quantityAdjust('{{item.id}}',{{ item.quantity }}+1)">&plus;</button>
                             		</div>
-                            		<div class="text-sm">&times;&nbsp;{{ item.price | money }}</div>
                         		</div>
-                    			<div class="flex-0 text-right ml-auto text-lg">{{ item.amount | money }}</div>
+                    			<div class="flex-0 text-right ml-auto text-lg pt-2">{{ item.amount | money }}</div>
                             </div>            		        
             		    </div>
             	    {% endfor %}
             			<div class="flex flex-col gap-4 border-t border-base-300 mt-4 pt-2">
-        				    {% comment %}
+        					{% if settings.cartNotesEnabled %}
+        					{% comment %}
         					    Optional, add a textarea for order notes
         						- Turn this on or off in the Theme settings. Default is off.
         				    {% endcomment %}
-        					{% if settings.cartNotesEnabled %}
         					<div>
         						<label class="label text-sm pt-1" for="notes">{{ 'Leave instructions to seller' | t }}</label>
         						<textarea name="notes" class="textarea w-full">{{ cart.notes }}</textarea>
@@ -65,16 +66,5 @@
             </div>
             {% endif %}            
         </div>
-        {% if settings.debugEnabled %}
-        <hr>
-        <p>Cart object</p>
-        {{ cart | print_r }}
-        <hr>
-        <p>Shop object</p>
-        {{ shop | print_r }}
-        <hr>
-        <p>Site object</p>
-        {{ site | print_r }}
-        {% endif %}
     </div>
 </section>

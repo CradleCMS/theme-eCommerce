@@ -2,12 +2,9 @@
 <html data-theme="{{ settings.daisy-theme }}">
     <head>
         <meta charset="utf-8" />
-        {% if settings.content-security-policy-usage %}
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
-        {% endif %}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{{ site.name }}{% if meta.title != blank and meta.title != site.name %} | {{ meta.title }}{% endif %}</title>	
+        <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>	
         {% if metaDescription %}
         <meta name="description" content="{{ metaDescription | escape }}" />
         {% endif %}
@@ -22,20 +19,8 @@
         </script>
         {% endif %}
         {% include 'open-graph-tags' %}
-        {% if settings.favicon_enable %}
         <link rel="icon" href="/favicon.ico">
         <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
-        {% if settings.favicon_svg %}
-            <link rel="icon" href="{{ settings.favicon_svg | asset_img_url }}" type="image/svg+xml">
-        {% endif %}
-        {% endif %}
-        {% unless settings.branding-theme-color-light == empty %}
-            <meta name="theme-color" media="(prefers-color-scheme: light)" content="{{ settings.branding-theme-color-light }}" />
-        {% endunless %}
-        {% unless settings.branding-theme-color-dark == empty %}
-            <meta name="theme-color" media="(prefers-color-scheme: dark)" content="{{ settings.branding-theme-color-dark }}" />
-        {% endunless %}
-
         {% if settings.css_dev_mode == "development" %}
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -46,7 +31,8 @@
         {% endif %}
         <link rel="stylesheet" type="text/css" href="{{ 'custom.css.liquid' | asset_url }}">
     </head>
-    <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
+    <body class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
+        {% comment %}AlpineJs needs to be here or it won't work{% endcomment %}
         {{ 'alpine.min.js' | script_tag }}
         <div>
             {% include 'siteHeader' %}
@@ -66,7 +52,9 @@
             {% endif %}
         </div>
         {% include 'siteFooter' %}
-        <!-- small>Host:{{ request.host }} | Origin:{{ request.origin }} | Path:{{ request.path }} | Query:{{ request.query }} | Referer:{{ request.referer }} | Scheme:{{ request.scheme }}</small -->
     </body>
     {{ 'shop.js' | script_tag }}
+    {% component 'asearch.liquid' %}
+    {% component 'alang.liquid' %}
+    {% component 'acurrency.liquid' %}
 </html>
