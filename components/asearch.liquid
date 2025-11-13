@@ -137,7 +137,7 @@ class AutoSearch extends HTMLElement {
     #el
     
     connectedCallback() {
-        this.className="asearch-wrapper";
+        this.classList.add("asearch-wrapper");
         // FIXME: this.attachShadow({ mode: "open" }).adoptedStyleSheets = [searchCSS]
         document.adoptedStyleSheets = [searchCSS];
         // apply configuration through attributes
