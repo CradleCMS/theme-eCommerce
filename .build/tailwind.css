@@ -15,6 +15,7 @@
 @theme {
   --font-*: initial;
   --font-sans: Poppins, sans-serif;
+  --breakpoint-xs: 30rem;
 }
 
 /*
