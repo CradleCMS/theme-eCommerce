@@ -1,7 +1,7 @@
 <script>
 /* acheckout.js
  * CradleCMS ajax checkout component
- * version 1.0.0
+ * version 1.0.1
  */
 const checkoutCSS = new CSSStyleSheet()
 checkoutCSS.replaceSync(`
@@ -11,9 +11,9 @@ checkoutCSS.replaceSync(`
 .billing-check::after {
     content:"Billing address same as delivery address";
     position: absolute;
-  top: 0.4em;
-  left: 3em;
-  width: 22em;
+    top: 0.4em;
+    left: 3em;
+    width: 22em;
 }
 .fieldset-legend {
     padding-bottom: 2px;
@@ -27,13 +27,12 @@ class Checkout extends HTMLElement {
         const checkoutForm = document.getElementById("checkout-form");
         checkoutForm.addEventListener('change', function(e) {
             let el = e.target;
-            console.log("changed", el.name);
-            if(el.name == "country" || el.name == "shipping") {
-                let update = {_:checkoutForm.getAttribute('nonce') };
-                update[el.name] = el.value;
+            if(el.name == "country" || el.name == "shipping" || el.name == "gateway") {
+                const formData = new FormData(checkoutForm);
+                formData.set("_",checkoutForm.getAttribute('nonce'));
                 fetch("/checkout/{{cart.id}}", {
                     method: "PUT",
-                    body: JSON.stringify(update),
+                    body: JSON.stringify(Object.fromEntries(formData)),
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
