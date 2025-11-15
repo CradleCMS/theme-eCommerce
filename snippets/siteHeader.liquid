@@ -13,8 +13,8 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
             {%if settings.headerTopURL %}</a>{% endif %}
         </div>
     {% endif %}
-    <div class="navbar max-w-8xl mx-auto container xs:flex-col-reverse">
-      <div class="navbar-start">
+    <div class="navbar max-w-8xl mx-auto container max-[400px]:flex-col-reverse">
+      <div class="navbar-start max-[400px]:w-full">
         {% if navigation[main-nav].links.size > 0 %}
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn btn-ghost pl-0 lg:hidden">
@@ -62,7 +62,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
             {% endfor %}
         </ul>
       </div>
-      <div class="navbar-end gap-2">
+      <div class="navbar-end gap-2 max-[400px]:w-full max-[400px]:place-content-between">
         <a-search class="mr-2 hidden md:inline-block">
             <label class="input input-sm input-ghost px-1 focus-within:outline-none min-w-40 ">
               <svg
