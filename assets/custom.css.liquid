@@ -26,7 +26,8 @@
   background-color: #eee;    
 }
 .logo {
-    height: {{ settings.logoHeight }}px;    
+    height: {{ settings.logoHeight | def:50 }}px;    
+    max-width: 100%;
 }
 .card figure {
     border-radius: var(--rounded-box) var(--rounded-box) 0 0;    
