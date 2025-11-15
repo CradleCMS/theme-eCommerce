@@ -54,7 +54,7 @@
             <div class="flex justify-center mt-8 gap-8">
                 {% assign termsNav = settings.termsLinklist | def: "main-menu" %}
                 {% for link in navigation[termsNav].links %}
-                    <a class="link text-sm" href="{{ link.url }}">{{ link.title }}</a>
+                    <a class="link text-sm" href="{{ link | url }}">{{ link.title }}</a>
                 {% endfor %}
             </div>
             {% endif %}
