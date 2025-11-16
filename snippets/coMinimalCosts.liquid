@@ -3,17 +3,17 @@
 {% assign totalProducts = x | plus:y %}
 <fieldset class="px-4 mb-4">
     <div class="flex flex-row">
-        <p>Items total</p>
+        <p>{{ 'Items total' | t:'checkout' }}</p>
         <div class="ml-auto">{{ totalProducts | money }}</div>
     </div>
     {% if form.shipping %}
     <div class="flex flex-row mt-2">
-        <p>Shipping <span class="text-sm">({{ form.shipping.carrierName }})</span></p>
+        <p>{{ 'Shipping' | t:'checkout' }} <span class="text-sm">({{ form.shipping.carrierName }})</span></p>
         <div class="ml-auto">{{ form.shipping.cost.total | money }}</div>
     </div>
     {% endif %}
     <div class="flex flex-row mt-2">
-        <p class="text-lg"><span class="font-bold">Total amount </span>{% if form.totalVAT > 0 %}<span class="text-sm">(incl. VAT)</span>{% endif %}</p>
+        <p class="text-lg"><span class="font-bold">{{ 'Total amount' | t:'checkout' }} </span>{% if form.totalVAT > 0 %}<span class="text-sm">({{ 'incl. VAT' | t:'checkout' }})</span>{% endif %}</p>
         <p class="ml-auto font-bold text-lg">{{ form.totalAmount | money }}</p>
     </div>
 </fieldset>

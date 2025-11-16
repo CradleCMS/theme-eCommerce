@@ -9,7 +9,7 @@ checkoutCSS.replaceSync(`
     display: none;
 }
 .billing-check::after {
-    content:"Billing address same as delivery address";
+    content:"{{ 'Billing address same as delivery address' | t:'checkout'  }}";
     position: absolute;
     top: 0.4em;
     left: 3em;

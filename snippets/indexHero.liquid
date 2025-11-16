@@ -2,16 +2,16 @@
   <div class="hero-content text-center rounded-box p-4 pt-8 lg:p-8{{ settings.header_otf_glass }}">
     <div class="max-w-xl">
       {% if settings.header_otf_title %}
-        <h1 class="mt-14 mb-5 text-5xl font-bold">{{ settings.header_otf_title }}</h1>
+        <h1 class="mt-14 mb-5 text-5xl font-bold">{{ settings.header_otf_title | t:'index' }}</h1>
       {% endif %}
       {% if settings.header_otf_text %}
-        <p class="mb-5">{{ settings.header_otf_text }}</p>
+        <p class="mb-5">{{ settings.header_otf_text | t:'index' }}</p>
       {% endif %}
-      {% if settings.header_otf_fgimage_use %}
+      {% if settings.header_otf_fgimage %}
         <img class="mx-auto mb-5" src="{{ settings.header_otf_fgimage | asset_img_url:450,0 }}">
       {% endif %}
       {% if settings.header_otf_button_link and settings.header_otf_button_text %}
-        <a class="btn btn-primary" href="{{ settings.header_otf_button_link }}">{{ settings.header_otf_button_text }}</a>
+        <a class="btn btn-primary" href="{{ settings.header_otf_button_link }}">{{ settings.header_otf_button_text | t:'index' }}</a>
       {% endif %}
     </div>
   </div>

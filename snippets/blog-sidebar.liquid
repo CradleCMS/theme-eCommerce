@@ -1,5 +1,5 @@
 <div class="w-1/2 lg:w-full">
-    <h4 class="">{{ lang.recent_articles | def:'Recent Articles' }}</h4>
+    <h4 class="">{{ 'Recent Articles' | t }}</h4>
     {% assign current_article_id = article.id %}
     {% for article in blog.articles limit:6 %}
         <p class="mb-2">
@@ -15,7 +15,7 @@
 </div>
 {% if blog.tags.size > 0 %}
 <div class="w-1/2 lg:w-full">
-    <h4 class="">{{ lang.categories | def:'Categories' }}</h4>
+    <h4 class="">{{ 'Categories' | t }}</h4>
     {% for tag in blog.tags %}
         <div class="mr-1 mb-1 badge badge-{% if article.tags contains tag %}accent{% else %}neutral{% endif %}"><a href="/{{blog.url}}?tags={{ currentTags | append:tag | join:'+' }}">{{ tag }}</a></div>
     {% endfor %}    

@@ -1,6 +1,6 @@
 <section class="mx-auto">
     <header>
-        <h1 class="mt-2 text-2xl">List of blogs</h1>
+        <h1 class="mt-2 text-2xl">{{ 'List of blogs' | t }}</h1>
     </header>
     <div>
 	{% for blog in blogs %}
@@ -14,7 +14,7 @@
         {% unless blog.articles == empty %}
         <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
         {% for article in blog.articles %}
-            {% include 'daisy-blog-card' %}
+            {% include 'blogCard' %}
     	{% endfor %}
 	    </div>
         {% endunless %}

@@ -24,8 +24,8 @@
 	</div>
 	<div class="divider divider-accent"></div>
     <div class="grid grid-cols-2">
-        <p><a class="btn btn-ghost" href="{{ article.previous | url }}" {% if article.previous == empty %}disabled{% endif %}>&larr; Previous</a></p>
-    	<p class="text-right"><a class="btn btn-ghost" href="{{ article.next | url }}" {% if article.next == empty %}disabled{% endif %}>Next &rarr;</a></p>
+        <p><a class="btn btn-ghost" href="{{ article.previous | url }}" {% if article.previous == empty %}disabled{% endif %}>&larr; {{ 'Previous' | t }}</a></p>
+    	<p class="text-right"><a class="btn btn-ghost" href="{{ article.next | url }}" {% if article.next == empty %}disabled{% endif %}>{{ 'Next' | t }} &rarr;</a></p>
     </div>
 </section>
 <div class="bg-base-200 text-base-content flex items-start mt-4 px-3 py-2 mx-auto lg:hidden"> 

@@ -8,11 +8,11 @@
     <div class="join">
         <input class="input join-item w-full" type="search" onfocus="this.select();" name="q" value="{{ search.terms }}" autocomplete="off" placeholder="{{ searchTitle }}" />
         <select class="select join-item" name="include" value="{{search.include}}">
-            <option disabled selected>Filter</option>
-            <option value="pages,articles" {% if search.include == 'pages,articles,products' %}selected{% endif %}>All</option>
-            <option value="products" {% if search.include == 'products' %}selected{% endif %}>Products</option>
-            <option value="articles" {% if search.include == 'articles' %}selected{% endif %}>Articles</option>
-            <option value="pages" {% if search.include == 'pages' %}selected{% endif %}>Pages</option>
+            <option disabled selected>{{ 'Filter' | t }}</option>
+            <option value="pages,articles" {% if search.include == 'pages,articles,products' %}selected{% endif %}>{{ 'All' | t }}</option>
+            <option value="products" {% if search.include == 'products' %}selected{% endif %}>{{ 'Products' | t }}</option>
+            <option value="articles" {% if search.include == 'articles' %}selected{% endif %}>{{ 'Articles' | t }}</option>
+            <option value="pages" {% if search.include == 'pages' %}selected{% endif %}>{{ 'Pages' | t }}</option>
         </select>
         <button class="btn btn-primary join-item" type="submit">{{ 'Search' | t }}</button>
     </div>

@@ -3,28 +3,28 @@
 <section class="mx-auto flex flex-col items-center prose">
     <h1 class="text-center">{{confirmationTitle}}</h1>
     <div class="w-full border border-1 border-base-300 rounded p-4 bg-base-100">
-        <h2 class="text-center">Receipt</h2>
+        <h2 class="text-center">{{ 'Receipt' | t }}</h2>
         <div class="flex flex-row px-2">
             <img src="/favicon-32.png" alt="logo" tabindex="0">
             <h3 class="place-items-center ml-2">{{site.name}}</h3>
         </div>
         <fieldset>
             <div class="grid grid-cols-2 px-2">
-                <div>Order date</div>
+                <div>{{ 'Order date' | t }}</div>
                 <div>{{ order.createdAt | date }}</div>
-                <div>Reference</div>
+                <div>{{ 'Reference' | t }}</div>
                 <div class="font-mono">{{ order.reference | reverse | truncate:8,'' | reverse }}</div>
-                <div>Payment</div>
+                <div>{{ 'Payment' | t }}</div>
                 <div>{{ order.payment | split:'_' | last }}</div>
-                <div>Contact</div>
+                <div>{{ 'Contact' | t }}</div>
                 <div>{{ order.customerName }}</div>
-                <div>Email</div>
+                <div>{{ 'Email' | t }}</div>
                 <div>{{ order.customerEmail }}</div>
-                <div>Country</div>
+                <div>{{ 'Country' | t }}</div>
                 <div>{{ countries[order.country].name }} [{{order.country}}]</div>
             </div>
             <div class="border-t border-base-300 mt-2">
-                <p class="px-2">Line items</p>
+                <p class="px-2">{{ 'Line items' | t }}</p>
                 <div class="grid grid-cols-4 px-2">
                 {% for item in order.items %}
                     <div class="col-span-2 flex gap-2 mb-4">
@@ -50,39 +50,39 @@
                             {% assign y = order.amount.vat %}
                             {% assign totalProducts = x | plus:y %}
                             <div class="grid grid-cols-2 mt-2">
-                                <em>Items total</em>
+                                <em>{{ 'Items total' | t }}</em>
                                 <div class="ml-auto">{{ totalProducts | money }}</div>
                             </div>
                             <div class="grid grid-cols-2 text-sm">
-                                <em>Included taxes</em>
+                                <em>{{ 'Included taxes' | t }}</em>
                                 <div class="ml-auto">{{ order.amount.vat | money }}</div>
                             </div>
                         {% else %}
                             <div class="grid grid-cols-2">
-                                <em>Subtotal</em>
+                                <em>{{ 'Subtotal' | t }}</em>
                                 <div class="ml-auto">{{ order.amount.sub | money }}</div>
                             </div>
                             <div class="grid grid-cols-2">
-                                <em>Taxes</em>
+                                <em>{{ 'Taxes' | t }}</em>
                                 <div class="ml-auto">{{ order.amount.vat | money }}</div>
                             </div>
                         {% endif %}
                         {% if order.shipping != empty %}
                              <div class="grid grid-cols-2 mt-2">
-                                <em>Shipping</em>
+                                <em>{{ 'Shipping' | t }}</em>
                                 <div class="ml-auto">{{ order.shipping.cost.total | money }}</div>
                             </div>
                             <div class="grid grid-cols-2 ml-2 text-sm">
-                                <em>handling &amp; delivery</em>
+                                <em>{{ 'handling &amp; delivery' | t }}</em>
                                 <div class="ml-auto">{{ order.shipping.cost.sub | money }}</div>
                             </div>
                             <div class="grid grid-cols-2 ml-2 text-sm">
-                                <em>taxes</em>
+                                <em>{{ 'taxes' | t }}</em>
                                 <div class="ml-auto">{{ order.shipping.cost.totalTax | money }}</div>
                             </div>
                         {% endif %} 
                         <div class="grid grid-cols-2 mt-2">
-                            <strong>Total amount</strong>
+                            <strong>{{ 'Total amount' | t }}</strong>
                             <div class="ml-auto font-bold"><strong>{{ order.totalAmount | money }}</strong></div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
         </fieldset>
     </div>
         <div class="text-center">
-            <p class="font-bold">Thank you for purchasing our products!</p>
+            <p class="font-bold">{{ 'Thank you for purchasing our products!' | t }}</p>
             <div role="alert" class="alert alert-bordered bg-base-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,8 +108,8 @@
                   d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
               <div>
-                <div>Order confirmation email sent to <span class="font-bold">{{ order.customerEmail }}</span></div>
-                <div class="text-xs">Login to your <a href="/customer/account">account</a> page to see your order status and history.</div>
+                <div>{{ 'Order confirmation email sent to' | t }} <span class="font-bold">{{ order.customerEmail }}</span></div>
+                <div class="text-xs">{{ 'Login to your <a href="/customer/account">account</a> page to see your order status and history.' | t }}</div>
               </div>
             </div>
         </div>

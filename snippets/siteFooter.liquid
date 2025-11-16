@@ -2,12 +2,12 @@
     <footer class="footer md:footer-horizontal lg:footer-horizontal px-4 py-10 max-w-8xl mx-auto container justify-items-center">
       <aside class="justify-self-start flex flex-col md:flex-row lg:flex-col gap-8">
         {% if settings.footer_image %}
-            <img class="justify-self-start" src="{{ settings.footer_image_src | asset_img_url:'300','0' }}" alt="{{ settings.footer_image_alt }}">
+            <img class="justify-self-start" src="{{ settings.footer_image_src | asset_img_url:'300','0' }}" alt="{{ settings.footer_image_alt | t:'default' }}">
         {% endif %}
         <div class="flex flex-col gap-4 max-w-lg">
         {% unless settings.footer_about_shop == empty %}
             <p class="font-bold">
-              {{ settings.footer_about_shop }}
+              {{ settings.footer_about_shop | t:'default' }}
             </p> 
         {% endunless %}
         {% if settings.footer_social_enable %}
@@ -28,10 +28,10 @@
         {% endfor %}
       {% endif %}
       <div class="place-self-stretch grid place-items-center">
-        {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-primary">{{ settings.footerButtonText }}</a>{% endif %}
+        {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-primary">{{ settings.footerButtonText | t:'default' }}</a>{% endif %}
       </div>
     </footer>
     <footer class="footer-horizontal p-2 pb-4 max-w-8xl mx-auto container">
-        <p class="text-sm">Copyright &copy; {{ site.name }} - {{ lang.all_rights_reserved | def:'All rights reserved'}}</p>
+        <p class="text-sm">{{ 'Copyright &copy;' | t:'default' }} {{ site.name }} - {{ 'All rights reserved' | t:'default'}}</p>
     </footer>
 </div>

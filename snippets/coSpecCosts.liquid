@@ -1,26 +1,26 @@
 <fieldset class="px-4 mb-4">
     <div class="flex flex-row">
-        <p>Subtotal (excl. taxes)</p>
+        <p>{{ 'Subtotal (excl. taxes)' | t:'checkout' }}</p>
         <div class="ml-auto">{{ form.subTotal | money }}</div>
     </div>
     <div class="flex flex-row">
-        <p>VAT {{form.taxRate | round:1}}%</p>
+        <p>{{ 'VAT' | t:'checkout' }} {{form.taxRate | round:1}}%</p>
         <div class="ml-auto">{{ form.totalVAT | money }}</div>
     </div>
     {% if form.shipping %}
     <div class="flex flex-row mt-2">
-        <p>Shipping ({{form.shipping.serviceName}})</p>
+        <p>{{ 'Shipping' | t:'checkout' }} ({{form.shipping.serviceName}})</p>
         <div class="ml-auto">{{ form.shippingCost | money }}</div>
     </div>
         {% if form.shippingTaxRate > 0 %}
         <div class="flex flex-row">
-            <p>taxes {{form.shippingTaxRate | round:1}}%</p>
+            <p>{{ 'taxes' | t:'checkout' }} {{form.shippingTaxRate | round:1}}%</p>
             <div class="ml-auto">{{ form.shippingTax | money }}</div>
         </div>
         {% endif %}
     {% endif %}
     <div class="flex flex-row mt-2">
-        <strong>Total amount (incl. VAT)</strong>
+        <strong>{{ 'Total amount (incl. VAT)' | t:'checkout' }}</strong>
         <div class="ml-auto font-bold">{{ form.grandTotal | money }}</div>
     </div>
 </fieldset>

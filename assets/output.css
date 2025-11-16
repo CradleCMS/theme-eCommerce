@@ -1767,6 +1767,9 @@
   .bottom-4 {
     bottom: calc(var(--spacing) * 4);
   }
+  .left-0 {
+    left: calc(var(--spacing) * 0);
+  }
   .left-4 {
     left: calc(var(--spacing) * 4);
   }
@@ -2634,9 +2637,6 @@
   }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
-  }
-  .mr-4 {
-    margin-right: calc(var(--spacing) * 4);
   }
   .fieldset-legend {
     @layer daisyui.l1.l2.l3 {
@@ -4576,6 +4576,11 @@
   .md\:w-auto {
     @media (width >= 48rem) {
       width: auto;
+    }
+  }
+  .md\:min-w-4xl {
+    @media (width >= 48rem) {
+      min-width: var(--container-4xl);
     }
   }
   .md\:footer-horizontal {

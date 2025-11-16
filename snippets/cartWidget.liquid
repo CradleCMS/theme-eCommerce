@@ -45,18 +45,17 @@
         {% endif %}
         {% endfor %}
         <div class="flex p-1 border-t mt-2">
-            <em>Subtotal</em> 
+            <em>{{ 'Subtotal' | t:'cart' }}</em> 
             <div class="ml-auto font-bold">{{cart.amount.total | money}}</div>
         </div>
         <li class="card-actions mt-2">
-            <a href="/cart" class="btn btn-sm btn-secondary btn-block">View cart</a>
-            <a href="/checkout" class="btn btn-sm btn-primary btn-block">Pay now</a> 
+            <a href="/cart" class="btn btn-sm btn-secondary btn-block">{{ 'View cart' | t }}</a>
+            <a href="/checkout" class="btn btn-sm btn-primary btn-block">{{ 'Buy now' | t }}</a> 
         </li>
     {% else %}
         <li>
-            <h2>Your cart is empty</h2>
+            <h2>{{ 'Your cart is empty' | t:'cart' }}</h2>
         </li>
     {% endif %}
   </ul>
-
 </div>

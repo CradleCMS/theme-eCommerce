@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>	
         {% if metaDescription %}
         <meta name="description" content="{{ metaDescription | escape }}" />
@@ -12,7 +11,6 @@
         <meta name="keywords" content="{{ metaKeywords | escape }}" />
         {% endif %}
         <link rel="canonical" href="{{ canonicalUrl }}" />
-        
         {% if template == 'index' %}
         <script type="application/ld+json">
             {% include 'structured-data' %}

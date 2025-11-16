@@ -1,9 +1,7 @@
-{% assign cartTitle = 'Shopping Cart' %}
-{% title cartTitle %}
 <section class="mx-auto max-w-[40rem]">
     <div class="card w-full {{ settings.general_shadow }} bg-base-100">
         <div class="card-body">
-            <h1 class="text-center text-4xl font-bold pt-4">{{cartTitle}}</h1>
+            <h1 class="text-center text-4xl font-bold pt-4">{{ 'Shopping cart' | t }}</h1>
             {% if cart.items.size > 0 %}
             	{% form 'cart' class:'w-full border border-1 border-base-300 rounded p-4 mt-4' method:"POST" %}
             	    
@@ -46,23 +44,23 @@
         					</div>
         					{% endif %}
         					<div class="w-full text-right text-base pt-4 pb-2">
-        					    {% unless shop.priceIncludesVat %}<p class="text-sm"><p>Subtotal {{ cart.amount.sub | money }}</p>{% endunless %}
-        					    <p class="text-sm">{% if shop.priceIncludesVat %}Included taxes {% else %}Taxes {% endif %}{{ cart.amount.vat | money }}</p>
-        					    <p class="text-lg pt-2 font-bold">Total {{ cart.amount.total | money }}</p>
+        					    {% unless shop.priceIncludesVat %}<p class="text-sm"><p>{{ 'Subtotal' | t }} {{ cart.amount.sub | money }}</p>{% endunless %}
+        					    <p class="text-sm">{% if shop.priceIncludesVat %}{{ 'Included taxes' | t }} {% else %}{{ 'Taxes' | t }} {% endif %}{{ cart.amount.vat | money }}</p>
+        					    <p class="text-lg pt-2 font-bold">{{ 'Total' | t }} {{ cart.amount.total | money }}</p>
         					</div>
         					<div class="flex flex-row flex-wrap justify-end w-full gap-2 items-baseline">
-        					    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' }}">
-        					     <a href="/checkout" class="btn btn-sm btn-success">{{ 'Check out' }}</a>  
+        					    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' | t }}">
+        					    <a href="/checkout" class="btn btn-sm btn-success">{{ 'Check out' | t }}</a>  
         					    <!--input type="submit" name="checkout" class="btn btn-sm btn-success" value="{{ 'Check out' }}"-->            					    
         					</div>
             			</div>
             		</div>
             	{% endform %}
-            	 <a href="/" class="btn btn-link">Keep on shopping</a>
+            	 <a href="/" class="btn btn-link">{{ 'Keep on shopping' | t }}</a>
             {% else %}
             <div class="text-center p-4 pt-8">
-                <p>Your cart is empty</p>
-                <a class="btn btn-accent btn-lg m-4" href="/">Continue shopping</a>                
+                <p>{{ 'Your cart is empty' | t }}</p>
+                <a class="btn btn-accent btn-lg m-4" href="/">{{ 'Continue shopping' | t }}</a>                
             </div>
             {% endif %}            
         </div>

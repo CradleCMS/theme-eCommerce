@@ -82,7 +82,7 @@
                 {% else %}
                 <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
                 {% endif %}
-                <button name="submit" class="btn btn-accent">Add to cart</button>
+                <button name="submit" class="btn btn-accent">{{ 'Add to cart' | t }}</button>
                 {% if settings.ppInfoEnabled %}
                   <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
                 {% endif %}
@@ -94,7 +94,7 @@
 {% if settings.ppRelatedProducts %}
 <section class="mt-10">
     <header class="flex">
-        <h2 class="text-3xl mb-4 font-bold">Related products</h2>
+        <h2 class="text-3xl mb-4 font-bold">{{ 'Related products' | t }}</h2>
     </header>
     {% assign relatedProducts = product | related:'tags,collection' %}
         <div class="grid collection-row-container gap-4">

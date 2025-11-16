@@ -1,6 +1,6 @@
 <div class="text-sm breadcrumbs" role="navigation" aria-label="breadcrumbs">
     <ul>
-    <li><a href="/">{{ lang.home | def:'Home'}}</a></li>
+    <li><a href="/">{{ 'Home' | t:'default'}}</a></li>
     {% if template contains 'product' %}
         {% if collection %}
             <li><a href="{{ collection | url }}">{{ collection.title }}</a></li>
@@ -26,7 +26,7 @@
         <li><span>{{ page.title }}</span></li>
     {% elseif template contains 'customers' %}
         {% if template contains 'account' %}
-            <li><span>{{ lang.my_account | def:'My Account' }}</span></li>
+            <li><span>{{ 'My Account' | t:'default' }}</span></li>
         {% endif %}
     {% else %}
         <li><span>{{ meta_title }}</span></li>
