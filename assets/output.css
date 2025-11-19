@@ -5,7 +5,6 @@
   :root, :host {
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-gray-200: oklch(92.8% 0.006 264.531);
-    --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-black: #000;
     --spacing: 0.25rem;
@@ -2999,6 +2998,9 @@
   .aspect-3\/2 {
     aspect-ratio: 3/2;
   }
+  .aspect-auto {
+    aspect-ratio: auto;
+  }
   .btn-circle {
     @layer daisyui.l1.l2 {
       border-radius: calc(infinity * 1px);
@@ -3303,11 +3305,11 @@
   .place-self-stretch {
     place-self: stretch;
   }
-  .self-center {
-    align-self: center;
-  }
   .self-end {
     align-self: flex-end;
+  }
+  .self-start {
+    align-self: flex-start;
   }
   .justify-self-center {
     justify-self: center;
@@ -3334,6 +3336,12 @@
   }
   .rounded-box {
     border-radius: var(--radius-box);
+  }
+  .rounded-field {
+    border-radius: var(--radius-field);
+  }
+  .rounded-field {
+    border-radius: var(--radius-field);
   }
   .rounded-t {
     border-top-left-radius: 0.25rem;
@@ -3420,6 +3428,9 @@
       }
     }
   }
+  .border-base-100 {
+    border-color: var(--color-base-100);
+  }
   .border-base-300 {
     border-color: var(--color-base-300);
   }
@@ -3429,11 +3440,13 @@
       border-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
     }
   }
-  .border-gray-300\/70 {
-    border-color: color-mix(in srgb, oklch(87.2% 0.01 258.338) 70%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-gray-300) 70%, transparent);
-    }
+  .glass {
+    border: none;
+    backdrop-filter: blur(var(--glass-blur, 40px));
+    background-color: #0000;
+    background-image: linear-gradient( 135deg, oklch(100% 0 0 / var(--glass-opacity, 30%)) 0%, oklch(0% 0 0 / 0%) 100% ), linear-gradient( var(--glass-reflect-degree, 100deg), oklch(100% 0 0 / var(--glass-reflect-opacity, 5%)) 25%, oklch(0% 0 0 / 0%) 25% );
+    box-shadow: 0 0 0 1px oklch(100% 0 0 / var(--glass-border-opacity, 20%)) inset, 0 0 0 2px oklch(0% 0 0 / 5%);
+    text-shadow: 0 1px oklch(0% 0 0 / var(--glass-text-shadow-opacity, 5%));
   }
   .bg-accent {
     background-color: var(--color-accent);
@@ -3980,10 +3993,6 @@
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
-  .outline-1 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
-  }
   .btn-ghost {
     @layer daisyui.l1 {
       &:not(.btn-active, :hover, :active:focus, :focus-visible, input:checked:not(.filter .btn)) {
@@ -4008,12 +4017,6 @@
       }
     }
   }
-  .outline-gray-300\/50 {
-    outline-color: color-mix(in srgb, oklch(87.2% 0.01 258.338) 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      outline-color: color-mix(in oklab, var(--color-gray-300) 50%, transparent);
-    }
-  }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
@@ -4021,6 +4024,12 @@
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .delay-150 {
+    transition-delay: 150ms;
+  }
+  .delay-200 {
+    transition-delay: 200ms;
   }
   .ease-in {
     --tw-ease: var(--ease-in);
