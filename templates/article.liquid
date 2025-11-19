@@ -27,6 +27,19 @@
         <p><a class="btn btn-ghost" href="{{ article.previous | url }}" {% if article.previous == empty %}disabled{% endif %}>&larr; {{ 'Previous' | t }}</a></p>
     	<p class="text-right"><a class="btn btn-ghost" href="{{ article.next | url }}" {% if article.next == empty %}disabled{% endif %}>{{ 'Next' | t }} &rarr;</a></p>
     </div>
+    {% if settings.articleRelated %}
+<section class="mt-10">
+    <header class="flex">
+        <h2 class="text-xl mb-4">{{ 'Related articles' | t }}</h2>
+    </header>
+    {% assign relatedArticles = article | related %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    	{% for article in relatedArticles limit:3 %}
+            {% include 'blogCard' %}
+    	{% endfor %}
+    	</div>
+</section>
+{% endif %}
 </section>
 <div class="bg-base-200 text-base-content flex items-start mt-4 px-3 py-2 mx-auto lg:hidden"> 
     {% include 'blog-sidebar' %}

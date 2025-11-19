@@ -896,6 +896,23 @@
       ]
     },
     {
+      "key": "blogs",
+      "type": "section",
+      "caption": "Blogs",
+      "settings": [
+        {
+          "caption": "Articles",
+          "key": "articleHeader",
+          "type": "header"
+        },
+        {
+          "caption": "Show related articles",
+          "key": "articleRelated",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
       "key": "products",
       "type": "section",
       "caption": "Products",
