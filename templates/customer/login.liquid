@@ -2,40 +2,40 @@
     <div class="card bg-base-100 text-base-content shrink-0 w-full max-w-m {{ settings.general_shadow }} ">
         {% form 'customer_login' id:'customer_login' class:'customer' %}
             <div class="card-body">
-                <h3 class="text-center">Log in</h3>
+                <h3 class="text-center">{{ 'Log in' | t }}</h3>
                 {% include 'formErrorsCustom' %}
                 <div>
                     <label class="input validator w-full">
-                        <span class="w-20">Email</span>
+                        <span class="w-20">{{ 'Email' | t}}</span>
                         <input class="w-full px-2" type="email" name="customer[email]" value="" placeholder="mail@domain.com" autocorrect="off" autocapitalize="off" required />
                     </label>
-                    <div class="validator-hint hidden m-0">Enter valid email address</div>
+                    <div class="validator-hint hidden m-0">{{ 'Enter valid email address' | t }}</div>
                 </div>
                 <label class="input validator w-full">
-                    <span class="w-20">Password</span>
-                    <input class="w-full px-2" type="password" name="customer[password]" class="grow" value="" placeholder="Password" autocorrect="off" autocapitalize="off" required />
+                    <span class="w-20">{{ 'Password' | t }}</span>
+                    <input class="w-full px-2" type="password" name="customer[password]" class="grow" value="" placeholder="{{ 'Password' | t }}" autocorrect="off" autocapitalize="off" required />
                 </label>
                 <div class="label">
-                    <p class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ lang.forgot_your_password | def:'Forgot your password?' }}</a></p>
+                    <p class="label-text-alt text-right"><a href="#" onclick="showRecoverPasswordForm();return false;">{{ 'Forgot your password?' | t }}</a></p>
                 </div>
-                <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
+                <input type="submit" name="Submit" class="btn btn-primary" value="{{ 'Submit' | t }}">
             </div>
             {% if shop.settings.registration %}
             <p class="text-center">
-                <small>Don't have an account yet?</small>
+                <small>{{ "Don't have an account yet?" | t }}</small>
                 <br>
-                <a href="/customer/register">Register now</a>
+                <a href="/customer/register">{{ 'Register now' | t }}</a>
             </p>
             {% endif %}
         {% endform %}
         <div id="customer_recover_password" style="display: none;">
         {% form 'customer_recover_password' class:'customer' %}
             <div class="card-body">
-                <h3 class="text-center">{{ lang.recover_password | def:'Recover password' }}</h3>
-                <p class="text-center">{{ lang.we_will_send_you_an_email_to_recover_your_password | def:"We will send you an email with a link to reset your password." }}</p>
+                <h3 class="text-center">{{ 'Recover password' | t }}</h3>
+                <p class="text-center">{{ "We will send you an email with a link to reset your password." | t }}</p>
                 {% if request.query contains 'form-customer_recover_password=.errors' %}
                     <div class="alert alert-error">
-                        <span>Sorry, looks like something went wrong, please try again.</span>
+                        <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
                     </div>
                 {% endif %}
                 {% if request.query contains 'form-customer_recover_password=.success' %}
@@ -43,15 +43,15 @@
                 {% endif %}
                 <div class="join w-full{% if form.errors contains 'email' %} input-error{% endif %}">
                     <div class="w-full">
-                        <input class="input join-item w-full validator" type="email" name="customer[email]" value="" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
-                        <div class="validator-hint hidden m-0">Enter valid email address</div>
+                        <input class="input join-item w-full validator" type="email" name="customer[email]" value="" id="recover-email" placeholder="{{ 'Email' | t }}" autocorrect="off" autocapitalize="off" required />
+                        <div class="validator-hint hidden m-0">{{ 'Enter valid email address' | t }}</div>
                     </div>
-                    <input class="btn join-item w-36" type="submit" name="Submit" value="Submit">
+                    <input class="btn join-item w-36" type="submit" name="Submit" value="{{ 'Submit' | t }}">
                 </div>
                 <div class="alert text-center alert-success" id="recoverSuccess" style="display:none;">
-                    {{ lang.weve_sent_you_an_email_with_a_link_to_recover_password | def: "We've sent you an email with a link to update your password." }}
+                    {{ "We've sent you an email with a link to update your password." | t }}
                 </div>
-                <p class="text-center">{{ lang.or | def:'or' }} <a href="#" onclick="hideRecoverPasswordForm();return false;">Login</a></p>
+                <p class="text-center">{{ 'or' | t }} <a href="#" onclick="hideRecoverPasswordForm();return false;">{{ 'Login' | t }}</a></p>
             </div>
         {% endform %}
         </div>

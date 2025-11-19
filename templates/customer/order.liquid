@@ -1,7 +1,7 @@
 <section class="p-10 mx-auto">
   <header class="flex justify-between">
-        <h1 class="mt-2 text-2xl uppercase">My Account</h1>
-        <p><!--a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ 'View Addresses' | t }}</a--> <a class="btn btn-sm btn-outline" href="logout" >Logout</a></p>
+        <h1 class="mt-2 text-2xl uppercase">{{ 'My Account' | t }}</h1>
+        <p><!--a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ 'View Addresses' | t }}</a--> <a class="btn btn-sm btn-outline" href="logout" >{{ 'Logout' | t }}</a></p>
   </header>
   <section>
     <div class="divider"></div>
@@ -27,7 +27,7 @@
                 <div class="text-sm">{{ 'Email' | t }}</div>
                 <div>{{ order.customerEmail }}</div>
                 <div class="text-sm">{{ 'Country' | t }}</div>
-                <div>{{ countries[order.country].name }} [{{order.country}}]</div>
+                <div>{{ countries[order.country].name }} [{{ order.country }}]</div>
             </div>
   	        <div class="grid md:grid-cols-2 gap-4 p-4 mb-4">
   	            {%- if order.requiresShipping and order.shippingAddress != empty %}

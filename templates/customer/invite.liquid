@@ -1,54 +1,50 @@
 <section class="p-10 prose mx-auto">
     <div class="card bg-base-100 text-base-content shrink-0 w-full max-w-m {{ settings.general_shadow }}">
-        
-{% unless invite %}
+    {% unless invite %}
     <div class="card-body text-center">
-        <h1>Invite not found!</h1>
-        <p class="text-xl mt-2">The invite has probably expired, already been used or deleted.</p>
+        <h1>{{ 'Invite not found!' | t }}</h1>
+        <p class="text-xl mt-2">{{ 'The invite has probably expired, already been used or deleted.' | t }}</p>
       <div class="text-center mt-4">
-        <a class="btn btn-sm btn-ghost" href="{{'customer/login' | url}}">Back to login</a>
+        <a class="btn btn-sm btn-ghost" href="{{'customer/login' | url}}">{{ 'Back to login' | t }}</a>
       </div>
     </div>
-{% else %}
+    {% else %}
     <div class="card-body text-center">
         {% form 'customer_invite' id:'customer_invite' onSuccess:'/login' %}
             {% include 'form-errors-custom' %}
             <div class="login-header mb-8">
-              <h1 class="text-center">Account activation</h1> 
+              <h1 class="text-center">{{ 'Account activation' | t }}</h1> 
             </div>
             {% if invite.message != blank %}
             <p class="text-center">{{invite.message}}</p>
             {% endif %}
-            <p class="text-sm text-center">Set a password to activate your account</p>
+            <p class="text-sm text-center">{{ 'Set a password to activate your account' | t }}</p>
             <br>
             <div class="grid grid-cols-2 gap-2">
                 <label class="floating-label">
-                    <span>Password</span>
-                    <input class="input w-full" placeholder="Password" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
+                    <span>{{ 'Password' | t }}</span>
+                    <input class="input w-full" placeholder="{{ 'Password' | t }}" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
                 </label>
                 <label class="floating-label">
-                    <span>Confirm password</span>
-                    <input class="input w-full" placeholder="Confirm password" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
+                    <span>{{ 'Confirm password' | t }}</span>
+                    <input class="input w-full" placeholder="{{ 'Confirm password' | t }}" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
                 </label>
             </div>
             <p class="form-contro">
-              <button class="btn btn-primary border-none"> 
-                Activate account
-              </button>
+              <button class="btn btn-primary border-none">{{ 'Activate account' | t }}</button>
             </p>
             {% if request.query contains 'form-customer_invite=.errors' %}
                     <div class="alert alert-error">
-                        <span>Sorry, looks like something went wrong, please try again.</span>
+                        <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
                     </div>
             {% endif %}
             <input type="hidden" name="invite" value="{{invite.id}}">
             <input type="hidden" name="token" value="{{invite.token}}">
         {% endform %}
           <p class="text-center mt-4">
-            <small>Already have an account with us? <a class="" href="{{'customer/login' | url}}">Account login</a></small>
+            <small>{{ 'Already have an account with us?' | t }} <a class="" href="{{'customer/login' | url}}">{{ 'Account login' | t }}</a></small>
           </p>
     </div>
-{% endunless %}    
-    
+  {% endunless %}    
   </div>
 </section>

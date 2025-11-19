@@ -1,19 +1,19 @@
 <section class="p-10 mx-auto">
   <header class="flex justify-between">
-        <h1 class="mt-2 text-2xl uppercase">My Account</h1>
-        <p><!--a href="{{ 'customer/addresses' | url}}" class="btn btn-sm btn-outline">{{ lang.view_addresses | def:'View Addresses' }}</a--> <a class="btn btn-sm btn-outline" href="logout" >Logout</a></p>
+        <h1 class="mt-2 text-2xl uppercase">{{ 'My Account' | t }}</h1>
+        <p><a class="btn btn-sm btn-outline" href="logout" >{{ 'Logout' | t }}</a></p>
   </header>
   <section>
       <div class="flex flex-col md:flex-row lg:flex-row gap-4">
           <div class="md:w-3/4 lg:w-3/4">
-            <h2 class="text-4xl text-center mt-20 mb-10">Hi {{ customer.firstname }}!</h2>
+            <h2 class="text-4xl text-center mt-20 mb-10">{{ 'Hi' | t }} {{ customer.firstname }}!</h2>
           </div>
           <div class="md:w-1/4 lg:w-1/4 border border-base-content/5 bg-base-100 text-base-200-content mt-4 p-4 rounded-box">
-              <p class="mt-2">Name</p>
+              <p class="mt-2">{{ 'Name' | t }}</p>
               <p class="font-bold">{{ customer.name }}</p>
-              <p class="mt-2">Username</p>
+              <p class="mt-2">{{ 'Username' | t }}</p>
               <p class="font-bold">{{ customer.username }}</p>
-              <p class="mt-2">Email</p>
+              <p class="mt-2">{{ 'Email' | t }}</p>
               <p class="font-bold">{{ customer.email }}</p>
           </div>
       </div>
@@ -25,23 +25,23 @@
             <div class="licence-card">   
                 <h3>{{ products[licence.productId].meta.h1 }}</h3>
                 <p>
-                    <small>Licence created at {{ licence.createdAt | date }}</small>
+                    <small>{{ 'Licence created at' | t }} {{ licence.createdAt | date }}</small>
                 </p>
             </div>
             {% endfor %}
         {% endif %}
-        <h3 class="uppercase mb-2">Orders</h3>
+        <h3 class="uppercase mb-2">{{ 'Orders' | t }}</h3>
         {% if customer.orders.size != 0 %}
             {% for order in customer.orders %}
                 <div class="border border-base-300 mb-4 rounded">
                     <header class="p-4 bg-base-300 flex flex-row justify-between">
-                        <div class="font-bold">Order #{{ order.number }}</div>
-                        <div><a href="{{ order | url }}" class="btn-link">View details</a></div>
+                        <div class="font-bold">{{ 'Order' | t }} #{{ order.number }}</div>
+                        <div><a href="{{ order | url }}" class="btn-link">{{ 'View details' | t }}</a></div>
                     </header>
                     <div class="flex flex-col md:flex-row gap-4 p-4">
-                       <span>Order amount: {{ order.amount | money }}</span>
-                       <span>Created at: {{ order.createdAt | date: "%F" }}</span> 
-                       <span>Order reference: {{ order.reference }}</span>
+                       <span>{{ 'Order amount' | t }}: {{ order.amount | money }}</span>
+                       <span>{{ 'Created at' | t }}: {{ order.createdAt | date: "%F" }}</span> 
+                       <span>{{ 'Order reference' | t }}: {{ order.reference }}</span>
                     </div> 
                     <div class="p-4 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {% for item in order.items %}
@@ -60,7 +60,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>You haven't placed any orders yet.</p>
+            <p>{{ 'You haven't placed any orders yet.' | t }}</p>
         {% endif %}
       </div>
   </section>

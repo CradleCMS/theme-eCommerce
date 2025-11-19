@@ -1,36 +1,36 @@
 <section class="p-10 prose mx-auto">
     <div class="card bg-base-100 text-base-content shrink-0 w-full max-w-m {{ settings.general_shadow }} text-center">
-        <h3 class="text-center">Create account</h3>
+        <h3 class="text-center">{{ 'Create account' | t }}</h3>
         {% form 'customer_register' class:'customer' %}
             <div class="card-body">
                 {% if request.query contains '.errors' %}
                     <div class="alert alert-error">
-                        <span>Sorry, looks like something went wrong, please try again.</span>
+                        <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
                     </div>
                 {% endif %}
                 {% if request.query contains 'form-customer_register=.success' %}
                     <div class="alert alert-success">
-                        <span>An account invite has been sent to your email!</span>
+                        <span>{{ 'An account invite has been sent to your email!' | t }}</span>
                     </div>
                 {% else %}
                 <label class="floating-label {% if form.errors contains 'email' %} input-error {% endif %}">
-                    <span>Email</span>
+                    <span>{{ 'Email' | t }}</span>
                     <input class="input w-full" type="email" name="customer[email]" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
                 </label>
                 <label class="floating-label">
-                    <span>First name</span>
+                    <span>{{ 'First name' | t }}</span>
                     <input class="input w-full" type="text" placeholder="First name" name="customer[firstname]">
                 </label>
                 <label class="floating-label">
-                    <span>Last name</span>
+                    <span>{{ 'Last name' | t }}</span>
                     <input type="text" class="input w-full" placeholder="Last name" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %}>
                 </label>
     
                 <div class="form-control mt-8">
-                    <input type="submit" value="{{ lang.create_an_account | def: 'Create Account' | escape }}" class="btn btn-primary">
+                    <input type="submit" value="{{ 'Create Account' | t }}" class="btn btn-primary">
                 </div>
                 {% endif %}
-                <p class="text-center">{{ lang.or | def:'or' }} <a href="/" >Return to store</a></p>
+                <p class="text-center">{{ 'or' | t }} <a href="/" >{{ 'Return to store' | t }}</a></p>
             </div>            
         {% endform %}
     </div>
