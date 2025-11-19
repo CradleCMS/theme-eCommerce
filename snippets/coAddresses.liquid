@@ -1,47 +1,69 @@
 {% if cart.requiresShipping %}
-    <h3 class="text-lg font-bold mt-4">{{ 'Delivery address' | t:'checkout' }}</h3>
+    <h3 class="text-base font-bold mt-4">{{ 'Delivery address' | t:'checkout' }}</h3>
     <fieldset class="fieldset">
-        <legend class="fieldset-legend w-full">{{ 'Name' | t:'checkout' }}*</legend>
-        <input class="input input-md w-full" type="text" name="shippingAddress[name]" value="{{form.shippingAddress.recipients | first}}" required/>
-        <legend class="fieldset-legend w-full">{{ 'Address' | t:'checkout' }}*</legend>
-        <input class="input input-md w-full" type="text" name="shippingAddress[address1]" value="{{form.shippingAddress.addresses[0]}}" required/>
-        <legend class="fieldset-legend w-full">{{ 'Apartment, suite, etc..' | t:'checkout' }}</legend>
-        <input class="input input-md w-full" type="text" name="shippingAddress[address2]" value="{{form.shippingAddress.addresses[1]}}"/>
+        <label class="floating-label w-full">
+            {{ 'Name' | t:'checkout' }}*
+            <input class="input input-md w-full" type="text" name="shippingAddress[name]" value="{{form.shippingAddress.recipients | first}}" required/>
+        </label>
+        <label class="floating-label w-full">
+            {{ 'Address' | t:'checkout' }}*
+            <input class="input input-md w-full" type="text" name="shippingAddress[address1]" value="{{form.shippingAddress.addresses[0]}}" required/>
+        </label>
+        <label class="floating-label w-full">
+            {{ 'Apartment, suite, etc..' | t:'checkout' }}
+            <input class="input input-md w-full" type="text" name="shippingAddress[address2]" value="{{form.shippingAddress.addresses[1]}}"/>
+        </label>
         <div class="flex gap-2">
             <div class="w-1/2">
-                <legend class="fieldset-legend w-full text-base-content/50">{{ 'Postal code' | t:'checkout'}}*</legend>
-                <input class="input input-md w-full" type="text" name="shippingAddress[postalCode]" value="{{form.shippingAddress.postalCode}}" required/>
+                <label class="floating-label w-full">
+                    {{ 'Postal code' | t:'checkout'}}*
+                    <input class="input input-md w-full" type="text" name="shippingAddress[postalCode]" value="{{form.shippingAddress.postalCode}}" required/>
+                </label>
             </div>
             <div class="w-1/2">
-                <legend class="fieldset-legend">{{ 'Postal area' | t:'checkout' }}*</legend>
-                <input class="input input-md w-full" type="text" name="shippingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                <label class="floating-label">
+                    {{ 'Postal area' | t:'checkout' }}*
+                    <input class="input input-md w-full" type="text" name="shippingAddress[city]" value="{{form.shippingAddress.city}}" required/>
+                </label>
             </div>
         </div>
-        <legend class="fieldset-legend w-full">{{ 'Country' | t:'checkout' }}*</legend>
-        {% let shippingCountry = form.shippingAddress.country | def:form.country %}
-        {% select countries name:"shippingAddress[country]" class:"select select-md grow w-full" disabled value:shippingCountry required %}{% endselect %}
+        <label class="floating-label w-full">
+            {{ 'Country' | t:'checkout' }}
+            {% let shippingCountry = form.shippingAddress.country | def:form.country %}
+            {% select countries name:"shippingAddress[country]" class:"select select-md grow w-full" disabled value:shippingCountry required %}{% endselect %}
+        </label>
     </fieldset>
     <input class="billing-check checkbox checkbox-md mr-1" type="checkbox" value="1" name="billingIsShipping" tabindex="0" checked />
     <div class="billing-address">
-        <h3 class="text-lg font-bold mt-4">{{ 'Billing address' | t:'checkout' }}</h3>
+        <h3 class="text-base font-bold mt-4">{{ 'Billing address' | t:'checkout' }}</h3>
         <fieldset class="flex flex-col gap-2">
-            <legend class="fieldset-legend w-full">{{ 'Name' | t:'checkout' }}</legend>
-            <input class="input input-md w-full" type="text" name="billingAddress[name]" value="{{form.billingAddress.recipients | first}}"/>
-            <legend class="fieldset-legend w-full">{{ 'Address' | t:'checkout' }}</legend>
-            <input class="input input-md w-full" type="text" name="billingAddress[address]" value="{{form.billingAddress.addresses | first}}"/>
+            <label class="floating-label w-full">
+                {{ 'Name' | t:'checkout' }}
+                <input class="input input-md w-full" type="text" name="billingAddress[name]" value="{{form.billingAddress.recipients | first}}"/>
+            </label>
+            <label class="floating-label w-full">
+                {{ 'Address' | t:'checkout' }}
+                <input class="input input-md w-full" type="text" name="billingAddress[address]" value="{{form.billingAddress.addresses | first}}"/>
+            </label>
             <div class="flex gap-2">
                 <div class="w-1/2">
-                    <legend class="fieldset-legend w-full text-base-content/50">{{ 'Postal code' | t:'checkout' }}</legend>
-                    <input class="input input-md w-full" type="text" name="billingAddress[postalCode]" value="{{form.billingAddress.postalCode}}"/>
+                    <label class="floating-label w-full">
+                        {{ 'Postal code' | t:'checkout' }}
+                        <input class="input input-md w-full" type="text" name="billingAddress[postalCode]" value="{{form.billingAddress.postalCode}}"/>
+                    </label>
                 </div>
                 <div class="w-1/2">
-                    <legend class="fieldset-legend">{{ 'Postal area' | t:'checkout' }}</legend>
-                    <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.billingAddress.city}}"/>
+                    <label class="floating-label">
+                        {{ 'Postal area' | t:'checkout' }}
+                        <input class="input input-md w-full" type="text" name="billingAddress[city]" value="{{form.billingAddress.city}}"/>
+                    </label>
                 </div>
             </div>
-            <legend class="fieldset-legend">{{ 'Country' | t:'checkout' }}</legend>
-            {% let billingCountry = form.billingAddress.country | def:form.country %}
-            {% select countries name:"billingAddress[country]" class:"select select-md w-full" disabled value:billingCountry %}{% endselect %}
+            <label class="floating-label">
+                {{ 'Country' | t:'checkout' }}
+                {% let billingCountry = form.billingAddress.country | def:form.country %}
+                {% select countries name:"billingAddress[country]" class:"select select-md w-full" disabled value:billingCountry %}{% endselect %}
+            </label>
         </fieldset>                        
     </div>
 {% else %}

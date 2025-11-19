@@ -68,6 +68,12 @@ body {
   --radius-field: calc( var(--radius-box) * 0.25);
 }
 {% endif %}
+{% if settings.coPaymentCard %}
+#payment-container {
+    background: #fff;    
+    padding: 1rem;
+}
+{% endif %}
 /* Accessability */
 .skip-link {
   position: absolute;

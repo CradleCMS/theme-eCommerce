@@ -242,12 +242,12 @@
               "value": "base-100"
             },
             {
-              "caption": "Primary",
-              "value": "primary"
+              "caption": "Default (Darker)",
+              "value": "base-200"
             },
             {
-              "caption": "Secondary",
-              "value": "secondary"
+              "caption": "Default (Darkest)",
+              "value": "base-300"
             },
             {
               "caption": "Accent",
@@ -286,14 +286,6 @@
             {
               "caption": "Default",
               "value": "base-200"
-            },
-            {
-              "caption": "Primary",
-              "value": "primary"
-            },
-            {
-              "caption": "Secondary",
-              "value": "secondary"
             },
             {
               "caption": "Accent",
@@ -1053,6 +1045,12 @@
           "description": "Setup a linklist for displaying links to terms and conditions",
           "key": "termsLinklist",
           "type": "linklist"
+        },
+        {
+          "caption": "Payments in white box",
+          "description": "Extra padding and white background for dark themes.",
+          "key": "coPaymentCard",
+          "type": "checkbox"
         }
       ]
     },

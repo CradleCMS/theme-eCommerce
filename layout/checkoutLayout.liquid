@@ -19,8 +19,9 @@
         {% else %}
         <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
         {% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ 'custom.css.liquid' | asset_url }}">
     </head>
-    <body id="{{ meta.title | handle }}" class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col min-h-[100vh] justify-between {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
+    <body id="{{ meta.title | handle }}" class="bg-base-200 text-base-content flex flex-col min-h-[100vh] justify-between {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {{ 'alpine.min.js' | script_tag }}
         <div class="mx-auto max-w-full">
             <div id="main-content" class="container mx-auto pb-2 checkout">
@@ -35,10 +36,9 @@
                 {{ contentForLayout }}
             </div>
         </div>
-
         <div class="text-center mt-4 bg-base-200 pb-10">
             {% if settings.coMessage %}
-            <div class="text-center bg-neutral text-neutral-content p-4">
+            <div class="text-center bg-accent text-accent-content p-4">
                 <p>{{ settings.coMessage }}</p>
             </div>
             {% endif %}
@@ -50,7 +50,6 @@
                 {% endfor %}
             </div>
             {% endif %}
-            <a class="link mt-6 block" href="/"><span>{{ 'Return to frontpage' | t }}</span></a>
         </div>
     </body>
     {{ 'shop.js' | script_tag }}
