@@ -41,7 +41,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
         </div>
         {% endif %}
         <a href="/">
-            <img src="/logo.png" height="{{ settings.logoHeight | def:50 }}" alt="{{ site.name }}" tabindex="0" class="p-2 logo">
+            <img src="/logo.png" height="{{ settings.logoHeight | def:40 }}" alt="{{ site.name }}" tabindex="0" class="p-2 logo">
         </a>
         <ul class="menu menu-horizontal px-1 hidden lg:flex">
             {% for link in navigation[main-nav].links %}
