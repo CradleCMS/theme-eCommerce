@@ -522,11 +522,6 @@
           "type": "text"
         },
         {
-          "caption": "Use foreground image",
-          "key": "header_otf_fgimage_use",
-          "type": "checkbox"
-        },
-        {
           "caption": "Foreground image",
           "description": "Minimum 450px wide, jpg or png format",
           "key": "header_otf_fgimage",
