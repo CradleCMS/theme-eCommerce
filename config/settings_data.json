@@ -35,6 +35,7 @@
       "link_grid_items": [],
       "link_grid_show": false,
       "pageWidth": " max-w-[120ch]",
+      "ppThumbPosition": "columns",
       "section_banner": [],
       "section_banner_show": false
     }
