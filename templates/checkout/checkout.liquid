@@ -18,10 +18,12 @@
                 <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
         	    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
                     <h2 class="text-xl mb-2">{{ 'Shipping' | t }}</h2>
-                    <label class="floating-label mb-2">
-                        {{ 'Delivery to' | t }}
-                        {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
-                    </label>
+                    {% if countries.size > 1 %}
+                        <label class="floating-label mb-2">
+                            {{ 'Delivery to' | t }}
+                            {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
+                        </label>
+                    {% endif %}
                     {% if cart.requiresShipping %}
                         <label class="floating-label">
                             {{ 'Select Shipping' | t }}
