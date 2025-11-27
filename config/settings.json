@@ -921,10 +921,6 @@
               "value": "left"
             },
             {
-              "caption": "Beneath",
-              "value": "beneath"
-            },
-            {
               "caption": "No thumbnails",
               "value": "columns"
             }
