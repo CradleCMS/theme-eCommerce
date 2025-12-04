@@ -2,7 +2,7 @@
 
 {% if cart == empty %}
 <section class="flex items-center">
-    <div class="card w-96 bg-base-100 shadow-sm">
+    <div class="card w-96 bg-base-100 shadow-sm mx-auto">
         <div class="card-body items-center text-center">
             <h1 class="text-2xl font-bold">{{ 'Checkout' | t }}</h1>
             <h2>{{ 'You have no cart items' | t }}</h2>
@@ -131,6 +131,6 @@
     	</div>
     </div>
 </section>
+{% component 'acheckout' %}
 {% endif %}
 
-{% component 'acheckout' %}
