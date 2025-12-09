@@ -63,7 +63,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
         </ul>
       </div>
       <div class="navbar-end gap-2 max-[400px]:w-full max-[400px]:place-content-between">
-        <a-search class="mr-2 hidden md:inline-block">
+        <a-search class="mr-2 hidden md:inline-block" include="products" filter="title,image,lang,currency,featured_image,price,compare_at_price">
             <label class="input input-ghost px-1 focus-within:outline-none min-w-40 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
     </div>
     <div class="p-2 pt-0 md:hidden">
         <div class="max-w-8xl mx-auto container">
-            <a-search>
+            <a-search class="w-full" include="products">
                 <label class="input input-sm input-ghost px-2 focus-within:outline-none w-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
