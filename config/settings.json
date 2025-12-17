@@ -534,6 +534,12 @@
           "type": "image"
         },
         {
+          "caption": "Background video",
+          "description": "Recommendation: minimum 1024px x 1024px, mp4-format",
+          "key": "headerOtfVideo",
+          "type": "video"
+        },
+        {
           "caption": "Use page content",
           "key": "content",
           "type": "header"

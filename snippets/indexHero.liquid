@@ -1,4 +1,10 @@
 <div id="main-content" class="hero min-h-{{ settings.header_otf_height }}" style="background-image: url({{ settings.header_otf_image | asset_img_url:1024,0 }});">
+    {% if settings.headerOtfVideo %}
+    <video autoplay loop muted>
+        <source src="{{ settings.headerOtfVideo | asset_url }}" type="video/mp4">
+        Your browser does not support the video tag
+    </video>   
+    {% endif %}
   <div class="hero-content text-center rounded-box p-4 pt-8 lg:p-8{{ settings.header_otf_glass }}">
     <div class="max-w-xl">
       {% if settings.header_otf_title %}
@@ -16,3 +22,28 @@
     </div>
   </div>
 </div>
+{% if settings.headerOtfVideo %}
+<style>
+#main-content {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  place-content: center;
+}
+#main-content video {
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  object-fit:cover;
+}
+.hero-content {
+  z-index:10;
+} 
+</style>
+{% endif %}
