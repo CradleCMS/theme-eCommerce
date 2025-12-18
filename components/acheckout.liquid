@@ -1,6 +1,6 @@
 <script>
 /* acheckout.js
- * CradleCMS ajax checkout component
+ * CradleCMS Checkout helper component
  * version 1.0.1
  */
 const checkoutCSS = new CSSStyleSheet()
@@ -9,7 +9,7 @@ checkoutCSS.replaceSync(`
     display: none;
 }
 .billing-check::after {
-    content:"{{ 'Billing address same as delivery address' | t:'checkout'  }}";
+    content:"Billing address same as delivery address";
     position: absolute;
     top: 0.4em;
     left: 3em;
@@ -29,7 +29,6 @@ class Checkout extends HTMLElement {
             let el = e.target;
             if(el.name == "country" || el.name == "shipping" || el.name == "gateway") {
                 const formData = new FormData(checkoutForm);
-                formData.set("_",checkoutForm.getAttribute('nonce'));
                 fetch("/checkout/{{cart.id}}", {
                     method: "PUT",
                     body: JSON.stringify(Object.fromEntries(formData)),
@@ -40,7 +39,6 @@ class Checkout extends HTMLElement {
                     },
                 }).then(res => {
                     if (!res.ok) throw res;
-                    console.log("reload checkout")
                     // reload with updated cart
                     location.reload();
                 }).catch(err => {
