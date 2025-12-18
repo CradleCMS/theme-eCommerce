@@ -21,7 +21,7 @@
         {% for linkList in settings.footer_linklists %}
           <nav>
             <header class="footer-title">{{ linkList.footer_linklist_title }}</header> 
-            {% for link in navigation[linkList.id].links %}
+            {% for link in navigation[linkList.footer_linklist].links %}
             <a class="link link-hover" href="{{ link | url }}">{{ link.title }}</a>
             {% endfor %}
           </nav> 
