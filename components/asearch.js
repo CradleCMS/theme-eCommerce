@@ -1,4 +1,3 @@
-<script>
 /* asearch.js
  * CradleCMS AutoSearch component
  * version 1.1.0
@@ -469,4 +468,3 @@ class AutoSearch extends HTMLElement {
 }
 
 customElements.define('a-search', AutoSearch);
-</script>
