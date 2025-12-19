@@ -1,4 +1,3 @@
-<script>
 /* alang.js
  * CradleCMS lang switcher component
  * version 1.0.0
@@ -33,4 +32,3 @@ class Lang extends HTMLElement {
     }
 }
 customElements.define('a-lang', Lang);
-</script>
