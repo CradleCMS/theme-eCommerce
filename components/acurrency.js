@@ -1,4 +1,3 @@
-<script>
 /* acurrency.js
  * CradleCMS currency switcher component
  * version 1.0.0
@@ -36,4 +35,3 @@ class Currency extends HTMLElement {
     }
 }
 customElements.define('a-currency', Currency);
-</script>
