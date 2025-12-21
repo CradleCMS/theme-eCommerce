@@ -12,7 +12,7 @@
                     {% if links.linkImageURL %}</a>{% endif %}
                   {% else %}
                       {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
-                      <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-8{% endif %}">
+                      <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-4{% endif %}">
                         <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt | t:'index' }}"/>
                       </figure>
                       {% if links.linkImageURL %}</a>{% endif %}
@@ -21,10 +21,10 @@
               {% if links.link_title or links.link_text or links.link_url or links.link2_url %}
                   <div class="{% unless links.linkImageFullwidth %}lg:w-1/3 md:w-3/5{% endunless %} max-w-[45rem] card-body justify-center">
                     {% if links.link_title %}
-                        <h2 class="card-title text-3xl lg:text-5xl mb-4 font-bold justify-center">{{ links.link_title | t:'index' }}</h2>
+                        <h2 class="card-title text-3xl lg:text-5xl mb-4 font-bold text-center justify-center">{{ links.link_title | t:'index' }}</h2>
                     {% endif %}
                     {% if links.link_text %}
-                        <p class="text-center grow-0 mb-4">{{ links.link_text | t:'index' }}</p>
+                        <p class="text-center grow-0 mb-4 text-lg">{{ links.link_text | t:'index' }}</p>
                     {% endif %}
                     {% if links.link_url or links.link2_url %}
                         <div class="card-actions justify-center">
