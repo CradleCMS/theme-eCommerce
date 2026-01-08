@@ -4,7 +4,7 @@
         <div class="{{ collection.format }}">{{ collection.html }}</div>       
     </div>
 	<div class="mt-10 grid {{ settings.colProductCount | def:"grid-cols-2 md:grid-cols-2 lg:grid-cols-4" }} gap-4">
-	{% for product in collections[collection.handle].products %}
+	{% for product in collection.products %}
 	    {% include 'productCard' %}
 	{% endfor %}
 	</div>
