@@ -1,0 +1,19 @@
+<nav class="paginate text-center mt-8" role="navigation" aria-label="pagination">
+    <ul class="join">
+        <li>
+           <a href="{{ paginate.previous.url }}" class="join-item btn btn-sm" aria-label="previous page">&laquo;</a>
+        </li>
+        {% for page in (1..paginate.pages) %}
+        <li>
+            {%- if paginate.page == page %}
+            <a href="{{ paginate |url:page }}" class="join-item btn btn-sm btn-active" aria-current="page" aria-label="page {{page}}">{{page}}</a>
+            {%- else %}
+            <a href="{{ paginate |url:page }}" class="join-item btn btn-sm" aria-label="page {{page}}">{{page}}</a>
+            {%- endif %}
+        </li>
+        {% endfor %}
+        <li>
+            <a href="{{ paginate.next.url }}" class="join-item btn btn-sm" aria-label="next page">&raquo;</a>
+        </li>
+    </ul>
+</nav>
