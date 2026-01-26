@@ -22,7 +22,7 @@
         <link rel="stylesheet" type="text/css" href="{{ 'custom.css' | asset_url }}">
     </head>
     <body class="text-base-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
-        <div class="hero min-h-screen" style="background-image: url({{ settings.closedBgimage | asset_img_url:'1024','0' }});">
+        <div class="hero min-h-screen" style="background-image: url('{{ settings.closedBgimage | asset_img_url:'1024','0' }}');">
           <div class="hero-overlay bg-opacity-10"></div>
           <div class="hero-content text-center card bg-{{ settings.closedDialogColors }} text-{{ settings.closedDialogColors }}-content m-4">
             <div class="max-w-xl">
