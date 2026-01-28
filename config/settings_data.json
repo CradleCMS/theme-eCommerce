@@ -26,8 +26,6 @@
       "header_colors": "base-100",
       "header_cta_link": "/",
       "header_cta_link_text": "Contact us",
-      "header_otf_button_link": "/admin/themes",
-      "header_otf_button_text": "Theme settings",
       "header_otf_glass": "",
       "header_otf_section": true,
       "header_otf_text": "Add content to front page in",
