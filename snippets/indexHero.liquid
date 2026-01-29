@@ -13,7 +13,7 @@
       {% if settings.header_otf_text %}
         <p class="mb-5">{{ settings.header_otf_text | t:'index' }}</p>
       {% endif %}
-      {% if settings.header_otf_fgimage %}
+      {% if settings.header_otf_fgimage.size > 0 %}
         <img class="mx-auto mb-5" src="{{ settings.header_otf_fgimage | asset_img_url:450,0 }}">
       {% endif %}
       {% if settings.header_otf_button_link and settings.header_otf_button_text %}
