@@ -36,7 +36,7 @@
               {% endif %}
           </div>
         {% if links.linkShowCol %}
-            {% assign collection = collections[links.link_collection.id] %}
+            {% assign collection = collections[links.link_collection] %}
             {% unless collection == empty %}
                 <div class="flex place-content-between mb-2 text-right">
                     <h3 class="text-2xl font-bold">{{ collection.meta.h1 }}</h3> 
