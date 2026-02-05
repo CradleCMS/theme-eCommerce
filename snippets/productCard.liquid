@@ -3,7 +3,7 @@
        {% if product.featuredImage %}
          {% if product.quantity <= 0 %}
       <div class="absolute top-3 left-4">
-        <span class="badge font-bold bg-accent ">{{ 'Out of stock' | t:'collection' }}</span>
+        <span class="badge font-bold badge-accent">{{ 'Out of stock' | t:'collection' }}</span>
       </div>
     {% endif %}
       <figure>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="card-actions justify-end">
-          <a class="btn btn-accent btn-sm rounded-xl" href="{{ product | url }}">{{ 'Read more' | t:'collection' }}</a>
+          <a class="btn btn-accent btn-sm" href="{{ product | url }}">{{ 'Read more' | t:'collection' }}</a>
         </div>
       </div>
   </a>

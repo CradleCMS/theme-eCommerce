@@ -91,9 +91,9 @@
                {% unless product.selectedVariant.available %}disabled{% endunless %}
                >
                {% if product.selectedVariant.available %}
-               {{ 'Add to cart' | t:'collection' }}
+               {{ 'Add to cart' | t }}
                {% else %}
-               {{ 'Out of stock' | t:'collection' }}
+               {{ 'Out of stock' | t }}
                {% endif %}
                </button>
                 {% if settings.ppInfoEnabled %}
