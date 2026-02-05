@@ -1,6 +1,11 @@
 <div class="card {{ settings.general_shadow }} bg-base-100">
   <a href="{{ product | url }}">
        {% if product.featuredImage %}
+         {% if product.quantity <= 0 %}
+      <div class="absolute top-3 left-4">
+        <span class="badge font-bold bg-accent ">{{ 'Out of stock' | t:'collection' }}</span>
+      </div>
+    {% endif %}
       <figure>
           <img class="{{ settings.col_card_img_height }}" src="{{ product.featuredImage | product_img_url:0,500 }}" alt="{{ product.featuredImage.alt }}" />
       </figure>
@@ -25,7 +30,7 @@
             </div>
         </div>
         <div class="card-actions justify-end">
-          <a class="btn btn-accent btn-sm" href="{{ product | url }}">{{ 'Read more' | t:'collection' }}</a>
+          <a class="btn btn-accent btn-sm rounded-xl" href="{{ product | url }}">{{ 'Read more' | t:'collection' }}</a>
         </div>
       </div>
   </a>

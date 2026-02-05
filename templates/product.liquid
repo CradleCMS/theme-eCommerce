@@ -74,7 +74,8 @@
                 <input type="hidden" name="product" value="{{product.id}}">
                 <input type="hidden" name="quantity" value="1">
                 {% if product.variants.size > 1 %}
-                <select id="variant-select" class="select select-bordered max-w-xs" name="variant" value="{{product.selectedVariant.id}}">
+                <div class="flex">
+                <select id="variant-select" class="select select-bordered max-w-xs " name="variant" value="{{product.selectedVariant.id}}">
                     {% for variant in product.variants %}
                     <option{% unless variant.available %} disabled{% endunless %} class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title | remove_first:' | ' | capitalize  }}</option>
                     {% endfor %}
@@ -82,7 +83,19 @@
                 {% else %}
                 <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
                 {% endif %}
-                <button name="submit" class="btn btn-accent">{{ 'Add to cart' | t }}</button>
+                
+               <button name="submit" class=" btn btn-accent ml-2"
+               {% unless product.selectedVariant.available %}
+               btn-disabled
+               {% endunless %}
+               {% unless product.selectedVariant.available %}disabled{% endunless %}
+               >
+               {% if product.selectedVariant.available %}
+               {{ 'Add to cart' | t:'collection' }}
+               {% else %}
+               {{ 'Out of stock' | t:'collection' }}
+               {% endif %}
+               </button>
                 {% if settings.ppInfoEnabled %}
                   <div class="bg-base-200 p-2 text-sm mt-2 rounded">{{ settings.ppInfoTxt }}</div>
                 {% endif %}
