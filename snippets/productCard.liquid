@@ -3,7 +3,7 @@
        {% if product.featuredImage %}
          {% if product.quantity <= 0 %}
       <div class="absolute top-3 left-4">
-        <span class="badge font-bold bg-accent ">Out of stock</span>
+        <span class="badge font-bold bg-accent ">{{ 'Out of stock' | t:'collection' }}</span>
       </div>
     {% endif %}
       <figure>
