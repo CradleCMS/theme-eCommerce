@@ -30,6 +30,33 @@
       <div class="place-self-stretch grid place-items-center">
         {% if settings.footerButtonEnabled %}<a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-primary">{{ settings.footerButtonText | t:'default' }}</a>{% endif %}
       </div>
+         {% if settings.footer_payment_enable %}
+        <div class="mt-8 flex flex-col items-center gap-4" aria-label="Accepted payment methods">
+          <p class="font-semibold">
+            {{ settings.footer_payment_text | t:'default' }}
+          </p>
+
+          <ul class="flex flex-wrap gap-4 list-none p-0 m-0">
+            {% for method in settings.footer_payment_methods %}
+              {% if method.logo %}
+                <li>
+                 <img
+  src="{{ method.logo | asset_img_url:'120','0' }}"
+  alt="{{ method.alt }}"
+  loading="lazy"
+  class="w-auto object-contain opacity-90"
+  style="height: 22px;"
+>
+
+
+
+
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
     </footer>
     <footer class="footer-horizontal p-2 pb-4 max-w-8xl mx-auto container">
         <p class="text-sm">{{ 'Copyright &copy;' | t:'default' }} {{ site.name }} - {{ 'All rights reserved' | t:'default'}}</p>
