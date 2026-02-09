@@ -85,7 +85,8 @@
           ],
           "type": "select"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "colors",
@@ -298,7 +299,8 @@
           ],
           "type": "select"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "social_media",
@@ -336,7 +338,8 @@
           "key": "social_linkedin_url",
           "type": "text"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "header",
@@ -409,7 +412,8 @@
           "key": "headerTopURL",
           "type": "text"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "homepage",
@@ -841,7 +845,8 @@
           "key": "homepage_blog",
           "type": "blog"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "pages",
@@ -894,7 +899,8 @@
           ],
           "type": "select"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "blogs",
@@ -911,7 +917,8 @@
           "key": "articleRelated",
           "type": "checkbox"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "products",
@@ -959,7 +966,8 @@
           "key": "ppRelatedProducts",
           "type": "checkbox"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "collections",
@@ -1025,7 +1033,8 @@
           ],
           "type": "select"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "shop",
@@ -1066,7 +1075,8 @@
           "key": "coPaymentCard",
           "type": "checkbox"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "restricted",
@@ -1341,7 +1351,8 @@
           "key": "closedSocialTrue",
           "type": "checkbox"
         }
-      ]
+      ],
+      "default": null
     },
     {
       "key": "footer",
@@ -1426,8 +1437,48 @@
           "caption": "Button text",
           "key": "footerButtonText",
           "type": "text"
+        },
+        {
+          "caption": "Payment options",
+          "key": "footer_payment_header",
+          "type": "header"
+        },
+        {
+          "caption": "Show payment options",
+          "default": false,
+          "key": "footer_payment_enable",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Payment text",
+          "default": "We accept",
+          "key": "footer_payment_text",
+          "type": "text"
+        },
+        {
+          "caption": "Payment methods",
+          "key": "footer_payment_methods",
+          "settings": [
+            {
+              "caption": "Payment name",
+              "key": "name",
+              "type": "text"
+            },
+            {
+              "caption": "Logo",
+              "key": "logo",
+              "type": "image"
+            },
+            {
+              "caption": "Logo alt text",
+              "key": "alt",
+              "type": "text"
+            }
+          ],
+          "type": "struct"
         }
-      ]
+      ],
+      "default": null
     }
   ]
 }
