@@ -1,6 +1,6 @@
 /* asearch.js
  * CradleCMS AutoSearch component
- * version 1.1.0
+ * version 1.1.2
  */
 const searchCSS = new CSSStyleSheet()
 
@@ -21,6 +21,9 @@ searchCSS.replaceSync(`
     top: 100%;
     left: 0;
     padding: 0;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     max-height: 24em;
     background: var(--color-base-100);
     border: var(--border) solid var(--color-base-300);
@@ -41,6 +44,9 @@ searchCSS.replaceSync(`
     overflow: hidden;
     width: 100%;
     color: var(--color-base-content);
+}
+.asearch .item div {
+    width: 100%;
 }
 .asearch .item a {
     display: flex;
@@ -63,7 +69,7 @@ searchCSS.replaceSync(`
 }
 .asearch .item h4 {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-weight: 500;
     text-align: left;
     padding: 0;
@@ -71,6 +77,7 @@ searchCSS.replaceSync(`
 .asearch .item h4 p {
     margin-top: -0.25em;
     font-size: 1em;
+    text-align: right;
 }
 .asearch .item p {
     font-size: 0.8em;
@@ -104,9 +111,9 @@ searchCSS.replaceSync(`
 class AutoSearch extends HTMLElement {
     options = {
         source      : "/search",            // search endpoint
-        notfound	: "",                   // not found message
-        handle      : "",                   // search handle
-        delay       : 250,                  // search delay in ms
+    	notfound	: "",                   // not found message
+    	handle      : "",                   // search handle
+    	delay       : 250,         	        // search delay in ms
         chars       : 3,                    // input threshold
         include     : ["products", "articles", "pages"],
         filter      : ["title", "image", "lang", "currency", "featured_image", "meta.description", "price", "compare_at_price"],
@@ -132,7 +139,7 @@ class AutoSearch extends HTMLElement {
     #selectedIndex = -1
     #items = []
     #itemsNodes = []
-    #currency
+    #currency = {}
 
     connectedCallback() {
         this.classList.add("asearch-wrapper");
@@ -391,9 +398,10 @@ class AutoSearch extends HTMLElement {
     }
 
     currency(l, c) {
-        if(this.#currency) return this.#currency;
         l = l || this.#q.lang;
         c = c || this.#q.currency;
+        let key = l+c;
+        if(this.#currency[key]) return this.#currency[key];
         
         let conf = {
             style: 'currency',
@@ -401,9 +409,9 @@ class AutoSearch extends HTMLElement {
             currencyDisplay: "narrowSymbol"
         };
         
-        this.#currency = new Intl.NumberFormat(l, conf);
+        this.#currency[key] = new Intl.NumberFormat(l, conf); 
         
-        return this.#currency;
+        return this.#currency[key];
     }
 
     #setSelection(idx) {
