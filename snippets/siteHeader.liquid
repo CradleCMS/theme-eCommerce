@@ -22,23 +22,25 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
-          <div tabindex="0" class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-primary text-primary-content rounded-box w-52 block overflow-scroll max-h-[80vh]">
-            <ul class="mb-4">
-                {% for link in navigation[main-nav].links %}
-                    {% if link.type == 'navigation' %}
-                     <li class="font-bold">
-                        <p class="uppercase">{{ link.title }}</p>
-                        <ul class="p-2">
-                            {% for childlink in navigation[link.handle].links %}
-                                <li><a href="{{ childlink | url }}">{{ childlink.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>           
-                    {% else %}
-                    <li class="font-bold" ><a href="{{ link | url }}">{{ link.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+          <div tabindex="0" class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-primary text-primary-content rounded-box w-52">
+            <div class="overflow-scroll max-h-[80vh]">
+                <ul class="mb-4">
+                    {% for link in navigation[main-nav].links %}
+                        {% if link.type == 'navigation' %}
+                         <li class="font-bold">
+                            <p class="uppercase">{{ link.title }}</p>
+                            <ul class="p-2">
+                                {% for childlink in navigation[link.handle].links %}
+                                    <li><a href="{{ childlink | url }}">{{ childlink.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>           
+                        {% else %}
+                        <li class="font-bold" ><a href="{{ link | url }}">{{ link.title }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
             {% if site.langs.size > 1 %}
             <a-lang class="md:hidden">
                 <select name="lang" class="select select-primary text-primary w-full mb-2" value="{{lang}}">
