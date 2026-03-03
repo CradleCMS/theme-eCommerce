@@ -35,16 +35,18 @@
         <div>
             {% include 'siteHeader' %}
             {% if template == "index" %}
-                {% if settings.header_otf_section %}
-                  {% include 'indexHero' %}
-                {% endif %}
-                {% unless contentForLayout == "" %}
-                  <div class="container max-w-8xl mx-auto px-2 pb-10">
-                    {{ contentForLayout }}
-                  </div>
-                {% endunless %}
+                <div id="main-content" tabindex="-1">
+                    {% if settings.header_otf_section %}
+                      {% include 'indexHero' %}
+                    {% endif %}
+                    {% unless contentForLayout == "" %}
+                      <div class="container max-w-8xl mx-auto px-2 pb-10">
+                        {{ contentForLayout }}
+                      </div>
+                    {% endunless %}
+                </div>
             {% else %}
-            <div id="main-content" class="container max-w-8xl mx-auto mt-4 px-2 pb-10">
+            <div id="main-content" class="container max-w-8xl mx-auto mt-4 px-2 pb-10" tabindex="-1">
                 {{ contentForLayout }}
             </div>
             {% endif %}
