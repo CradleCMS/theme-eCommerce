@@ -10,7 +10,7 @@
         {% if metaKeywords %}
         <meta name="keywords" content="{{ metaKeywords | escape }}" />
         {% endif %}
-        <link rel="canonical" href="{{ canonicalUrl }}" />
+        <link rel="canonical" href="{{ canonicalUrl | escape }}" />
         {% if settings.css_dev_mode == "development" %}
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
