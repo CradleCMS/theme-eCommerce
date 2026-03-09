@@ -1,4 +1,4 @@
-<div id="main-content" class="hero min-h-{{ settings.header_otf_height }}" style="background-image: url({{ settings.header_otf_image | asset_img_url:1024,0 }});">
+<div id="otf-content" class="hero min-h-{{ settings.header_otf_height }}" style="background-image: url({{ settings.header_otf_image | asset_img_url:1024,0 }});">
     {% if settings.headerOtfVideo %}
     <video autoplay loop muted>
         <source src="{{ settings.headerOtfVideo | asset_url }}" type="video/mp4">
@@ -24,14 +24,14 @@
 </div>
 {% if settings.headerOtfVideo %}
 <style>
-#main-content {
+#otf-content {
   position: relative;
   max-width: 100%;
   overflow: hidden;
   display: flex;
   place-content: center;
 }
-#main-content video {
+#otf-content video {
   position: absolute;
   width: auto;
   height: auto;

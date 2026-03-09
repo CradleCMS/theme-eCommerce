@@ -13,11 +13,11 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
             {%if settings.headerTopURL %}</a>{% endif %}
         </div>
     {% endif %}
-    <div class="navbar max-w-8xl mx-auto container">
+    <div class="navbar max-w-8xl mx-auto container" role="navigation">
       <div class="navbar-start">
         {% if navigation[main-nav].links.size > 0 %}
         <div class="dropdown">
-          <div tabindex="0" role="button" class="btn btn-ghost pl-0 lg:hidden">
+          <div tabindex="0" role="button" class="btn btn-ghost pl-0 lg:hidden" aria-label="Menu">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
@@ -121,7 +121,7 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
         </select>
         </a-currency>
         {% endif %}
-        <a class="btn btn-ghost btn-circle btn-sm mr-2" href="/customer/account">
+        <a class="btn btn-ghost btn-circle btn-sm mr-2" href="/customer/account" aria-label="Account">
             <svg xmlns:xlink="http://www.w3.org/1999/xlink" 
                 fill="currentColor" 
                 width="24" 

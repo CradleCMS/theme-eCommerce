@@ -1,5 +1,5 @@
 <div class="card {{ settings.general_shadow }} bg-base-100">
-  <a href="{{ product | url }}">
+  <a href="{{ product | url }}" aria-label="Product">
        {% if product.featuredImage %}
          {% if product.quantity <= 0 %}
       <div class="absolute top-3 left-4">
@@ -17,20 +17,24 @@
             </h3>
             <div class="text-left">
                 {% if product.variants.size > 1 and product.priceMin < product.priceMax %}
-                    <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold text-red-400{% endif %}">
+                    <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold{% endif %}">
                         {{ product.priceMin | money }}
                     </span>
                     &dash;
-                    <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold text-red-400{% endif %}">
+                    <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold{% endif %}">
                         {{ product.priceMax | money }}
                     </span>
                 {% else %}
-                    <span class="{% if product.compareAtPrice > product.price %}font-bold text-red-400{% endif %}">{{ product.price | money }}</span>
+                    {% if product.compareAtPrice > product.price %}
+                    <s>{{ product.compareAtPrice | money }}</s><span class="font-bold" >{{ product.price | money }}</span>
+                    {% else %}
+                    {{ product.price | money }}
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
         <div class="card-actions justify-end">
-          <a class="btn btn-accent btn-sm" href="{{ product | url }}">{{ 'Read more' | t:'collection' }}</a>
+          <a class="btn btn-secondary btn-sm" href="{{ product | url }}" alt="{{ 'Go to productpage' | t:'collection' }}">{{ 'Read more' | t:'collection' }}</a>
         </div>
       </div>
   </a>

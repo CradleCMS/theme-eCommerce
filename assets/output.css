@@ -1,9 +1,8 @@
-/*! tailwindcss v4.2.0 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.1 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --color-red-400: oklch(70.4% 0.191 22.216);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-black: #000;
@@ -2156,6 +2155,62 @@
       }
     }
   }
+  .breadcrumbs {
+    @layer daisyui.l1.l2.l3 {
+      max-width: 100%;
+      overflow-x: auto;
+      padding-block: calc(0.25rem * 2);
+      > menu, > ul, > ol {
+        display: flex;
+        min-height: min-content;
+        align-items: center;
+        white-space: nowrap;
+        > li {
+          display: flex;
+          align-items: center;
+          > * {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            gap: calc(0.25rem * 2);
+            &:hover {
+              @media (hover: hover) {
+                text-decoration-line: underline;
+              }
+            }
+            &:focus {
+              --tw-outline-style: none;
+              outline-style: none;
+              @media (forced-colors: active) {
+                outline: 2px solid transparent;
+                outline-offset: 2px;
+              }
+            }
+            &:focus-visible {
+              outline: 2px solid currentColor;
+              outline-offset: 2px;
+            }
+          }
+          & + *:before {
+            content: "";
+            margin-inline-start: calc(0.25rem * 2);
+            margin-inline-end: calc(0.25rem * 3);
+            display: block;
+            height: calc(0.25rem * 1.5);
+            width: calc(0.25rem * 1.5);
+            opacity: 40%;
+            rotate: 45deg;
+            border-top: 1px solid;
+            border-right: 1px solid;
+            background-color: #0000;
+          }
+          [dir="rtl"] & + *:before {
+            rotate: -135deg;
+          }
+        }
+      }
+    }
+  }
   .label {
     @layer daisyui.l1.l2.l3 {
       display: inline-flex;
@@ -2649,62 +2704,6 @@
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
   }
-  .breadcrumbs {
-    @layer daisyui.l1.l2.l3 {
-      max-width: 100%;
-      overflow-x: auto;
-      padding-block: calc(0.25rem * 2);
-      > menu, > ul, > ol {
-        display: flex;
-        min-height: min-content;
-        align-items: center;
-        white-space: nowrap;
-        > li {
-          display: flex;
-          align-items: center;
-          > * {
-            display: flex;
-            cursor: pointer;
-            align-items: center;
-            gap: calc(0.25rem * 2);
-            &:hover {
-              @media (hover: hover) {
-                text-decoration-line: underline;
-              }
-            }
-            &:focus {
-              --tw-outline-style: none;
-              outline-style: none;
-              @media (forced-colors: active) {
-                outline: 2px solid transparent;
-                outline-offset: 2px;
-              }
-            }
-            &:focus-visible {
-              outline: 2px solid currentColor;
-              outline-offset: 2px;
-            }
-          }
-          & + *:before {
-            content: "";
-            margin-right: calc(0.25rem * 3);
-            margin-left: calc(0.25rem * 2);
-            display: block;
-            height: calc(0.25rem * 1.5);
-            width: calc(0.25rem * 1.5);
-            opacity: 40%;
-            rotate: 45deg;
-            border-top: 1px solid;
-            border-right: 1px solid;
-            background-color: #0000;
-          }
-          [dir="rtl"] & + *:before {
-            rotate: -135deg;
-          }
-        }
-      }
-    }
-  }
   .mr-1 {
     margin-right: calc(var(--spacing) * 1);
   }
@@ -3045,6 +3044,9 @@
   }
   .h-\[300px\] {
     height: 300px;
+  }
+  .h-fit {
+    height: fit-content;
   }
   .h-full {
     height: 100%;
@@ -3933,9 +3935,6 @@
   }
   .text-primary-content {
     color: var(--color-primary-content);
-  }
-  .text-red-400 {
-    color: var(--color-red-400);
   }
   .text-secondary-content {
     color: var(--color-secondary-content);

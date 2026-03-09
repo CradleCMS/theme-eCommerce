@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html data-theme="{{ settings.daisy-theme }}">
+<html data-theme="{{ settings.daisy-theme }}" lang="{{ site.lang }}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>	
-        {% if metaDescription %}
         <meta name="description" content="{{ metaDescription | escape }}" />
-        {% endif %}
-        {% if metaKeywords %}
         <meta name="keywords" content="{{ metaKeywords | escape }}" />
-        {% endif %}
         <link rel="canonical" href="{{ canonicalUrl | escape }}" />
         {% if template == 'index' %}
         <script type="application/ld+json">
@@ -35,7 +31,7 @@
         <div>
             {% include 'siteHeader' %}
             {% if template == "index" %}
-                <div id="main-content" tabindex="-1">
+                <div id="main-content" tabindex="-1" role="main">
                     {% if settings.header_otf_section %}
                       {% include 'indexHero' %}
                     {% endif %}
@@ -46,7 +42,7 @@
                     {% endunless %}
                 </div>
             {% else %}
-            <div id="main-content" class="container max-w-8xl mx-auto mt-4 px-2 pb-10" tabindex="-1">
+            <div id="main-content" class="container max-w-8xl mx-auto mt-4 px-2 pb-10" tabindex="-1" role="main">
                 {{ contentForLayout }}
             </div>
             {% endif %}
