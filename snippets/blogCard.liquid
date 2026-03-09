@@ -1,4 +1,4 @@
-<div class="card {{ settings.general_shadow }} bg-base-200">
+<div class="card {{ settings.general_shadow }} bg-base-200 h-fit">
    {% unless article.image == empty %}
   <figure>
       <img src="{{ article | img_url:0,500 }}" alt="{{ article.image.alt }}" />
@@ -18,9 +18,9 @@
     <div class="text-sm">{% if article.author != blank %}{{ article.author }} on {% endif %}<time pubdate datetime="{{ article.publishAt | date }}">{{ article.publishAt | date }}</time></div>
     {% let excerpt_text = article.excerpt | strip_html %}
 		{% unless excerpt_text == "" %}
-			<p class="mt-4">{{ article.excerpt | strip_html }}</p>
+			<p class="mt-4">{{ article.excerpt | strip_html | truncatewords: 20 }}</p>
 		{% else %}
-			<p class="mt-4">{{ article.content | strip_html | truncatewords: 100 }}</p>
+			<p class="mt-4">{{ article.content | strip_html | truncatewords: 20 }}</p>
 		{% endunless %}
     <div class="card-actions justify-end">
       <a class="btn bg-primary text-primary-content" href="{{ article | url }}">{{ lang.read_more | def:'Read' }}</a>
