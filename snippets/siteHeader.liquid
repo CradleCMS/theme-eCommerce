@@ -40,25 +40,25 @@ responsive (dropdown menu on small screen, center menu on large screen) modified
                         {% endif %}
                     {% endfor %}
                 </ul>
-            </div>
-            {% if site.langs.size > 1 %}
-            <a-lang class="md:hidden">
-                <select name="lang" class="select select-primary text-primary w-full mb-2" value="{{lang}}">
-                    {% for l in site.langs | keys | sort %}
-                    <option value="{{ l }}" {% if l == lang %}selected{% endif %}>{{languages[l] | t:'default' }}</option>
+                {% if site.langs.size > 1 %}
+                <a-lang class="md:hidden">
+                    <select name="lang" class="select select-primary text-primary w-full mb-2" value="{{lang}}">
+                        {% for l in site.langs | keys | sort %}
+                        <option value="{{ l }}" {% if l == lang %}selected{% endif %}>{{languages[l] | t:'default' }}</option>
+                        {% endfor %}
+                    </select>
+                </a-lang>
+                {% endif %}
+                {% if shop.currencies.size > 1 %}
+                <a-currency class="md:hidden">
+                <select name="currency" class="select select-primary text-primary w-full mb-2" value="{{cart.currency}}">
+                    {% for c in shop.currencies | keys | sort %}
+                        <option value="{{ c }}" {% if c == cart.currency %}selected{% endif %}>{{c}}</option>
                     {% endfor %}
                 </select>
-            </a-lang>
-            {% endif %}
-            {% if shop.currencies.size > 1 %}
-            <a-currency class="md:hidden">
-            <select name="currency" class="select select-primary text-primary w-full mb-2" value="{{cart.currency}}">
-                {% for c in shop.currencies | keys | sort %}
-                    <option value="{{ c }}" {% if c == cart.currency %}selected{% endif %}>{{c}}</option>
-                {% endfor %}
-            </select>
-            </a-currency>
-            {% endif %}
+                </a-currency>
+                {% endif %}
+            </div>
           </div>
         </div>
         {% endif %}

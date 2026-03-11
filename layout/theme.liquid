@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html data-theme="{{ settings.daisy-theme }}" lang="{{ site.lang }}">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="{{ metaDescription | escape }}"/>
+        <meta name="keywords" content="{{ metaKeywords | escape }}"/>
         <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>	
-        <meta name="description" content="{{ metaDescription | escape }}" />
-        <meta name="keywords" content="{{ metaKeywords | escape }}" />
-        <link rel="canonical" href="{{ canonicalUrl | escape }}" />
+        <link rel="canonical" href="{{ canonicalUrl | escape }}">
         {% if template == 'index' %}
         <script type="application/ld+json">
             {% include 'structured-data' %}
@@ -19,11 +19,11 @@
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="{{ 'typography.css' | asset_url }}">
+        {{ 'typography.css' | stylesheet_tag }}
         {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
+        {{ 'output.css' | stylesheet_tag }}
         {% endif %}
-        <link rel="stylesheet" type="text/css" href="{{ 'custom.css.liquid' | asset_url }}">
+        {{ 'custom.css' | stylesheet_tag }}
     </head>
     <body class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {% comment %}AlpineJs needs to be here or it won't work{% endcomment %}
