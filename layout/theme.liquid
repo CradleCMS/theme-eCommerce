@@ -16,14 +16,14 @@
         <link rel="icon" href="/favicon.ico">
         <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
         {% if settings.css_dev_mode == "development" %}
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
-        {{ 'typography.css' | stylesheet_tag }}
+            <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+            <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+            <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+            {{ 'typography.css' | stylesheet_tag }}
         {% else %}
-        {{ 'output.css' | stylesheet_tag }}
+            {{ 'output.css' | stylesheet_tag }}
         {% endif %}
-        {{ 'custom.css' | stylesheet_tag }}
+            {{ 'custom.css' | stylesheet_tag }}
     </head>
     <body class="bg-{{ settings.body_colors }} text-{{ settings.body_colors }}-content flex flex-col justify-between min-h-[100vh] {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {% comment %}AlpineJs needs to be here or it won't work{% endcomment %}

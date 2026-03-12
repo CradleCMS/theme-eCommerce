@@ -431,125 +431,112 @@ body {
     box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
     --size: calc(var(--size-field, 0.25rem) * 10);
 }
+
+/* FOOTER STYLES */
+
 @media(min-width:768px){
-    
-.footer-main{
-max-width:1200px;
-margin:0 auto;
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr 1fr;
-grid-template-areas:
-"brand col1 col2 col3 col4";
-gap:3rem;
-justify-content:center;
-}
-.footer-brand{
-grid-area:brand;
-border-right:1px solid rgba(255,255,255,0.2);
-padding-right:2.5rem;
-display:flex;
-flex-direction:column;
-gap:1.5rem;
+    .footer-main{
+        max-width:1200px;
+        margin:0 auto;
+        gap:3rem;
+    }
+    .footer-brand {
+        display:flex;
+        flex-direction:column;
+        gap:1.5rem;
+    }
+    .footer-bottom {
+        padding-top:2.5rem;
+    }
+    .footer-bottom-inner {
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        gap:6rem;
+    }
 }
 
-.footer-col-1{grid-area:col1;}
-.footer-col-2{grid-area:col2;}
-.footer-col-3{grid-area:col3;}
-.footer-col-4{grid-area:col4;}
-
-.footer-bottom{
-grid-area:bottom;
-border-top:1px solid rgba(255,255,255,0.2);
-padding-top:2.5rem;
-}
-.footer-bottom-inner{
-display:flex;
-justify-content:center;
-align-items:flex-start;
-gap:6rem;
-}
-}
 .footer-bottom .container,
-.footer-copyright.container{
-max-width:100%;
+.footer-copyright.container {
+    max-width:100%;
 }
-.footer-title{
-font-weight:600;
-margin-bottom:.75rem;
+.footer-title {
+    font-weight:600;
+    margin-bottom:.75rem;
 }
 .social-icons{
-display:flex;
-gap:1rem;
-align-items:center;
+    display:flex;
+    gap:1rem;
+    align-items:center;
 }
-.shopify-payments,
 .footer-payments ul{
-display:flex;
-gap:.75rem;
-align-items:center;
+    display:flex;
+    gap:.75rem;
+    align-items:center;
 }
 .footer-cta{
-background:#5b3df5;
-color:white;
-padding:.75rem 1.5rem;
-font-weight:600;
-border-radius:4px;
-text-decoration:none;
-width:fit-content;
+    background:#5b3df5;
+    color:white;
+    padding:.75rem 1.5rem;
+    font-weight:600;
+    border-radius:4px;
+    text-decoration:none;
+    width:fit-content;
 }
 .footer-bottom-title,
-.footer-title{
-margin-bottom:.20rem;
-font-weight:600;
+.footer-title {
+    margin-bottom:.20rem;
+    font-weight:600;
 }
-.footer-navigation{
-display:contents;
-}
+
 @media(max-width:767px){
-
-.footer-main{
-display:grid;
-grid-template-columns:1fr;
-gap:0.5rem;
-}
-.footer-brand{
-border-right:none;
-padding-right:0;
-}
-.footer-links{
-border-bottom:1px solid rgba(255,255,255,0.15);
-padding:1rem 0;
-}
-}
-.payment-single ul{
-max-width:420px;
-grid-template-columns:repeat(4,1fr);
+    .footer-main{
+        gap:0.5rem;
+    }
+    .footer-brand{
+        border-right:none;
+        padding-right:0;
+    }
+    .footer-links {
+        padding:1rem 0;
+    }
 }
 
-@media(min-width:768px){
 .payment-single ul{
-grid-template-columns:repeat(5,1fr);
+    max-width:420px;
+    grid-template-columns:repeat(4,1fr);
 }
-.payment-single{
-max-width:420px;
-}.payment-single ul li{
-min-width:48px;
-min-height:32px;
+
+@media(min-width:768px) {
+    .footer-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));        
+    }
+    .payment-single ul {
+        grid-template-columns:repeat(5,1fr);
+    }
+    .payment-single {
+        max-width:420px;
+    }
+    .payment-single ul li {
+        min-width:48px;
+        min-height:32px;
+    }
 }
 /* center footer when only one link column */
 
-.footer-main.footer-single{
-max-width:1100px;
-margin-left:auto;
-margin-right:auto;
-padding-left:25rem;
-grid-template-columns:1fr 1fr 1fr;
-column-gap:15em;
+.footer-main.footer-single {
+    max-width:1100px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:25rem;
+    column-gap:15em;
 }
+
 @media (min-width:768px) and (max-width:1024px){
-.footer-main.footer-single{
-padding-left:4rem;
-column-gap:2rem;
+    .footer-main.footer-single{
+        padding-left:4rem;
+        column-gap:2rem;
+    }
 }
-}
-/**/
+/* FOOTER STYLES END */
