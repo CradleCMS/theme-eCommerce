@@ -975,34 +975,6 @@
       "caption": "Collections",
       "settings": [
         {
-          "caption": "Product image height",
-          "description": "Max height on product card",
-          "key": "col_card_img_height",
-          "options": [
-            {
-              "caption": "None",
-              "value": ""
-            },
-            {
-              "caption": "Small",
-              "value": "max-h-40"
-            },
-            {
-              "caption": "Medium",
-              "value": "max-h-52"
-            },
-            {
-              "caption": "Large",
-              "value": "max-h-60"
-            },
-            {
-              "caption": "XL",
-              "value": "max-h-72"
-            }
-          ],
-          "type": "select"
-        },
-        {
           "caption": "Products per row",
           "key": "colProductCount",
           "options": [
@@ -1032,6 +1004,58 @@
             }
           ],
           "type": "select"
+        },
+        {
+          "caption": "Product card",
+          "key": "colProdCard",
+          "type": "header"
+        },
+        {
+          "caption": "Product image height",
+          "description": "Max height on product card",
+          "key": "col_card_img_height",
+          "options": [
+            {
+              "caption": "None",
+              "value": ""
+            },
+            {
+              "caption": "Small",
+              "value": "max-h-40"
+            },
+            {
+              "caption": "Medium",
+              "value": "max-h-52"
+            },
+            {
+              "caption": "Large",
+              "value": "max-h-60"
+            },
+            {
+              "caption": "XL",
+              "value": "max-h-72"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Collections page",
+          "key": "colPage",
+          "type": "header"
+        },
+        {
+          "caption": "Select collections",
+          "description": "If none are selected all collections are shown",
+          "key": "colPageCollections",
+          "settings": [
+            {
+              "caption": "Collection",
+              "default": "Select collection",
+              "key": "collection",
+              "type": "collection"
+            }
+          ],
+          "type": "struct"
         }
       ],
       "default": null
