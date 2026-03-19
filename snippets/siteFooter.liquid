@@ -77,10 +77,10 @@
             {% if settings.footer_social_enable %}
                 <section aria-labelledby="footer-social-heading">
                   <h2 id="footer-social-heading"
-                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3" >
+                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3 text-center md:text-left" >
                     {{ 'Follow us' | t }}
                   </h2>
-                  <div class="social-icons flex gap-3">
+                  <div class="social-icons flex gap-3 flex-wrap">
                     {% include 'socialmedia-icon-links' %}
                   </div>
                 </section>
@@ -89,14 +89,14 @@
                 <section aria-labelledby="footer-payment-heading"
                   class="payment-single">
                   <h2 id="footer-payment-heading"
-                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3 text-center md:text-left">
                     {{ settings.footer_payment_text | def:"We accept" }}
                   </h2>
-                  <ul class="flex gap-3 justify-center md:justify-start">
+                  <ul class="flex gap-3 justify-center md:justify-start flex-wrap">
                     {% for payment in settings.footer_payment_methods %}
                     <li class="flex justify-center items-center bg-white border border-gray-200 rounded-sm p-1">
                       <img src="{{ payment.logo | asset_url }}"
-                        alt="Betala med {{ payment.name }}"
+                        alt="{{ 'Pay with' | t }} {{ payment.name }}"
                         class="h-6 object-contain">
                     </li>
                     {% endfor %}
@@ -109,14 +109,14 @@
     {% if settings.footer_linklists.size > 1 %}
         <section class="footer-bottom mt-6 pt-4 md:border-t border-base-300/50">
           <div class="max-w-8xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-60 max-w-4xl mx-auto text-center">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-20 max-w-4xl mx-auto text-center">
               {% if settings.footer_social_enable %}
               <section aria-labelledby="footer-social-heading">
                 <h2 id="footer-social-heading"
                   class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3" >
                   {{ 'Follow us' | t }}
                 </h2>
-                <div class="social-icons flex gap-3 justify-center">
+                <div class="social-icons flex gap-3 justify-center flex-wrap">
                   {% include 'socialmedia-icon-links' %}
                 </div>
               </section>
@@ -127,7 +127,7 @@
                   class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">
                   {{ settings.footer_payment_text | def:"We accept" }}
                 </h2>
-                <ul class="flex gap-3 justify-center">
+                <ul class="flex gap-3 justify-center flex-wrap">
                   {% for payment in settings.footer_payment_methods %}
                   <li class="flex justify-center items-center bg-white border border-gray-200 rounded-sm p-1">
                     <img src="{{ payment.logo | asset_url }}"

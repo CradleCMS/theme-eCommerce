@@ -1,4 +1,4 @@
-/*! tailwindcss v4.2.1 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.2 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -4893,9 +4893,9 @@
       gap: calc(var(--spacing) * 16);
     }
   }
-  .md\:gap-60 {
+  .md\:gap-20 {
     @media (width >= 48rem) {
-      gap: calc(var(--spacing) * 60);
+      gap: calc(var(--spacing) * 20);
     }
   }
   .md\:border-t {
@@ -4944,6 +4944,11 @@
   .md\:pl-12 {
     @media (width >= 48rem) {
       padding-left: calc(var(--spacing) * 12);
+    }
+  }
+  .md\:text-left {
+    @media (width >= 48rem) {
+      text-align: left;
     }
   }
   .md\:text-3xl {

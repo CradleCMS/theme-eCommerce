@@ -1407,12 +1407,6 @@
           "type": "text"
         },
         {
-          "caption": "Show social media links",
-          "default": false,
-          "key": "footer_social_enable",
-          "type": "checkbox"
-        },
-        {
           "caption": "Quick links",
           "key": "quick_links",
           "type": "header"
@@ -1461,6 +1455,17 @@
           "caption": "Button text",
           "key": "footerButtonText",
           "type": "text"
+        },
+        {
+          "caption": "Social media",
+          "key": "footer_social_header",
+          "type": "header"
+        },
+        {
+          "caption": "Show social media links",
+          "default": false,
+          "key": "footer_social_enable",
+          "type": "checkbox"
         },
         {
           "caption": "Payment options",
