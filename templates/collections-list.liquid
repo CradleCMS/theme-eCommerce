@@ -14,10 +14,12 @@
                     <p>{{ collection.html | strip_html | truncatewords: 20 }}</p>
                     {% endif %}
                     {% unless collection.products == empty %}
-                    <div class="mt-10 grid {{ settings.colProductCount | def:"grid-cols-2 md:grid-cols-2 lg:grid-cols-4" }}  gap-4">
-                    {% for product in collection.products %}
-                        {% include 'productCard' %}
-                	{% endfor %}
+                    <div class="mt-10 grid collection-template-container gap-4">
+	                    {% let productAmount = settings.colProductCount | def:"4" %}
+                        {% let productHeight = 1375 | divided_by:productAmount %}
+                        {% for product in collection.products %}
+                            {% include 'productCard' %}
+                    	{% endfor %}
             	    </div>
                     {% endunless %}
                 </section>
@@ -32,10 +34,12 @@
                 <p>{{ collection.html | strip_html | truncatewords: 20 }}</p>
                 {% endif %}
                 {% unless collection.products == empty %}
-                <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {% for product in collection.products %}
-                    {% include 'productCard' %}
-            	{% endfor %}
+                <div class="mt-10 grid collection-template-container gap-4">
+	                {% let productAmount = settings.colProductCount | def:"4" %}
+                    {% let productHeight = 1375 | divided_by:productAmount %}
+                    {% for product in collection.products %}
+                        {% include 'productCard' %}
+                	{% endfor %}
         	    </div>
                 {% endunless %}
             </section>

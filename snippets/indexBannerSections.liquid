@@ -7,7 +7,12 @@
                   {% if links.linkImageFullwidth %}
                     {% if links.linkImageURL %}<a class="w-full" href="{{ links.linkImageURL }}">{% endif %}
                       <figure class="w-full">
-                        <img loading="lazy" class="w-full rounded-box" src="{{ links.link_image | asset_img_url:1600,0,'cropped' }}" alt="{{ links.link_image_alt | t:'index' }}"/>
+                        <img 
+                            loading="lazy" 
+                            class="w-full rounded-box" 
+                            src="{{ links.link_image | asset_img_url:500,0 }}" 
+                            srcset="{{ links.link_image | asset_img_url:500,0 }} 500w, {{ links.link_image | asset_img_url:900,0 }} 900w, {{ links.link_image | asset_img_url:1500,0 }} 1500w"
+                            alt="{{ links.link_image_alt | t:'index' }} "/>
                       </figure>
                     {% if links.linkImageURL %}</a>{% endif %}
                   {% else %}
@@ -43,6 +48,7 @@
                     <a href="{{ collection | url }}" class="btn btn-sm btn-link">{{ 'Show All' | t:'index' }}</a>
                 </div>
                 {% let productAmount = settings.secProdRowAmount | def:"4" %}
+                {% let productHeight = 1375 | divided_by:productAmount %}
                 <div class="collection-row-container gap-4">
             	{% for product in collection.products limit:productAmount %}
                     {% include 'productCard' %}

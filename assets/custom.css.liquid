@@ -58,7 +58,13 @@ input[type=number] {
 .collection-row-container {
     display: grid;
     grid-template-columns: repeat({{ settings.secProdRowAmount | def:"4" }}, minmax(calc(1375px / {{ settings.secProdRowAmount | def:"4" }}), 1fr));    
-    overflow-x: auto;
+    overflow-x: scroll;
+}
+
+.collection-template-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(1280px / {{ settings.colProductCount | def:"4" }})) , 1fr));    
+    overflow: visible;
 }
 
 {% if settings.border_radius != blank%}

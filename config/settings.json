@@ -980,27 +980,27 @@
           "options": [
             {
               "caption": "1",
-              "value": "grid-cols-1"
+              "value": "1"
             },
             {
               "caption": "2",
-              "value": "grid-cols-1 md:grid-cols-1 lg:grid-cols-2"
+              "value": "2"
             },
             {
               "caption": "3",
-              "value": "grid-cols-1 md:grid-cols-3 lg:grid-cols-3"
+              "value": "3"
             },
             {
               "caption": "4",
-              "value": "grid-cols-2 md:grid-cols-2 lg:grid-cols-4"
+              "value": "4"
             },
             {
               "caption": "5",
-              "value": "grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+              "value": "5"
             },
             {
               "caption": "6",
-              "value": "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
+              "value": "6"
             }
           ],
           "type": "select"

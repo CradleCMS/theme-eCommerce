@@ -1,39 +1,41 @@
 <div class="card {{ settings.general_shadow }} bg-base-100">
-    {% if product.quantity <= 0 %}
-        <div class="absolute top-3 left-4">
-            <span class="badge font-bold badge-accent">{{ 'Out of stock' | t:'collection' }}</span>
+    <a href="{{ product | url }}" class="flex flex-col h-full">
+        {% if product.quantity <= 0 %}
+            <div class="absolute top-3 left-4">
+                <span class="badge font-bold badge-accent">{{ 'Out of stock' | t:'collection' }}</span>
+            </div>
+        {% endif %}
+       {% if product.featuredImage %}
+            <figure>
+                {{ product.featuredImage | img_tag:0,productHeight,class:settings.col_card_img_height }}
+            </figure>
+        {% endif %}
+        <div class="card-body justify-end">
+            <div class="flex flex-col">
+                <h3 class="card-title text-base">
+                    {{ product.meta.h1 }}
+                </h3>
+                <div class="text-left">
+                    {% if product.variants.size > 1 and product.priceMin < product.priceMax %}
+                        <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold{% endif %}">
+                            {{ product.priceMin | money }}
+                        </span>
+                        &dash;
+                        <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold{% endif %}">
+                            {{ product.priceMax | money }}
+                        </span>
+                    {% else %}
+                        {% if product.compareAtPrice > product.price %}
+                        <s>{{ product.compareAtPrice | money }}</s><span class="font-bold" >{{ product.price | money }}</span>
+                        {% else %}
+                        {{ product.price | money }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-actions justify-end">
+              <button class="btn btn-secondary btn-sm">{{ 'Read more' | t:'collection' }}</button>
+            </div>
         </div>
-    {% endif %}
-   {% if product.featuredImage %}
-        <figure>
-            <img class="{{ settings.col_card_img_height }}" src="{{ product.featuredImage | product_img_url:0,500 }}" alt="{{ product.featuredImage.alt }}">
-        </figure>
-    {% endif %}
-    <div class="card-body justify-end">
-    <div class="flex flex-col">
-        <h3 class="card-title text-base">
-            {{ product.meta.h1 }}
-        </h3>
-        <div class="text-left">
-            {% if product.variants.size > 1 and product.priceMin < product.priceMax %}
-                <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold{% endif %}">
-                    {{ product.priceMin | money }}
-                </span>
-                &dash;
-                <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold{% endif %}">
-                    {{ product.priceMax | money }}
-                </span>
-            {% else %}
-                {% if product.compareAtPrice > product.price %}
-                <s>{{ product.compareAtPrice | money }}</s><span class="font-bold" >{{ product.price | money }}</span>
-                {% else %}
-                {{ product.price | money }}
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="card-actions justify-end">
-      <a class="btn btn-secondary btn-sm" href="{{ product | url }}" aria-label="{{ product.meta.h1 }}">{{ 'Read more' | t:'collection' }}</a>
-    </div>
-  </div>
+    </a>
 </div>
