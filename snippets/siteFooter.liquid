@@ -25,7 +25,7 @@
           aria-label="{{ linkList.footer_linklist_title }}">
           <div class="block md:hidden">
             <div class="collapse mb-0">
-              <input type="checkbox" class="peer"
+              <input type="checkbox" class="peer" aria-labelledby="View navigational links"
                 {% if settings.footer_linklists.size == 1 %}checked{% endif %}>
                 <h2 class="collapse-title flex justify-between items-center text-sm font-semibold uppercase tracking-wider text-gray-400 pr-0">
                 {{ linkList.footer_linklist_title }}
@@ -95,7 +95,7 @@
                   <ul class="flex gap-3 justify-center md:justify-start flex-wrap">
                     {% for payment in settings.footer_payment_methods %}
                     <li class="flex justify-center items-center bg-white border border-gray-200 rounded-sm p-1">
-                      <img src="{{ payment.logo | asset_url }}"
+                      <img src="{{ payment.logo | asset_img_url:0,50 }}"
                         alt="{{ 'Pay with' | t }} {{ payment.name }}"
                         class="h-6 object-contain">
                     </li>
@@ -130,7 +130,7 @@
                 <ul class="flex gap-3 justify-center flex-wrap">
                   {% for payment in settings.footer_payment_methods %}
                   <li class="flex justify-center items-center bg-white border border-gray-200 rounded-sm p-1">
-                    <img src="{{ payment.logo | asset_url }}"
+                    <img src="{{ payment.logo | asset_img_url:0,50 }}"
                       alt="{{ 'Pay with' | t }} {{ payment.name }}"
                       class="h-6 object-contain">
                   </li>
