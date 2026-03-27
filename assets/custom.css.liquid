@@ -64,6 +64,7 @@ input[type=number] {
 .collection-template-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(1280px / {{ settings.colProductCount | def:"4" }})) , 1fr));    
+    height: fit-content;    
     overflow: visible;
 }
 
