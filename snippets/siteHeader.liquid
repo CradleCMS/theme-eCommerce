@@ -99,7 +99,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
                   {{ link.title }}
                 </summary>
 
-                <div class="absolute left-0 mt-2 bg-primary/60 backdrop-blur-md text-white border border-white/10 shadow-xl p-6 rounded-xl z-50 min-w-[320px] transition-all duration-200">
+                <div class="absolute left-0 mt-2 bg-primary text-primary-content border border-white/10 shadow-xl p-6 rounded-xl z-50 min-w-[320px]">
                   {% for childlink in navigation[link.param].links %}
                     {% if childlink.type == 'navigation' %}
 
@@ -109,7 +109,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
                           <span class="opacity-70">›</span>
                         </summary>
 
-                        <div class="absolute left-full top-0 ml-4 bg-primary/60 backdrop-blur-md border border-white/10 shadow-xl p-5 rounded-xl min-w-[240px] transition-all duration-200">
+                        <div class="absolute left-full top-0 ml-4 bg-primary text-primary-content border border-white/10 shadow-xl p-5 rounded-xl min-w-[240px]">
                           <ul class="space-y-2">
                             {% for subchild in navigation[childlink.handle].links %}
                               <li>
@@ -200,33 +200,24 @@ Responsive header with dropdown menu on small screens and click‑based mega men
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
-  const desktopMenus = document.querySelectorAll('.navbar-start > ul > li > details');
-
-  desktopMenus.forEach((detail) => {
-    detail.addEventListener('toggle', function () {
-      if (this.open) {
-        desktopMenus.forEach((el) => {
-          if (el !== this) el.removeAttribute('open');
-        });
-      }
-    });
+    const allDesktopDetails = document.querySelectorAll('.navbar-start details');
+allDesktopDetails.forEach((detail) => {
+  detail.addEventListener('toggle', function () {
+    if (this.open) {
+      const parent = this.parentElement;
+      const siblings = parent.parentElement.children;
+      Array.from(siblings).forEach((sibling) => {
+        const siblingDetails = sibling.querySelector(':scope > details');
+        if (siblingDetails && siblingDetails !== this) {
+          siblingDetails.removeAttribute('open');
+        }
+      });
+    }
+    else {
+      this.querySelectorAll('details').forEach(d => d.removeAttribute('open'));
+    }
   });
-
-  const allMobileDetails = document.querySelectorAll('.dropdown details');
-  const mobileMenus = Array.from(allMobileDetails).filter(detail => {
-    return !detail.closest('details details'); // ❗ inte nested
-  });
-  mobileMenus.forEach((detail) => {
-    detail.addEventListener('toggle', function () {
-      if (this.open) {
-        mobileMenus.forEach((el) => {
-          if (el !== this) el.removeAttribute('open');
-        });
-      }
-    });
-  });
-
+});
   let resizeTimeout;
   function closeAllMenus() {
     document.querySelectorAll('.navbar details, .dropdown details').forEach((el) => {
