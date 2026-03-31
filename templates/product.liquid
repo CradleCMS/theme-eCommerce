@@ -69,7 +69,7 @@
         </ul>
         {% endif %}
         <div>
-            <p class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+            <p id="product-price" class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
             {% form 'cart_update' class:'ml-2 mb-12' onSuccess:'/cart' %}
                 <input type="hidden" name="product" value="{{product.id}}">
                 <input type="hidden" name="quantity" value="1">
@@ -77,9 +77,13 @@
                 <div class="flex">
                 <select id="variant-select" class="select select-bordered max-w-xs " name="variant" value="{{product.selectedVariant.id}}">
                     {% for variant in product.variants %}
-                    <option{% unless variant.available %} disabled{% endunless %} class="option" {% if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif %} value="{{variant.id}}"{% if variant.id == product.selectedVariant.id %} selected{% endif %}>{{variant.title | remove_first:' | ' | capitalize  }}</option>
+                    <option class="option" data-price="{{variant.price | money}}" value="{{variant.id}}" 
+                    {%- if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif -%} 
+                    {%- if variant.id == product.selectedVariant.id %} selected{% endif -%}
+                    {%- unless variant.available %} disabled{% endunless -%}>
+                    {{variant.title | remove_first:' | ' | capitalize  }}</option>
                     {% endfor %}
-                </select>    
+                </select>
                 {% else %}
                 <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
                 {% endif %}
@@ -123,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainImage = document.getElementById('main-image');
     const thumbnails = document.querySelectorAll('.thumb');
     const variantSelector = document.getElementById('variant-select');
+    const productPrice = document.getElementById("product-price");
     
     // thumbnails image select
     if(thumbnails) {
@@ -139,21 +144,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // variant image select
-    if(variantSelector && mainImage) {
+    // variant selector 
+    if(variantSelector) {
         variantSelector.addEventListener('change', function(e){
-            let selectedVariant, selectedImage;
+            let selectedVariant, selectedPrice, selectedImage;
             
             for(let i = 0; i < e.target.options.length; i++) {
-                if( e.target.options[i].selected) {
+                if(e.target.options[i].selected) {
                     selectedVariant = e.target.options[i].value;
+                    selectedPrice = e.target.options[i].getAttribute("data-price");
                     selectedImage = e.target.options[i].getAttribute("data-large");
                     break;
                 }
             }
             
-            if(selectedVariant && selectedImage) {
-                mainImage.src = selectedImage;
+            if(selectedVariant) {
+                if(productPrice && selectedPrice) {
+                    productPrice.innerText = selectedPrice;
+                }
+                if(mainImage && selectedImage) {
+                    mainImage.src = selectedImage;
+                }
             }
         });
     }
