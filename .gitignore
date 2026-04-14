@@ -1,1 +1,3 @@
 .DS_Store
+/assets/custom.js
+/snippets/customMeta.liquid

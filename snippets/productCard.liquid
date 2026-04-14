@@ -5,6 +5,7 @@
                 <span class="badge font-bold badge-accent">{{ 'Out of stock' | t:'collection' }}</span>
             </div>
         {% endif %}
+        
        {% if product.featuredImage %}
             <figure>
                 {{ product.featuredImage | img_tag:0,productHeight,class:settings.col_card_img_height }}

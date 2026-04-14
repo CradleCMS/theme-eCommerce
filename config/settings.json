@@ -64,6 +64,23 @@
           "type": "select"
         },
         {
+          "caption": "Custom files",
+          "key": "custom",
+          "type": "header"
+        },
+        {
+          "caption": "Include custom meta file",
+          "description": "Add a file named customMeta.liquid under snipets, where you can add custom meta",
+          "key": "headMetaInclude",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Include custom script file",
+          "description": "Add a file named custom.js under assets, where you can add custom code",
+          "key": "headCodeInclude",
+          "type": "checkbox"
+        },
+        {
           "caption": "Development",
           "description": "When adapting this theme you need to build an optimised css for production. Read more about that on \u003ca class='link' href='https://github.com/CradleCMS/theme-eCommerce' target='_blank'\u003egithub\u003c/a\u003e",
           "key": "development",
