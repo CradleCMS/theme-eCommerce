@@ -1,3 +1,5 @@
+{% assign productAmount = settings.colProductCount | def:"4" %}
+{% assign productHeight = 1450 | divided_by:productAmount %}
 <section class="mx-auto">
     <header>
         <h1 class="mt-2 text-2xl">{{ 'Collections' | t }}</h1>
@@ -15,8 +17,6 @@
                     {% endif %}
                     {% unless collection.products == empty %}
                     <div class="mt-10 grid collection-template-container gap-4">
-	                    {% let productAmount = settings.colProductCount | def:"4" %}
-                        {% let productHeight = 1375 | divided_by:productAmount %}
                         {% for product in collection.products %}
                             {% include 'productCard' %}
                     	{% endfor %}
@@ -35,8 +35,6 @@
                 {% endif %}
                 {% unless collection.products == empty %}
                 <div class="mt-10 grid collection-template-container gap-4">
-	                {% let productAmount = settings.colProductCount | def:"4" %}
-                    {% let productHeight = 1375 | divided_by:productAmount %}
                     {% for product in collection.products %}
                         {% include 'productCard' %}
                 	{% endfor %}

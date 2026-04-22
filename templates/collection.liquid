@@ -1,10 +1,11 @@
+{% assign productAmount = settings.colProductCount | def:"4" %}
+{% assign productHeight = 1450 | divided_by:productAmount %}
 <section>
     <div class="prose">
         <h1>{{ meta.h1 }}</h1>
         <div class="{{ collection.format }}">{{ collection.html }}</div>       
     </div>
 	<div class="mt-10 collection-template-container gap-4">
-    	{% let productHeight = 1375 | divided_by:productAmount %}
     	{% for product in collection.products %}
     	    {% include 'productCard' %}
     	{% endfor %}

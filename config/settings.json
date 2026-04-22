@@ -1075,6 +1075,30 @@
           "type": "select"
         },
         {
+          "caption": "Product image padding",
+          "description": "Padding around image",
+          "key": "colCardImgPadding",
+          "options": [
+            {
+              "caption": "None",
+              "value": ""
+            },
+            {
+              "caption": "Small",
+              "value": "p-2"
+            },
+            {
+              "caption": "Medium",
+              "value": "p-4"
+            },
+            {
+              "caption": "Large",
+              "value": "p-8"
+            }
+          ],
+          "type": "select"
+        },
+        {
           "caption": "Collections page",
           "key": "colPage",
           "type": "header"

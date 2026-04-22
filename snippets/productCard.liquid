@@ -7,7 +7,7 @@
         {% endif %}
         
        {% if product.featuredImage %}
-            <figure>
+            <figure class="{{ settings.colCardImgPadding }}">
                 {{ product.featuredImage | img_tag:0,productHeight,class:settings.col_card_img_height }}
             </figure>
         {% endif %}
