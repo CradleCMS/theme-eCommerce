@@ -95,7 +95,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
               {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
                 <li x-data="{open: false}" @resize.window="open = false" class="font-semibold text-base static">
                   <button x-on:click="open = true" class="menu-dropdown-toggle px-3 py-2 font-bold">{{ link.title }}</button>
-                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-0 right-0 min-w-96 gap-8 items-start {% else %}min-w-32 block {% endif %}absolute top-12 bg-primary text-primary-content shadow-xl p-6 rounded-box z-50 max-w-full">
+                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] {% else %}min-w-32 block {% endif %}absolute top-14 bg-base-200 text-base-200-content shadow-xl p-6 rounded-box z-50">
                       {% for childlink in navigation[link.param].links %}
                         {% if childlink.type == 'navigation' %}
                             <div>

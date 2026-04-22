@@ -354,6 +354,11 @@
           "caption": "LinkedIn URL",
           "key": "social_linkedin_url",
           "type": "text"
+        },
+        {
+          "caption": "Pinterest URL",
+          "key": "social_pinterest_url",
+          "type": "text"
         }
       ],
       "default": null
