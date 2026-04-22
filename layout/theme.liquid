@@ -56,7 +56,9 @@
         {% include 'siteFooter' %}
     </body>
     {{ 'shop.js' | script_tag }}
-    {% component 'asearch.js' %}
+    {% if settings.mainNavSearch %}
+        {% component 'asearch.js' %}
+    {% endif %}
     {% component 'alang.js' %}
     {% component 'acurrency.js' %}
 </html>

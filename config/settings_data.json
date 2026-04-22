@@ -30,6 +30,8 @@
       "header_otf_text": "eCommerce theme for Cradle CMS",
       "link_grid_items": [],
       "link_grid_show": false,
+      "mainNavAccount": true,
+      "mainNavSearch": true,
       "pageWidth": " max-w-[120ch]",
       "ppThumbPosition": "columns",
       "section_banner": [],

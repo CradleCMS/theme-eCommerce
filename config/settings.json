@@ -383,20 +383,13 @@
           "type": "select"
         },
         {
-          "caption": "Menu options",
+          "caption": "Navigation options",
           "key": "main_nav_options",
           "type": "header"
         },
         {
-          "caption": "Main navigation",
-          "default": "Select linklist",
-          "description": "Setup linklists under \u003ca href='/admin/navigation'\u003eNavigation\u003c/a\u003e",
-          "key": "main_nav_linklist",
-          "type": "linklist"
-        },
-        {
           "caption": "Desktop style",
-          "key": "main_nav_style",
+          "key": "mainNavStyle",
           "options": [
             {
               "caption": "Regular",
@@ -414,19 +407,21 @@
           "type": "select"
         },
         {
-          "caption": "Header button",
-          "key": "header_link",
-          "type": "header"
+          "caption": "Main navigation",
+          "default": "Select linklist",
+          "description": "Setup linklists under \u003ca href='/admin/navigation'\u003eNavigation\u003c/a\u003e",
+          "key": "main_nav_linklist",
+          "type": "linklist"
         },
         {
-          "caption": "Button text",
-          "key": "header_cta_link_text",
-          "type": "text"
+          "caption": "Show searchbox",
+          "key": "mainNavSearch",
+          "type": "checkbox"
         },
         {
-          "caption": "Add link",
-          "key": "header_cta_link",
-          "type": "text"
+          "caption": "Show account icon",
+          "key": "mainNavAccount",
+          "type": "checkbox"
         },
         {
           "caption": "Top banner",
