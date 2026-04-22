@@ -395,6 +395,25 @@
           "type": "linklist"
         },
         {
+          "caption": "Desktop style",
+          "key": "main_nav_style",
+          "options": [
+            {
+              "caption": "Regular",
+              "value": "regular"
+            },
+            {
+              "caption": "Mega menu",
+              "value": "mega"
+            },
+            {
+              "caption": "Hamburger",
+              "value": "hamburger"
+            }
+          ],
+          "type": "select"
+        },
+        {
           "caption": "Header button",
           "key": "header_link",
           "type": "header"
