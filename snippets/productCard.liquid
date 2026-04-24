@@ -8,7 +8,8 @@
         
        {% if product.featuredImage %}
             <figure class="{{ settings.colCardImgPadding }}">
-                {{ product.featuredImage | img_tag:0,productHeight,class:settings.col_card_img_height }}
+                {% assign productImgWidth = 1450 | divided_by:productAmount %}
+                {{ product.featuredImage | img_tag:productImgWidth,0,class:settings.col_card_img_height }}
             </figure>
         {% endif %}
         <div class="card-body justify-end">

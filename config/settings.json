@@ -373,6 +373,10 @@
           "key": "logoHeight",
           "options": [
             {
+              "caption": "XSmall, 20px",
+              "value": "20"
+            },
+            {
               "caption": "Small, 30px",
               "value": "30"
             },
@@ -383,6 +387,10 @@
             {
               "caption": "Large, 50px",
               "value": "50"
+            },
+            {
+              "caption": "XLarge, 60px",
+              "value": "60"
             }
           ],
           "type": "select"
@@ -765,30 +773,6 @@
           "type": "checkbox"
         },
         {
-          "caption": "Products in row",
-          "default": "4",
-          "key": "secProdRowAmount",
-          "options": [
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
           "caption": "Banners",
           "key": "section_banner1",
           "settings": [
@@ -796,6 +780,33 @@
               "caption": "Background color",
               "key": "sectionBannerBgColor",
               "type": "color"
+            },
+            {
+              "caption": "Border",
+              "key": "sectionBannerBorder",
+              "options": [
+                {
+                  "caption": "None",
+                  "value": ""
+                },
+                {
+                  "caption": "Shadow",
+                  "value": "shadow-xl"
+                },
+                {
+                  "caption": "Accent color",
+                  "value": "border-3 border-accent"
+                },
+                {
+                  "caption": "Primary color",
+                  "value": "border-3 border-primary"
+                },
+                {
+                  "caption": "Secondary color",
+                  "value": "border-3 border-secondary"
+                }
+              ],
+              "type": "select"
             },
             {
               "caption": "Image",
@@ -1014,10 +1025,6 @@
           "caption": "Products per row",
           "key": "colProductCount",
           "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
             {
               "caption": "2",
               "value": "2"

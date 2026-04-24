@@ -16,7 +16,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
   {% endif %}
 
 <div class="bg-{{ settings.header_colors }} text-{{ settings.header_colors }}-content {{ settings.general_shadow }} sticky top-0 w-full z-30">
-  <nav class="navbar max-w-[96rem] mx-auto relative flex-wrap md:flex-nowrap justify-between gap-4" role="navigation">
+  <nav class="navbar max-w-[96rem] mx-auto relative flex-wrap md:flex-nowrap justify-between gap-4 px-2 md:px-4" role="navigation">
     <div class="navbar-start w-fit">
       {% if navigation[main-nav].links.size > 0 %}
       <div class="dropdown {% unless settings.mainNavStyle == 'hamburger' %}lg:hidden{% endunless %}">
@@ -86,7 +86,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
       {% endif %}
 
       <a href="/">
-        <img src="/logo.png" height="{{ settings.logoHeight | def:40 }}" alt="{{ site.name }}" class="p-2 h-[30px] lg:min-h-[{{ settings.logoHeight | def:40 }}px] max-w-full">
+        <img src="/logo.png" height="{{ settings.logoHeight | def:40 }}" alt="{{ site.name }}" class="p-0 h-[{{ settings.logoHeight | def:40 }}px] max-h-[30px] md:max-h-none max-w-full">
       </a>
     
         {% unless settings.mainNavStyle == 'hamburger' %}
@@ -95,21 +95,21 @@ Responsive header with dropdown menu on small screens and click‑based mega men
               {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
                 <li x-data="{open: false}" @resize.window="open = false" class="font-semibold text-base static">
                   <button x-on:click="open = true" class="menu-dropdown-toggle px-3 py-2 font-bold">{{ link.title }}</button>
-                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] {% else %}min-w-32 block {% endif %}absolute top-14 bg-base-200 text-base-200-content shadow-xl p-6 rounded-box z-50">
+                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] border-t-3 {% else %}min-w-32 block {% endif %}absolute top-14 bg-primary text-primary-content shadow-xl p-4 rounded-box z-50">
                       {% for childlink in navigation[link.param].links %}
                         {% if childlink.type == 'navigation' %}
                             <div>
-                                <p class="min-w-40 font-bold py-1 px-2 text-lg">
+                                <p class="min-w-40 font-bold py-1 px-2 uppercase">
                                   {{ childlink.title }}
                                 </p>
                                 {% for subchild in navigation[childlink.handle].links %}
-                                    <a href="{{ subchild | url }}" class="hover:underline block my-2 py-1 px-2">
+                                    <a href="{{ subchild | url }}" class="hover:underline block my-2 py-1 {% unless settings.mainNavStyle == 'mega' %}pl-8 {% endunless %}px-2">
                                       {{ subchild.title }}
                                     </a>
                                 {% endfor %}
                             </div>
                         {% else %}
-                          <a href="{{ childlink | url }}" class="min-w-30 block py-1 px-2 font-bold hover:underline rounded-field transition text-lg">
+                          <a href="{{ childlink | url }}" class="min-w-30 block py-1 px-2 font-bold hover:underline rounded-field transition">
                             {{ childlink.title }}
                           </a>
                         {% endif %}
@@ -143,7 +143,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
     <div class="navbar-end w-fit gap-2">
       {% if site.langs.size > 1 %}
         <a-lang class="hidden md:inline-block">
-          <select name="lang" class="select bg-transparent w-fit">
+          <select name="lang" class="select w-fit">
             {% for l in site.langs | keys | sort %}
               <option value="{{ l }}" {% if l == lang %}selected{% endif %}>
                 {{ languages[l] | t:'default' }}
@@ -155,7 +155,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
 
       {% if shop.currencies.size > 1 %}
         <a-currency class="hidden md:inline-block">
-          <select name="currency" class="select bg-transparent w-fit">
+          <select name="currency" class="select w-fit">
             {% for c in shop.currencies | keys | sort %}
               <option value="{{ c }}" {% if c == cart.currency %}selected{% endif %}>{{ c }}</option>
             {% endfor %}

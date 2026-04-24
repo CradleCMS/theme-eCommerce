@@ -1,19 +1,16 @@
 {% if settings.section_banner1.size > 0 %}
     {% for links in settings.section_banner1 %}
         {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
-        <section class="card p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ settings.general_shadow }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
+        <section class="card p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ links.sectionBannerBorder }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
           <div class="card mb-4 {% if links.linkImageFullwidth %}flex-col-reverse{% else %}lg:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endif %} justify-center items-center">
               {% if links.link_image.size > 0 %}
                   {% if links.linkImageFullwidth %}
                     {% if links.linkImageURL %}<a class="w-full" href="{{ links.linkImageURL }}">{% endif %}
-                      <figure class="w-full">
-                        <img 
-                            loading="lazy" 
-                            class="w-full rounded-box" 
-                            src="{{ links.link_image | asset_img_url:500,0 }}" 
-                            srcset="{{ links.link_image | asset_img_url:500,0 }} 500w, {{ links.link_image | asset_img_url:900,0 }} 900w, {{ links.link_image | asset_img_url:1500,0 }} 1500w"
-                            alt="{{ links.link_image_alt | t:'index' }} "/>
-                      </figure>
+                      <picture class="w-full">
+                        <source srcset="{{ links.link_image | asset_img_url:"1500x" }}" media="(min-width: 900px)">
+                        <source srcset="{{ links.link_image | asset_img_url:"900x" }}" media="(min-width: 500px)">
+                        <img loading="lazy" srcset="{{ links.link_image | asset_img_url:"500x" }}" alt="{{ links.link_image_alt | t:'index' }}" class="w-full rounded-box">
+                      </picture>
                     {% if links.linkImageURL %}</a>{% endif %}
                   {% else %}
                       {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
@@ -47,8 +44,8 @@
                     <h3 class="text-2xl font-bold">{{ collection.meta.h1 }}</h3> 
                     <a href="{{ collection | url }}" class="btn btn-sm btn-link">{{ 'Show All' | t:'index' }}</a>
                 </div>
-                {% let productAmount = settings.secProdRowAmount | def:"4" %}
-                {% let productHeight = 1375 | divided_by:productAmount %}
+                {% let productAmount = settings.colProductCount | def:"4" %}
+                {% let productImgWidth = 1456 | divided_by:productAmount %}
                 <div class="collection-row-container gap-4">
             	{% for product in collection.products limit:productAmount %}
                     {% include 'productCard' %}

@@ -115,7 +115,7 @@
     </header>
     {% assign relatedProducts = product | related:'tags,collection' %}
         <div class="grid collection-row-container gap-4">
-        {% let productAmount = settings.secProdRowAmount | def:"4" %}
+        {% let productAmount = settings.colProductCount | def:"4" %}
     	{% for product in relatedProducts limit:productAmount %}
             {% include 'productCard' %}
     	{% endfor %}
