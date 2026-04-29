@@ -85,8 +85,8 @@ Responsive header with dropdown menu on small screens and click‑based mega men
       </div>
       {% endif %}
 
-      <a href="/">
-        <img src="/logo.png" height="{{ settings.logoHeight | def:40 }}" alt="{{ site.name }}" class="p-0 h-[{{ settings.logoHeight | def:40 }}px] max-h-[30px] md:max-h-none max-w-full">
+      <a class="logo" href="/">
+        <img src="/logo.png" alt="{{ site.name }}" class="p-0 max-w-full">
       </a>
     
         {% unless settings.mainNavStyle == 'hamburger' %}
