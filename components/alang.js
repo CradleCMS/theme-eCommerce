@@ -22,7 +22,13 @@ class Lang extends HTMLElement {
                 credentials: "include",
             }).then(res => {
                 if (!res.ok) throw res;
-                location.reload();
+                return res.json();
+            }).then(res => {
+                if(res.url) {
+                    location.href = res.url;
+                } else {
+                    location.reload();
+                }
             }).catch(err => {
                 console.error(err);
             });
