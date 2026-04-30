@@ -1,23 +1,27 @@
 <div class="w-1/2 lg:w-full">
-    <h4 class="">{{ 'Recent Articles' | t }}</h4>
+    {% if blog.articleTags.size > 0 %}
+        <h4 class="mb-2 text-lg">{{ 'Related topics' | t }}</h4>
+        <div class="flex gap-2">
+     	    {% for tag in blog.articleTags  %}
+                <a class="badge badge-accent badge-soft" href="{{ blogs[article.blog] | url}}?tags={{ tag }}">{{ tag }}</a>
+            {% endfor %}
+        </div>        
+    {% endif %}
+    <h4 class="mt-8 mb-4 text-lg">{{ 'Recent Articles' | t }}</h4>
     {% assign current_article_id = article.id %}
     {% for article in blog.articles limit:6 %}
-        <p class="mb-2">
-            <time class="text-sm" pubdate datetime="{{ article.publishAt | date }}">{{ article.publishAt | date }}</time>  
-            <br>
+        <p class="mb-4 flex flex-col">
+            <time class="text-xs" pubdate datetime="{{ article.publishAt | date }}">{{ article.publishAt | date }}</time>  
             {% if current_article_id == article.id %}
-                <span class="text-lg">{{ article.title }}</span>
+                <span class="text-md">{{ article.title }}</span>
             {% else %}
-                <a class="link text-lg" href="{{ article | url }}">{{ article.title }}</a>
+                <a class="link text-md font-bold" href="{{ article | url }}">{{ article.title }}</a>
             {% endif %}
         </p>
     {% endfor %}
+    {% if settings.blogFeeds %}
+        <h4 class="mt-8 mb-2 text-lg">{{ 'Stay up to date' | t }}</h4>
+        <small class="feeds"><a class="link" href="/blogs/{{ blog.handle }}/rss.xml" target="_blank" alt="RSS-feed">{{ 'RSS feed' | t }}</a> {{ 'and' | t }} <a class="link" href="/blogs/{{ blog.handle }}/atom.xml" target="_blank" alt="Atom-feed">{{ "Atom feed" | t}}</a></small>
+    {% endif %}
 </div>
-{% if blog.tags.size > 0 %}
-<div class="w-1/2 lg:w-full">
-    <h4 class="">{{ 'Categories' | t }}</h4>
-    {% for tag in blog.tags %}
-        <div class="mr-1 mb-1 badge badge-{% if article.tags contains tag %}accent{% else %}neutral{% endif %}"><a href="/{{blog.url}}?tags={{ currentTags | append:tag | join:'+' }}">{{ tag }}</a></div>
-    {% endfor %}    
-</div>
-{% endif %}
+

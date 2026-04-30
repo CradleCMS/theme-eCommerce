@@ -3341,9 +3341,6 @@
   .max-h-72 {
     max-height: calc(var(--spacing) * 72);
   }
-  .max-h-\[30px\] {
-    max-height: 30px;
-  }
   .max-h-\[50px\] {
     max-height: 50px;
   }
@@ -3717,6 +3714,20 @@
     --tw-border-style: none;
     border-style: none;
   }
+  .badge-soft {
+    @layer daisyui.l1.l2 {
+      color: var(--badge-color, var(--color-base-content));
+      background-color: var(--badge-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 8%, var(--color-base-100) );
+      }
+      border-color: var(--badge-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        border-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 10%, var(--color-base-100) );
+      }
+      background-image: none;
+    }
+  }
   .select-ghost {
     @layer daisyui.l1.l2 {
       background-color: transparent;
@@ -3830,13 +3841,6 @@
   }
   .bg-white {
     background-color: var(--color-white);
-  }
-  .divider-accent {
-    @layer daisyui.l1.l2 {
-      &:before, &:after {
-        background-color: var(--color-accent);
-      }
-    }
   }
   .mask-star {
     @layer daisyui.l1.l2 {
@@ -4931,11 +4935,6 @@
   .md\:max-h-\[150px\] {
     @media (width >= 48rem) {
       max-height: 150px;
-    }
-  }
-  .md\:max-h-none {
-    @media (width >= 48rem) {
-      max-height: none;
     }
   }
   .md\:w-1\/4 {

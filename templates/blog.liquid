@@ -1,21 +1,30 @@
-
 {% include 'siteBreadcrumbs' %}
 
 <section class="mx-auto">
     <header>
         <h1 class="mt-2 text-2xl">{{ meta.h1 }}</h1>
-        <div>
-            {% for tag in blog.tags %}
-                <div class="mr-1 mb-1 badge badge-{% if article.tags contains tag %}accent{% else %}neutral{% endif %}">
-                    <a href="{{ blog | url }}?tags={{ currentTags | append:tag | join:'+' }}">{{ tag }}</a>
-                </div>
-            {% endfor %}    
-        </div>
+        {% if settings.blogFeeds %}<small class="feeds"><a class="link" href="/blogs/{{ blog.handle }}/rss.xml" target="_blank" alt="RSS-feed">{{ 'RSS feed' | t }}</a> {{ 'and' | t }} <a class="link" href="/blogs/{{ blog.handle }}/atom.xml" target="_blank" alt="Atom-feed">{{ "Atom feed" | t}}</a></small>{% endif %}
+        <div class="{{ blog.format }} mt-2">{{ blog.html }}</div>
     </header>
-	<div class="{{ blog.format }}">{{ blog.html }}</div>
-	<div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4">
+	<div class="mt-10">
+	    {% if settings.blogTagFiltering %}
+        <div>
+            {% for tag in blog.articleTags %}
+                {% if currentTags contains tag %}
+                    <a class="mr-1 mb-1 badge badge-accent badge-soft" href="{{ blog | url }}?tags={{ currentTags | remove:tag | join:',' }}">{{ tag }}</a>
+                {% else %}
+                    <a class="mr-1 mb-1 badge badge-accent" href="{{ blog | url }}?tags={{ currentTags | append:tag | join:',' }}">{{ tag }}</a>
+                {% endif %}
+            {% endfor %}  
+            {% if currentTags.size > 0 %}
+                <a class="mr-1 mb-1 link text-sm" href="{{ blog | url }}">{{ 'Show all' | t }}</a>
+            {% endif %}
+        </div>
+        {% endif %}
+	    <div class="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-4">
 		{% for article in blog.articles %}
 		    {% include 'blogCard' %}
-		{% endfor %}
+		{% endfor %}	        
+	    </div>
 	</div>
 </section>

@@ -1,0 +1,38 @@
+<section>
+    <div class="prose">
+        <h1>{{ meta.h1 }}</h1>
+        <div class="{{ collection.format }}">{{ collection.html }}</div>       
+    </div>
+    <button class="toggle-filter-button btn lg:hidden" onclick="toggleFilter()">Toggle Filter</button>
+
+    {% if settings.filter_orientation == "horizontal" %}
+        <div id="product-filter-wrapper" class="flex flex-col gap-4">
+            
+    {% elsif settings.filter_orientation == "vertical" %}
+        <div id="product-filter-wrapper" class="flex flex-col lg:flex-row gap-4">
+            
+    {% endif %}
+    
+            <div id="filter" class="mt-8 hidden lg:block">
+        	    {% include 'productFilter' %}
+        	</div>
+        	    
+        	<div class="mt-10 collection-template-container gap-4">
+            	{% let productHeight = 1375 | divided_by:productAmount %}
+            	{% for product in collection.products %}
+            	    {% include 'productCard' %}
+            	{% endfor %}
+        	</div>
+        </div>
+</section>
+<section>
+    {{ collection | print_r }}
+</section>
+
+<script>
+    function toggleFilter() {
+        const filter = document.querySelector("#filter");
+      
+        filter.classList.toggle("hidden");
+    }
+</script>

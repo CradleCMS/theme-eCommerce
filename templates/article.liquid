@@ -1,33 +1,28 @@
 {% include 'siteBreadcrumbs' %}
 
-<section class="mx-auto" itemscope itemtype="https://schema.org/Article">
-    <header>
-        {% if article.tags.size > 0 %}
-     	    {% for tag in article.tags %}
-                <a href="?tags={{ tag }}"><div class="badge badge-accent">{{ tag }}</div></a>
-            {% endfor %}
-        {% endif %}
-        <h1 class="mt-2 text-2xl">{{ meta.h1 }}</h1>
-        <p class="text-sm">{{ article.author }}
-    		<time itemprop="datePublished" datetime="{{ article.publishAt | date }}"> on {{ article.publishAt | date }}, </time>
-    		<time itemprop="dateModified">updated {{ article.updatedAt | date }}</time> 
-    	</p>    
-    </header>
-	<div class="divider divider-accent"></div>
-	<div class="flex lg:flex-row flex-col justify-between">
-        <article class="prose mx-auto {{ article.format }}" itemprop="articleBody">
+<section class="mx-auto flex flex-col lg:flex-row justify-between" itemscope itemtype="https://schema.org/Article">
+    <article class="w-full h-full prose p-4 mx-auto">
+        <header>
+            <h1 class="mt-2 text-2xl">{{ meta.h1 }}</h1>        
+            <p class="text-sm">{{ article.author }}
+        		<time itemprop="datePublished" datetime="{{ article.publishAt | date }}"> on {{ article.publishAt | date }}, </time>
+        		<time itemprop="dateModified">updated {{ article.updatedAt | date }}</time> 
+        	</p>    
+        	<div class="divider"></div>
+        </header>
+        <div class="prose mx-auto {{ article.format }}" itemprop="articleBody">
             {{ article.html }}
-        </article>
-    	<aside class="bg-base-200 text-base-content hidden lg:block lg:ml-4 p-4 max-w-full lg:w-1/4" role="complementary">
-    	    {% include 'blog-sidebar' %}
-        </aside>
-	</div>
-	<div class="divider divider-accent"></div>
-    <div class="grid grid-cols-2">
-        <p><a class="btn btn-ghost" href="{{ article.previous | url }}" {% if article.previous == empty %}disabled{% endif %}>&larr; {{ 'Previous' | t }}</a></p>
-    	<p class="text-right"><a class="btn btn-ghost" href="{{ article.next | url }}" {% if article.next == empty %}disabled{% endif %}>{{ 'Next' | t }} &rarr;</a></p>
-    </div>
-    {% if settings.articleRelated %}
+        </div>
+        <div class="grid grid-cols-2">
+            <p><a class="btn btn-ghost" href="{{ article.previous | url }}" {% if article.previous == empty %}disabled{% endif %}>&larr; {{ 'Previous' | t }}</a></p>
+        	<p class="text-right"><a class="btn btn-ghost" href="{{ article.next | url }}" {% if article.next == empty %}disabled{% endif %}>{{ 'Next' | t }} &rarr;</a></p>
+        </div>
+    </article>
+    <aside class="bg-base-200 text-base-content lg:ml-4 p-4 max-w-full lg:w-1/4" role="complementary">
+	    {% include 'blog-sidebar' %}
+    </aside>
+</section>
+{% if settings.articleRelated %}
 <section class="mt-10">
     <header class="flex">
         <h2 class="text-xl mb-4">{{ 'Related articles' | t }}</h2>
@@ -40,7 +35,3 @@
     	</div>
 </section>
 {% endif %}
-</section>
-<div class="bg-base-200 text-base-content flex items-start mt-4 px-3 py-2 mx-auto lg:hidden"> 
-    {% include 'blog-sidebar' %}
-</div>
