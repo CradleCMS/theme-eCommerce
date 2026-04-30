@@ -266,14 +266,6 @@
             {
               "caption": "Default (Darkest)",
               "value": "base-300"
-            },
-            {
-              "caption": "Accent",
-              "value": "accent"
-            },
-            {
-              "caption": "Neutral",
-              "value": "neutral"
             }
           ],
           "type": "select"
@@ -415,6 +407,25 @@
             {
               "caption": "Hamburger",
               "value": "hamburger"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Dropdown color",
+          "key": "mainNavDdColor",
+          "options": [
+            {
+              "caption": "Base",
+              "value": "base-100"
+            },
+            {
+              "caption": "Base (darker)",
+              "value": "base-200"
+            },
+            {
+              "caption": "Base (darkest)",
+              "value": "base-300"
             }
           ],
           "type": "select"

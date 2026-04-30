@@ -25,8 +25,8 @@ Responsive header with dropdown menu on small screens and click‑based mega men
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </div>
-        <div tabindex="0" class="menu dropdown-content mt-3 z-[1] p-3 shadow bg-primary text-primary-content rounded-box w-60">
-          <div class="overflow-y-auto max-h-[80vh]">
+        <div tabindex="0" class="menu dropdown-content mt-1 z-[1] p-3 border-2 shadow-2xl bg-{{ settings.mainNavDdColor }} text-{{ settings.mainNavDdColor }}-content rounded-box w-60">
+          <div class="overflow-y-auto max-h-[70vh]">
             <ul class="space-y-2">
               {% for link in navigation[main-nav].links %}
                 {% if link.type == 'navigation' %}
@@ -61,7 +61,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
 
             {% if site.langs.size > 1 %}
               <a-lang class="block mt-4">
-                <select name="lang" class="select select-primary w-full">
+                <select name="lang" class="select btn-block">
                   {% for l in site.langs | keys | sort %}
                     <option value="{{ l }}" {% if l == lang %}selected{% endif %}>
                       {{ languages[l] | t:'default' }}
@@ -73,7 +73,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
 
             {% if shop.currencies.size > 1 %}
               <a-currency class="block mt-2">
-                <select name="currency" class="select select-primary w-full">
+                <select name="currency" class="select btn-block">
                   {% for c in shop.currencies | keys | sort %}
                     <option value="{{ c }}" {% if c == cart.currency %}selected{% endif %}>{{ c }}</option>
                   {% endfor %}
@@ -95,7 +95,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
               {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
                 <li x-data="{open: false}" @resize.window="open = false" class="font-semibold text-base static">
                   <button x-on:click="open = true" class="menu-dropdown-toggle px-3 py-2 font-bold">{{ link.title }}</button>
-                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] border-t-3 {% else %}min-w-32 block {% endif %}absolute top-14 bg-primary text-primary-content shadow-xl p-4 rounded-box z-50">
+                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] border-t-3 {% else %}min-w-32 block {% endif %}absolute top-14 bg-{{ settings.mainNavDdColor | def:"base-100" }} text-{{ settings.mainNavDdColor | def:"base" }}-content shadow-2xl p-4 rounded-box z-50 border-2">
                       {% for childlink in navigation[link.param].links %}
                         {% if childlink.type == 'navigation' %}
                             <div>
