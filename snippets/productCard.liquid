@@ -6,10 +6,10 @@
             </div>
         {% endif %}
         
-       {% if product.featuredImage %}
+       {% if product.featuredImage or product.images %}
             <figure class="{{ settings.colCardImgPadding }}">
                 {% assign productImgWidth = 1450 | divided_by:productAmount %}
-                {{ product.featuredImage | img_tag:productImgWidth,0,class:settings.col_card_img_height }}
+                {{ product | img_tag:productImgWidth,0,class:settings.col_card_img_height }}
             </figure>
         {% endif %}
         <div class="card-body justify-end">
