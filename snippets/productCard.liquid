@@ -1,42 +1,62 @@
-<div class="card {{ settings.general_shadow }} bg-base-100">
+<div class="card {{ settings.general_shadow }} bg-base-100 mb-1">
     <a href="{{ product | url }}" class="flex flex-col h-full">
-        {% if product.quantity <= 0 %}
+        {% if settings.colCardOutBadge and product.quantity <= 0 %}
             <div class="absolute top-3 left-4">
-                <span class="badge font-bold badge-accent">{{ 'Out of stock' | t:'collection' }}</span>
+                <span class="badge font-bold">{{ 'Out of stock' | t:'collection' }}</span>
             </div>
         {% endif %}
-        
-       {% if product.featuredImage or product.images %}
-            <figure class="{{ settings.colCardImgPadding }}">
-                {% assign productImgWidth = 1450 | divided_by:productAmount %}
-                {{ product | img_tag:productImgWidth,0,class:settings.col_card_img_height }}
-            </figure>
-        {% endif %}
-        <div class="card-body justify-end">
+        {% let imgMaxHeight = settings.col_card_img_height %}
+        {% let imgHeight = settings.col_card_img_height | remove:'max-' %}
+        <figure class="{{ settings.colCardImgPadding }} min-h-40 {{ imgHeight }}">
+            {% assign productImgWidth = 1450 | divided_by:productAmount %}
+            {{ product | img_tag:productImgWidth,0,class:imgMaxHeight }}
+        </figure>
+        <div class="card-body justify-between">
             <div class="flex flex-col">
-                <h3 class="card-title text-base">
+                <h3 class="card-title">
                     {{ product.meta.h1 }}
                 </h3>
-                <div class="text-left">
+                {% if settings.colCardVendor %}
+                    <p class="text-sm">
+                        {{ product.vendor }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="card-actions justify-between items-end">
+                <div class="text-left flex flex-col">
                     {% if product.variants.size > 1 and product.priceMin < product.priceMax %}
-                        <span class="ml-1 {% if product.compareAtPriceMin > product.priceMin %}font-bold{% endif %}">
-                            {{ product.priceMin | money }}
-                        </span>
-                        &dash;
-                        <span class="ml-1 {% if product.compareAtPriceMax > product.priceMax %}font-bold{% endif %}">
-                            {{ product.priceMax | money }}
+                        <span class="font-bold text-lg mr-2">
+                            {{ 'From' | t:'collection' }} {{ product.priceMin | money }}
                         </span>
                     {% else %}
                         {% if product.compareAtPrice > product.price %}
-                        <s>{{ product.compareAtPrice | money }}</s><span class="font-bold" >{{ product.price | money }}</span>
+                        <s>{{ product.compareAtPrice | money }}</s><span class="font-bold text-lg mr-2">{{ product.price | money }}</span>
                         {% else %}
-                        {{ product.price | money }}
+                        <span class="font-bold text-lg mr-2" >{{ product.price | money }}</span>
                         {% endif %}
                     {% endif %}
-                </div>
-            </div>
-            <div class="card-actions justify-end">
-              <button class="btn btn-secondary btn-sm">{{ 'Read more' | t:'collection' }}</button>
+                </div>  
+                {% if settings.colCardAddToCart %}
+                    {% if product.variants.size > 1 %}
+                        <button class="btn btn-primary btn-sm">{{ 'Choose' | t:'collection' }}</button>
+                    {% else %}
+                        {% form 'cart_update' class:'' onSuccess:'/cart' %}
+                            <input type="hidden" name="product" value="{{product.id}}">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="variant" value="{{product.variants[0].id}}">
+                           <button name="submit" class="btn btn-primary btn-sm{% if product.quantity <= 0 %} btn-disabled{% endif %}"
+                                {% if product.quantity <= 0 %}disabled{% endif %}>
+                               {% unless  product.quantity <= 0 %}
+                               {{ 'Add to cart' | t }}
+                               {% else %}
+                               {{ 'Out of stock' | t }}
+                               {% endunless %}
+                           </button>
+                        {% endform %}
+                    {% endif %}
+                {% else %}
+                    <button class="btn btn-primary btn-sm">{{ 'Read more' | t:'collection' }}</button>
+                {% endif %}
             </div>
         </div>
     </a>

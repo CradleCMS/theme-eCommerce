@@ -5,7 +5,7 @@
         <h1>{{ meta.h1 }}</h1>
         <div class="{{ collection.format }}">{{ collection.html }}</div>       
     </div>
-	<div class="mt-10 collection-template-container gap-4">
+	<div class="mt-10 collection-template-container">
     	{% for product in collection.products %}
     	    {% include 'productCard' %}
     	{% endfor %}
