@@ -1,8 +1,8 @@
 {% if settings.section_banner1.size > 0 %}
     {% for links in settings.section_banner1 %}
         {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
-        <section class="card p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ links.sectionBannerBorder }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
-          <div class="card mb-4 {% if links.linkImageFullwidth %}flex-col-reverse{% else %}lg:flex-row{% if thecycle == 'odd' %}-reverse{% endif %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endif %} justify-center items-center">
+        <section class="card gap-2 p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ links.sectionBannerBorder }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
+          <div class="flex flex-col{% unless links.linkImageFullwidth %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endunless %} justify-center items-center">
               {% if links.link_image.size > 0 %}
                   {% if links.linkImageFullwidth %}
                     {% if links.linkImageURL %}<a class="w-full" href="{{ links.linkImageURL }}">{% endif %}
@@ -13,11 +13,11 @@
                       </picture>
                     {% if links.linkImageURL %}</a>{% endif %}
                   {% else %}
-                      {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
                       <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-4{% endif %}">
+                        {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
                         <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt | t:'index' }}"/>
+                        {% if links.linkImageURL %}</a>{% endif %}
                       </figure>
-                      {% if links.linkImageURL %}</a>{% endif %}
                   {% endif %}
               {% endif %}
               {% if links.link_title or links.link_text or links.link_url or links.link2_url %}
@@ -28,13 +28,14 @@
                     {% if links.link_text %}
                         <p class="text-center grow-0 mb-4 text-lg">{{ links.link_text | t:'index' }}</p>
                     {% endif %}
-                    {% if links.link_url or links.link2_url %}
+                    {% if links.link_url or links.linkProduct %}
                         <div class="card-actions justify-center">
                             {% if links.link_button_title.size > 0 %}
-                                <a href="{{ links.link_url }}" class="btn btn-primary">{{ links.link_button_title | t:'index' }}</a>
+                                <a href="{{ links.link_url }}" class="btn btn-primary btn-sm">{{ links.link_button_title | t:'index' }}</a>
                             {% endif %}
-                            {% if links.link2_button_title.size > 0 %}
-                                <a href="{{ links.link2_url }}" class="btn btn-primary">{{ links.link2_button_title | t:'index' }}</a>
+                            {% if links.linkProduct.id.size > 0 %}
+                                {% assign product = products[links.linkProduct] %}
+                                {% include 'buttonAddToCart' %}
                             {% endif %}                        
                         </div>
                     {% endif %}
@@ -44,9 +45,10 @@
         {% if links.linkShowCol %}
             {% assign collection = collections[links.link_collection] %}
             {% unless collection == empty %}
-                <div class="flex place-content-between mb-2 text-right">
+            <div>
+                <div class="flex justify-between items-end mb-2 ">
                     <h3 class="text-2xl font-bold">{{ collection.meta.h1 }}</h3> 
-                    <a href="{{ collection | url }}" class="btn btn-sm btn-link">{{ 'Show All' | t:'index' }}</a>
+                    <a href="{{ collection | url }}" class="link link-primary font-bold text-sm">{{ 'Show All' | t:'index' }}</a>
                 </div>
                 {% let productAmount = settings.colProductCount | def:"4" %}
                 {% let productImgWidth = 1456 | divided_by:productAmount %}
@@ -55,6 +57,7 @@
                     {% include 'productCard' %}
             	{% endfor %}
             	</div>
+            </div>
             {% endunless %}    
         {% endif %}   
         </section>

@@ -615,158 +615,6 @@
           "type": "checkbox"
         },
         {
-          "caption": "Linkcard grid",
-          "description": "Grid for links",
-          "key": "link_grid",
-          "type": "header"
-        },
-        {
-          "caption": "Show grid",
-          "key": "link_grid_show",
-          "type": "checkbox"
-        },
-        {
-          "caption": "Section heading",
-          "key": "link_grid_heading",
-          "type": "text"
-        },
-        {
-          "caption": "Columns on tablet",
-          "key": "link_grid_column_amount_md",
-          "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
-            {
-              "caption": "2",
-              "value": "2"
-            },
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Columns on desktop",
-          "key": "link_grid_column_amount_lg",
-          "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
-            {
-              "caption": "2",
-              "value": "2"
-            },
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
-          "caption": "Linkcard contents",
-          "key": "link_grid_items",
-          "settings": [
-            {
-              "caption": "Caption",
-              "key": "link_heading",
-              "type": "text"
-            },
-            {
-              "caption": "Description",
-              "key": "link_description",
-              "type": "text"
-            },
-            {
-              "caption": "Link text",
-              "key": "link_text",
-              "type": "text"
-            },
-            {
-              "caption": "Link URL",
-              "key": "link_url",
-              "type": "text"
-            }
-          ],
-          "type": "struct"
-        },
-        {
-          "caption": "Image grid",
-          "description": "Grid for images, showing multiple at the same time",
-          "key": "grid",
-          "type": "header"
-        },
-        {
-          "caption": "Show grid",
-          "key": "grid_show",
-          "type": "checkbox"
-        },
-        {
-          "caption": "Section heading",
-          "key": "grid_heading",
-          "type": "text"
-        },
-        {
-          "caption": "Columns on tablet",
-          "key": "grid_column_amount_md",
-          "options": [
-            {
-              "caption": "1",
-              "value": "1"
-            },
-            {
-              "caption": "2",
-              "value": "2"
-            },
-            {
-              "caption": "3",
-              "value": "3"
-            },
-            {
-              "caption": "4",
-              "value": "4"
-            },
-            {
-              "caption": "5",
-              "value": "5"
-            },
-            {
-              "caption": "6",
-              "value": "6"
-            }
-          ],
-          "type": "select"
-        },
-        {
           "caption": "Banner sections",
           "description": "",
           "key": "section_banner_header",
@@ -863,14 +711,11 @@
               "type": "text"
             },
             {
-              "caption": "Button 2 Link URL",
-              "key": "link2_url",
-              "type": "text"
-            },
-            {
-              "caption": "Button 2 text",
-              "key": "link2_button_title",
-              "type": "text"
+              "caption": "Add product link",
+              "default": "Select product",
+              "description": "Adds a Add to cart button if there are no variants",
+              "key": "linkProduct",
+              "type": "product"
             },
             {
               "caption": "Show collection",
