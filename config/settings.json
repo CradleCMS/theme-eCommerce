@@ -125,128 +125,130 @@
               "value": "light"
             },
             {
-              "caption": "Dark",
-              "value": "dark"
-            },
-            {
-              "caption": "Cupcake",
-              "value": "cupcake"
-            },
-            {
-              "caption": "Bumblebee",
-              "value": "bumblebee"
-            },
-            {
-              "caption": "Emerald",
-              "value": "emerald"
-            },
-            {
-              "caption": "Corporate",
-              "value": "corporate"
-            },
-            {
-              "caption": "Synthwave",
-              "value": "synthwave"
-            },
-            {
-              "caption": "Retro",
-              "value": "retro"
-            },
-            {
-              "caption": "Cyberpunk",
-              "value": "cyberpunk"
-            },
-            {
-              "caption": "Valentine",
-              "value": "valentine"
-            },
-            {
-              "caption": "Halloween",
-              "value": "halloween"
-            },
-            {
-              "caption": "Garden",
-              "value": "garden"
-            },
-            {
-              "caption": "Forest",
-              "value": "forest"
-            },
-            {
-              "caption": "Aqua",
-              "value": "aqua"
-            },
-            {
-              "caption": "Lofi",
-              "value": "lofi"
-            },
-            {
-              "caption": "Pastel",
-              "value": "pastel"
-            },
-            {
-              "caption": "Fantasy",
-              "value": "fantasy"
-            },
-            {
-              "caption": "Wireframe",
-              "value": "wireframe"
-            },
-            {
-              "caption": "Black",
-              "value": "black"
-            },
-            {
-              "caption": "Luxury",
-              "value": "luxury"
-            },
-            {
-              "caption": "Dracula",
-              "value": "dracula"
-            },
-            {
-              "caption": "cmyk",
-              "value": "cmyk"
+              "caption": "Acid",
+              "value": "acid"
             },
             {
               "caption": "Autumn",
               "value": "autumn"
             },
             {
-              "caption": "Business",
-              "value": "business"
+              "caption": "Bumblebee",
+              "value": "bumblebee"
             },
             {
-              "caption": "Acid",
-              "value": "acid"
+              "caption": "cmyk",
+              "value": "cmyk"
+            },
+            {
+              "caption": "Corporate",
+              "value": "corporate"
+            },
+            {
+              "caption": "Cupcake",
+              "value": "cupcake"
+            },
+            {
+              "caption": "Emerald",
+              "value": "emerald"
+            },
+            {
+              "caption": "Fantasy",
+              "value": "fantasy"
+            },
+            {
+              "caption": "Garden",
+              "value": "garden"
             },
             {
               "caption": "Lemonade",
               "value": "lemonade"
             },
             {
-              "caption": "Night",
-              "value": "night"
-            },
-            {
-              "caption": "Coffee",
-              "value": "coffee"
-            },
-            {
-              "caption": "Winter",
-              "value": "winter"
-            },
-            {
-              "caption": "Dim",
-              "value": "dim"
+              "caption": "Lofi",
+              "value": "lofi"
             },
             {
               "caption": "Nord",
               "value": "nord"
             },
             {
+              "caption": "Pastel",
+              "value": "pastel"
+            },
+            {
+              "caption": "Winter",
+              "value": "winter"
+            },
+            {
+              "caption": "Wireframe",
+              "value": "wireframe"
+            },
+            {},
+            {
+              "caption": "Dark",
+              "value": "dark"
+            },
+            {
+              "caption": "Black",
+              "value": "black"
+            },
+            {
+              "caption": "Business",
+              "value": "business"
+            },
+            {
+              "caption": "Coffee",
+              "value": "coffee"
+            },
+            {
+              "caption": "Dim",
+              "value": "dim"
+            },
+            {
+              "caption": "Dracula",
+              "value": "dracula"
+            },
+            {
+              "caption": "Forest",
+              "value": "forest"
+            },
+            {
+              "caption": "Halloween",
+              "value": "halloween"
+            },
+            {
+              "caption": "Luxury",
+              "value": "luxury"
+            },
+            {
+              "caption": "Night",
+              "value": "night"
+            },
+            {
               "caption": "Sunset",
               "value": "sunset"
+            },
+            {},
+            {
+              "caption": "Aqua",
+              "value": "aqua"
+            },
+            {
+              "caption": "Cyberpunk",
+              "value": "cyberpunk"
+            },
+            {
+              "caption": "Retro",
+              "value": "retro"
+            },
+            {
+              "caption": "Synthwave",
+              "value": "synthwave"
+            },
+            {
+              "caption": "Valentine",
+              "value": "valentine"
             }
           ],
           "type": "select"
@@ -798,6 +800,33 @@
             {
               "caption": "Max size",
               "value": " max-w-full"
+            }
+          ],
+          "type": "select"
+        }
+      ],
+      "default": null
+    },
+    {
+      "key": "forms",
+      "type": "section",
+      "caption": "Forms",
+      "settings": [
+        {
+          "caption": "Body style",
+          "key": "formColor",
+          "options": [
+            {
+              "caption": "Base",
+              "value": "--color-base-100"
+            },
+            {
+              "caption": "Darker",
+              "value": "--color-base-200"
+            },
+            {
+              "caption": "Darkest",
+              "value": "--color-base-300"
             }
           ],
           "type": "select"

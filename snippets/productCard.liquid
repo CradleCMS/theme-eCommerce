@@ -7,9 +7,10 @@
         {% endif %}
         {% let imgMaxHeight = settings.col_card_img_height %}
         {% let imgHeight = settings.col_card_img_height | remove:'max-' %}
-        <figure class="{{ settings.colCardImgPadding }} min-h-40 {{ imgHeight }}">
+        {% let imgClasses = settings.colCardImgPadding | append:" " | append:imgMaxHeight %}
+        <figure class="min-h-40 {{ imgHeight }}">
             {% assign productImgWidth = 1450 | divided_by:productAmount %}
-            {{ product | img_tag:productImgWidth,0,class:imgMaxHeight }}
+            {{ product | img_tag:productImgWidth,0,class:imgClasses }}
         </figure>
         <div class="card-body justify-between">
             <div class="flex flex-col">

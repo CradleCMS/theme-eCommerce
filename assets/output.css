@@ -4196,6 +4196,9 @@
     --tw-tracking: var(--tracking-wider);
     letter-spacing: var(--tracking-wider);
   }
+  .text-wrap {
+    text-wrap: wrap;
+  }
   .alert-error {
     @layer daisyui.l1.l2 {
       color: var(--color-error-content);
