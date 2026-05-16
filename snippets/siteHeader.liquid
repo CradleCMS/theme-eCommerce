@@ -15,7 +15,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
     </div>
   {% endif %}
 
-<div class="bg-{{ settings.header_colors }} text-{{ settings.header_colors }}-content {{ settings.general_shadow }} sticky top-0 w-full z-30">
+<div class="bg-{{ settings.header_colors | def:'base-100' }} text-{{ settings.header_colors | def:'base-100' }}-content {{ settings.general_shadow }} sticky top-0 w-full z-30">
   <nav class="navbar max-w-[96rem] mx-auto relative flex-wrap md:flex-nowrap justify-between gap-4 px-2 md:px-4" role="navigation">
     <div class="navbar-start w-fit">
       {% if navigation[main-nav].links.size > 0 %}
@@ -25,7 +25,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </div>
-        <div tabindex="0" class="menu dropdown-content mt-1 z-[1] p-3 border-2 shadow-2xl bg-{{ settings.mainNavDdColor }} text-{{ settings.mainNavDdColor }}-content rounded-box w-60">
+        <div tabindex="0" class="menu dropdown-content mt-1 z-[1] p-3 border-2 shadow-2xl bg-{{ settings.mainNavDdColor | def:'base-100' }} text-{{ settings.mainNavDdColor | def:'base-100' }}-content rounded-box w-60">
           <div class="overflow-y-auto max-h-[70vh]">
             <ul class="space-y-2">
               {% for link in navigation[main-nav].links %}
