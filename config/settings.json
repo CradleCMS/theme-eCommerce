@@ -1023,7 +1023,19 @@
           "type": "checkbox"
         },
         {
-          "caption": "Collections page",
+          "caption": "Limited products template",
+          "key": "colLimited",
+          "type": "header"
+        },
+        {
+          "caption": "Amount of products",
+          "default": 10,
+          "description": "The number of products displayed on collections using the template limitedProducts",
+          "key": "colProdLimit",
+          "type": "number"
+        },
+        {
+          "caption": "All collections page",
           "key": "colPage",
           "type": "header"
         },
