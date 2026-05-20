@@ -1,4 +1,4 @@
-<div class="card {{ settings.general_shadow }} bg-base-100 mb-1">
+<div class="card {{ settings.general_shadow }} bg-base-100 mb-1{% if settings.colCardBorder %} card-border{% endif %}">
     <a href="{{ product | url }}" class="flex flex-col h-full">
         {% if settings.colCardOutBadge and product.quantity <= 0 %}
             <div class="absolute top-3 left-4">

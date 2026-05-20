@@ -53,6 +53,9 @@
             </div>
             {% endif %}
         </div>
+        {% if settings.mainNavDrawer %} 
+          {% include 'cartDrawer' %}
+        {% endif %}
         {% include 'siteFooter' %}
     </body>
     {{ 'shop.js' | script_tag }}

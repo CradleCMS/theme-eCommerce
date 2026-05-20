@@ -1,12 +1,17 @@
 {% if product.variants.size > 1 %}
     <button class="btn btn-primary btn-sm">{{ 'Choose' | t:'collection' }}</button>
 {% else %}
-    {% form 'cart_update' class:'' onSuccess:'/cart' %}
+    {% if settings.mainNavDrawer %} 
+        {% let redirect = '#' %}
+    {% else %}
+        {% let redirect = '/cart' %}
+    {% endif %}
+    {% form 'cart_update' onSuccess:redirect class:'add-to-cart' %}
         <input type="hidden" name="product" value="{{product.id}}">
         <input type="hidden" name="quantity" value="1">
         <input type="hidden" name="variant" value="{{product.variants[0].id}}">
-       <button name="submit" class="btn btn-primary btn-sm{% if product.quantity <= 0 %} btn-disabled{% endif %}"
-            {% if product.quantity <= 0 %}disabled{% endif %}>
+       <button name="submit" {% if settings.mainNavDrawer %}@click="sessionStorage.setItem('cart_drawer_target', 'open')"{% endif %}
+         class="btn btn-primary btn-sm{% if product.quantity <= 0 %} btn-disabled" disabled{% else %}"{% endif %}>
            {% unless  product.quantity <= 0 %}
            {{ 'Add to cart' | t }}
            {% else %}

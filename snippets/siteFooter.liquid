@@ -8,12 +8,12 @@
             class="max-h-[200px] w-fit">
         {% endif %}
         {% unless settings.footer_about_shop == empty %}
-          <p class="font-bold text-center">
+          <p class="text-center">
             {{ settings.footer_about_shop | t:'default' }}
           </p>
         {% endunless %}
         {% if settings.footerButtonEnabled %}
-          <a href="{{ settings.footerButtonURL }}" class="footer-cta">
+          <a href="{{ settings.footerButtonURL }}" class="btn btn-lg btn-primary">
             {{ settings.footerButtonText | t:'default' }}
           </a>
         {% endif %}
@@ -27,7 +27,7 @@
             <div class="collapse mb-0">
               <input type="checkbox" class="peer" aria-labelledby="View navigational links"
                 {% if settings.footer_linklists.size == 1 %}checked{% endif %}>
-                <h2 class="collapse-title flex justify-between items-center text-sm font-semibold uppercase tracking-wider text-gray-400 pr-0">
+                <h2 class="collapse-title flex justify-between items-center text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 pr-0">
                 {{ linkList.footer_linklist_title }}
                 <svg class="w-4 h-4 transition-transform duration-600 peer-checked:rotate-180"
                   xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@
                 <ul class="flex flex-col gap-3">
                   {% for link in navigation[linkList.footer_linklist].links %}
                   <li>
-                    <a href="{{ link | url }}" class="hover:underline">
+                    <a href="{{ link | url }}" class="hover:underline text-xs">
                       {{ link.title }}
                     </a>
                   </li>
@@ -55,13 +55,13 @@
             </div>
           </div>
           <div class="hidden md:flex flex-col gap-3">
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-2">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 mb-2">
               {{ linkList.footer_linklist_title }}
             </h2>
             <ul class="flex flex-col gap-4">
               {% for link in navigation[linkList.footer_linklist].links %}
               <li>
-                <a href="{{ link | url }}" class="hover:underline">
+                <a href="{{ link | url }}" class="hover:underline text-sm">
                   {{ link.title }}
                 </a>
               </li>
@@ -77,7 +77,7 @@
             {% if settings.footer_social_enable %}
                 <section aria-labelledby="footer-social-heading">
                   <h2 id="footer-social-heading"
-                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3 text-center md:text-left" >
+                    class="text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 mb-3 text-center md:text-left" >
                     {{ 'Follow us' | t }}
                   </h2>
                   <div class="social-icons flex gap-3 flex-wrap">
@@ -89,7 +89,7 @@
                 <section aria-labelledby="footer-payment-heading"
                   class="payment-single">
                   <h2 id="footer-payment-heading"
-                    class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3 text-center md:text-left">
+                    class="text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 mb-3 text-center md:text-left">
                     {{ settings.footer_payment_text | def:"We accept" }}
                   </h2>
                   <ul class="flex gap-3 justify-center md:justify-start flex-wrap">
@@ -113,7 +113,7 @@
               {% if settings.footer_social_enable %}
               <section aria-labelledby="footer-social-heading">
                 <h2 id="footer-social-heading"
-                  class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3" >
+                  class="text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 mb-3" >
                   {{ 'Follow us' | t }}
                 </h2>
                 <div class="social-icons flex gap-3 justify-center flex-wrap">
@@ -124,7 +124,7 @@
               {% if settings.footer_payment_enable and settings.footer_payment_methods.size > 0 %}
               <section aria-labelledby="footer-payment-heading">
                 <h2 id="footer-payment-heading"
-                  class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                  class="text-sm font-semibold uppercase tracking-wider text-{{ settings.footer_colors }}-content/50 mb-3">
                   {{ settings.footer_payment_text | def:"We accept" }}
                 </h2>
                 <ul class="flex gap-3 justify-center flex-wrap">

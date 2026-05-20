@@ -1,7 +1,7 @@
 {% if settings.section_banner1.size > 0 %}
     {% for links in settings.section_banner1 %}
         {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
-        <section class="card gap-2 p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ links.sectionBannerBorder }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
+        <section class="banner gap-2 p-2 md:p-4 lg:p-8 m-w-96 md:w-auto lg:w-auto {{ links.sectionBannerBorder }} justify-center mt-10 mb-20 index-{{ forloop.index }}" style="background-color:{{ links.sectionBannerBgColor }};">
           <div class="flex flex-col{% unless links.linkImageFullwidth %} md:flex-row{% if thecycle == 'odd' %}-reverse{% endif %}{% endunless %} justify-center items-center">
               {% if links.link_image.size > 0 %}
                   {% if links.linkImageFullwidth %}

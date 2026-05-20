@@ -16,7 +16,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
   {% endif %}
 
 <div class="bg-{{ settings.header_colors | def:'base-100' }} text-{{ settings.header_colors | def:'base-100' }}-content {{ settings.general_shadow }} sticky top-0 w-full z-30">
-  <nav class="navbar max-w-[96rem] mx-auto relative flex-wrap md:flex-nowrap justify-between gap-4 px-2 md:px-4" role="navigation">
+  <nav class="navbar max-w-[96rem] mx-auto relative flex-wrap md:flex-nowrap justify-between gap-x-2 gap-y-0 px-2 md:px-4" role="navigation">
     <div class="navbar-start w-fit">
       {% if navigation[main-nav].links.size > 0 %}
       <div class="dropdown {% unless settings.mainNavStyle == 'hamburger' %}lg:hidden{% endunless %}">
@@ -25,7 +25,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </div>
-        <div tabindex="0" class="menu dropdown-content mt-1 z-[1] p-3 border-2 shadow-2xl bg-{{ settings.mainNavDdColor | def:'base-100' }} text-{{ settings.mainNavDdColor | def:'base-100' }}-content rounded-box w-60">
+        <div tabindex="0" class="menu dropdown-content mt-1 z-[1] p-3 border-2 shadow-2xl bg-{{ settings.mainNavDdColor | def:'base-100' }} text-{{ settings.mainNavDdColor | def:'base-100' }}-content w-60">
           <div class="overflow-y-auto max-h-[70vh]">
             <ul class="space-y-2">
               {% for link in navigation[main-nav].links %}
@@ -94,22 +94,22 @@ Responsive header with dropdown menu on small screens and click‑based mega men
             {% for link in navigation[main-nav].links %}
               {% if link.type == 'navigation' and navigation[link.param].links.size > 0 %}
                 <li x-data="{open: false}" @resize.window="open = false" class="font-semibold text-base static">
-                  <button x-on:click="open = true" class="menu-dropdown-toggle px-3 py-2 font-bold">{{ link.title }}</button>
-                  <div x-show="open" x-on:click.outside="open = false" class="{% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] border-t-3 {% else %}min-w-32 block {% endif %}absolute top-14 bg-{{ settings.mainNavDdColor | def:"base-100" }} text-{{ settings.mainNavDdColor | def:"base" }}-content shadow-2xl p-4 rounded-box z-50 border-2">
+                  <button x-on:click="open = true" class="menu-dropdown-toggle px-3 py-2 text-xs font-bold uppercase tracking-wider text-base-content/80">{{ link.title }}</button>
+                  <div x-show="open" x-on:click.outside="open = false" class="text-sm {% if settings.mainNavStyle == 'mega' %}megamenu left-8 min-w-96 gap-8 items-start w-full max-w-[800px] border-t-3 {% else %}min-w-32 block {% endif %}absolute top-14 bg-{{ settings.mainNavDdColor | def:"base-100" }} text-{{ settings.mainNavDdColor | def:"base" }}-content/95 shadow-2xl p-4 rounded-box z-50 border-2">
                       {% for childlink in navigation[link.param].links %}
                         {% if childlink.type == 'navigation' %}
-                            <div>
-                                <p class="min-w-40 font-bold py-1 px-2 uppercase">
+                            <div class="">
+                                <p class="min-w-40 py-2 font-bold uppercase tracking-wider text-base-content/70">
                                   {{ childlink.title }}
                                 </p>
                                 {% for subchild in navigation[childlink.handle].links %}
-                                    <a href="{{ subchild | url }}" class="hover:underline block my-2 py-1 {% unless settings.mainNavStyle == 'mega' %}pl-8 {% endunless %}px-2">
+                                    <a href="{{ subchild | url }}" class="hover:underline block my-2 py-1 {% unless settings.mainNavStyle == 'mega' %}pl-4 {% endunless %}px-2">
                                       {{ subchild.title }}
                                     </a>
                                 {% endfor %}
                             </div>
                         {% else %}
-                          <a href="{{ childlink | url }}" class="min-w-30 block py-1 px-2 font-bold hover:underline rounded-field transition">
+                          <a href="{{ childlink | url }}" class="min-w-30 block py-2 hover:underline rounded-field transition">
                             {{ childlink.title }}
                           </a>
                         {% endif %}
@@ -117,7 +117,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
                   </div>
                 </li>
               {% else %}
-                <li class="font-semibold text-base">
+                <li class="text-xs font-bold uppercase tracking-wider text-base-content/80">
                   <a href="{{ link | url }}" class="px-3 py-2 font-bold transition">
                     {{ link.title }}
                   </a>
@@ -128,8 +128,8 @@ Responsive header with dropdown menu on small screens and click‑based mega men
         {% endunless %}
     </div>
     {% if settings.mainNavSearch %}
-    <div class="navbar-center order-last md:order-none w-full md:w-[15%] grow md:max-w-72 ml-auto">
-      <a-search lang="{{ lang }}" currency="{{ cart.currency }}" class="mr-2 inline-block w-full" include="products">
+    <div class="navbar-center order-last md:order-none w-full grow md:max-w-60 ml-auto">
+      <a-search lang="{{ lang }}" currency="{{ cart.currency }}" class="inline-block w-full" include="products">
         <label class="input px-2 min-w-40 w-full">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -163,13 +163,42 @@ Responsive header with dropdown menu on small screens and click‑based mega men
         </a-currency>
       {% endif %}
     {% if settings.mainNavAccount %}
-      <a class="btn btn-ghost btn-circle btn-sm mr-2" href="/customer/account" aria-label="Account">
-        <svg fill="currentColor" width="24" height="24" viewBox="0 0 1024 1024">
+      <a class=" inline-block p-1 group" href="/customer/account" aria-label="Account">
+        <svg fill="currentColor" class="group-hover:scale-110" width="24" height="24" viewBox="0 0 1024 1024">
           <path d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"/>
         </svg>
       </a>
     {% endif %}
-      {% include 'cartWidget' %}
+    {% if settings.mainNavDrawer %}
+        <a href="/cart" 
+           @click.prevent="$dispatch('toggle-cart')" 
+           class="relative inline-block p-2 pl-0 group">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        
+          {% if cart.quantity > 0 %}
+          <span class="absolute top-0 right-0 badge badge-primary badge-xs p-1">
+            {{ cart.quantity }}
+          </span>
+          {% endif %}
+        </a>
+    {% else %}
+        <a href="/cart" 
+           class="relative inline-block p-2 pl-0 group">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        
+          {% if cart.quantity > 0 %}
+          <span class="absolute top-0 right-0 badge badge-primary badge-xs p-1">
+            {{ cart.quantity }}
+          </span>
+          {% endif %}
+        </a>
+    {% endif %}
     </div>
   </nav>
 </div>

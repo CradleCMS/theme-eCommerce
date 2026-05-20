@@ -31,15 +31,15 @@
             },
             {
               "caption": "Minimal",
-              "value": "0.25"
+              "value": "0.25rem"
             },
             {
               "caption": "Medium",
-              "value": "0.5"
+              "value": "0.5rem"
             },
             {
               "caption": "Maximum",
-              "value": "1.5"
+              "value": "1.5rem"
             }
           ],
           "type": "select"
@@ -956,6 +956,11 @@
           "type": "header"
         },
         {
+          "caption": "Use border",
+          "key": "colCardBorder",
+          "type": "checkbox"
+        },
+        {
           "caption": "Image height",
           "description": "Max height for image on product card",
           "key": "col_card_img_height",
@@ -1065,6 +1070,11 @@
           "caption": "Cart",
           "key": "cart",
           "type": "header"
+        },
+        {
+          "caption": "Use drawer cart",
+          "key": "mainNavDrawer",
+          "type": "checkbox"
         },
         {
           "caption": "Enable cart note",

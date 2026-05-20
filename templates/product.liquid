@@ -1,4 +1,4 @@
-<section class="flex flex-col lg:flex-row gap-8">
+<section class="flex flex-col lg:flex-row gap-8 justify-center">
     {% if product.images.size > 0 %}
         {% if product.images.size > 1 %}
             {% if settings.ppThumbPosition == "left" %}
@@ -58,7 +58,7 @@
         </dialog>
     {% endif %}
     <div class="lg:basis-2/5">
-        <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8">{{ meta.h1 }}</h1>
+        <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8 mt-4">{{ meta.h1 }}</h1>
         {% if product.keyFeatures.size > 0 %}
         <ul class="mb-2">
             {% for feature in product.keyFeatures %}
@@ -70,7 +70,12 @@
         {% endif %}
         <div>
             <p id="product-price" class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
-            {% form 'cart_update' class:'ml-2 mb-12' onSuccess:'/cart' %}
+            {% if settings.mainNavDrawer %} 
+                {% let redirect = request.path %}
+            {% else %}
+                {% let redirect = "/cart" %}
+            {% endif %}
+            {% form 'cart_update' class:'ml-2 mb-12' onSuccess:redirect %}
                 <input type="hidden" name="product" value="{{product.id}}">
                 <input type="hidden" name="quantity" value="1">
                 {% if product.variants.size > 1 %}
@@ -88,7 +93,7 @@
                 <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
                 {% endif %}
                 
-               <button name="submit" class=" btn btn-accent ml-2"
+               <button name="submit" {% if settings.mainNavDrawer %}@click="sessionStorage.setItem('cart_drawer_target', 'open')"{% endif %} class="btn btn-accent ml-2"
                {% unless product.selectedVariant.available %}
                btn-disabled
                {% endunless %}
