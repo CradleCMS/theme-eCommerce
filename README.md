@@ -1,10 +1,14 @@
-# Cradle eCommerce theme
-Tailwind component design from daisyUI made into a Cradle CMS theme. 
+# Cradle https://cradlecms.com/ eCommerce theme
 
-* Index page components
-* daisyUI color presets with theme settings support
+<img width="883" height="566" alt="Ecom-theme" src="https://github.com/user-attachments/assets/141991df-aef9-4a34-a314-f762463c4144" />
+
+* Color presets
 * Open graph tags
-* Production and Development mode
+* Auto search box
+* Multi-language and currency
+* Customer accounts
+* Checkout
+* Drawer cart
 
 ## Templates
 * Index
@@ -12,34 +16,27 @@ Tailwind component design from daisyUI made into a Cradle CMS theme.
 * Contact page
 * Blog
 * Article
+* Product
+* Collection
+* Customer account pages
+* Cart
+* Checkout
 * 404-not found
 * Search page
 * Closed site template with signup form
 
-And eCommerce templates
-
-## Contact page
-
-1. To add a contact form to a page, choose the page template `contact`.
-2. Add a form (forms are under Messages) named `contact`: [Forms guide at CradleCMS.com](https://cradlecms.com/blogs/guides/article/form-functionality).
-
-### Formfields to add 
-
-Please note that there are forms validations done and it is important that the submitted form from the website corresponds to what is specified in admin/in the system.
-
-Required | Name | Type | Value | Attributes | Match
----|---|---|---|---|---
-Y | name | text | - | - | -
-Y | email | email | - | - | -
-Y | message | textarea | - | - | -
-Y | Submit | submit | Submit | - | -
-
 ## Development
+
+The theme is built with tailwindcss, daisyUI and Alpine.JS for easy development there is a development mode built in.
+
+### Builder 
 
 The repo contains a builder included for generating the tailwind CSS file for production. With command `make` in the terminal it will build a new ouput.css file. The builder requires Podman or Docker (and the environment, Colima on Mac for example) to work.
 
 ## References
+
 * <https://daisyui.com/> - daisyUI webpage
 * <https://tailwindcss.com/> - Tailwind CSS (daisyUI is created ontop of Tailwind)
-* <https://cradlecms.com/> - Cradle CMS
-* <https://cradlecms.com/blogs/guides/article/dasiy-ui-theme> - Go to theme documentation
+* <https://alpinejs.dev/> - Alpine JS framework
+* <https://cradlecms.com/> - Cradle CMS & eCommerce software
+* <https://cradlecms.com/blogs/ecommerce-guides/article/ecommerce-theme> - Go to theme documentation
