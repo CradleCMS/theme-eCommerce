@@ -1,8 +1,11 @@
-# Cradle eCommerce theme
+# Cradle https://cradlecms.com/ eCommerce theme
 Tailwind component design from daisyUI made into a Cradle CMS theme. 
 
+<img width="883" height="566" alt="Ecom-theme" src="https://github.com/user-attachments/assets/141991df-aef9-4a34-a314-f762463c4144" />
+
+
 * Index page components
-* daisyUI color presets with theme settings support
+* Color presets 
 * Open graph tags
 * Production and Development mode
 
