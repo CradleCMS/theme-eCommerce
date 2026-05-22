@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content="{{ metaDescription | escape }}"/>
         <meta name="keywords" content="{{ metaKeywords | escape }}"/>
-        <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>	
+        <title>{{ site.name }}{% if metaTitle != blank and metaTitle != site.name %} | {{ metaTitle }}{% endif %}</title>
         <link rel="canonical" href="{{ canonicalUrl | escape }}">
         {% if settings.headMetaInclude %}
             {% include 'customMeta' %}
@@ -53,7 +53,7 @@
             </div>
             {% endif %}
         </div>
-        {% if settings.mainNavDrawer %} 
+        {% if settings.mainNavDrawer %}
           {% include 'cartDrawer' %}
         {% endif %}
         {% include 'siteFooter' %}
@@ -64,4 +64,5 @@
     {% endif %}
     {% component 'alang.js' %}
     {% component 'acurrency.js' %}
+    {% component 'adrawer-cart' %}
 </html>

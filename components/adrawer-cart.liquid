@@ -1,0 +1,415 @@
+<!-- CradleCMS drawer cart component, version 1.0.2 -->
+<template id="drawer-cart-template">
+    <div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
+      <div class="acart">
+            <header>
+                <span>{{ 'CART' | t:'cart' }}</span>
+                <button @click.prevent="toggleOpen()">&times;</button>
+            </header>
+            <ul>
+            <template x-for="(item,i) in cart.items" x-key(i)>
+                <li>
+                    <figure>
+                        <template x-if="item.image">
+                            <img :src="`/media/product/${item.productId}/${resizeImage(item.image,thumb,true)}`" :alt="item.title">
+                        </template>
+                    </figure>
+                    <article>
+                        <div>
+                            <h5 x-text="item.title"></h5>
+                            <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
+                        </div>
+                        <div>
+                            <span class="quantity">
+                            	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
+                            	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,item.quantity)">
+                            	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
+                            </span>
+                            <span x-text="money(cart,item.amount)"></span>
+                        </div>
+                    </article>
+                </li>
+            </template>
+            <template x-if="!cart.items">
+                <li><h5>{{'Your cart is empty' | t:'cart'}}</h5></li>
+            </template>
+            </ul>
+            <template x-if="cart.items">
+            <footer>
+                <ul>
+                    <li class="small">
+                        <span>VAT</span>
+                        <span x-text="money(cart, cart.amount.vat)"></span>
+                    </li>
+                    <li>
+                        <span>Total</span>
+                        <span x-text="money(cart, cart.amount.total)"></span>
+                    </li>
+                </ul>
+                <button :class="button" @click="document.location = url">{{'Go to Checkout' | t:'cart'}}</button>
+            </footer>
+            </template>
+      </div>
+    </div>
+</template>
+<script>
+const cartCSS = new CSSStyleSheet()
+
+cartCSS.replaceSync(`
+:root {
+    --cart-width: 20rem;
+    --cart-height: 100vh;
+    --cart-offset: 0;
+}
+.acart-wrapper {
+    position: relative;
+    --bg: #fafafa;
+    --fg: #555;
+    --b: 1px solid #ddd;
+    --br: 3px;
+    --t: 0;
+    --tn: 50px;
+    cursor: pointer;
+}
+.acart {
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    top: var(--cart-offset);
+    right: calc(var(--cart-width)*-1);
+    width: var(--cart-width);
+    height: var(--cart-height);
+    background: var(--bg);
+    color: var(--fg);
+    border-color: var(--b);
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    visibility: visible;
+}
+.acart li > h5 {
+    margin: 0 auto;
+}
+.acart .small {
+    font-size: 0.8rem;
+}
+.acart.open {
+    visibility: visible;
+    animation: cart-slide-in 0.2s linear forwards
+}
+.acart.close {
+    visibility: visible;
+    animation: cart-slide-out 0.2s linear forwards
+}
+@keyframes cart-slide-in {
+  to { right: 0rem }
+}
+@keyframes cart-slide-out {
+  from {right: 0 }
+  to { right: calc(var(--cart-width)*-1) }
+}
+.acart header {
+    margin: 0;
+    padding: 0.5em 1em;
+    border-bottom: var(--b);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.acart header span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.acart header button {
+    padding:0;
+    margin:0;
+    display: block;
+    cursor: pointer;
+    background: transparent;
+    border:none;
+    color: inherit;
+    font-weight: 200;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    place-self: baseline;
+    height: 1rem;
+    transition: all 0.2s linear;
+}
+.acart header button:hover {
+    transform: rotate(44deg);
+}
+.acart section {
+    padding: 0.5em;
+}
+.acart hr {
+    margin: 0.5em;
+}
+.acart ul {
+    margin-top: 0.5rem;
+    list-style-type: none
+    display: flex;
+    flex-direction: column;
+}
+.acart ul li {
+    padding: 0.25rem 1rem;
+    display: flex;
+    gap:0.5rem;
+}
+.acart article {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 100%;
+}
+.acart article div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.acart article h5 {
+    font-size: 0.9rem;
+    font-size: 200;
+}
+.acart article div:first-child {
+    margin-top: -0.3rem;
+}
+.acart article div:last-child {
+    margin-top: 0.2rem;
+}
+.acart artice div .trash {
+    cursor: finger:
+    padding:0.1rem 0.2rem;
+    margin:0;
+    display: block;
+    background: transparent;
+    border:none;
+    color: inherit;
+    font-weight: 200;
+    margin-left: auto;
+    place-self: end;
+}
+.acart article div .trash:hover {
+    font-weight: 600;
+}
+.acart article div .quantity {
+    display: flex;
+	overflow: hidden;
+	border: var(--b);
+	border-radius: var(--br);
+}
+.acart article div .quantity * {
+	background: transparent;
+	color: inherit;
+	font-size: inherit;
+	border: none;
+	display: inline-block;
+	min-width: 0;
+	height: 1.5rem;
+	line-height: 1;
+
+	&:focus {
+		outline: none;
+	}
+}
+.acart article div .quantity input {
+	width: 1.5rem;
+	min-width: 0;
+	display: inline-block;
+	text-align: center;
+	font-size: 0.8rem;
+	appearance: textfield;
+}
+.acart article div .quantity button {
+	padding: 0;
+	cursor: pointer;
+	width: 1.5rem;
+	font-size: 1rem;
+	font-weight: normal;
+	overflow: hidden;
+	position: relative;
+
+	&.minus {
+		border-right: var(--b);
+	}
+	&.plus {
+		border-left: var(--b);
+	}
+}
+.acart article div:last-child span {
+    font-size: 0.8rem;
+}
+.acart figure {
+    width: var(--tn);
+    height: var(--tn);
+}
+.acart figure img {
+    border-radius: var(--br);
+}
+.acart footer {
+    border-top: var(--b);
+    margin: 0;
+    padding: 0.5em 1em;
+    margin-top: auto;
+}
+.acart footer ul li {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.acart footer button {
+    margin: 1rem auto;
+    width: 100%;
+}
+`);
+
+function drawerCart() { return {
+    open: false,
+    cart: {},
+    target: "cart-button",
+    acart: undefined,
+    thumb: "50x50",
+    url: "/checkout",
+    button: "btn btn-primary",
+    currencies: {},
+    init() {
+        let cartButton = document.getElementById(this.target);
+        cartButton.addEventListener('click', (ev) => {
+            this.toggleOpen()
+        })
+
+        this.el = this.el.querySelector(".acart")
+
+        // :root properties
+        if(this.width) {
+            document.documentElement.style.setProperty("--cart-width",this.width);
+        }
+        if(this.height) {
+            document.documentElement.style.setProperty("--cart-height",this.height);
+        }
+        if(this.offset) {
+            document.documentElement.style.setProperty("--cart-offset",this.offset);
+        }
+        // el properties
+        if(this.background) {
+            this.el.style.setProperty("--bg",this.background);
+        }
+        if(this.color) {
+            this.el.style.setProperty("--fg",this.color);
+        }
+        if(this.border) {
+            this.el.style.setProperty("--b",this.border);
+        }
+        if(this.thumb) {
+           this.el.style.setProperty("--tn",parseInt(this.thumb)+'px');
+        }
+    },
+    async fetch() {
+        let r = await fetch('/cart.json');
+        this.cart = await r.json();
+    },
+    toggleOpen() {
+        this.open = !this.open;
+        if(this.open) {
+            this.fetch();
+            this.el.classList.remove("close");
+            this.el.classList.add("open");
+        } else {
+            this.el.classList.add("close");
+            this.el.classList.remove("open");
+        }
+    },
+    resizeImage: function(image, size, crop) {
+        var src, suffix = "";
+
+        if (typeof(crop) === 'boolean' && crop === true) {
+            crop = "cropped";
+        }
+
+        if (typeof(image) == 'string') {
+            src = image;
+        } else if (typeof(image) == 'object' && image.hasOwnProperty('img')) {
+            src = image.src;
+        } else {
+            return ""
+        }
+
+        if(src.lastIndexOf(".svg") > 0) {
+            return src
+        };
+
+        if(typeof(size) === 'string'){
+            if(size.indexOf('_') > 0) {
+                suffix = '_' + size;
+            }
+            else if (size.indexOf('x') > 0) {
+              suffix = '_' + size.split('x').join('_');
+            } else {
+              suffix = '_' + size + '_' + size;
+            }
+        } else {
+            suffix = '_' + size + '_' + size;
+        }
+
+        if (crop && suffix.indexOf('_cropped') < 0) {
+            suffix += '_' + crop;
+        }
+
+        let dotpos = src.lastIndexOf('.');
+        return src.slice(0,dotpos) + suffix + src.slice(dotpos);
+    },
+    setQuantity(i,q) {
+        const item = this.cart.items[i];
+        if(q < 0) return;
+
+        let update = {items:{}};
+        update.items[item.id] = q;
+
+        fetch("/cart_update", {
+            method: "PUT",
+            body: JSON.stringify(update),
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+        }).then(res => {
+            if (!res.ok) throw "failed to update quantity";
+            this.fetch();
+        }).catch(err => {
+            console.error(err);
+            alert(err);
+        });
+    },
+    money(item, value) {
+        let locale = item.lang + "-" + item.country;
+        const c = new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currency: item.currency,
+            currencyDisplay: "narrowSymbol"
+        });
+        return c.format(value / 1000);
+    }
+}}
+// registers <a-drawer-cart> component
+class drawerCartComponent extends HTMLElement {
+   connectedCallback() {
+        // no shadow DOM due to interaction with external dependencies
+        this.className="acart-wrapper";
+        const template = document.getElementById('drawer-cart-template');
+        document.adoptedStyleSheets.push(cartCSS);
+        this.append(template.content.cloneNode(true))
+    }
+
+    data() {
+        const attributes = this.getAttributeNames()
+        const data = {el:this}
+        attributes.forEach(attribute => {
+            data[attribute] = this.getAttribute(attribute)
+        })
+        return data
+    }
+}
+customElements.get('a-drawer-cart') || customElements.define('a-drawer-cart', drawerCartComponent)
+</script>
