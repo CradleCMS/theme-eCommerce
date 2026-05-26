@@ -1,4 +1,4 @@
-<!-- CradleCMS drawer cart component, version 1.0.2 -->
+<!-- CradleCMS drawer cart component, version 1.0.3 -->
 <template id="drawer-cart-template">
     <div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
       <div class="acart">
@@ -22,7 +22,7 @@
                         <div>
                             <span class="quantity">
                             	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
-                            	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,item.quantity)">
+                            	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
                             	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
                             </span>
                             <span x-text="money(cart,item.amount)"></span>
@@ -108,7 +108,7 @@ cartCSS.replaceSync(`
 @keyframes cart-slide-out {
   from {right: 0 }
   to { right: calc(var(--cart-width)*-1) }
-}
+}   
 .acart header {
     margin: 0;
     padding: 0.5em 1em;
@@ -229,7 +229,7 @@ cartCSS.replaceSync(`
 	font-weight: normal;
 	overflow: hidden;
 	position: relative;
-
+	
 	&.minus {
 		border-right: var(--b);
 	}
@@ -278,10 +278,10 @@ function drawerCart() { return {
         cartButton.addEventListener('click', (ev) => {
             this.toggleOpen()
         })
-
+        
         this.el = this.el.querySelector(".acart")
-
-        // :root properties
+        
+        // :root css variables
         if(this.width) {
             document.documentElement.style.setProperty("--cart-width",this.width);
         }
@@ -291,7 +291,7 @@ function drawerCart() { return {
         if(this.offset) {
             document.documentElement.style.setProperty("--cart-offset",this.offset);
         }
-        // el properties
+        // component css variables
         if(this.background) {
             this.el.style.setProperty("--bg",this.background);
         }
@@ -301,8 +301,11 @@ function drawerCart() { return {
         if(this.border) {
             this.el.style.setProperty("--b",this.border);
         }
+        if(this.radius) {
+            this.el.style.setProperty("--br", this.radius);
+        }
         if(this.thumb) {
-           this.el.style.setProperty("--tn",parseInt(this.thumb)+'px');
+           this.el.style.setProperty("--tn",parseInt(this.thumb)+'px'); 
         }
     },
     async fetch() {
@@ -322,11 +325,11 @@ function drawerCart() { return {
     },
     resizeImage: function(image, size, crop) {
         var src, suffix = "";
-
+        
         if (typeof(crop) === 'boolean' && crop === true) {
             crop = "cropped";
         }
-
+        
         if (typeof(image) == 'string') {
             src = image;
         } else if (typeof(image) == 'object' && image.hasOwnProperty('img')) {
@@ -334,11 +337,11 @@ function drawerCart() { return {
         } else {
             return ""
         }
-
+        
         if(src.lastIndexOf(".svg") > 0) {
             return src
         };
-
+                
         if(typeof(size) === 'string'){
             if(size.indexOf('_') > 0) {
                 suffix = '_' + size;
@@ -351,21 +354,23 @@ function drawerCart() { return {
         } else {
             suffix = '_' + size + '_' + size;
         }
-
+    
         if (crop && suffix.indexOf('_cropped') < 0) {
             suffix += '_' + crop;
         }
-
+        
         let dotpos = src.lastIndexOf('.');
         return src.slice(0,dotpos) + suffix + src.slice(dotpos);
     },
     setQuantity(i,q) {
+        q = parseInt(q)
+        if(q < 0 || q == NaN) return;
+        
         const item = this.cart.items[i];
-        if(q < 0) return;
-
+        
         let update = {items:{}};
         update.items[item.id] = q;
-
+        
         fetch("/cart_update", {
             method: "PUT",
             body: JSON.stringify(update),
@@ -376,7 +381,7 @@ function drawerCart() { return {
             },
         }).then(res => {
             if (!res.ok) throw "failed to update quantity";
-            this.fetch();
+            this.fetch();         
         }).catch(err => {
             console.error(err);
             alert(err);
@@ -388,7 +393,7 @@ function drawerCart() { return {
             style: 'currency',
             currency: item.currency,
             currencyDisplay: "narrowSymbol"
-        });
+        }); 
         return c.format(value / 1000);
     }
 }}
