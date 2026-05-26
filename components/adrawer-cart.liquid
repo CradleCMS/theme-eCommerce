@@ -1,4 +1,4 @@
-<!-- CradleCMS drawer cart component, version 1.0.3 -->
+<!-- CradleCMS drawer cart component, version 1.0.4 -->
 <template id="drawer-cart-template">
     <div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
       <div class="acart">
@@ -38,11 +38,11 @@
             <footer>
                 <ul>
                     <li class="small">
-                        <span>VAT</span>
+                        <span>{{'VAT' | t:'cart'}}</span>
                         <span x-text="money(cart, cart.amount.vat)"></span>
                     </li>
                     <li>
-                        <span>Total</span>
+                        <span>{{'Total' | t:'cart'}}</span>
                         <span x-text="money(cart, cart.amount.total)"></span>
                     </li>
                 </ul>
@@ -58,8 +58,8 @@ const cartCSS = new CSSStyleSheet()
 cartCSS.replaceSync(`
 :root {
     --cart-width: 20rem;
-    --cart-height: 100vh;
     --cart-offset: 0;
+    --cart-height: 100vh;
 }
 .acart-wrapper {
     position: relative;
@@ -69,6 +69,7 @@ cartCSS.replaceSync(`
     --br: 3px;
     --t: 0;
     --tn: 50px;
+    --o: var(--cart-offset);
     cursor: pointer;
 }
 .acart {
@@ -80,6 +81,7 @@ cartCSS.replaceSync(`
     right: calc(var(--cart-width)*-1);
     width: var(--cart-width);
     height: var(--cart-height);
+    max-height: calc(100% - var(--o));
     background: var(--bg);
     color: var(--fg);
     border-color: var(--b);
@@ -280,17 +282,6 @@ function drawerCart() { return {
         })
         
         this.el = this.el.querySelector(".acart")
-        
-        // :root css variables
-        if(this.width) {
-            document.documentElement.style.setProperty("--cart-width",this.width);
-        }
-        if(this.height) {
-            document.documentElement.style.setProperty("--cart-height",this.height);
-        }
-        if(this.offset) {
-            document.documentElement.style.setProperty("--cart-offset",this.offset);
-        }
         // component css variables
         if(this.background) {
             this.el.style.setProperty("--bg",this.background);
@@ -399,21 +390,34 @@ function drawerCart() { return {
 }}
 // registers <a-drawer-cart> component
 class drawerCartComponent extends HTMLElement {
-   connectedCallback() {
-        // no shadow DOM due to interaction with external dependencies
+    #data
+    connectedCallback() {
+        // we don't use shadow DOM due to interaction with external dependencies
         this.className="acart-wrapper";
         const template = document.getElementById('drawer-cart-template');
+        
         document.adoptedStyleSheets.push(cartCSS);
         this.append(template.content.cloneNode(true))
+        
+        this.#data = {el:this};
+        this.getAttributeNames().map(attr => {
+            this.#data[attr] = this.getAttribute(attr)
+        })
+        
+        // :root css variables
+        if(this.#data.hasOwnProperty("width")) {
+            document.documentElement.style.setProperty("--cart-width",this.#data.width);
+        }
+        if(this.#data.hasOwnProperty("offset")) {
+            document.documentElement.style.setProperty("--cart-offset",this.#data.offset);
+        }
+        if(this.#data.hasOwnProperty("height")) {
+            document.documentElement.style.setProperty("--cart-height",this.#data.height);
+        }
     }
 
     data() {
-        const attributes = this.getAttributeNames()
-        const data = {el:this}
-        attributes.forEach(attribute => {
-            data[attribute] = this.getAttribute(attribute)
-        })
-        return data
+        return this.#data
     }
 }
 customElements.get('a-drawer-cart') || customElements.define('a-drawer-cart', drawerCartComponent)
