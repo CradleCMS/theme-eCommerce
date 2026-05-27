@@ -1,4 +1,4 @@
-# Cradle https://cradlecms.com/ eCommerce theme
+# [Cradle](https://cradlecms.com/ "Visit our site") eCommerce theme
 
 <img width="883" height="566" alt="Ecom-theme" src="https://github.com/user-attachments/assets/141991df-aef9-4a34-a314-f762463c4144" />
 
