@@ -1,61 +1,59 @@
-<!-- CradleCMS drawer cart component, version 1.0.4 -->
+<!-- CradleCMS drawer cart component, version 1.0.5 -->
 <template id="drawer-cart-template">
-    <div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
-      <div class="acart">
-            <header>
-                <span>{{ 'CART' | t:'cart' }}</span>
-                <button @click.prevent="toggleOpen()">&times;</button>
-            </header>
+<div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
+    <div class="acart">
+        <header>
+            <span>{{ 'CART' | t:'cart' }}</span>
+            <button @click.prevent="toggleOpen()">&times;</button>
+        </header>
+        <ul>
+        <template x-for="(item,i) in cart.items" x-key(i)>
+            <li>
+                <figure>
+                    <template x-if="item.image">
+                        <img :src="`/media/product/${item.productId}/${resizeImage(item.image,thumb,true)}`" :alt="item.title">
+                    </template>
+                </figure>
+                <article>
+                    <div>
+                        <a :href="`{{'product' | url}}/${item.handle}/${item.variantId}`">
+                        <h5 x-text="item.title"></h5>
+                        </a>
+                        <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
+                    </div>
+                    <div>
+                        <span class="quantity">
+                        	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
+                        	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
+                        	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
+                        </span>
+                        <span x-text="money(cart,item.amount)"></span>
+                    </div>
+                </article>
+            </li>
+        </template>
+        <template x-if="!cart.items">
+            <li><h5>{{'Your cart is empty' | t:'cart'}}</h5></li>
+        </template>
+        </ul>
+        <template x-if="cart.items">
+        <footer>
             <ul>
-            <template x-for="(item,i) in cart.items" x-key(i)>
-                <li>
-                    <figure>
-                        <template x-if="item.image">
-                            <img :src="`/media/product/${item.productId}/${resizeImage(item.image,thumb,true)}`" :alt="item.title">
-                        </template>
-                    </figure>
-                    <article>
-                        <div>
-                            <h5 x-text="item.title"></h5>
-                            <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
-                        </div>
-                        <div>
-                            <span class="quantity">
-                            	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
-                            	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
-                            	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
-                            </span>
-                            <span x-text="money(cart,item.amount)"></span>
-                        </div>
-                    </article>
+                <li class="small">
+                    <span>{{'VAT' | t:'cart'}}</span>
+                    <span x-text="money(cart, cart.amount.vat)"></span>
                 </li>
-            </template>
-            <template x-if="!cart.items">
-                <li><h5>{{'Your cart is empty' | t:'cart'}}</h5></li>
-            </template>
+                <li>
+                    <span>{{'Total' | t:'cart'}}</span>
+                    <span x-text="money(cart, cart.amount.total)"></span>
+                </li>
             </ul>
-            <template x-if="cart.items">
-            <footer>
-                <ul>
-                    <li class="small">
-                        <span>{{'VAT' | t:'cart'}}</span>
-                        <span x-text="money(cart, cart.amount.vat)"></span>
-                    </li>
-                    <li>
-                        <span>{{'Total' | t:'cart'}}</span>
-                        <span x-text="money(cart, cart.amount.total)"></span>
-                    </li>
-                </ul>
-                <button :class="button" @click="document.location = url">{{'Go to Checkout' | t:'cart'}}</button>
-            </footer>
-            </template>
-      </div>
+            <button :class="button" @click="document.location = url">{{'Go to Checkout' | t:'cart'}}</button>
+        </footer>
+        </template>
     </div>
-</template>
-<script>
-const cartCSS = new CSSStyleSheet()
-
-cartCSS.replaceSync(`
+</div>
+<style>
 :root {
     --cart-width: 20rem;
     --cart-offset: 0;
@@ -170,6 +168,9 @@ cartCSS.replaceSync(`
     justify-content: space-between;
     width: 100%;
 }
+.acart article a:hover {
+    text-decoration: underline;
+}
 .acart article h5 {
     font-size: 0.9rem;
     font-size: 200;
@@ -264,15 +265,16 @@ cartCSS.replaceSync(`
     margin: 1rem auto;
     width: 100%;
 }
-`);
-
+</style>
+</template>
+<script>
 function drawerCart() { return {
     open: false,
     cart: {},
     target: "cart-button",
     acart: undefined,
     thumb: "50x50",
-    url: "/checkout",
+    url: "{{'/checkout' | url }}",
     button: "btn btn-primary",
     currencies: {},
     init() {
@@ -396,7 +398,6 @@ class drawerCartComponent extends HTMLElement {
         this.className="acart-wrapper";
         const template = document.getElementById('drawer-cart-template');
         
-        document.adoptedStyleSheets.push(cartCSS);
         this.append(template.content.cloneNode(true))
         
         this.#data = {el:this};
