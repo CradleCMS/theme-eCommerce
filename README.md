@@ -2,7 +2,7 @@
 
 <img width="883" height="566" alt="Ecom-theme" src="https://github.com/user-attachments/assets/141991df-aef9-4a34-a314-f762463c4144" />
 
-| Features | | |
+| Features |
 | -------- | -------- | -------- |
 | Color presets | Auto search box | Language selector |
 | Currency selector | Customer accounts | Drawer cart |
