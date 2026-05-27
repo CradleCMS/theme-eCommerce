@@ -2,12 +2,17 @@
 
 <img width="883" height="566" alt="Ecom-theme" src="https://github.com/user-attachments/assets/141991df-aef9-4a34-a314-f762463c4144" />
 
-| Features |
-| -------- | -------- | -------- |
-| Color presets | Auto search box | Language selector |
-| Currency selector | Customer accounts | Drawer cart |
-| Checkout | Open graph tags | Developer mode |
+## Features 
 
+* Color presets
+* Auto search box
+* Language selector 
+* Currency selector
+* Customer accounts
+* Drawer cart
+* Checkout
+* Open graph tags
+* Developer mode 
 
 ## Templates
 * Index
