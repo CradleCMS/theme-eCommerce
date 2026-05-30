@@ -1209,23 +1209,6 @@
       }
     }
   }
-  .indicator {
-    @layer daisyui.l1.l2.l3 {
-      position: relative;
-      display: inline-flex;
-      width: max-content;
-      :where(.indicator-item) {
-        z-index: 1;
-        position: absolute;
-        white-space: nowrap;
-        top: var(--indicator-t, 0);
-        bottom: var(--indicator-b, auto);
-        left: var(--indicator-s, auto);
-        right: var(--indicator-e, 0);
-        translate: var(--indicator-x, 50%) var(--indicator-y, -50%);
-      }
-    }
-  }
   .table {
     @layer daisyui.l1.l2.l3 {
       font-size: 0.875rem;
@@ -1968,34 +1951,6 @@
   }
   .sticky {
     position: sticky;
-  }
-  .dropdown-end {
-    @layer daisyui.l1.l2 {
-      --anchor-h: span-left;
-      :where(.dropdown-content) {
-        inset-inline-end: calc(0.25rem * 0);
-        translate: 0 0;
-        [dir="rtl"] & {
-          translate: 0 0;
-        }
-      }
-      &.dropdown-left {
-        --anchor-h: left;
-        --anchor-v: span-top;
-        .dropdown-content {
-          top: auto;
-          bottom: calc(0.25rem * 0);
-        }
-      }
-      &.dropdown-right {
-        --anchor-h: right;
-        --anchor-v: span-top;
-        .dropdown-content {
-          top: auto;
-          bottom: calc(0.25rem * 0);
-        }
-      }
-    }
   }
   .-top-2 {
     top: calc(var(--spacing) * -2);
@@ -3042,9 +2997,6 @@
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
-  .ml-10 {
-    margin-left: calc(var(--spacing) * 10);
-  }
   .ml-auto {
     margin-left: auto;
   }
@@ -3474,9 +3426,6 @@
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
-  .max-w-20 {
-    max-width: calc(var(--spacing) * 20);
-  }
   .max-w-\[40rem\] {
     max-width: 40rem;
   }
@@ -3530,6 +3479,9 @@
   }
   .shrink-0 {
     flex-shrink: 0;
+  }
+  .flex-grow {
+    flex-grow: 1;
   }
   .grow {
     flex-grow: 1;
@@ -3911,9 +3863,6 @@
   .object-contain {
     object-fit: contain;
   }
-  .object-scale-down {
-    object-fit: scale-down;
-  }
   .checkbox-lg {
     @layer daisyui.l1.l2 {
       padding: 0.3125rem;
@@ -4171,12 +4120,6 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
-  }
-  .badge-sm {
-    @layer daisyui.l1.l2 {
-      --size: calc(var(--size-selector, 0.25rem) * 5);
-      font-size: 0.75rem;
-    }
   }
   .badge-xs {
     @layer daisyui.l1.l2 {
@@ -4606,12 +4549,6 @@
     @layer daisyui.l1.l2 {
       --badge-color: var(--color-primary);
       --badge-fg: var(--color-primary-content);
-    }
-  }
-  .badge-secondary {
-    @layer daisyui.l1.l2 {
-      --badge-color: var(--color-secondary);
-      --badge-fg: var(--color-secondary-content);
     }
   }
   .btn-accent {
