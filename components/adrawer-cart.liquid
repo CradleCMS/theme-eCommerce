@@ -15,9 +15,9 @@
                     </template>
                 </figure>
                 <article>
-                    <div>
+                    <div class="top">
                         <a :href="`{{'product' | url}}/${item.handle}/${item.variantId}`">
-                        <h5 x-text="item.title"></h5>
+                        <h5 x-text="item.title" class="bold"></h5>
                         </a>
                         <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
                     </div>
@@ -27,7 +27,7 @@
                         	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
                         	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
                         </span>
-                        <span x-text="money(cart,item.amount)"></span>
+                        <span x-text="money(cart,item.amount)" class="bold"></span>
                     </div>
                 </article>
             </li>
@@ -45,7 +45,7 @@
                 </li>
                 <li>
                     <span>{{'Total' | t:'cart'}}</span>
-                    <span x-text="money(cart, cart.amount.total)"></span>
+                    <span x-text="money(cart, cart.amount.total)" class="bold"></span>
                 </li>
             </ul>
             <button :class="button" @click="document.location = url">{{'Go to Checkout' | t:'cart'}}</button>
@@ -87,12 +87,16 @@
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     visibility: visible;
+    box-shadow: 3px 3px 20px #777;
 }
 .acart li > h5 {
     margin: 0 auto;
 }
 .acart .small {
     font-size: 0.8rem;
+}
+.acart .bold {
+    font-weight: 700;
 }
 .acart.open {
     visibility: visible;
@@ -111,15 +115,15 @@
 }   
 .acart header {
     margin: 0;
-    padding: 0.5em 1em;
+    padding: 1em;
     border-bottom: var(--b);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .acart header span {
-    font-weight: 500;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.8rem;
 }
 .acart header button {
     padding:0;
@@ -135,6 +139,7 @@
     place-self: baseline;
     height: 1rem;
     transition: all 0.2s linear;
+    opacity: 0.6;
 }
 .acart header button:hover {
     transform: rotate(44deg);
@@ -146,25 +151,29 @@
     margin: 0.5em;
 }
 .acart ul {
-    margin-top: 0.5rem;
-    list-style-type: none
+    padding-top: 0.5rem;
+    list-style-type: none;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 .acart ul li {
     padding: 0.25rem 1rem;
+    margin-bottom: 1rem; 
     display: flex;
     gap:0.5rem;
 }
 .acart article {
     display: flex;
     align-items: start;
+    justify-content: space-between;
     flex-direction: column;
-    width: 100%;
+    flex-grow: 1;
+    padding: 0.4rem 0;
 }
 .acart article div {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
     width: 100%;
 }
@@ -172,7 +181,7 @@
     text-decoration: underline;
 }
 .acart article h5 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-size: 200;
 }
 .acart article div:first-child {
@@ -181,26 +190,29 @@
 .acart article div:last-child {
     margin-top: 0.2rem;
 }
-.acart artice div .trash {
-    cursor: finger:
-    padding:0.1rem 0.2rem;
-    margin:0;
+.acart article div .trash {
+    cursor: finger;
+    padding: 0.1rem 0.2rem;
+    margin: 0;
     display: block;
     background: transparent;
-    border:none;
+    border: none;
     color: inherit;
     font-weight: 200;
     margin-left: auto;
-    place-self: end;
+    place-self: start;
+    line-height: 1;
+    opacity: 0.6;
 }
 .acart article div .trash:hover {
-    font-weight: 600;
+    opacity: 1;
 }
 .acart article div .quantity {
     display: flex;
 	overflow: hidden;
 	border: var(--b);
 	border-radius: var(--br);
+	opacity: 0.6;
 }
 .acart article div .quantity * {
 	background: transparent;
@@ -244,11 +256,13 @@
     font-size: 0.8rem;
 }
 .acart figure {
-    width: var(--tn);
-    height: var(--tn);
+    flex-shrink: 0;
 }
 .acart figure img {
+    width: var(--tn);
+    height: var(--tn);
     border-radius: var(--br);
+    border: var(--b);
 }
 .acart footer {
     border-top: var(--b);
