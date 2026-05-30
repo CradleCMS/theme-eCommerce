@@ -1,6 +1,11 @@
 {% if product.variants.size > 1 %}
     <button class="btn btn-primary btn-sm">{{ 'Choose' | t:'collection' }}</button>
 {% else %}
+    {% if settings.mainNavDrawer %} 
+        {% let redirect = '#' %}
+    {% else %}
+        {% let redirect = '/cart' %}
+    {% endif %}
     {% form 'cart_update' onSuccess:redirect class:'add-to-cart' %}
         <input type="hidden" name="product" value="{{product.id}}">
         <input type="hidden" name="quantity" value="1">
