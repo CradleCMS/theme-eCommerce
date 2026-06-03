@@ -71,6 +71,16 @@
                     </div>
                     {% endif %}
                     {% include 'coAddresses' %}
+                    <hr class="my-4 border-base-300">
+                    <div class="form-control">
+                        <label class="label">
+                            <input type="checkbox" class="checkbox" name="accepts.service" required>
+                            {{'I accept the' | t }}
+                            <a href="/pages/terms" class="link" target="_blank">
+                                {{'Terms of Service' | t}}
+                            </a>
+                        </label>
+                    </div>
                 </fieldset>
                 <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 {{ settings.general_shadow }}">
                     <h2 class="text-xl mb-2">{{ 'Payment' | t }}</h2>
