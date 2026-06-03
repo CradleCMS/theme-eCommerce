@@ -1,7 +1,7 @@
 <script>
 /* acheckout.js
  * CradleCMS Checkout helper component
- * version 1.0.1
+ * version 1.0.2
  */
 const checkoutCSS = new CSSStyleSheet()
 checkoutCSS.replaceSync(`
@@ -9,7 +9,7 @@ checkoutCSS.replaceSync(`
     display: none;
 }
 .billing-check::after {
-    content:"Billing address same as delivery address";
+    content:"{{'Billing same as delivery address' | t:'checkout'}}";
     position: absolute;
     top: 0.4em;
     left: 3em;
