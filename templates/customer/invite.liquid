@@ -9,42 +9,49 @@
       </div>
     </div>
     {% else %}
-    <div class="card-body text-center">
-        {% form 'customer_invite' id:'customer_invite' onSuccess:'/login' %}
-            {% include 'form-errors-custom' %}
-            <div class="login-header mb-8">
-              <h1 class="text-center">{{ 'Account activation' | t }}</h1> 
+        {% form 'customer_invite' class:'customer' id:'customer_invite' onSuccess:'/login' %}
+        <h1 class="text-center">{{ 'Account activation' | t }}</h1>
+        {% if invite.message != blank %}
+        <p class="text-center">{{invite.message}}</p>
+        {% endif %}
+        <p class="text-sm text-center">{{ 'Set a password to activate your account' | t }}</p>
+            
+        <div class="card-body text-center">
+            {% if request.query contains '.errors' %}
+            <div class="alert alert-error">
+                <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
             </div>
-            {% if invite.message != blank %}
-            <p class="text-center">{{invite.message}}</p>
             {% endif %}
-            <p class="text-sm text-center">{{ 'Set a password to activate your account' | t }}</p>
-            <br>
-            <div class="grid grid-cols-2 gap-2">
-                <label class="floating-label">
-                    <span>{{ 'Password' | t }}</span>
-                    <input class="input w-full" placeholder="{{ 'Password' | t }}" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
-                </label>
-                <label class="floating-label">
-                    <span>{{ 'Confirm password' | t }}</span>
-                    <input class="input w-full" placeholder="{{ 'Confirm password' | t }}" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
+            <label class="floating-label">
+                <span>{{ 'Password' | t }}</span>
+                <input class="input w-full" placeholder="{{ 'Password' | t }}" type="password" name="customer[password]" id="password" autocomplete="new-password" required/>
+            </label>
+            <label class="floating-label">
+                <span>{{ 'Confirm password' | t }}</span>
+                <input class="input w-full" placeholder="{{ 'Confirm password' | t }}" type="password" name="customer[password_confirmation]" id="password2" autocomplete="new-password" required/>
+            </label>
+            <div class="form-control">
+                <label class="label">
+                    {{'Accept Terms of Service' | t}}
+                    <input type="checkbox" class="checkbox" name="customer[accepts]service" required>
                 </label>
             </div>
-            <p class="form-contro">
+            <div class="form-control">
+                <label class="label">
+                    {{'Accept news, marketing and product updates' | t}}
+                    <input type="checkbox" class="checkbox" name="customer[accepts]marketing">
+                </label>
+            </div>
+            <p class="form-control">
               <button class="btn btn-primary border-none">{{ 'Activate account' | t }}</button>
             </p>
-            {% if request.query contains 'form-customer_invite=.errors' %}
-                    <div class="alert alert-error">
-                        <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
-                    </div>
-            {% endif %}
             <input type="hidden" name="invite" value="{{invite.id}}">
             <input type="hidden" name="token" value="{{invite.token}}">
+        </div>
         {% endform %}
-          <p class="text-center mt-4">
+        <p class="text-center mt-4">
             <small>{{ 'Already have an account with us?' | t }} <a class="" href="{{'customer/login' | url}}">{{ 'Account login' | t }}</a></small>
-          </p>
-    </div>
+        </p>
   {% endunless %}    
   </div>
 </section>
