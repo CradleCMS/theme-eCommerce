@@ -25,7 +25,12 @@
                     <span>{{ 'Last name' | t }}</span>
                     <input type="text" class="input w-full" placeholder="Last name" name="customer[lastname]" id="last_name" {% if form.errors contains "last_name" %} class="error"{% endif %}>
                 </label>
-    
+                <div class="form-control">
+                    <label class="label">
+                        {{'Accept Terms of Service' | t}}
+                        <input type="checkbox" class="checkbox" name="customer[accepts]service" required>
+                    </label>
+                </div>
                 <div class="form-control mt-8">
                     <input type="submit" value="{{ 'Create Account' | t }}" class="btn btn-primary">
                 </div>
