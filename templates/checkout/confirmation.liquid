@@ -16,15 +16,9 @@
                 <div class="font-mono">{{ order.reference | reverse | truncate:8,'' | reverse }}</div>
                 <div>{{ 'Payment' | t }}</div>
                 <div>{{ order.payment | split:'_' | last }}</div>
-                <div>{{ 'Contact' | t }}</div>
-                <div>{{ order.customerName }}</div>
-                <div>{{ 'Email' | t }}</div>
-                <div>{{ order.customerEmail }}</div>
-                <div>{{ 'Country' | t }}</div>
-                <div>{{ countries[order.country].name }} [{{order.country}}]</div>
             </div>
             <div class="border-t border-base-300 mt-2">
-                <p class="px-2">{{ 'Line items' | t }}</p>
+                <p class="px-2">{{ 'Items' | t }}</p>
                 <div class="grid grid-cols-4 px-2">
                 {% for item in order.items %}
                     <div class="col-span-2 flex gap-2 mb-4">
@@ -108,7 +102,7 @@
                   d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
               <div>
-                <div>{{ 'Order confirmation email sent to' | t }} <span class="font-bold">{{ order.customerEmail }}</span></div>
+                <div>{{ 'Order confirmation email sent to your email' | t }}</div>
                 <div class="text-xs">{{ 'Login to your <a href="/customer/account">account</a> page to see your order status and history.' | t }}</div>
               </div>
             </div>
