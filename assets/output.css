@@ -2386,6 +2386,9 @@
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
   }
+  .my-4 {
+    margin-block: calc(var(--spacing) * 4);
+  }
   .breadcrumbs {
     @layer daisyui.l1.l2.l3 {
       max-width: 100%;
@@ -6479,15 +6482,6 @@
   }
 }
 @layer base {
-  :root, [data-theme] {
-    background: var(--page-scroll-bg, var(--root-bg));
-    color: var(--color-base-content);
-  }
-  :where(:root, [data-theme]) {
-    --root-bg: var(--color-base-100);
-  }
-}
-@layer base {
   :root {
     background: var(--page-scroll-bg, var(--root-bg));
     --page-scroll-bg-on: linear-gradient(var(--root-bg, #0000), var(--root-bg, #0000))
@@ -6513,6 +6507,15 @@
   }
 }
 @layer base {
+  :root, [data-theme] {
+    background: var(--page-scroll-bg, var(--root-bg));
+    color: var(--color-base-content);
+  }
+  :where(:root, [data-theme]) {
+    --root-bg: var(--color-base-100);
+  }
+}
+@layer base {
   :root {
     scrollbar-color: currentColor #0000;
     @supports (color: color-mix(in lab, red, red)) {
@@ -6527,43 +6530,15 @@
     initial-value: 0%;
   }
 }
-@keyframes menu {
-  0% {
-    opacity: 0;
-  }
-}
-@keyframes dropdown {
-  0% {
-    opacity: 0;
-  }
-}
-@keyframes skeleton {
-  0% {
-    background-position: 150%;
-  }
-  100% {
-    background-position: -50%;
-  }
-}
 @keyframes rating {
   0%, 40% {
     scale: 1.1;
     filter: brightness(1.05) contrast(1.05);
   }
 }
-@keyframes progress {
-  50% {
-    background-position-x: -115%;
-  }
-}
-@keyframes toast {
+@keyframes menu {
   0% {
-    scale: 0.9;
     opacity: 0;
-  }
-  100% {
-    scale: 1;
-    opacity: 1;
   }
 }
 @keyframes rotator {
@@ -6577,12 +6552,40 @@
     translate: 0 -100%;
   }
 }
+@keyframes progress {
+  50% {
+    background-position-x: -115%;
+  }
+}
 @keyframes radio {
   0% {
     padding: 5px;
   }
   50% {
     padding: 3px;
+  }
+}
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+  }
+}
+@keyframes toast {
+  0% {
+    scale: 0.9;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+@keyframes skeleton {
+  0% {
+    background-position: 150%;
+  }
+  100% {
+    background-position: -50%;
   }
 }
 @property --tw-rotate-x {
