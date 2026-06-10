@@ -6,7 +6,7 @@
             <span>{{ 'CART' | t:'cart' }}</span>
             <button @click.prevent="toggleOpen()">&times;</button>
         </header>
-        <ul>
+        <ul class="items">
         <template x-for="(item,i) in cart.items" x-key(i)>
             <li>
                 <figure>
@@ -76,10 +76,11 @@
     flex-direction: column;
     overflow-y: auto;
     top: var(--cart-offset);
-    right: calc(var(--cart-width)*-1);
+    right: calc(var(--cart-width)*-2);
     width: var(--cart-width);
     height: var(--cart-height);
     max-height: calc(100% - var(--o));
+    max-width: 100%;
     background: var(--bg);
     color: var(--fg);
     border-color: var(--b);
@@ -111,7 +112,7 @@
 }
 @keyframes cart-slide-out {
   from {right: 0 }
-  to { right: calc(var(--cart-width)*-1) }
+  to { right: calc(var(--cart-width)*-2) }
 }   
 .acart header {
     margin: 0;
@@ -120,6 +121,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 0 10px rgba(100,100,100,0.5);
 }
 .acart header span {
     font-weight: 700;
@@ -159,9 +161,11 @@
 }
 .acart ul li {
     padding: 0.25rem 1rem;
-    margin-bottom: 1rem; 
     display: flex;
     gap:0.5rem;
+}
+.acart ul.items li {
+    margin-bottom: 1rem;     
 }
 .acart article {
     display: flex;
@@ -269,6 +273,7 @@
     margin: 0;
     padding: 0.5em 1em;
     margin-top: auto;
+    box-shadow: 0 0 10px rgba(100,100,100,0.5);
 }
 .acart footer ul li {
     padding: 0;
