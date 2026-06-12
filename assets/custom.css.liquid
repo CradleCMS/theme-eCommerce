@@ -39,11 +39,12 @@
 }
 .acart header span {
     text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.8rem;    
 }
 .acart article h5 {
     font-size: 0.8rem;
+}
+.acart var {
+    font-style: normal;
 }
 /* HEADER STYLES ENDS */
 .banner {
@@ -90,7 +91,6 @@ input[type=number] {
     grid-template-columns: repeat({{ settings.colProductCount | def:"4" }}, minmax(calc(1375px / {{ settings.colProductCount | def:"4" }}), 1fr));    
     overflow-x: scroll;
 }
-
 .collection-template-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(1375px / {{ settings.colProductCount | def:"4" }})) , 1fr));    

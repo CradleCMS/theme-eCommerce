@@ -1,53 +1,51 @@
-<!-- CradleCMS drawer cart component, version 1.0.5 -->
+<!-- CradleCMS drawer cart component, version 1.1.0 -->
 <template id="drawer-cart-template">
 <div x-data="{ ...drawerCart(), ...$el.parentElement.data() }" x-cloak>
     <div class="acart">
         <header>
             <span>{{ 'CART' | t:'cart' }}</span>
-            <button @click.prevent="toggleOpen()">&times;</button>
+            <button class="close" @click.prevent="toggleOpen()">&times;</button>
         </header>
-        <ul class="items">
-        <template x-for="(item,i) in cart.items" x-key(i)>
-            <li>
-                <figure>
-                    <template x-if="item.image">
-                        <img :src="`/media/product/${item.productId}/${resizeImage(item.image,thumb,true)}`" :alt="item.title">
-                    </template>
-                </figure>
+        <main class="items">
+            <template x-for="(item,i) in cart.items" x-key(i)>
                 <article>
-                    <div class="top">
-                        <a :href="`{{'product' | url}}/${item.handle}/${item.variantId}`">
-                        <h5 x-text="item.title" class="bold"></h5>
-                        </a>
-                        <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
-                    </div>
-                    <div>
-                        <span class="quantity">
-                        	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
-                        	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
-                        	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
-                        </span>
-                        <span x-text="money(cart,item.amount)" class="bold"></span>
-                    </div>
+                    <figure>
+                        <template x-if="item.image">
+                            <img :src="`/media/product/${item.productId}/${resizeImage(item.image,thumb,true)}`" :alt="item.title">
+                        </template>
+                    </figure>
+                    <aside>
+                        <div class="title">
+                            <a :href="`{{'product' | url}}/${item.handle}/${item.variantId}`">
+                                <h5 x-text="item.title"></h5>
+                            </a>
+                            <span class="trash" @click.prevent="setQuantity(i,0)">&times;</span>
+                        </div>
+                        <div class="amount">
+                            <span class="quantity">
+                            	<button class="minus" @click="setQuantity(i,item.quantity-1)">-</button>
+                            	<input type="number" name="quantity" min="0" max="10" x-model="item.quantity" @change="setQuantity(i,$event.target.value)">
+                            	<button class="plus" type="button" @click="setQuantity(i,item.quantity+1)">+</button>
+                            </span>
+                            <var class="money" x-text="money(cart,item.amount)"></var>
+                        </div>
+                    </aside>
                 </article>
-            </li>
-        </template>
-        <template x-if="!cart.items">
-            <li><h5>{{'Your cart is empty' | t:'cart'}}</h5></li>
-        </template>
-        </ul>
+            </template>
+            <template x-if="!cart.items">
+                <article><h5>{{'Your cart is empty' | t:'cart'}}</h5></article>
+            </template>
+        </main>
         <template x-if="cart.items">
         <footer>
-            <ul>
-                <li class="small">
-                    <span>{{'VAT' | t:'cart'}}</span>
-                    <span x-text="money(cart, cart.amount.vat)"></span>
-                </li>
-                <li>
-                    <span>{{'Total' | t:'cart'}}</span>
-                    <span x-text="money(cart, cart.amount.total)" class="bold"></span>
-                </li>
-            </ul>
+            <dl class="tax">
+                <dt>{{'VAT' | t:'cart'}}</dt>
+                <dd><var class="money" x-text="money(cart, cart.amount.vat)"></var></dd>
+            </dl>
+            <dl class="total">
+                <dt>{{'Total' | t:'cart'}}</dt>
+                <dd><var class="money" x-text="money(cart, cart.amount.total)"></var></dd>
+            </dl>
             <button :class="button" @click="document.location = url">{{'Go to Checkout' | t:'cart'}}</button>
         </footer>
         </template>
@@ -63,20 +61,19 @@
     position: relative;
     --bg: #fafafa;
     --fg: #555;
-    --b: 1px solid #ddd;
+    --b: 1px solid #00000022;
     --br: 3px;
     --t: 0;
     --tn: 50px;
     --o: var(--cart-offset);
-    cursor: pointer;
+    --s: 0px 4px 10px #00000044;
 }
 .acart {
-    position:fixed;
+    position: fixed;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     top: var(--cart-offset);
-    right: calc(var(--cart-width)*-2);
+    right: calc(var(--cart-width)*-1 - 2rem);
     width: var(--cart-width);
     height: var(--cart-height);
     max-height: calc(100% - var(--o));
@@ -85,34 +82,26 @@
     color: var(--fg);
     border-color: var(--b);
     z-index: 1000;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    visibility: visible;
-    box-shadow: 3px 3px 20px #777;
+    visibility: hidden;
+    box-shadow: var(--s);
 }
-.acart li > h5 {
+.acart article > h5 {
     margin: 0 auto;
-}
-.acart .small {
-    font-size: 0.8rem;
-}
-.acart .bold {
-    font-weight: 700;
 }
 .acart.open {
     visibility: visible;
-    animation: cart-slide-in 0.2s linear forwards
+    animation: cart-slide-in 0.2s linear forwards;
 }
 .acart.close {
     visibility: visible;
-    animation: cart-slide-out 0.2s linear forwards
+    animation: cart-slide-out 0.2s linear forwards;
 }
 @keyframes cart-slide-in {
   to { right: 0rem }
 }
 @keyframes cart-slide-out {
   from {right: 0 }
-  to { right: calc(var(--cart-width)*-2) }
+  to { right: calc(var(--cart-width)*-1 - 2rem) }
 }   
 .acart header {
     margin: 0;
@@ -121,7 +110,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 10px rgba(100,100,100,0.5);
 }
 .acart header span {
     font-weight: 700;
@@ -141,33 +129,33 @@
     place-self: baseline;
     height: 1rem;
     transition: all 0.2s linear;
-    opacity: 0.6;
 }
-.acart header button:hover {
+.acart header .close:hover {
     transform: rotate(44deg);
 }
-.acart section {
-    padding: 0.5em;
-}
-.acart hr {
-    margin: 0.5em;
-}
-.acart ul {
+.acart main {
     padding-top: 0.5rem;
-    list-style-type: none;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     overflow-y: auto;
+    overscroll-behavior: contain;
 }
-.acart ul li {
+.acart article {
     padding: 0.25rem 1rem;
     display: flex;
     gap:0.5rem;
 }
-.acart ul.items li {
-    margin-bottom: 1rem;     
+.acart article figure {
+    flex-shrink: 0;
 }
-.acart article {
+.acart article figure img {
+    width: var(--tn);
+    height: var(--tn);
+    border-radius: var(--br);
+    border: var(--b);
+}
+.acart article aside {
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -175,27 +163,29 @@
     flex-grow: 1;
     padding: 0.4rem 0;
 }
-.acart article div {
+.acart article aside div {
     display: flex;
     align-items: end;
     justify-content: space-between;
     width: 100%;
 }
-.acart article a:hover {
+.acart article aside a:hover {
     text-decoration: underline;
 }
-.acart article h5 {
-    font-size: 0.8rem;
-    font-size: 200;
-}
-.acart article div:first-child {
+.acart article aside .title {
     margin-top: -0.3rem;
+    font-weight: 700;
+    font-size: 0.8rem;
 }
-.acart article div:last-child {
+.acart article aside .amount {
     margin-top: 0.2rem;
 }
-.acart article div .trash {
-    cursor: finger;
+.acart article aside .amount var {
+    font-size: 0.9rem;
+}
+.acart article aside .trash {
+    cursor: pointer;
+    font-size: 1rem;
     padding: 0.1rem 0.2rem;
     margin: 0;
     display: block;
@@ -207,18 +197,17 @@
     place-self: start;
     line-height: 1;
     opacity: 0.6;
+    &:hover {
+        opacity: 1;
+    }
 }
-.acart article div .trash:hover {
-    opacity: 1;
-}
-.acart article div .quantity {
+.acart article aside .quantity {
     display: flex;
 	overflow: hidden;
 	border: var(--b);
 	border-radius: var(--br);
-	opacity: 0.6;
 }
-.acart article div .quantity * {
+.acart article aside .quantity * {
 	background: transparent;
 	color: inherit;
 	font-size: inherit;
@@ -227,12 +216,11 @@
 	min-width: 0;
 	height: 1.5rem;
 	line-height: 1;
-
 	&:focus {
 		outline: none;
 	}
 }
-.acart article div .quantity input {
+.acart article aside .quantity input {
 	width: 1.5rem;
 	min-width: 0;
 	display: inline-block;
@@ -240,7 +228,7 @@
 	font-size: 0.8rem;
 	appearance: textfield;
 }
-.acart article div .quantity button {
+.acart article aside .quantity button {
 	padding: 0;
 	cursor: pointer;
 	width: 1.5rem;
@@ -248,7 +236,6 @@
 	font-weight: normal;
 	overflow: hidden;
 	position: relative;
-	
 	&.minus {
 		border-right: var(--b);
 	}
@@ -256,29 +243,21 @@
 		border-left: var(--b);
 	}
 }
-.acart article div:last-child span {
-    font-size: 0.8rem;
-}
-.acart figure {
-    flex-shrink: 0;
-}
-.acart figure img {
-    width: var(--tn);
-    height: var(--tn);
-    border-radius: var(--br);
-    border: var(--b);
-}
 .acart footer {
     border-top: var(--b);
     margin: 0;
     padding: 0.5em 1em;
     margin-top: auto;
-    box-shadow: 0 0 10px rgba(100,100,100,0.5);
 }
-.acart footer ul li {
-    padding: 0;
+.acart footer dl {
     display: flex;
     justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0;
+}
+.acart footer .total {
+    font-size: 1rem;
+    font-weight: 600;
 }
 .acart footer button {
     margin: 1rem auto;
@@ -314,10 +293,13 @@ function drawerCart() { return {
             this.el.style.setProperty("--b",this.border);
         }
         if(this.radius) {
-            this.el.style.setProperty("--br", this.radius);
+            this.el.style.setProperty("--br",this.radius);
         }
         if(this.thumb) {
            this.el.style.setProperty("--tn",parseInt(this.thumb)+'px'); 
+        }
+        if(this.shadow) {
+            this.el.style.setProperty("--s",this.shadow);
         }
     },
     async fetch() {

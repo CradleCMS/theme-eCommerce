@@ -2386,9 +2386,6 @@
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
   }
-  .my-4 {
-    margin-block: calc(var(--spacing) * 4);
-  }
   .breadcrumbs {
     @layer daisyui.l1.l2.l3 {
       max-width: 100%;
@@ -4055,6 +4052,9 @@
   .pr-0 {
     padding-right: calc(var(--spacing) * 0);
   }
+  .pb-0 {
+    padding-bottom: calc(var(--spacing) * 0);
+  }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
   }
@@ -4307,6 +4307,12 @@
     color: var(--color-base-content);
     @supports (color: color-mix(in lab, red, red)) {
       color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+    }
+  }
+  .text-base-content\/60 {
+    color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
     }
   }
   .text-base-content\/70 {
@@ -4958,11 +4964,6 @@
       min-width: auto;
     }
   }
-  .md\:sticky {
-    @media (width >= 48rem) {
-      position: sticky;
-    }
-  }
   .md\:order-none {
     @media (width >= 48rem) {
       order: 0;
@@ -5021,11 +5022,6 @@
   .md\:max-w-\[400px\] {
     @media (width >= 48rem) {
       max-width: 400px;
-    }
-  }
-  .md\:min-w-4xl {
-    @media (width >= 48rem) {
-      min-width: var(--container-4xl);
     }
   }
   .md\:min-w-\[300px\] {
@@ -5158,6 +5154,11 @@
       line-height: var(--tw-leading, var(--text-5xl--line-height));
     }
   }
+  .lg\:sticky {
+    @media (width >= 64rem) {
+      position: sticky;
+    }
+  }
   .lg\:ml-4 {
     @media (width >= 64rem) {
       margin-left: calc(var(--spacing) * 4);
@@ -5246,6 +5247,11 @@
   .lg\:w-full {
     @media (width >= 64rem) {
       width: 100%;
+    }
+  }
+  .lg\:min-w-4xl {
+    @media (width >= 64rem) {
+      min-width: var(--container-4xl);
     }
   }
   .lg\:min-w-full {

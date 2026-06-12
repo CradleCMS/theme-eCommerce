@@ -1,7 +1,7 @@
 {% assign x = form.subTotal %}
 {% assign y = form.totalVAT %}
 {% assign totalProducts = x | plus:y %}
-<fieldset class="px-4 mb-4">
+<fieldset class="p-4 text-sm">
     <div class="flex flex-row">
         <p>{{ 'Items total' | t:'checkout' }}</p>
         <div class="ml-auto">{{ totalProducts | money }}</div>
