@@ -1,7 +1,7 @@
 <div class="w-1/2 lg:w-full">
     {% if blog.articleTags.size > 0 %}
         <h4 class="mb-2 text-lg">{{ 'Related topics' | t }}</h4>
-        <div class="flex gap-2">
+        <div class="flex gap-2 flex-wrap">
      	    {% for tag in blog.articleTags  %}
                 <a class="badge badge-accent badge-soft" href="{{ blogs[article.blog] | url}}?tags={{ tag }}">{{ tag }}</a>
             {% endfor %}
