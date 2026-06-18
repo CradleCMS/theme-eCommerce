@@ -1,0 +1,65 @@
+{% assign confirmationTitle = 'Order withdrawal' | t %}
+{% title confirmationTitle %}
+<section class="mx-auto flex flex-col items-center mt-8 form-page">
+    <h1 class="text-center text-xxl">{{confirmationTitle}}</h1>
+    {% if withdrawal.error != empty %}
+    <p><strong>{{'New request failed' | t}}</strong>: {{withdrawal.error | t }}</p>
+    {% elseif withdrawal != empty %}
+    <p>{{"Order withdrawal request has been received" | t}}</p>
+    <p>{{"Consult our"| t}} <a href="{{'page/terms' | url}}">{{"terms and conditions" |t}}</a> {{"regarding refunds and shipment returns" | t}}.</p>
+    {% else %}
+    {% form 'order_withdrawal' class:'customer' %}
+        <div class="">
+            {% if request.query contains '.errors' %}
+                <div class="alert alert-error">
+                    <span>{{ 'Sorry, looks like something went wrong, please try again.' | t }}</span>
+                </div>
+            {% endif %}
+            {% if form.success %}
+                <div role="alert" class="alert alert-vertical sm:alert-horizontal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold">{{ 'Withdrawal request started' | t }}</h3>
+                        <div class="text-xs">{{ 'We sent you an email where you can confirm your submission' | t }}</div>
+                    </div>
+                </div>
+            {% else %}
+            
+            <p class="text-sm text-center">{{'To submit an order withdrawal add information about your order.' | t}}</p>
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                <legend class="fieldset-legend required">Customer information</legend>
+                <label class="floating-label">
+                    <span>{{ 'Email' | t }}</span>
+                    <input class="input w-full" type="email" name="email" value="" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+                </label>
+            </fieldset>
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                <legend class="fieldset-legend required">Order information</legend>
+                <label class="floating-label">
+                    <span>{{ 'Order reference' | t }}</span>
+                    <input class="input w-full" type="text" name="reference" value="" placeholder="Order reference" autocorrect="off" autocapitalize="off" />
+                </label>
+                <div class="divider">{{ 'OR' | t }}</div>
+                <label class="floating-label">
+                    <span>{{ 'Order number' | t }}</span>
+                    <input class="input w-full" type="text" name="number" value="" placeholder="Order number" autocorrect="off" autocapitalize="off" />
+                </label>
+            </fieldset>
+            <fieldset class="fieldset text-center pt-8">
+                <div class="form-control">
+                    <label class="label text-base-content">
+                        <input type="checkbox" class="checkbox" name="privacy" required>
+                        <span>{{'Accept processing of personal information according to our' | t}} <a href="/pages/privacy" class="link">{{ 'privacy policy' | t }}</a></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <input type="submit" value="{{ 'Submit' | t }}" class="btn btn-primary btn-wide">
+                </div>
+            </fieldset>
+            {% endif %}
+        </div>     
+    {% endform %}
+    {% endif %}
+</section>
