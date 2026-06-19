@@ -5,8 +5,15 @@
     {% if withdrawal.error != empty %}
     <p><strong>{{'New request failed' | t}}</strong>: {{withdrawal.error | t }}</p>
     {% elseif withdrawal != empty %}
-    <p>{{"Order withdrawal request has been received" | t}}</p>
-    <p>{{"Consult our"| t}} <a href="{{'page/terms' | url}}">{{"terms and conditions" |t}}</a> {{"regarding refunds and shipment returns" | t}}.</p>
+        <div role="alert" class="alert alert-vertical sm:alert-horizontal">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+                <h3 class="font-bold mb-2">{{"Order withdrawal request has been received" | t}}</h3>
+                <div class="text-xs">{{"Consult our"| t}} <a class="link" href="{{'page/terms' | url}}">{{"terms and conditions" |t}}</a> {{"regarding refunds and shipment returns" | t}}.</div>
+            </div>
+        </div>
     {% else %}
     {% form 'order_withdrawal' class:'customer' %}
         <div class="">
@@ -40,11 +47,6 @@
                 <label class="floating-label">
                     <span>{{ 'Order reference' | t }}</span>
                     <input class="input w-full" type="text" name="reference" value="" placeholder="Order reference" autocorrect="off" autocapitalize="off" />
-                </label>
-                <div class="divider">{{ 'OR' | t }}</div>
-                <label class="floating-label">
-                    <span>{{ 'Order number' | t }}</span>
-                    <input class="input w-full" type="text" name="number" value="" placeholder="Order number" autocorrect="off" autocapitalize="off" />
                 </label>
             </fieldset>
             <fieldset class="fieldset text-center pt-8">
