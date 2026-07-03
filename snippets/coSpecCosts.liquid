@@ -19,6 +19,15 @@
         </div>
         {% endif %}
     {% endif %}
+     {% if form.discounts != empty %}
+     <label class="label label-sm">Discounts</label>    
+     {% for discount in form.discounts %}
+        <div class="flex flex-row">
+            <p>{{ discount.title | t:'checkout' }}</p>
+            <div class="ml-auto">{{ discount.value | money }}</div>
+        </div>
+    {% endfor %}
+    {% endif %}
     <div class="flex flex-row mt-2">
         <strong>{{ 'Total amount (incl. VAT)' | t:'checkout' }}</strong>
         <div class="ml-auto font-bold">{{ form.grandTotal | money }}</div>

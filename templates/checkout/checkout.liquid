@@ -20,7 +20,7 @@
                     <h2 class="text-xl mb-2">{{ 'Shipping' | t }}</h2>
                     {% if countries.size > 1 %}
                         <label class="floating-label mb-2">
-                            {{ 'Delivery to' | t }}
+                            <span>{{ 'Delivery to' | t }}</span>
                             {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
                         </label>
                     {% endif %}
@@ -43,23 +43,25 @@
         	    
         	    <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
         	        <h2 class="text-xl mb-2">{{ 'Details' | t }}</h2>
-        	        <h3 class="text-base font-bold">{{ 'Customer information' | t }}</h3>
+        	        <h3 class="text-base font-bold mb-1">{{ 'Customer information' | t }}</h3>
                     {% if customer %}
                         <p>{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
                         <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
                     {% else %}
                     <label class="floating-label mb-2">
-                        {{ 'Email' | t }}
+                        <span>{{ 'Email' | t }}</span>
                         <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
                     </label>
                     {% endif %}
                     {% if shop.settings.b2b %}
                     <div class="p-4">
                         <label class="label m-2">{{ 'VAT identification' | t }}</label>
-                        <label class="floating-label"><span>{{ 'Company name' | t }}</span>
+                        <label class="floating-label">
+                            <span>{{ 'Company name' | t }}</span>
                             <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
                         </label>
-                        <label class="floating-label mt-2"><span>{{ 'VAT number' | t }}</span>
+                        <label class="floating-label mt-2">
+                            <span>{{ 'VAT number' | t }}</span>
                             <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
                         </label>
                     </div>
