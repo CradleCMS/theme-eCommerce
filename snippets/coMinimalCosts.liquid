@@ -1,19 +1,30 @@
 {% assign x = form.subTotal %}
 {% assign y = form.totalVAT %}
 {% assign totalProducts = x | plus:y %}
-<fieldset class="p-4 text-sm">
-    <div class="flex flex-row">
+<fieldset class="p-4 pt-0 text-sm">
+    <div class="flex flex-row mb-4">
         <p>{{ 'Items total' | t:'checkout' }}</p>
-        <div class="ml-auto">{{ totalProducts | money }}</div>
+        <div class="ml-auto font-bold">{{ totalProducts | money }}</div>
     </div>
     {% if form.shipping %}
-    <div class="flex flex-row mt-2">
+    <div class="flex flex-row mb-4">
         <p>{{ 'Shipping' | t:'checkout' }} <span class="text-sm">({{ form.shipping.carrierName }})</span></p>
         <div class="ml-auto">{{ form.shipping.cost.total | money }}</div>
     </div>
+    {% endif %}
+    {% if form.discounts != empty %}
+        <div class="mb-2">
+            {% for discount in form.discounts %}
+            <div class="flex flex-row">
+                <p class="badge badge-neutral p-2 mb-1">{{ discount.title | t:'checkout' }}</p>
+                <div class="ml-auto">-{{ discount.value | money }}</div>
+            </div>
+            {% endfor %}            
+        </div>
     {% endif %}
     <div class="flex flex-row mt-2">
         <p class="text-lg"><span class="font-bold">{{ 'Total amount' | t:'checkout' }} </span>{% if form.totalVAT > 0 %}<span class="text-sm">({{ 'incl. VAT' | t:'checkout' }})</span>{% endif %}</p>
         <p class="ml-auto font-bold text-lg">{{ form.totalAmount | money }}</p>
     </div>
 </fieldset>
+
