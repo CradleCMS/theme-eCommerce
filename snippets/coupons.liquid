@@ -1,0 +1,17 @@
+{% form 'cart' class:'form' %}
+<div class="join p-2">
+    <label class="input join-item">
+        <span>{{'Coupon' | t:'cart'}}</span>
+        <div class="divider divider-horizontal m-0"></div>
+        <input type="text" class="grow" name="coupon" value="">
+    </label>
+    <button class="btn join-item">{{'Apply' | t:'cart'}}</button>
+</div>
+<div class="p-2">
+    {% for c in cart.coupons %}
+    <div class="flex gap-1">
+        <span class="badge badge-sm badge-outline border-dashed">{{c}}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endform %}
