@@ -74,7 +74,18 @@
                                 <em>{{ 'taxes' | t }}</em>
                                 <div class="ml-auto">{{ order.shipping.cost.totalTax | money }}</div>
                             </div>
-                        {% endif %} 
+                        {% endif %}
+                        {% for discount in order.discounts %}
+                            <div class="grid grid-cols-2 ml-2 text-sm">
+                                <div>
+                                    <span>{{ discount.title | t:'checkout' }}</span>
+                                    {% if discount.coupon != blank %}
+                                        <span class="badge badge-sm badge-outline border-dashed">{{discount.coupon}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="ml-auto">-{{ discount.value | money }}</div>
+                            </div>
+                        {% endfor %}
                         <div class="grid grid-cols-2 mt-2">
                             <strong>{{ 'Total amount' | t }}</strong>
                             <div class="ml-auto font-bold"><strong>{{ order.totalAmount | money }}</strong></div>
