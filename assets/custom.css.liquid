@@ -120,6 +120,10 @@ input[type=number] {
     gap: 0.1rem;
 }
 
+dl.grid {
+  grid-template-columns: 1fr auto;
+}
+
 {% if settings.border_radius != blank%}
 body {
   --radius-box: {{settings.border_radius}};
