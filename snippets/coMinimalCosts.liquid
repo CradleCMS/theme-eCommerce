@@ -15,7 +15,7 @@
             <div class="flex flex-row">
                 <p class="mb-1">{{ discount.title | t:'checkout' }}
                 {% if discount.coupon != blank %}
-                    <span class="badge badge-sm badge-outline order-dashed p-1">{{discount.coupon}}</span>
+                    <span class="badge badge-sm badge-outline border-dashed">{{discount.coupon}}</span>
                 {% endif %}
                 </p>
                 <div class="ml-auto">-{{ discount.value | money }}</div>
