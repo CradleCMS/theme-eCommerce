@@ -6,7 +6,7 @@
             	{% form 'cart' class:'w-full border border-1 border-base-300 rounded p-4 mt-4' method:"POST" %}
             	    
             		{% for item in cart.items %}
-            		    <div class="p-2">
+            		    <div class="p-2 border-b border-base-300 mb-2">
                 		    {% let vt = item.title | split:'|' %}
                             <a href="{{item | url}}" class="flex items-top place-items-center gap-2">
                                 <img src="{{item | product_img_url:'thumb'}}" class="rounded"/>
@@ -24,36 +24,54 @@
                                     <div class="text-sm mr-2">{{ item.price | money }}&nbsp;&times</div>
                                     <div class="join mr-2">
                                 		<button class="btn btn-sm join-item btn-outline border-base-300" @click.prevent="shop.quantityAdjust('{{item.id}}',{{ item.quantity }}-1)">&minus;</button>
-                                		<input class="input input-sm join-item text-center w-12" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" readonly>
+                                		<input class="input-sm join-item text-center w-10 border-x-0 border-base-300" type="text" min="0" name="quantity[{{item.id}}]" id="updates_{{ forloop.index0 }}" value="{{ item.quantity }}" readonly>
                                 		<button class="btn btn-sm join-item btn-outline border-base-300" @click.prevent="shop.quantityAdjust('{{item.id}}',{{ item.quantity }}+1)">&plus;</button>
                             		</div>
                         		</div>
-                    			<div class="flex-0 text-right ml-auto text-lg pt-2">{{ item.amount | money }}</div>
+                    			<div class="flex-0 text-right ml-auto pt-2">{{ item.amount | money }}</div>
                             </div>            		        
             		    </div>
             	    {% endfor %}
-            			<div class="flex flex-col gap-4 border-t border-base-300 mt-4 pt-2">
-        					{% if settings.cartNotesEnabled %}
-        					{% comment %}
-        					    Optional, add a textarea for order notes
-        						- Turn this on or off in the Theme settings. Default is off.
-        				    {% endcomment %}
-        					<div>
-        						<label class="label text-sm pt-1" for="notes">{{ 'Leave instructions to seller' | t }}</label>
-        						<textarea name="notes" class="textarea w-full">{{ cart.notes }}</textarea>
+            	        {% if settings.cartNotesEnabled %}
+            	            <div class="form-control">
+        					    <label class="label text-sm pt-1" for="notes">{{ 'Leave instructions to seller' | t }}</label>
+        					    <textarea id="notes" name="notes" class="textarea w-full">{{ cart.notes }}</textarea>
         					</div>
-        					{% endif %}
-        					<div class="w-full text-right text-base pt-4 pb-2">
-        					    {% unless shop.priceIncludesVat %}<p class="text-sm"><p>{{ 'Subtotal' | t }} {{ cart.amount.sub | money }}</p>{% endunless %}
-        					    <p class="text-sm">{% if shop.priceIncludesVat %}{{ 'Included taxes' | t }} {% else %}{{ 'Taxes' | t }} {% endif %}{{ cart.amount.vat | money }}</p>
-        					    <p class="text-lg pt-2 font-bold">{{ 'Total' | t }} {{ cart.amount.total | money }}</p>
-        					</div>
-        					<div class="flex flex-row flex-wrap justify-end w-full gap-2 items-baseline">
-        					    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' | t }}">
-        					    <a href="/checkout" class="btn btn-sm btn-success">{{ 'Check out' | t }}</a>  
-        					    <!--input type="submit" name="checkout" class="btn btn-sm btn-success" value="{{ 'Check out' }}"-->            					    
-        					</div>
-            			</div>
+        				{% endif %}
+        				
+            			<dl class="grid gap-x-2 text-right">
+            			    {% if cart.selectedShipping %}
+                            <dt>
+                                {{ 'Shipping' | t:'checkout' }} <span class="text-sm">({{ cart.selectedShipping.carrierName }})</span>
+                            </dt>
+                            <dd>{{ cart.selectedShipping.cost.total | money }}</dd>
+                            {% endif %}
+            			    {% for discount in cart.discounts %}
+                            <dt>
+                                <span class="text-sm">
+                                    <span>{{ discount.title | t:'checkout' }}</span>
+                                    {% if discount.coupon != blank %}
+                                        <span class="badge badge-sm badge-outline border-dashed">{{discount.coupon}}</span>
+                                    {% endif %}
+                                </span>
+                            </dt>
+                            <dd><span class="text-sm">-{{ discount.value | money }}</span></dd>
+                            {% endfor %}
+        					
+        					{% unless shop.priceIncludesVat %}
+        					    <dt>{{ 'Subtotal' | t }}</dt>
+        					    <dd>{{ cart.amount.sub | money }}</dd>
+        					{% endunless %}
+        					<dt>{% if shop.priceIncludesVat %}{{ 'Included taxes' | t }}{% else %}{{ 'Taxes' | t }}{% endif %}</dt>
+        					<dd>{{ cart.amount.vat | money }}</dd>
+        					<dt class="mt-2 text-lg"><span class="font-bold">{{ 'Total' | t }}</span></dt> 
+        					<dd class="mt-2 text-lg"><span class="font-bold">{{ cart.totalAmount | money }}</span></dd>
+            			</dl>
+            			<div class="flex flex-row flex-wrap justify-end w-full gap-2 items-baseline mt-4">
+        				    <input type="submit" name="update" class="btn btn-sm btn-outline update-cart" value="{{ 'Update Cart' | t }}">
+        				    <a href="/checkout" class="btn btn-sm btn-success">{{ 'Check out' | t }}</a>  
+        					<!--input type="submit" name="checkout" class="btn btn-sm btn-success" value="{{ 'Check out' }}"-->            					    
+        				</div>
             		</div>
             	{% endform %}
             	 <a href="/" class="btn btn-link">{{ 'Keep on shopping' | t }}</a>
