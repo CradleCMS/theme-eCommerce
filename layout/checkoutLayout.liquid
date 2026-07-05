@@ -20,6 +20,7 @@
         <link rel="stylesheet" type="text/css" href="{{ 'output.css' | asset_url }}">
         {% endif %}
         <link rel="stylesheet" type="text/css" href="{{ 'custom.css.liquid' | asset_url }}">
+        {{ contentForHeader }}
     </head>
     <body id="{{ meta.title | handle }}" class="bg-base-200 text-base-content flex flex-col min-h-[100vh] justify-between {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | split: ' ' | first | handle }}">
         {{ 'alpine.min.js' | script_tag }}
