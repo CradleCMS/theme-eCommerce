@@ -86,7 +86,7 @@
                     {%- if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif -%} 
                     {%- if variant.id == product.selectedVariant.id %} selected{% endif -%}
                     {%- unless variant.available %} disabled{% endunless -%}>
-                    {{variant.title | remove_first:' | ' | capitalize  }}</option>
+                    {{variant.title | remove_first:' | '  }}</option>
                     {% endfor %}
                 </select>
                 {% else %}
