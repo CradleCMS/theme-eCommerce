@@ -1,26 +1,29 @@
 <section class="flex flex-col lg:flex-row gap-8 justify-center">
     {% if product.images.size > 0 %}
+        {% assign selectedImage = product.images[0] %}
         {% if product.images.size > 1 %}
             {% if settings.ppThumbPosition == "left" %}
                 <div class="image-box aspect-3/2 lg:aspect-auto lg:basis-3/5 flex flex-row gap-2">
                   <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll max-h-[80vh]">
                     {% for image in product.images %}
+                        {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
                         <img class="thumb rounded border border-1 border-base-300" width="150px" src="{{ image.src | product_img_url:150,0 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
                     {% endfor %}
                   </nav>
                   <figure class="basis-4/5">
-                      <img id="main-image" class="product-image rounded m-auto max-h-full lg:max-h-[80vh]" src="{{ product.images[0] | product_img_url:590,0 }}" alt="{{ product.images[0].alt }}" />
+                      <img id="main-image" class="product-image rounded m-auto max-h-full lg:max-h-[80vh]" src="{{ selectedImage | product_img_url:590,0 }}" alt="{{ selectedImage.alt }}" />
                   </figure>
                 </div>
             {% elseif settings.ppThumbPosition == "beneath" %}
                 <div class="image-box lg:basis-3/5 flex flex-col-reverse justify-end gap-2">
                   <nav class="flex flex-row gap-2 overflow-scroll">
                     {% for image in product.images %}
+                        {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
                         <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
                     {% endfor %}
                   </nav>
                   <figure class="h-[50vh] grid">
-                      <img id="main-image" class="product-image rounded max-h-full place-self-center" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
+                      <img id="main-image" class="product-image rounded max-h-full place-self-center" src="{{ selectedImage | product_img_url:800,0 }}" alt="{{ selectedImage.alt }}" />
                   </figure>
                 </div>
             {% else %}
@@ -33,7 +36,7 @@
         {% else %}
             <div class="lg:basis-1/2 grid">
               <figure class="place-self-center">
-                <img class="rounded" id="main-image" src="{{ product.images[0] | product_img_url:800,0 }}" alt="{{ product.images[0].alt }}" />
+                <img class="rounded" id="main-image" src="{{ selectedImage | product_img_url:800,0 }}" alt="{{ selectedImage.alt }}" />
               </figure>
             </div>
         {% endif %}
@@ -69,7 +72,7 @@
         </ul>
         {% endif %}
         <div>
-            <p id="product-price" class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.selectedVariant.price | money }}</p>
+            <p id="product-price" class="text-2xl md:text-3xl lg:text-3xl mb-2 ml-2">{{ product.variant.price | money }}</p>
             {% if settings.mainNavDrawer %} 
                 {% let redirect = request.path %}
             {% else %}
@@ -80,26 +83,26 @@
                 <input type="hidden" name="quantity" value="1">
                 {% if product.variants.size > 1 %}
                 <div class="flex">
-                <select id="variant-select" class="select select-bordered max-w-xs " name="variant" value="{{product.selectedVariant.id}}">
+                <select id="variant-select" class="select select-bordered max-w-xs " name="variant" value="{{product.variant.id}}">
                     {% for variant in product.variants %}
                     <option class="option" data-price="{{variant.price | money}}" value="{{variant.id}}" 
                     {%- if variant.image %}data-large="{{ variant.image | product_img_url:590,0 }}"{% endif -%} 
-                    {%- if variant.id == product.selectedVariant.id %} selected{% endif -%}
+                    {%- if variant.id == product.variant.id %} selected{% endif -%}
                     {%- unless variant.available %} disabled{% endunless -%}>
-                    {{variant.title | remove_first:' | '  }}</option>
+                    {{variant.title | remove_first:' | '   }}</option>
                     {% endfor %}
                 </select>
                 {% else %}
-                <input type="hidden" name="variant" value="{{product.selectedVariant.id}}">
+                <input type="hidden" name="variant" value="{{product.variant.id}}">
                 {% endif %}
                 
                <button name="submit" {% if settings.mainNavDrawer %}@click="sessionStorage.setItem('cart_drawer_target', 'open')"{% endif %} class="btn btn-accent ml-2"
-               {% unless product.selectedVariant.available %}
+               {% unless product.variant.available %}
                btn-disabled
                {% endunless %}
-               {% unless product.selectedVariant.available %}disabled{% endunless %}
+               {% unless product.variant.available %}disabled{% endunless %}
                >
-               {% if product.selectedVariant.available %}
+               {% if product.variant.available %}
                {{ 'Add to cart' | t }}
                {% else %}
                {{ 'Out of stock' | t }}
