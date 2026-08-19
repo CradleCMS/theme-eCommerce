@@ -39,8 +39,5 @@ The repo contains a builder included for generating the tailwind CSS file for pr
 
 ## References
 
-* <https://daisyui.com/> - daisyUI webpage
-* <https://tailwindcss.com/> - Tailwind CSS (daisyUI is created ontop of Tailwind)
-* <https://alpinejs.dev/> - Alpine JS framework
 * <https://cradlecms.com/> - Cradle CMS & eCommerce software
 * <https://cradlecms.com/blogs/ecommerce-guides/article/ecommerce-theme> - Go to theme documentation
