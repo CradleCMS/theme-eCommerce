@@ -779,7 +779,7 @@
         },
         {
           "caption": "Content width",
-          "key": "page_width",
+          "key": "pageWidth",
           "options": [
             {
               "caption": "Narrow",
@@ -803,6 +803,17 @@
             }
           ],
           "type": "select"
+        },
+        {
+          "caption": "Contact page",
+          "key": "pageContact",
+          "type": "header"
+        },
+        {
+          "caption": "Form",
+          "default": "Select form",
+          "key": "pageContactform",
+          "type": "form"
         }
       ],
       "default": null
