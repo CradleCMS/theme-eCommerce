@@ -4737,6 +4737,9 @@
   .max-w-\[65rem\] {
     max-width: 65rem;
   }
+  .max-w-\[80\%\] {
+    max-width: 80%;
+  }
   .max-w-\[80ch\] {
     max-width: 80ch;
   }
