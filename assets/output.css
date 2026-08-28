@@ -817,6 +817,9 @@
       scale: 0.75;
       pointer-events: auto;
     }
+    :is(.floating-label:focus-within, .floating-label:not(:has(input:placeholder-shown, textarea:placeholder-shown))) :dir(rtl)::placeholder {
+      translate: 12.5% calc(-50% - 0.125em);
+    }
     :is(.floating-label:focus-within, .floating-label:not(:has(input:placeholder-shown, textarea:placeholder-shown))) > span {
       opacity: 100%;
       top: 0;
@@ -824,6 +827,20 @@
       scale: 0.75;
       pointer-events: auto;
       z-index: 2;
+    }
+    :is(.floating-label:focus-within, .floating-label:not(:has(input:placeholder-shown, textarea:placeholder-shown))) > span:dir(rtl) {
+      translate: 12.5% calc(-50% - 0.125em);
+    }
+    :is(.floating-label:focus-within, .floating-label:not(:has(input:placeholder-shown, textarea:placeholder-shown))) > span {
+      opacity: 100%;
+      top: 0;
+      translate: -12.5% calc(-50% - 0.125em);
+      scale: 0.75;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    :is(.floating-label:focus-within, .floating-label:not(:has(input:placeholder-shown, textarea:placeholder-shown))) > span:dir(rtl) {
+      translate: 12.5% calc(-50% - 0.125em);
     }
     .floating-label:has(:disabled, [disabled]) > span {
       opacity: 0%;
@@ -3373,6 +3390,9 @@
   }
   .col-span-2 {
     grid-column: span 2 / span 2;
+  }
+  .col-span-4 {
+    grid-column: span 4 / span 4;
   }
   @layer daisyui.l1.l2.l3 {
     .hero {

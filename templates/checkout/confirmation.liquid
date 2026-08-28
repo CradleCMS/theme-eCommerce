@@ -37,61 +37,59 @@
                         <span class="ml-4">{{ item.amount | money }}</span>
                     </div>
         	    {% endfor %}
-                <div class="col-span-2"></div>
-                    <div class="col-span-2 place-self-center text-right border-t w-full mt-4">
-                        {% if shop.priceIncludesVat %}
-                            {% assign x = order.amount.sub %}
-                            {% assign y = order.amount.vat %}
-                            {% assign totalProducts = x | plus:y %}
-                            <div class="grid grid-cols-2 mt-2">
-                                <em>{{ 'Items total' | t }}</em>
-                                <div class="ml-auto">{{ totalProducts | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 text-sm">
-                                <em>{{ 'Included taxes' | t }}</em>
-                                <div class="ml-auto">{{ order.amount.vat | money }}</div>
-                            </div>
-                        {% else %}
-                            <div class="grid grid-cols-2">
-                                <em>{{ 'Subtotal' | t }}</em>
-                                <div class="ml-auto">{{ order.amount.sub | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <em>{{ 'Taxes' | t }}</em>
-                                <div class="ml-auto">{{ order.amount.vat | money }}</div>
-                            </div>
-                        {% endif %}
-                        {% if order.shipping != empty %}
-                             <div class="grid grid-cols-2 mt-2">
-                                <em>{{ 'Shipping' | t }}</em>
-                                <div class="ml-auto">{{ order.shipping.cost.total | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 ml-2 text-sm">
-                                <em>{{ 'handling &amp; delivery' | t }}</em>
-                                <div class="ml-auto">{{ order.shipping.cost.sub | money }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 ml-2 text-sm">
-                                <em>{{ 'taxes' | t }}</em>
-                                <div class="ml-auto">{{ order.shipping.cost.totalTax | money }}</div>
-                            </div>
-                        {% endif %}
-                        {% for discount in order.discounts %}
-                            <div class="grid grid-cols-2 ml-2 text-sm">
-                                <div>
-                                    <span>{{ discount.title | t:'checkout' }}</span>
-                                    {% if discount.coupon != blank %}
-                                        <span class="badge badge-sm badge-outline border-dashed">{{discount.coupon}}</span>
-                                    {% endif %}
-                                </div>
-                                <div class="ml-auto">-{{ discount.value | money }}</div>
-                            </div>
-                        {% endfor %}
+                <div class="col-span-4 place-self-center text-right border-t w-full mt-4">
+                    {% if shop.priceIncludesVat %}
+                        {% assign x = order.amount.sub %}
+                        {% assign y = order.amount.vat %}
+                        {% assign totalProducts = x | plus:y %}
                         <div class="grid grid-cols-2 mt-2">
-                            <strong>{{ 'Total amount' | t }}</strong>
-                            <div class="ml-auto font-bold"><strong>{{ order.totalAmount | money }}</strong></div>
+                            <em>{{ 'Items total' | t }}</em>
+                            <div class="ml-auto">{{ totalProducts | money }}</div>
                         </div>
+                        <div class="grid grid-cols-2 text-sm">
+                            <em>{{ 'Included taxes' | t }}</em>
+                            <div class="ml-auto">{{ order.amount.vat | money }}</div>
+                        </div>
+                    {% else %}
+                        <div class="grid grid-cols-2">
+                            <em>{{ 'Subtotal' | t }}</em>
+                            <div class="ml-auto">{{ order.amount.sub | money }}</div>
+                        </div>
+                        <div class="grid grid-cols-2">
+                            <em>{{ 'Taxes' | t }}</em>
+                            <div class="ml-auto">{{ order.amount.vat | money }}</div>
+                        </div>
+                    {% endif %}
+                    {% if order.shipping != empty %}
+                         <div class="grid grid-cols-2 mt-2">
+                            <em>{{ 'Shipping' | t }}</em>
+                            <div class="ml-auto">{{ order.shipping.cost.total | money }}</div>
+                        </div>
+                        <div class="grid grid-cols-2 ml-2 text-sm">
+                            <em>{{ 'handling &amp; delivery' | t }}</em>
+                            <div class="ml-auto">{{ order.shipping.cost.sub | money }}</div>
+                        </div>
+                        <div class="grid grid-cols-2 ml-2 text-sm">
+                            <em>{{ 'taxes' | t }}</em>
+                            <div class="ml-auto">{{ order.shipping.cost.totalTax | money }}</div>
+                        </div>
+                    {% endif %}
+                    {% for discount in order.discounts %}
+                        <div class="grid grid-cols-2 ml-2 text-sm">
+                            <div>
+                                <span>{{ discount.title | t:'checkout' }}</span>
+                                {% if discount.coupon != blank %}
+                                    <span class="badge badge-sm badge-outline border-dashed">{{discount.coupon}}</span>
+                                {% endif %}
+                            </div>
+                            <div class="ml-auto">-{{ discount.value | money }}</div>
+                        </div>
+                    {% endfor %}
+                    <div class="grid grid-cols-2 mt-2">
+                        <strong>{{ 'Total amount' | t }}</strong>
+                        <div class="ml-auto font-bold"><strong>{{ order.totalAmount | money }}</strong></div>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="border-t w-full mt-4 border-base-300 text-center pt-2">
                 <span class="text-sm opacity-75">{{ site.name }}, {{ site.organisation }}, {{ site.location }}. {{ site.contact }}</span>
