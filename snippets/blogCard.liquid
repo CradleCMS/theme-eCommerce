@@ -1,8 +1,18 @@
-<div class="card {{ settings.general_shadow }} bg-base-200 h-fit">
+<div class="card {{ settings.general_shadow }} bg-base-200">
    {% unless article.image == empty %}
-  <figure>
-      <img src="{{ article | img_url:0,500 }}" alt="{{ article.image.alt }}" />
-  </figure>
+    <figure>
+        {% if settings.articleCardImg == "white" %}
+            {{ article | img_tag:"500x300","whitefit",class:"p-2 bg-white" }}
+        {% elseif settings.articleCardImg == "black" %}
+            {{ article | img_tag:"500x300","blackfit",class:"p-2 bg-black" }}
+        {% elseif settings.articleCardImg == "square" %}
+             {{ article | img_tag:"500x500","cropped" }}
+            {% elseif settings.articleCardImg == "landscape" %}
+             {{ article | img_tag:"500x300","cropped" }}
+        {% else %}
+            {{ article | img_tag:"500x" }}
+        {% endif %}
+    </figure>
   {% endunless %}
   <div class="card-body">
     {% if article.tags.size > 0 %}

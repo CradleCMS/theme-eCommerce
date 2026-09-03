@@ -851,16 +851,6 @@
       "caption": "Blogs",
       "settings": [
         {
-          "caption": "Article page",
-          "key": "articleHeader",
-          "type": "header"
-        },
-        {
-          "caption": "Show related articles",
-          "key": "articleRelated",
-          "type": "checkbox"
-        },
-        {
           "caption": "Blog page",
           "description": "Main blog page displaying the posts",
           "key": "blogpage",
@@ -876,6 +866,48 @@
           "description": "Shows icons for RSS and atom feed links",
           "key": "blogFeeds",
           "type": "checkbox"
+        },
+        {
+          "caption": "Article page",
+          "key": "articleHeader",
+          "type": "header"
+        },
+        {
+          "caption": "Show related articles",
+          "key": "articleRelated",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Article card",
+          "key": "articleCard",
+          "type": "header"
+        },
+        {
+          "caption": "Show related articles",
+          "key": "articleCardImg",
+          "options": [
+            {
+              "caption": "White border",
+              "value": "white"
+            },
+            {
+              "caption": "Black border",
+              "value": "black"
+            },
+            {
+              "caption": "Square, cropped",
+              "value": "square"
+            },
+            {
+              "caption": "Landscape, cropped",
+              "value": "landscape"
+            },
+            {
+              "caption": "Large, uncropped",
+              "value": "large"
+            }
+          ],
+          "type": "select"
         }
       ],
       "default": null
