@@ -85,7 +85,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
       </div>
       {% endif %}
 
-        <a class="logo" href="/">
+        <a class="logo" href="{{ site | url }}">
             <img src="/logo.png" alt="{{ site.name }}" class="p-0 max-w-full">
         </a>
 
@@ -183,7 +183,7 @@ Responsive header with dropdown menu on small screens and click‑based mega men
             </div>
         </a-drawer-cart>
     {% else %}
-        <a href="/cart"
+        <a href="{{ cart | url}}"
            class="relative inline-block p-2 pl-0 group">
 
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
