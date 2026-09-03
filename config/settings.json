@@ -883,7 +883,7 @@
           "type": "header"
         },
         {
-          "caption": "Show related articles",
+          "caption": "Image",
           "key": "articleCardImg",
           "options": [
             {
