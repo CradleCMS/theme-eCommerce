@@ -190,6 +190,9 @@
   }
 }
 @layer utilities {
+  .\@container {
+    container-type: inline-size;
+  }
   @layer daisyui.l1.l2.l3 {
     .modal {
       pointer-events: none;
