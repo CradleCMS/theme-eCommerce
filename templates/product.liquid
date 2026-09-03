@@ -1,65 +1,63 @@
 <section class="flex flex-col lg:flex-row gap-8 justify-center">
-    {% if product.images.size > 0 %}
+    {% if product.images.size > 1 %}
         {% assign selectedImage = product.images[0] %}
-        {% if product.images.size > 1 %}
-            {% if settings.ppThumbPosition == "left" %}
-                <div class="image-box aspect-3/2 lg:aspect-auto lg:basis-3/5 flex flex-row gap-2">
-                  <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll max-h-[80vh]">
-                    {% for image in product.images %}
-                        {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
-                        <img class="thumb rounded border border-1 border-base-300" width="150px" src="{{ image.src | product_img_url:150,0 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
-                    {% endfor %}
-                  </nav>
-                  <figure class="basis-4/5">
-                      <img id="main-image" class="product-image rounded m-auto max-h-full lg:max-h-[80vh]" src="{{ selectedImage | product_img_url:590,0 }}" alt="{{ selectedImage.alt }}" />
-                  </figure>
-                </div>
-            {% elseif settings.ppThumbPosition == "beneath" %}
-                <div class="image-box lg:basis-3/5 flex flex-col-reverse justify-end gap-2">
-                  <nav class="flex flex-row gap-2 overflow-scroll">
-                    {% for image in product.images %}
-                        {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
-                        <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
-                    {% endfor %}
-                  </nav>
-                  <figure class="h-[50vh] grid">
-                      <img id="main-image" class="product-image rounded max-h-full place-self-center" src="{{ selectedImage | product_img_url:800,0 }}" alt="{{ selectedImage.alt }}" />
-                  </figure>
-                </div>
-            {% else %}
-            <div class="flex h-[300px] overflow-x-auto lg:basis-3/5 lg:block lg:h-auto lg:columns-2 lg:gap-1">
+        {% if settings.ppThumbPosition == "left" %}
+            <div class="image-box aspect-3/2 lg:aspect-auto lg:basis-3/5 flex flex-row gap-2">
+              <nav class="flex basis-1/5 flex-col gap-2 overflow-scroll max-h-[80vh]">
                 {% for image in product.images %}
-                    <img class="product-image rounded border border-1 border-base-300 lg:min-w-full sm:min-w-auto" data-index="{{ forloop.index0 }}" data-modal="{{ image.src | product_img_url:1200,0 }}" data-file="{{ image.src }}" src="{{ image.src | product_img_url:300,0 }}" alt="{{ image.alt }}">
+                    {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
+                    <img class="thumb rounded border border-1 border-base-300" width="150px" src="{{ image.src | product_img_url:150,0 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:590,0 }}" alt="{{ image.alt }}">
                 {% endfor %}
-            </div>
-            {% endif %}
-        {% else %}
-            <div class="lg:basis-1/2 grid">
-              <figure class="place-self-center">
-                <img class="rounded" id="main-image" src="{{ selectedImage | product_img_url:800,0 }}" alt="{{ selectedImage.alt }}" />
+              </nav>
+              <figure class="basis-4/5">
+                  <img id="main-image" class="product-image rounded m-auto max-h-full lg:max-h-[80vh]" src="{{ selectedImage | product_img_url:590,0 }}" alt="{{ selectedImage.alt }}" />
               </figure>
             </div>
-        {% endif %}
-        <dialog id="slider" class="modal w-full h-full">
-          <div class="w-full h-full bg-base-100 text-base-content grid place-content-center">
-              <form method="dialog" class="fixed top-4 right-4">
-                <button class="btn btn-sm btn-circle btn-neutral">✕</button>
-              </form>
+        {% elseif settings.ppThumbPosition == "beneath" %}
+            <div class="image-box lg:basis-3/5 flex flex-col-reverse justify-end gap-2">
+              <nav class="flex flex-row gap-2 overflow-scroll">
+                {% for image in product.images %}
+                    {% if image.src == product.variant.image %}{% assign selectedImage = image %}{% endif %}
+                    <img class="thumb rounded border border-1 border-base-300 max-h-[50px] md:max-h-[150px] lg:max-h-[150px]" height="150px" src="{{ image.src | product_img_url:0,150 }}" data-index="{{ forloop.index0 }}" data-large="{{ image.src | product_img_url:800,0 }}" alt="{{ image.alt }}">
+                {% endfor %}
+              </nav>
+              <figure class="h-[50vh] grid">
+                  <img id="main-image" class="product-image rounded max-h-full place-self-center" src="{{ selectedImage | product_img_url:800,0 }}" alt="{{ selectedImage.alt }}" />
+              </figure>
+            </div>
+        {% else %}
+        <div class="flex h-[300px] overflow-x-auto lg:basis-3/5 lg:block lg:h-auto lg:columns-2 lg:gap-1">
             {% for image in product.images %}
-                <img class="modalImage max-h-[80vh]" src="{{ image.src | product_img_url:1200,0 }}" data-index="{{forloop.index0}}" alt="{{ image.alt }}" loading="lazy">
+                <img class="product-image rounded border border-1 border-base-300 lg:min-w-full sm:min-w-auto" data-index="{{ forloop.index0 }}" data-modal="{{ image.src | product_img_url:1200,0 }}" data-file="{{ image.src }}" src="{{ image.src | product_img_url:300,0 }}" alt="{{ image.alt }}">
             {% endfor %}
-            <div id="slider-arrows">								
-                <a id="slider-prev" class="btn btn-outline btn-circle top-[50%] left-4 fixed">&#10094;</a>								
-                <a id="slider-next"  class="btn btn-outline btn-circle top-[50%] right-4 fixed">&#10095;</a>							
-            </div>
-            <div id="slider-nav" class="bottom-4 fixed text-center w-full">
-              {% for image in product.images %}
-                <span class="dot btn btn-xs btn-outline" data-index="{{forloop.index0}}"></span>
-              {% endfor %}
-            </div>
-          </div>
-        </dialog>
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="lg:basis-1/2 grid">
+          <figure class="place-self-center">
+            {{ product | img_tag:"800x",class:"rounded",id:"main-image" }}
+          </figure>
+        </div>
     {% endif %}
+    <dialog id="slider" class="modal w-full h-full">
+      <div class="w-full h-full bg-base-100 text-base-content grid place-content-center">
+          <form method="dialog" class="fixed top-4 right-4">
+            <button class="btn btn-sm btn-circle btn-neutral">✕</button>
+          </form>
+        {% for image in product.images %}
+            <img class="modalImage max-h-[80vh]" src="{{ image.src | product_img_url:1200,0 }}" data-index="{{forloop.index0}}" alt="{{ image.alt }}" loading="lazy">
+        {% endfor %}
+        <div id="slider-arrows">								
+            <a id="slider-prev" class="btn btn-outline btn-circle top-[50%] left-4 fixed">&#10094;</a>								
+            <a id="slider-next"  class="btn btn-outline btn-circle top-[50%] right-4 fixed">&#10095;</a>							
+        </div>
+        <div id="slider-nav" class="bottom-4 fixed text-center w-full">
+          {% for image in product.images %}
+            <span class="dot btn btn-xs btn-outline" data-index="{{forloop.index0}}"></span>
+          {% endfor %}
+        </div>
+      </div>
+    </dialog>
     <div class="lg:basis-2/5">
         <h1 class="text-3xl md:text-5xl lg:text-5xl mb-8 mt-4">{{ meta.h1 }}</h1>
         {% if product.keyFeatures.size > 0 %}
