@@ -23,6 +23,7 @@
 * Product
 * Collection
 * Customer account pages
+* Order withdrawal
 * Cart
 * Checkout
 * 404-not found
