@@ -44,7 +44,7 @@
         	    <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
         	        <h2 class="text-xl mb-2">{{ 'Details' | t }}</h2>
         	        <h3 class="text-base font-bold mb-1">{{ 'Customer information' | t }}</h3>
-                    {% if customer %}
+                    {% if customer != empty %}
                         <p>{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
                         <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
                     {% else %}
