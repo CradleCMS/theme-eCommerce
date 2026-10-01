@@ -64,6 +64,25 @@
           "type": "select"
         },
         {
+          "caption": "Legal",
+          "key": "legal",
+          "type": "header"
+        },
+        {
+          "caption": "Terms",
+          "default": "Select terms page",
+          "description": "Link to terms and conditions page",
+          "key": "legalTerms",
+          "type": "page"
+        },
+        {
+          "caption": "Privacy",
+          "default": "Select privacy policy page",
+          "description": "Used for adding links to privacy policy",
+          "key": "legalPrivacy",
+          "type": "page"
+        },
+        {
           "caption": "Custom files",
           "key": "custom",
           "type": "header"
@@ -612,11 +631,6 @@
           "type": "page"
         },
         {
-          "caption": "Show page",
-          "key": "homepage_page_show",
-          "type": "checkbox"
-        },
-        {
           "caption": "Banner sections",
           "description": "",
           "key": "section_banner_header",
@@ -1105,15 +1119,10 @@
       "default": null
     },
     {
-      "key": "shop",
+      "key": "cart",
       "type": "section",
-      "caption": "Ecommerce",
+      "caption": "Cart",
       "settings": [
-        {
-          "caption": "Cart",
-          "key": "cart",
-          "type": "header"
-        },
         {
           "caption": "Use drawer cart",
           "key": "mainNavDrawer",
@@ -1123,10 +1132,24 @@
           "caption": "Enable cart note",
           "key": "cartNotesEnabled",
           "type": "checkbox"
+        }
+      ],
+      "default": null
+    },
+    {
+      "key": "checkout",
+      "type": "section",
+      "caption": "Checkout",
+      "settings": [
+        {
+          "caption": "Payments section in white box",
+          "description": "Extra padding and white background for dark themes.",
+          "key": "coPaymentCard",
+          "type": "checkbox"
         },
         {
-          "caption": "Checkout",
-          "key": "checkout",
+          "caption": "Checkout footer",
+          "key": "checkoutFooter",
           "type": "header"
         },
         {
@@ -1136,17 +1159,11 @@
           "type": "textarea"
         },
         {
-          "caption": "Terms pages",
+          "caption": "Links",
           "default": "Select linklist",
           "description": "Setup a linklist for displaying links to terms and conditions",
           "key": "termsLinklist",
           "type": "linklist"
-        },
-        {
-          "caption": "Payments in white box",
-          "description": "Extra padding and white background for dark themes.",
-          "key": "coPaymentCard",
-          "type": "checkbox"
         }
       ],
       "default": null

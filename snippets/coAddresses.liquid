@@ -1,12 +1,12 @@
 {% if cart.requiresShipping %}
-    <h3 class="text-base font-bold mt-4">{{ 'Delivery address' | t:'checkout' }}</h3>
+    <h3 class="text-base font-bold mt-8">{{ 'Delivery address' | t:'checkout' }}</h3>
     <fieldset class="fieldset gap-4">
         <label class="floating-label w-full">
-            <span>{{ 'Name' | t:'checkout' }}*</span>
+            <span>{{ 'Name' | t:'checkout' }}</span>
             <input class="input input-md w-full" type="text" name="shippingAddress[name]" value="{{form.shippingAddress.recipients | first}}" required/>
         </label>
         <label class="floating-label w-full">
-            <span>{{ 'Address' | t:'checkout' }}*</span>
+            <span>{{ 'Address' | t:'checkout' }}</span>
             <input class="input input-md w-full" type="text" name="shippingAddress[address1]" value="{{form.shippingAddress.addresses[0]}}" required/>
         </label>
         <label class="floating-label w-full">
@@ -16,13 +16,13 @@
         <div class="flex gap-4">
             <div class="w-1/2">
                 <label class="floating-label w-full">
-                    <span>{{ 'Postal code' | t:'checkout'}}*</span>
+                    <span>{{ 'Postal code' | t:'checkout'}}</span>
                     <input class="input input-md w-full" type="text" name="shippingAddress[postalCode]" value="{{form.shippingAddress.postalCode}}" required/>
                 </label>
             </div>
             <div class="w-1/2">
                 <label class="floating-label">
-                    <span>{{ 'Postal area' | t:'checkout' }}*</span>
+                    <span>{{ 'Postal area' | t:'checkout' }}</span>
                     <input class="input input-md w-full" type="text" name="shippingAddress[city]" value="{{form.shippingAddress.city}}" required/>
                 </label>
             </div>
