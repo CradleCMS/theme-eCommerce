@@ -6,6 +6,7 @@
     <div class="{{ page.format }} pb-10">
         {{ page.html }}
     </div>
-    {% form settings.pageContactform.form %}{% endform %}
+    {% let contactForm = settings.pageContactform.form | def:'contact' %}
+    {% form contactform %}{% endform %}
 </section>
 
