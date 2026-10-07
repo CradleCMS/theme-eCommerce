@@ -1,82 +1,103 @@
 {% layout 'checkoutLayout' %}
 
 {% if cart == empty %}
-<section class="flex items-center">
-    <div class="card w-96 bg-base-100 shadow-sm mx-auto">
-        <div class="card-body items-center text-center">
-            <h1 class="text-2xl font-bold">{{ 'Checkout' | t }}</h1>
-            <h2>{{ 'You have no cart items' | t }}</h2>
-            <a href="/" class="btn btn-primary">{{ 'Back to shop' | t }}</a>   
+    <section class="flex items-center">
+        <div class="card w-96 bg-base-100 shadow-sm mx-auto">
+            <div class="card-body items-center text-center">
+                <h1 class="text-2xl font-bold">{{ 'Checkout' | t }}</h1>
+                <h2>{{ 'You have no cart items' | t }}</h2>
+                <a href="/" class="btn btn-primary">{{ 'Back to shop' | t }}</a>   
+            </div>
         </div>
-    </div>
-</section
+    </section>
 {% else %}
     <section class="flex flex-col-reverse lg:flex-row gap-4 lg:gap-8 p-4">
     	<div class="w-full lg:w-1/2" x-data="{billingSameAsShipping:{{cart.requiresShipping}} }">
     	    {% form 'checkout' class:"checkout-form", countrySelectorClass:"select input-outline", nonce:nonce %}
         	    <input type="hidden" id="country" name="country" value="{{form.country}}">
                 <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
-        	    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-                    <h2 class="text-xl mb-2">{{ 'Shipping' | t }}</h2>
-                    {% if countries.size > 1 %}
-                        <label class="floating-label mb-2">
-                            <span>{{ 'Delivery to' | t }}</span>
+                {% if countries.size > 1 %}
+                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
+                        <h2 class="text-xl mb-2">{{ 'You are ordering to' | t }}</h2>
+                        <label class="floating-label">
+                            <span>{{ 'Country' | t }}</span>
                             {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
                         </label>
-                    {% endif %}
-                    {% if cart.requiresShipping %}
-                            <h3 class="pb-0">{{ 'Select Shipping' | t }}</h3>
-                            <ul class="items-center w-full text-sm font-medium border-1 border-base-300 flex flex-col gap-4 px-2 py-4">
-                                {% for shipping in cart.shippings %}
-                                <li class="w-full flex items-center justify-between ps-3 gap-4">
-                                    <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
-                                    <label for="{{shipping.id}}" class="flex flex-col items-start grow text-base-content/60">
-                                        <span class="text-strong">{{ shipping.carrierName }}</span>
-                                        <span class="text-xs">{{ 'delivery in' | t }} {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} {{ '(weekdays)' | t }}</span>
-                                    </label>
-                                    <p class="mr-2 text-strong">{{shipping.cost.total | money }}</p>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                    {% endif %}
-                </fieldset>
+                    </fieldset>
+                {% endif %}
+                {% if cart.requiresShipping %}
+                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
+                        <h2 class="text-xl mb-2">{{ 'Shipping' | t }}</h2>
+                        <h3 class="pb-0">{{ 'Select Shipping' | t }}</h3>
+                        <ul class="items-center w-full text-sm font-medium border-1 border-base-300 flex flex-col gap-4 px-2 py-4">
+                            {% for shipping in cart.shippings %}
+                            <li class="w-full flex items-center justify-between ps-3 gap-4">
+                                <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
+                                <label for="{{shipping.id}}" class="flex flex-col items-start grow text-base-content/60">
+                                    <span class="text-strong">{{ shipping.carrierName }}</span>
+                                    <span class="text-xs">{{ 'delivery in' | t }} {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} {{ '(weekdays)' | t }}</span>
+                                </label>
+                                <p class="mr-2 text-strong">{{shipping.cost.total | money }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </fieldset>
+                {% endif %}
         	    
         	    <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
         	        <h2 class="text-xl mb-2">{{ 'Details' | t }}</h2>
         	        <h3 class="text-base font-bold mb-1">{{ 'Customer information' | t }}</h3>
-                    {% if customer %}
-                        <p>{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
-                        <input type="hidden" id="email" name="email" value="{{ customer.email }}"/>
-                    {% else %}
+                    {% if customer != empty %}
+                        <p class="mb-2">{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
+                    {% endif %}
                     <label class="floating-label mb-2">
                         <span>{{ 'Email' | t }}</span>
                         <input class="input input-md w-full" type="email" id="email" name="email" value="{{ form.email | def:customer.email }}" required/>
                     </label>
-                    {% endif %}
+                    <label class="floating-label mb-2">
+                        <span>{{ 'Phone' | t }}</span>
+                        <input class="input input-md w-full" pattern="[0-9\+\-\(\)\s]+" type="tel" id="phone" name="phone" value="{{ form.phone.number }}" />
+                    </label>
+
                     {% if shop.settings.b2b %}
-                    <div class="p-4">
-                        <label class="label m-2">{{ 'VAT identification' | t }}</label>
-                        <label class="floating-label">
-                            <span>{{ 'Company name' | t }}</span>
-                            <input class="input input-md" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
-                        </label>
-                        <label class="floating-label mt-2">
-                            <span>{{ 'VAT number' | t }}</span>
-                            <input class="input input-md" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
-                        </label>
-                    </div>
+                        <div>
+                            {% if shop.settings.b2c %}
+                                <label class="company-label">Ordering as a company</label>
+                                <input class="checkbox checkbox-md mr-1 company-checkbox" type="checkbox" value="1" name="billingIsShipping" tabindex="0">
+                            <div class="company-info">
+                            {% else %}
+                            <div>
+                            {% endif %}
+                                <h3 class="text-base font-bold mb-3 mt-4">{{ 'Company information' | t }}</h3>
+                                <label class="floating-label">
+                                    <span>{{ 'Company name' | t }}</span>
+                                    <input class="input input-md w-full mb-2" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
+                                </label>
+                                <label class="floating-label mt-2">
+                                    <span>{{ 'VAT number' | t }}</span>
+                                    <input class="input input-md w-full" type="text" name="vatAddress[number]" value="{{form.vatAddress.number}}"/>
+                                </label>
+                            </div>
+                        </div>
                     {% endif %}
                     {% include 'coAddresses' %}
                 </fieldset>
                 <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 {{ settings.general_shadow }}">
-                    <h2 class="text-xl mb-2">{{ 'Payment' | t }}</h2>
-                    <div class="form-control pb-2 text-xs">
-                        <label class="label text-base-content">
-                            <input type="checkbox" class="checkbox" name="accepts.service" required>
+                    <h2 class="text-xl mb-2 mt-4">{{ 'Payment' | t }}</h2>
+                    <div class="pb-2 text-xs">
+                        <label class="label text-base-content mb-4">
+                            <input type="checkbox" class="checkbox" name="customer[accepts]service" required>
                             {{'I accept the' | t }}
-                            <a href="/pages/terms" class="link" target="_blank">
-                                {{'Terms of Service' | t}}
+                            <a href="{{ settings.legalTerms | url | def:'page/terms' }}" class="link" target="_blank">
+                                {{'terms of service' | t}}
                             </a>
+                        </label>
+                        <label class="label text-base-content mb-4">
+                            <input type="checkbox" class="checkbox" name="customer[accepts]marketing">
+                            <span class="text-wrap">
+                                {{'Yes, I would like to recieve marketing communications delivered to me in adherence to the ' | t }}
+                                <a href="{{ settings.legalPrivacy | url | def:'page/privacy' }}" class="link" target="_blank">{{'privacy policy' | t}}</a>. {{ '(Optional)' | t }}                         
+                            </span>
                         </label>
                     </div>
                     {% if providers != empty %}
@@ -137,10 +158,9 @@
                   </div>
                 </div>
                 {% endunless %}
-            </fieldset>	    
+            </fieldset>	   
     	</div>
     </div>
 </section>
 {% component 'acheckout' %}
 {% endif %}
-

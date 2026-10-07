@@ -7,6 +7,8 @@
       "blogFeeds": true,
       "blogTagFiltering": true,
       "body_colors": "base-100",
+      "bottomGridImgHeight": "250",
+      "bottomGridItemWidth": "0",
       "closedButtonLink": "/admin",
       "closedButtonText": "Log in to admin",
       "closedDaisyTheme": "light",
@@ -32,6 +34,14 @@
       "header_otf_height": "[50vh]",
       "header_otf_section": true,
       "header_otf_text": "eCommerce theme for Cradle CMS",
+      "legalPrivacy": {
+        "id": "",
+        "page": "Select privacy policy page"
+      },
+      "legalTerms": {
+        "id": "",
+        "page": "Select terms page"
+      },      
       "link_grid_items": [],
       "link_grid_show": false,
       "logoHeight": "40",
@@ -42,7 +52,9 @@
       "pageWidth": " max-w-[120ch]",
       "ppThumbPosition": "columns",
       "section_banner": [],
-      "section_banner_show": false
+      "section_banner_show": false,
+      "topGridImgHeight": "250",
+      "topGridItemWidth": "0"
     }
   }
 }
