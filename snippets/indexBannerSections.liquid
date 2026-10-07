@@ -8,16 +8,30 @@
                     {% if links.linkImageURL %}<a class="w-full" href="{{ links.linkImageURL }}">{% endif %}
                       <picture class="w-full">
                         <source srcset="{{ links.link_image | asset_img_url:"1500x" }}" media="(min-width: 900px)">
-                        <source srcset="{{ links.link_image | asset_img_url:"900x" }}" media="(min-width: 500px)">
-                        <img loading="lazy" srcset="{{ links.link_image | asset_img_url:"500x" }}" alt="{{ links.link_image_alt | t:'index' }}" class="w-full rounded-box">
+                        {% if links.mobileImage %}
+                            <source srcset="{{ links.mobileImage | asset_img_url:"900x" }}" media="(min-width: 500px)">
+                            <img loading="lazy" srcset="{{ links.mobileImage | asset_img_url:"500x" }}" alt="{{ links.link_image_alt | t:'index' }}" class="w-full rounded-box">        
+                        {% else %}
+                            <source srcset="{{ links.link_image | asset_img_url:"900x" }}" media="(min-width: 500px)">
+                            <img loading="lazy" srcset="{{ links.link_image | asset_img_url:"500x" }}" alt="{{ links.link_image_alt | t:'index' }}" class="w-full rounded-box">
+                        {% endif %}
                       </picture>
                     {% if links.linkImageURL %}</a>{% endif %}
                   {% else %}
-                      <figure class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-4{% endif %}">
-                        {% if links.linkImageURL %}<a href="{{ links.linkImageURL }}">{% endif %}
-                        <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt | t:'index' }}"/>
-                        {% if links.linkImageURL %}</a>{% endif %}
-                      </figure>
+                    {% if links.linkImageURL %}
+                      <a href="{{ links.linkImageURL }}" class="lg:w-2/6 md:w-2/5">
+                          <picture{% if settings.section_banner1_image_padding %} class="p-4"{% endif %}>
+                    {% else %}
+                      <picture class="lg:w-2/6 md:w-2/5{% if settings.section_banner1_image_padding %} p-4{% endif %}">
+                    {% endif %}
+                        {% if links.mobileImage %}
+                            <source srcset="{{ links.link_image | asset_img_url:"900x" }}" media="(min-width: 767px)">
+                            <img loading="lazy" srcset="{{ links.mobileImage | asset_img_url:"500x" }}" alt="{{ links.link_image_alt | t:'index' }}" class="w-full rounded-box">        
+                        {% else %}
+                            <img loading="lazy" src="{{ links.link_image | asset_img_url:400,0,'cropped' }}" alt="{{ links.link_image_alt | t:'index' }}">
+                        {% endif %}                        
+                      </picture>
+                    {% if links.linkImageURL %}</a>{% endif %}
                   {% endif %}
               {% endif %}
               {% if links.link_title or links.link_text or links.link_url or links.link2_url %}
@@ -35,7 +49,7 @@
                             {% endif %}
                             {% if links.linkProduct.id.size > 0 %}
                                 {% assign product = products[links.linkProduct] %}
-                                {% include 'buttonAddToCart' %}
+                                {% include 'buttonAddToDrawerCart' %}
                             {% endif %}                        
                         </div>
                     {% endif %}
@@ -48,7 +62,7 @@
             <div>
                 <div class="flex justify-between items-end mb-2 ">
                     <h3 class="text-2xl font-bold">{{ collection.meta.h1 }}</h3> 
-                    <a href="{{ collection | url }}" class="link link-primary font-bold text-sm">{{ 'Show All' | t:'index' }}</a>
+                    <a href="{{ collection | url }}" class="link font-bold text-sm">{{ 'Show All' | t:'index' }}</a>
                 </div>
                 {% let productAmount = settings.colProductCount | def:"4" %}
                 {% let productImgWidth = 1456 | divided_by:productAmount %}

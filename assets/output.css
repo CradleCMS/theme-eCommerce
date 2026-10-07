@@ -4328,9 +4328,6 @@
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
   }
-  .mt-14 {
-    margin-top: calc(var(--spacing) * 14);
-  }
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
   }
@@ -4967,6 +4964,9 @@
   .justify-end {
     justify-content: flex-end;
   }
+  .gap-0 {
+    gap: 0px;
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -5010,9 +5010,6 @@
   .self-start {
     align-self: flex-start;
   }
-  .justify-self-center {
-    justify-self: center;
-  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -5023,6 +5020,9 @@
   }
   .overflow-x-auto {
     overflow-x: auto;
+  }
+  .overflow-x-scroll {
+    overflow-x: scroll;
   }
   .overflow-y-auto {
     overflow-y: auto;
@@ -5522,10 +5522,6 @@
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
   }
-  .text-5xl {
-    font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
-  }
   .text-base {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
@@ -5617,19 +5613,6 @@
     .checkbox-warning {
       color: var(--color-warning-content);
       --input-color: var(--color-warning);
-    }
-    @media (hover: hover) {
-      .link-primary:hover {
-        color: var(--color-primary);
-      }
-      @supports (color: color-mix(in lab, red, red)) {
-        .link-primary:hover {
-          color: color-mix(in oklab, var(--color-primary) 80%, #000);
-        }
-      }
-    }
-    .link-primary {
-      color: var(--color-primary);
     }
     .range-accent {
       color: var(--color-accent);

@@ -1,6 +1,6 @@
 {
   "name": "eCommerce",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "developer": "CradleCMS",
   "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
   "source": "https://github.com/CradleCMS/theme-eCommerce",
@@ -620,6 +620,142 @@
           "type": "video"
         },
         {
+          "caption": "Top grid",
+          "description": "Add a row of logos, images or small notices. With optional links",
+          "key": "topGrid",
+          "type": "header"
+        },
+        {
+          "caption": "Show grid",
+          "key": "topGridShow",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Section heading",
+          "key": "topGridHeading",
+          "type": "text"
+        },
+        {
+          "caption": "Card style",
+          "key": "topGridBg",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Card width",
+          "key": "topGridItemWidth",
+          "options": [
+            {
+              "caption": "150px",
+              "value": "150"
+            },
+            {
+              "caption": "200px",
+              "value": "200"
+            },
+            {
+              "caption": "250px",
+              "value": "250"
+            },
+            {
+              "caption": "300px",
+              "value": "300"
+            },
+            {
+              "caption": "350px",
+              "value": "350"
+            },
+            {
+              "caption": "400px",
+              "value": "400"
+            },
+            {
+              "caption": "500px",
+              "value": "500"
+            },
+            {
+              "caption": "Not set",
+              "value": "0"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Image height",
+          "key": "topGridImgHeight",
+          "options": [
+            {
+              "caption": "100px",
+              "value": "100"
+            },
+            {
+              "caption": "150px",
+              "value": "150"
+            },
+            {
+              "caption": "200px",
+              "value": "200"
+            },
+            {
+              "caption": "250px",
+              "value": "250"
+            },
+            {
+              "caption": "300px",
+              "value": "300"
+            },
+            {
+              "caption": "350px",
+              "value": "350"
+            },
+            {
+              "caption": "400px",
+              "value": "400"
+            },
+            {
+              "caption": "500px",
+              "value": "500"
+            },
+            {
+              "caption": "Not set",
+              "value": "0"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Item contents",
+          "key": "topGridItems",
+          "settings": [
+            {
+              "caption": "Image",
+              "description": "Recommended format: 500 px wide and jpg format.",
+              "key": "image",
+              "type": "image"
+            },
+            {
+              "caption": "Image alt-text",
+              "key": "alt",
+              "type": "text"
+            },
+            {
+              "caption": "Caption",
+              "key": "caption",
+              "type": "text"
+            },
+            {
+              "caption": "Description",
+              "key": "desc",
+              "type": "textarea"
+            },
+            {
+              "caption": "Link URL",
+              "key": "url",
+              "type": "text"
+            }
+          ],
+          "type": "struct"
+        },
+        {
           "caption": "Use page content",
           "key": "content",
           "type": "header"
@@ -691,6 +827,13 @@
               "type": "image"
             },
             {
+              "caption": "Mobile image",
+              "key": "mobileImage",
+              "maxHeight": 500,
+              "maxWidth": 1400,
+              "type": "image"
+            },
+            {
               "caption": "Image alt",
               "key": "link_image_alt",
               "type": "text"
@@ -743,6 +886,142 @@
               "default": "Select collection",
               "key": "link_collection",
               "type": "collection"
+            }
+          ],
+          "type": "struct"
+        },
+        {
+          "caption": "Bottom grid",
+          "description": "Add a row of images or small notices. With optional links",
+          "key": "bottomGrid",
+          "type": "header"
+        },
+        {
+          "caption": "Show grid",
+          "key": "bottomGridShow",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Section heading",
+          "key": "bottomGridHeading",
+          "type": "text"
+        },
+        {
+          "caption": "Card style",
+          "key": "bottomGridBg",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Card width",
+          "key": "bottomGridItemWidth",
+          "options": [
+            {
+              "caption": "150px",
+              "value": "150"
+            },
+            {
+              "caption": "200px",
+              "value": "200"
+            },
+            {
+              "caption": "250px",
+              "value": "250"
+            },
+            {
+              "caption": "300px",
+              "value": "300"
+            },
+            {
+              "caption": "350px",
+              "value": "350"
+            },
+            {
+              "caption": "400px",
+              "value": "400"
+            },
+            {
+              "caption": "500px",
+              "value": "500"
+            },
+            {
+              "caption": "Not set",
+              "value": "0"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Image height",
+          "key": "bottomGridImgHeight",
+          "options": [
+            {
+              "caption": "100px",
+              "value": "100"
+            },
+            {
+              "caption": "150px",
+              "value": "150"
+            },
+            {
+              "caption": "200px",
+              "value": "200"
+            },
+            {
+              "caption": "250px",
+              "value": "250"
+            },
+            {
+              "caption": "300px",
+              "value": "300"
+            },
+            {
+              "caption": "350px",
+              "value": "350"
+            },
+            {
+              "caption": "400px",
+              "value": "400"
+            },
+            {
+              "caption": "500px",
+              "value": "500"
+            },
+            {
+              "caption": "Not set",
+              "value": "0"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "caption": "Item contents",
+          "key": "bottomGridItems",
+          "settings": [
+            {
+              "caption": "Image",
+              "description": "Recommended format: 500 px wide and jpg format.",
+              "key": "image",
+              "type": "image"
+            },
+            {
+              "caption": "Image alt-text",
+              "key": "alt",
+              "type": "text"
+            },
+            {
+              "caption": "Caption",
+              "key": "caption",
+              "type": "text"
+            },
+            {
+              "caption": "Description",
+              "key": "desc",
+              "type": "textarea"
+            },
+            {
+              "caption": "Link URL",
+              "key": "url",
+              "type": "text"
             }
           ],
           "type": "struct"

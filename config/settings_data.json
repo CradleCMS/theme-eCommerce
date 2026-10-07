@@ -7,6 +7,8 @@
       "blogFeeds": true,
       "blogTagFiltering": true,
       "body_colors": "base-100",
+      "bottomGridImgHeight": "250",
+      "bottomGridItemWidth": "0",
       "closedButtonLink": "/admin",
       "closedButtonText": "Log in to admin",
       "closedDaisyTheme": "light",
