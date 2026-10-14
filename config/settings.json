@@ -1,6 +1,6 @@
 {
   "name": "eCommerce",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "developer": "CradleCMS",
   "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
   "source": "https://github.com/CradleCMS/theme-eCommerce",
@@ -821,6 +821,17 @@
             },
             {
               "caption": "Image",
+              "key": "link_img_header",
+              "type": "header"
+            },
+            {
+              "caption": "Fullwidth image",
+              "description": "The image will be placed over the content.",
+              "key": "linkImageFullwidth",
+              "type": "checkbox"
+            },
+            {
+              "caption": "Image",
               "key": "link_image",
               "maxHeight": 500,
               "maxWidth": 1400,
@@ -840,14 +851,14 @@
             },
             {
               "caption": "Image URL",
+              "description": "The whole image turns into a link",
               "key": "linkImageURL",
               "type": "text"
             },
             {
-              "caption": "Fullwidth image",
-              "description": "The image will be placed beneath the content.",
-              "key": "linkImageFullwidth",
-              "type": "checkbox"
+              "caption": "Text block",
+              "key": "link_text_header",
+              "type": "header"
             },
             {
               "caption": "Title",
@@ -875,6 +886,11 @@
               "description": "Adds a Add to cart button if there are no variants",
               "key": "linkProduct",
               "type": "product"
+            },
+            {
+              "caption": "Collection",
+              "key": "link_col_header",
+              "type": "header"
             },
             {
               "caption": "Show collection",
