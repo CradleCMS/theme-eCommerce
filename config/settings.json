@@ -1,6 +1,6 @@
 {
   "name": "eCommerce",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "developer": "CradleCMS",
   "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
   "source": "https://github.com/CradleCMS/theme-eCommerce",
@@ -62,6 +62,27 @@
             }
           ],
           "type": "select"
+        },
+        {
+          "caption": "Heading font",
+          "description": "Make sure to provide both font-file formats",
+          "key": "fontHeadingHeader",
+          "type": "header"
+        },
+        {
+          "caption": "Use custom heading font",
+          "key": "fontHeadingEnable",
+          "type": "checkbox"
+        },
+        {
+          "caption": "Font woff2",
+          "key": "fontHeadingWOFF2",
+          "type": "asset"
+        },
+        {
+          "caption": "Font TTF",
+          "key": "fontHeadingTTF",
+          "type": "asset"
         },
         {
           "caption": "Legal",
