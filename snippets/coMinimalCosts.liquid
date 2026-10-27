@@ -1,10 +1,10 @@
-<fieldset class="p-4 pt-0 text-sm">
-    <div class="flex flex-row mb-4">
+<fieldset class="text-sm pt-4">
+    <div class="flex flex-row pt-4 mb-2 border-t border-base-content">
         <p>{{ 'Items total' | t:'checkout' }}</p>
         <div class="ml-auto font-bold">{{ cart.amount.total | money }}</div>
     </div>
     {% if form.shipping %}
-    <div class="flex flex-row mb-4">
+    <div class="flex flex-row mb-2">
         <p>{{ 'Shipping' | t:'checkout' }} <span class="text-sm">({{ form.shipping.carrierName }})</span></p>
         <div class="ml-auto">{{ cart.selectedShipping.cost.total | money }}</div>
     </div>
@@ -23,7 +23,7 @@
             {% endfor %}            
         </div>
     {% endif %}
-    <div class="flex flex-row mt-2">
+    <div class="flex flex-row mt-4">
         <p class="text-lg"><span class="font-bold">{{ 'Total amount' | t:'checkout' }} </span>{% if form.totalVAT > 0 %}<span class="text-sm">({{ 'incl. VAT' | t:'checkout' }})</span>{% endif %}</p>
         <p class="ml-auto font-bold text-lg">{{ form.totalAmount | money_with_currency }}</p>
     </div>
