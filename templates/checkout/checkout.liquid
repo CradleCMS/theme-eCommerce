@@ -18,7 +18,7 @@
                 <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
                 {% if countries.size > 1 %}
                     <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-                        <h2 class="text-xl mb-2">{{ 'You are ordering to' | t }}</h2>
+                        <h2 class="text-lg">{{ 'You are ordering to' | t }}</h2>
                         <label class="floating-label">
                             <span>{{ 'Country' | t }}</span>
                             {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
@@ -27,7 +27,7 @@
                 {% endif %}
                 {% if cart.requiresShipping %}
                     <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-                        <h2 class="text-xl mb-2">{{ 'Shipping' | t }}</h2>
+                        <h2 class="text-lg">{{ 'Shipping' | t }}</h2>
                         <h3 class="pb-0">{{ 'Select Shipping' | t }}</h3>
                         <ul class="items-center w-full text-sm font-medium border-1 border-base-300 flex flex-col gap-4 px-2 py-4">
                             {% for shipping in cart.shippings %}
@@ -45,7 +45,7 @@
                 {% endif %}
         	    
         	    <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-        	        <h2 class="text-xl mb-2">{{ 'Details' | t }}</h2>
+        	        <h2 class="text-lg">{{ 'Details' | t }}</h2>
         	        <h3 class="text-base font-bold mb-1">{{ 'Customer information' | t }}</h3>
                     {% if customer != empty %}
                         <p class="mb-2">{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
@@ -83,7 +83,7 @@
                     {% include 'coAddresses' %}
                 </fieldset>
                 <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 {{ settings.general_shadow }}">
-                    <h2 class="text-xl mb-2 mt-4">{{ 'Payment' | t }}</h2>
+                    <h2 class="text-lg">{{ 'Payment' | t }}</h2>
                     <div class="pb-2 text-xs">
                         <label class="label text-base-content mb-4">
                             <input type="checkbox" class="checkbox" name="customer[accepts]service" required>
@@ -122,7 +122,7 @@
     	<div class="h-full lg:w-1/2 block lg:sticky top-4">
             <fieldset class="w-full">
                 <div class="p-4 border-1 border-base-300 bg-base-100 text-base-content rounded-box {{ settings.general_shadow }}">
-                    <h2 class="text-center text-2xl w-full py-4">{{ 'You are ordering' | t }}</h2>
+                    <h2 class="text-center text-xl w-full py-4">{{ 'You are ordering' | t }}</h2>
                     <div>
                         {% for item in cart.items %}
                 	    <div class="line-item gap-2 mb-4 pb-4 border-b border-base-content/20 text-sm">
@@ -131,9 +131,8 @@
                               <div>
                                 {% let title = item.title | split:'|' %}
                                 <h3>{{ title | first }}</h3>
-                                {% let s = title.size | minus: 1 %}
-                                {% if s > 0 %}
-                                <p>{{ title | slice: 1,s | join:'|' }}</p>
+                                {% if title.size > 1 %}
+                                <p>{{ title | slice: 1,title.size | join:'|' }}</p>
                                 {% endif %}
                                 <p class="text-sm">{{ item.quantity }} &times; {{ item.price | money }}</p>
                               </div>
