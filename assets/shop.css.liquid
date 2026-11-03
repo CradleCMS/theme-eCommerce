@@ -334,7 +334,8 @@ body {
     gap: .375rem;
     text-transform: uppercase;
 }
-.cradle label:has(+ input:required):after {
+.cradle label:has(+ input:required):after,
+.cradle label:has(+ textarea:required):after {
     content: "*";
     padding-left: 0.2rem;
 }
