@@ -4,7 +4,11 @@
 </header>
 <section class="p-4 md:p-10 prose{{ settings.pageWidth }} mx-auto relative bg-base-100">
     <div class="{{ page.format }}">
-        {{ page.html }}
+        {% if allTags contains '!render' %}
+          {{ page.html | render }}
+        {% else %}
+          {{ page.html }}
+        {% endif %}
     </div>
 </section>
 
