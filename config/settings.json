@@ -5,7 +5,7 @@
   "description": "eCommerce theme based on tailwindcss, daisyUI and Alpine.js.",
   "source": "https://github.com/CradleCMS/theme-eCommerce",
   "homepage": "https://cradlecms.com",
-  "support": "",
+  "support": "mailto:hi@cradlecms.com",
   "sections": [
     {
       "key": "global",
@@ -1144,6 +1144,22 @@
           "default": "Select form",
           "key": "pageContactform",
           "type": "form"
+        },
+        {
+          "caption": "Landing page",
+          "description": "Settings for landing page template",
+          "key": "pageLanding",
+          "type": "header"
+        },
+        {
+        	"caption": "Use site header",
+        	"key": "pageLandingHeader",
+        	"type": "checkbox"
+        },
+        {
+        	"caption": "Use site footer",
+        	"key": "pageLandingFooter",
+        	"type": "checkbox"
         }
       ],
       "default": null
