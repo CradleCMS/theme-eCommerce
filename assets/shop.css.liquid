@@ -197,6 +197,24 @@ body {
 #manual-payment .form-control {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--color-base-300);
+}
+#manual-payment h2 {
+    text-transform: none;
+    margin-bottom: 0;
+    opacity: 1;
+}
+.checkout #manual-payment p {
+    font-size: 0.8rem;
+}
+#manual-payment-button {
+    align-self: center;
+    width: 10rem;
+    margin-top: 1rem;
 }
 {% if settings.coPaymentCard %}
 #payment-container {
