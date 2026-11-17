@@ -17,8 +17,8 @@
         	    <input type="hidden" id="country" name="country" value="{{form.country}}">
                 <input type="hidden" id="shipping" name="shipping" value="{{form.shippingId}}">
                 {% if countries.size > 1 %}
-                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-                        <h2 class="text-lg">{{ 'You are ordering to' | t }}</h2>
+                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-sm-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
+                        <h2 class="text-sm">{{ 'You are ordering to' | t }}</h2>
                         <label class="floating-label">
                             <span>{{ 'Country' | t }}</span>
                             {% select countries name:"country" class:"select select-md grow w-full" value:form.country bind:"country" required %}{% endselect %}
@@ -26,14 +26,14 @@
                     </fieldset>
                 {% endif %}
                 {% if cart.requiresShipping %}
-                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-base-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-                        <h2 class="text-lg">{{ 'Shipping' | t }}</h2>
+                    <fieldset class="rounded-box border-1 border-base-300 bg-base-100 text-sm-content p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
+                        <h2 class="text-sm">{{ 'Shipping' | t }}</h2>
                         <h3 class="pb-0">{{ 'Select Shipping' | t }}</h3>
                         <ul class="items-center w-full text-sm font-medium border-1 border-base-300 flex flex-col gap-4 px-2 py-4">
                             {% for shipping in cart.shippings %}
                             <li class="w-full flex items-center justify-between ps-3 gap-4">
                                 <input id="{{shipping.id}}" type="radio" value="{{shipping.id}}" name="shipping" class="radio radio-sm" {% if shipping.id == form.shippingId %}checked{% endif %}>
-                                <label for="{{shipping.id}}" class="flex flex-col items-start grow text-base-content/60">
+                                <label for="{{shipping.id}}" class="flex flex-col items-start grow text-sm-content/60">
                                     <span class="text-strong">{{ shipping.carrierName }}</span>
                                     <span class="text-xs">{{ 'delivery in' | t }} {{shipping.duration.min}} - {{shipping.duration.max}} {{shipping.duration.unit}} {{ '(weekdays)' | t }}</span>
                                 </label>
@@ -44,9 +44,9 @@
                     </fieldset>
                 {% endif %}
         	    
-        	    <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
-        	        <h2 class="text-lg">{{ 'Details' | t }}</h2>
-        	        <h3 class="text-base font-bold mb-1">{{ 'Customer information' | t }}</h3>
+        	    <fieldset class="bg-base-100 text-sm-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 fieldset {{ settings.general_shadow }}">
+        	        <h2 class="text-sm">{{ 'Details' | t }}</h2>
+        	        <h3 class="text-sm font-bold mb-1">{{ 'Customer information' | t }}</h3>
                     {% if customer != empty %}
                         <p class="mb-2">{{ 'You are logged into account for' | t }} <a class="link" href="/customer/account">{{ customer.name }}</a></p>
                     {% endif %}
@@ -68,7 +68,7 @@
                             {% else %}
                             <div>
                             {% endif %}
-                                <h3 class="text-base font-bold mb-3 mt-4">{{ 'Company information' | t }}</h3>
+                                <h3 class="text-sm font-bold mb-3 mt-4">{{ 'Company information' | t }}</h3>
                                 <label class="floating-label">
                                     <span>{{ 'Company name' | t }}</span>
                                     <input class="input input-md w-full mb-2" type="text" name="vatAddress[company]" value="{{form.vatAddress.company}}"/>
@@ -82,17 +82,17 @@
                     {% endif %}
                     {% include 'coAddresses' %}
                 </fieldset>
-                <fieldset class="bg-base-100 text-base-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 {{ settings.general_shadow }}">
-                    <h2 class="text-lg">{{ 'Payment' | t }}</h2>
+                <fieldset class="bg-base-100 text-sm-content rounded-box border-1 border-base-300 p-4 pb-8 mb-8 {{ settings.general_shadow }}">
+                    <h2 class="text-sm">{{ 'Payment' | t }}</h2>
                     <div class="pb-2 text-xs">
-                        <label class="label text-base-content mb-4">
+                        <label class="label text-sm-content mb-4">
                             <input type="checkbox" class="checkbox" name="customer[accepts]service" required>
                             {{'I accept the' | t }}
                             <a href="{{ settings.legalTerms | url | def:'page/terms' }}" class="link" target="_blank">
                                 {{'terms of service' | t}}
                             </a>
                         </label>
-                        <label class="label text-base-content mb-4">
+                        <label class="label text-sm-content mb-4">
                             <input type="checkbox" class="checkbox" name="customer[accepts]marketing">
                             <span class="text-wrap">
                                 {{'Yes, I would like to recieve marketing communications delivered to me in adherence to the ' | t }}
@@ -121,13 +121,15 @@
     	
     	<div class="h-full lg:w-1/2 block lg:sticky top-4">
             <fieldset class="w-full">
-                <div class="p-4 border-1 border-base-300 bg-base-100 text-base-content rounded-box {{ settings.general_shadow }}">
-                    <h2 class="text-center text-xl w-full py-4">{{ 'You are ordering' | t }}</h2>
+                <div class="p-4 border-1 border-base-300 bg-base-100 text-sm-content rounded-box {{ settings.general_shadow }}">
+                    <h2 class="text-center text-sm w-full py-4">{{ 'You are ordering' | t }}</h2>
                     <div>
                         {% for item in cart.items %}
                 	    <div class="line-item gap-2 mb-4 pb-4 border-b border-base-content/20 text-sm">
                           <div class="flex gap-2">
+                              {% if item.image != blank %}
                               <img class="rounded self-start"  src="{{ item.image | product_img_url:item.productId,'60' }}"  alt="{{ item.title | escape }}">
+                              {% endif %}
                               <div>
                                 {% let title = item.title | split:'|' %}
                                 <h3>{{ title | first }}</h3>

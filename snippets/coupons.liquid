@@ -1,0 +1,9 @@
+{% form 'cart' class:'form p-4' %}
+<h3>{{ 'Add discount code' | t:'cart' }}</h3>
+<div class="join w-full">
+    <label class="input join-item">
+        <input type="text" class="grow" name="coupon" value="">
+    </label>
+    <button class="btn join-item">{{ 'Apply' | t:'cart' }}</button>
+</div>
+{% endform %}
