@@ -3,7 +3,7 @@
    <h1 class="max-w-[80%]">{{ meta.h1 }}</h1>
 </header>
 <section class="p-4 md:p-10 prose{{ settings.pageWidth }} mx-auto relative bg-base-100">
-    <div class="{{ page.format }} pb-10">
+    <div class="{{ page.format }}">
     {% if allTags contains '!render' %}
       {{ page.html | render }}
     {% else %}
